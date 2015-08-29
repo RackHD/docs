@@ -14,12 +14,13 @@
 
 import sys
 import os
-import shlex
+#import shlex
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('_ext'))
 
 # -- General configuration ------------------------------------------------
 
@@ -29,7 +30,10 @@ import shlex
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = ['edit_on_github']
+edit_on_github_project = 'rackhd/docs'
+edit_on_github_branch = 'master'
+edit_on_github_src_path = 'docs/'  # optional. default: ''
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -47,8 +51,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'RackHD'
-copyright = u'2015, Joseph Heck'
-author = u'Joseph Heck'
+copyright = u'2015, EMC'
+author = u'EMC'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -223,7 +227,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'RackHD.tex', u'RackHD Documentation',
-   u'Joseph Heck', 'manual'),
+   u'EMC', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
