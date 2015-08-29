@@ -1,7 +1,7 @@
 # docs
-RackHD documentation
+RackHD documentation source for http://rackhd.readthedocs.org
 
-[![Documentation Status](https://readthedocs.org/projects/rackhd/badge/?version=latest)](https://readthedocs.org/projects/rackhd/?badge=latest)
+[![Documentation Build Status](https://readthedocs.org/projects/rackhd/badge/?version=latest)](https://readthedocs.org/projects/rackhd/?badge=latest)
 
 ## Setting up for building the docs
 
