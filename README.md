@@ -1,2 +1,24 @@
 # docs
 RackHD documentation
+
+[![Documentation Status](https://readthedocs.org/projects/rackhd/badge/?version=latest)](https://readthedocs.org/projects/rackhd/?badge=latest)
+
+## Setting up for building the docs
+
+create a virtualenv and set up the requirements
+
+    virtualenv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+
+build the docs
+
+    cd docs
+    make html
+
+to auto-rebuild docs while you're editing
+
+    cd docs
+    sphinx-autobuild . _build/html
+
+and the docs will be visible at the url http://127.0.0.1:8000
