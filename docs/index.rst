@@ -6,6 +6,8 @@
 Welcome to RackHD's documentation!
 ==================================
 
+Example change to show the github workflow.
+
 Contents:
 
 .. toctree::
@@ -19,4 +21,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
