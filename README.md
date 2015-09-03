@@ -5,7 +5,7 @@ RackHD documentation source for http://rackhd.readthedocs.org
 
 ## Setting up for editing and building the docs
 
-create a virtualenv and set up the requirements
+create a Virtualenv and set up the requirements
 
     virtualenv .venv
     source .venv/bin/activate
