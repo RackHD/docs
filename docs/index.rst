@@ -3,12 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to RackHD Documentation
+# Welcome to RackHD Documentation
 ==================================
-About RackHD
-content TBD
+## About RackHD
+==================================
+Content TBD
 
-Getting Started
+## Getting Started
+==================================
+Content TBD
+
+## User Guide
+==================================
 Content TBD
 
 Contents:
@@ -18,7 +24,7 @@ Contents:
 
 
 
-Indices and tables
+## Indices and tables
 ==================
 
 * :ref:`genindex`
