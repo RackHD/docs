@@ -3,17 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-# Welcome to RackHD Documentation
+Welcome to RackHD Documentation
 ==================================
-## About RackHD
-==================================
-Content TBD
-
-## Getting Started
+About RackHD
 ==================================
 Content TBD
 
-## User Guide
+Getting Started
+==================================
+Content TBD
+
+User Guide
 ==================================
 Content TBD
 
