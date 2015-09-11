@@ -44,6 +44,7 @@ pip install -r requirements.txt
 * make the docs
 
 ```
+.venv\scripts\activate
 cd docs
 .\make.bat html
 ```
@@ -51,6 +52,8 @@ cd docs
 * open the docs in a browser
 
 ```
+.venv\scripts\activate
+cd docs
 start .\_build\html\index.html
 ```
 
