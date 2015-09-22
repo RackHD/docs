@@ -14,7 +14,7 @@
 
 import sys
 import os
-import sphinx_bootstrap_theme
+# import sphinx_bootstrap_theme
 #import shlex
 
 # If extensions (or modules to document with autodoc) are in another directory,
