@@ -7,15 +7,23 @@ Welcome to RackHD Documentation
 ==================================
 About RackHD
 ==================================
-Content TBD
+Hardware M&O software solution that interfaces with the managed hardware and provides an abstracted view to north bound applications.
+
+RackHD Key Benefits
+==================================
+Add intro statement...high level sections:
+Manage - discovery, genealogy, power
+Monitor - telemetry, health, performance
+Maintain - firmware updates
 
 Getting Started
 ==================================
 Content TBD
 
-User Guide
+Using the API 
 ==================================
 Content TBD
+
 
 Contents:
 
