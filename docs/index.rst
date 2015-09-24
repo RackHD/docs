@@ -8,7 +8,7 @@ Welcome to RackHD Documentation
 About RackHD
 ==================================
 Hardware M&O software solution that interfaces with the managed hardware and provides an abstracted view to north bound applications.
-Add video... 
+Add video...
 
 RackHD Key Benefits
 ==================================
@@ -30,12 +30,3 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-
-
-
-## Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
