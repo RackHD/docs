@@ -5,7 +5,7 @@
 
 Welcome to RackHD Documentation
 ==================================
-About RackHD
+What is RackHD?
 ==================================
 Hardware M&O software solution that interfaces with the managed hardware and provides an abstracted view to north bound applications.
 Add video...
