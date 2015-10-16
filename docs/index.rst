@@ -36,7 +36,6 @@ Contents:
    contributing
 
 
-
 ## Indices and tables
 ==================
 
