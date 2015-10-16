@@ -1,0 +1,22 @@
+{
+  "name": "Intel 32GB RAM",
+  "rules": [
+    {
+      "path": "dmi.dmi.base_board.manufacturer",
+      "contains": "Intel"
+    },
+    {
+      "path": "dmi.memory.total",
+      "equals": "32946864kB"
+    }
+  ],
+  "discoveryGraphName": "Graph.InstallCoreOS",
+  "discoveryGraphOptions": {
+    "username": "testuser",
+    "password": "hello",
+    "hostname": "mycoreos"
+  },
+  "createdAt": "2015-02-11T23:39:38.143Z",
+  "updatedAt": "2015-02-11T23:39:38.143Z",
+  "id": "54dbe83a380cc102b61e0f75"
+}

@@ -30,10 +30,11 @@ compatible sublicences for library dependencies).
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    introduction
    contributing
+   monorail/graphs
 
 
 ## Indices and tables
