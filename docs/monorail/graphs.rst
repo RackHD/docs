@@ -1,4 +1,4 @@
-Workflow: Graphs 
+Workflow: Graphs
 ========
 
 The graphs/workflows API (workflows is a backwards-compatible term for graphs) provides

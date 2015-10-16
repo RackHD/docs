@@ -17,8 +17,8 @@ OBM settings.
 
 
 Custom alerts for "sel" command IPMI pollers can be manually configured in their
-data definition, based on string and/or regex matching. IPMI pollers for the 
-"sdr" command will automatically publish alerts onto an AMQP channel if any 
+data definition, based on string and/or regex matching. IPMI pollers for the
+"sdr" command will automatically publish alerts onto an AMQP channel if any
 sensors of type "threshold" hold a value that does not equal "Not Available" or "ok".
 See the Alerts section below for more information.
 
@@ -65,7 +65,7 @@ can send:
 ##### Get available pollers in the library
 
 ```
-GET /api/1.1/pollers/library  
+GET /api/1.1/pollers/library
 ---
 curl <server>/api/1.1/pollers/library
 ```
@@ -87,13 +87,13 @@ To utilize an SNMP poller that references a node, the node document must have an
 
 ```
 POST /api/1.1/pollers
-{  
+{
     "type": "snmp",
     "pollInterval": 10000,
     "node": "54daadd764f1a8f1088fdc42",
     "config": {
       "oids": [
-        "IF-MIB::ifSpeed", 
+        "IF-MIB::ifSpeed",
         "IF-MIB::ifOperStatus"
       ]
     }
@@ -111,7 +111,7 @@ curl -X POST \
 
 ```
 POST /api/1.1/pollers
-{  
+{
     "type": "ipmi",
     "pollInterval": 10000,
     "node": "54daadd764f1a8f1088fdc42",
@@ -133,7 +133,7 @@ curl -X POST \
 
 ```
 POST /api/1.1/pollers
-{  
+{
     "type": "ipmi",
     "pollInterval": 10000,
     "config": {
@@ -232,7 +232,7 @@ curl <server>/api/1.1/pollers/<pollerid>
 
 ```
 PATCH /api/1.1/pollers/:id
-{  
+{
     "pollInterval": 15000
 }
 ---
@@ -272,35 +272,35 @@ Alerts are published over AMQP:
 Sample data for a "sel" alert:
 
 ```
-{ 
+{
     host: '10.1.1.3',
     user: 'admin',
     password: 'admin',
     workItemId: '54d6cdff8db79442ddf33333',
-    alerts: [ 
-        { 
-            data: { 
+    alerts: [
+        {
+            data: {
                 date: '10/26/2014',
                 time: '20:17:48',
                 sensor: 'Power Unit #0x02',
                 event: 'Fully Redundant',
-                value: 'Deasserted' 
+                value: 'Deasserted'
             },
-            matches: [ 
-                { 
+            matches: [
+                {
                     sensor: 'Power Unit\s.*$',  // regex supported
                     event: 'Fully Redundant'    // string matching supported
-                } 
-            ] 
-        } 
-    ] 
+                }
+            ]
+        }
+    ]
 }
 ```
 
 Sample data for an "sdr" alert:
 
 ```
-{ 
+{
     host: '10.1.1.3',
     user: 'admin',
     password: 'admin',
@@ -327,25 +327,25 @@ Sample data for an "sdr" alert:
 Sample data for an "snmp" alert:
 
 ```
-{ 
+{
     host: '10.1.1.3',
     community: 'public',
     workItemId: '561c2b3e94e9d7c6057be676',
     pollInterval: 10000,
     node: '561c2b1894e9d7c6057be675',
-    alerts: [ 
-        { 
+    alerts: [
+        {
             matches: {
                 '.1.3.6.1.2.1.1.5': '/Mounted/',
                 '.1.3.6.1.2.1.1.1': '/Manage/',
                 inCondition: true
             },
-            data: { 
+            data: {
                 '.1.3.6.1.2.1.1.5.0': 'APC Rack Mounted UPS',
                 '.1.3.6.1.2.1.1.1.0': 'APC Web/SNMP Management Card
             }
         }
-    ] 
+    ]
 }
 ```
 
@@ -369,17 +369,17 @@ matched values, e.g.
 ]
 ```
 
-In order for a value string to be interpreted as a regex pattern, it must begin 
+In order for a value string to be interpreted as a regex pattern, it must begin
 and end with the '/' character. Additionally, any regex escapes (e.g. \n or \s)
 must be double escaped before being serialized and sent over the wire (e.g. \n becomes \\n).
-In most programming languages, the equivalent of \<RegexObject\>.toString() will 
+In most programming languages, the equivalent of \<RegexObject\>.toString() will
 handle this serialization.
 
 To add an alert to a poller, the above JSON schema must be added to the poller
 under config.alerts, e.g.,
 
 ```
-{  
+{
     "type": "ipmi",
     "pollInterval": 10000,
     "node": "54daadd764f1a8f1088fdc42",
@@ -424,7 +424,7 @@ to check against the given string/regex, e.g.,
     }
 }
 ```
- 
+
 
 ## Poller JSON format
 

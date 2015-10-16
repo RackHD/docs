@@ -52,7 +52,7 @@ set the links to the mirrors:
     sudo ln -s /var/mirrors/ubuntu/14.04/mirror/mirror.pnl.gov/ubuntu/ /var/renasar/renasar-http/static/http/trusty
     sudo ln -s /var/mirrors/centos /var/renasar/renasar-http/static/http/centos
     sudo ln -s /var/mirrors/suse /var/renasar/renasar-http/static/http/suse
-    
+
 Install supplementary files:
 
     sudo apt-get install renasar-static-common renasar-mibs
