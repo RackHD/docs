@@ -1,4 +1,4 @@
-RackHD software architecture
+Software Architecture
 =====================================
 
 RackHD enables much of it's functionality by providing PXE boot services
@@ -11,10 +11,35 @@ we have also built and run WinPE and even DOS microkernels.
 Theory of operation and integration with other automation systems
 -----------------------------------------
 
-RackHD is meant to enable deeper and fuller automation and "play nicely" with
-both existing and future potential systems.
+The base idea of RackHD was borne from the realization that our effective automation
+in computing and improving efficiencies has come from multiple layers of orchestration,
+each building on a lower layer. A full featured API driven environment that is effective
+spawns additional wrappers to combined those lower level pieces into patterns that are
+at first experiment, and over time become either defacto, or concrete, standards.
 
-... insert details from theory of operations here ...
+.. image:: _static/automation_layers.png
+
+Application automation - such as services like Heroku or CloudFoundry - are built overlying
+infrastructure as a service API layers (AWS, Google Cloud Engine, SoftLayer, OpenStack, etc).
+Those services in turn are often installed, configured, and managed by automation in
+the form of software configuration management: Puppet, Chef, Ansible, etc. To automate
+datacenter rollouts, managing racks of machines, etc - these are built on automation
+to help roll out software onto servers - Cobbler, Razor, etc.
+
+The closer you get to hardware, the less automated systems tend to become. Cobbler
+and SystemImager were mainstays of early datacenter management tooling. Razor expanded
+on that base system (or Hanlon, depending on where you're looking), supported mainly by
+people working to implement further automation solutions.
+
+RackHD was built to expand out the capabilities of Hardware M&O needs
+(Management and Operations) including active metrics and telemetry, integrated and
+annotated monitoring of underlying hardware systems, firmware updating, in addition to
+the features that have been the mainstay of the hardware automation world - PXE booting
+and automated installation of OS and software.
+
+RackHD is meant to enable deeper and fuller automation and "play nicely" with
+both existing and future potential systems, to fill holes that exist with past and
+current open source efforts, and to help enable converged infrastructure automation.
 
 Major Components
 ----------------
@@ -22,6 +47,8 @@ Major Components
 The software is roughly divided into a simplified REST API oriented towards a common
 data model and easy integration, and an underlying workflow engine (code named the
 "monorail engine", after a popular Seattle coffee shop: http://www.yelp.com/biz/monorail-espresso-seattle).
+
+.. image:: _static/high_level_architecture.png
 
 The upper layer of the architecture, called the "onserve executive" communicate using
 both an internal REST API and AMQP as a message bus between the various processes.
@@ -32,7 +59,7 @@ systems. The monorail engine is broken into indepdent processes with a mind to s
 scaling or distributing them indepdendently by protocol, and communicates together
 using message passing over AMQP, and stores data as needed for persistence in MongoDB.
 
-.. image:: _static/rackhd_processes.png
+.. image:: _static/process_level_architecture.png
 
 The Onserve Executive
 ---------------------

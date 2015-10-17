@@ -1,4 +1,5 @@
-# API Versioning
+API Versioning
+===============
 
 The current api's are all prefixed with:
 

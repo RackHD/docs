@@ -33,6 +33,7 @@ API commands
 
 
 .. code-block:: rest
+
     curl -X PUT \
     -H 'Content-Type: application/json' \
     -d <task definition>
@@ -42,6 +43,17 @@ Task definitions
 ^^^^^^^^^^^^^^^^^^
 
 **Required fields**
+
+:Name: friendlyName
+:Type: String
+:Flags: **required**
+:Description: a human readable name for the task
+
+:Name: injectableName
+:Type: String
+:Flags: **required**
+:Description: a unique name used by the system and the API to refer to the task
+
 
 | Name | Type | Flags | Description |
 |------|------|-------|-------------|
@@ -237,13 +249,19 @@ code re-use and modularity.
 
 **Required fields**
 
-| Name | Type | Flags | Description |
-|------|------|-------|-------------|
-| friendlyName | String | **required** | a human readable name for the task
-| injectableName | String | **required** | a unique name used by the system and the API to refer to the task
-| requiredOptions | Object | **required** | required option values to be set in a task definition implementing the base task.
-| requiredProperties | Object | **required** | JSON defining required properties that need to exist in other tasks in a graph in order for this task be able to be run successfully.
-| properties | Object | **required** | JSON defining any relevant metadata or tagging for the task. This metadata will get merged with any properties defined in task definitions implementing the base task.
++--------------------+--------+-------------+--------------------------------------+
+| Name               | Type   | Flags       | Description                          |
++--------------------+--------+-------------+--------------------------------------+
+| friendlyName       | String | **required** | a human readable name for the task |
++--------------------+--------+-------------+--------------------------------------+
+| injectableName     | String | **required** | a unique name used by the system and the API to refer to the task |
++--------------------+--------+-------------+--------------------------------------+
+| requiredOptions    | Object | **required** | required option values to be set in a task definition implementing the base task |
++--------------------+--------+-------------+--------------------------------------+
+| requiredProperties | Object | **required** | JSON defining required properties that need to exist in other tasks in a graph in order for this task be able to be run successfully |
++--------------------+--------+-------------+--------------------------------------+
+| properties         | Object | **required** | JSON defining any relevant metadata or tagging for the task. This metadata will get merged with any properties defined in task definitions implementing the base task |
++--------------------+--------+-------------+--------------------------------------+
 
 For example, the base task for the Install Ubuntu task definition above looks like:
 
@@ -285,6 +303,7 @@ uses the profile value in order to send down a task-specific profile to a node.
 Another task definition that utilizes the above base task looks like:
 
 .. code-block:: JSON
+
     {
         "friendlyName": "Install CoreOS",
         "injectableName": "Task.Os.Install.CoreOS",
@@ -305,15 +324,13 @@ Another task definition that utilizes the above base task looks like:
         }
     }
 
-
 The primary difference between the Install CoreOS task and the Install Ubuntu task
 is the profile value, which is the ipxe template that specifies which installer
 images an installation target should download.
 
-
 Jobs
 ------
-A job is, at its most basic, a subclass with a run function that can be referenced
+A job is, at its most basic, a javascript subclass with a run function that can be referenced
 by a string. When a new task is created, and all of its validation and setup logic handled,
 the remainder of its responsibility is to instantiate a new job class instance for
 its specified job (passing down the options provided in the definition to the

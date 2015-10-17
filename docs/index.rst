@@ -26,19 +26,33 @@ and documentation hosted at http://rackhd.readthedocs.org. The code for RackHD i
 of Python, Javascript (NodeJS), and C, available under the Apache 2.0 license (or
 compatible sublicences for library dependencies).
 
-
-Contents:
+Contents
+---------
 
 .. toctree::
    :maxdepth: 1
 
    introduction
+   software_architecture
+   how_it_works
    contributing
+   development_guide
    monorail/graphs
+   monorail/tasks
+   monorail/skus
+   monorail/api_versioning
+   monorail/amqp_conventions
+   monorail/configuration
+   monorail/microkernel
+   monorail/creating_overlays
+   monorail/https
+   monorail/naming_conventions
+   monorail/passive_discovery
+   monorail/pollers
 
 
-## Indices and tables
-==================
+Indices and tables
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

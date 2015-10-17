@@ -1,10 +1,13 @@
-## General naming conventions
+General naming conventions
+==========================
 
-#### Workflow conventions
+Workflow conventions
+--------------------
 
 We use the following conventions when creating workflow-related JSON documents:
 
-**Tasks**  
+**Tasks**
+
 For task definitions, the only convention is for values in the "injectableName" field. We tend to prefix all names with "Task.", and then add some categorization to classify what functionality the task adds. Some examples:
 
 - "Task.Os.Install.CentOS"
@@ -12,22 +15,26 @@ For task definitions, the only convention is for values in the "injectableName" 
 - "Task.Obm.Node.PowerOff"
 - "Task.Obm.Node.PowerOn"
 
-**Graphs**  
+**Graphs**
+
 For graph definitions, conventions are pretty much the same as tasks, except "injectableName" is prefixed by "Graph.", some examples:
 
 - "Graph.Arista.Zerotouch.vEOS"
 - "Graph.Arista.Zerotouch.EOS"
 
-#### Overlay conventions
+Overlay conventions
+-------------------
 
-**Overlay names**  
+**Overlay names**
+
 We tend to prefix overlays with "overlayfs_", along with some information about which kernel/base image the overlay was built off, and information about what is contained within the overlay. Overlays are suffixed with ".cpio.gz" because they are gzipped cpio archives. Examples:
 
 - overlayfs_3.13.0-32_flashupdt.cpio.gz
 - overlayfs_3.13.0-32_brocade.cpio.gz
 - overlayfs_3.13.0-32_all_binaries.cpio.gz
 
-**Overlay Files**  
+**Overlay Files**
+
 When adding scripts and binaries to an overlay, we typically put them in /opt within subdirectories based on vendor, e.g.
 
 - /opt/MegaRAID/MegaCli/MegaCli64
@@ -47,4 +54,3 @@ These file paths can then be referenced in workflows starting from the base path
 
 - teamA/intel_flashing/overlayfs_3.13.0-32_flashupdt.cpio.gz
 - teamA/generic/overlayfs_3.13.0-32_all_binaries.cpio.gz
-

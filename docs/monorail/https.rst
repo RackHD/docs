@@ -1,4 +1,5 @@
-# HTTPS/TLS Configuration
+HTTPS/TLS Configuration
+========================
 
 In order to use TLS, a private RSA key and X.509 certificate must be provided. On Ubuntu and
 Mac OS X, the openssl command line tool can be used to generate keys and certificates.
@@ -31,23 +32,21 @@ This section demonstrates how to generate a new self-signed certificate with per
 If you already have a key and certificate, skip down to the
 Installing Certificates section.
 
-**If you want to use the default self-signed certificate issued by Renasar, you do not need to
-generate or install any certificates!**
-
 First you'll need to generate a new RSA key:
 
-```
-openssl genrsa -out privkey.pem 2048
-```
+.. code-block:: bash
+
+    openssl genrsa -out privkey.pem 2048
+
 
 The file will be output to privkey.pem. This private key should be kept secret! If it is
 compromised, any corresponding certificate should be considered invalid.
 
 The next step is to generate a self-signed certificate using the private key:
 
-```
-openssl req -new -x509 -key privkey.pem -out cacert.pem -days 9999
-```
+.. code-block:: bash
+
+    openssl req -new -x509 -key privkey.pem -out cacert.pem -days 9999
 
 The "days" value is the number of days until the certificate expires.
 
@@ -58,18 +57,18 @@ Installing Certificates
 -----------------------
 
 Once you have your private key and certificate, you'll need to let the application know where to
-find them. It is suggested that you move them into the /var/renasar/renasar-http/data folder.
+find them. It is suggested that you move them into the /opt/monorail/data folder.
 
-```
-mv privkey.pem /var/renasar/renasar-http/data/mykey.pem
-my cacert.pem /var/renasar/renasar-http/data/mycert.pem
-```
+.. code-block:: bash
+
+    mv privkey.pem /opt/monorail/data/mykey.pem
+    my cacert.pem /opt/monorail/data/mycert.pem
 
 Then, you can configure the paths by editing httpsCert and httpKey in
-/var/renasar/renasar-http/config.json (See Configuration section above).
+/opt/monorail/etc/monorail.json (See Configuration section above).
 
 If using a self-signed certificate, you will have to add a security exception to your client of
-choice. You can easily verify the certificate by restarting renasar-http and visiting
+choice. You can easily verify the certificate by restarting on-http and visiting
 https://{host}/api/current/versions.
 
 See Also
@@ -78,4 +77,3 @@ See Also
 More information is available in the OpenSSL documentation:
 
 https://www.openssl.org/docs/
-

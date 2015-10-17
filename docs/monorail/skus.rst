@@ -1,5 +1,5 @@
-Overview
---------
+Workflow: SKU support
+=====================
 
 The SKU API provides functionality to categorize nodes into groups based on data
 present in a node's catalogs. SKU matching is done using a series of rules. If
@@ -13,44 +13,46 @@ SKU definition is added, updated or deleted.
 A default graph can also be assigned to a SKU. When a node is discovered that
 matches the SKU, the specified graph will be executed on the node.
 
-### Example
+Example
+-------
+
 With a node that has the following catalog fields:
 
-```js
-{
-  "source": "dmi",
-  "data": {
-    "dmi": {
-      "base_board": {
-        "manufacturer": "Intel Corporation"
+.. code-block:: javascript
+
+    {
+      "source": "dmi",
+      "data": {
+        "dmi": {
+          "base_board": {
+            "manufacturer": "Intel Corporation"
+          }
+        },
+        "memory": {
+          "total": "32946864kB"
+          "free": "31682528kB"
+        }
+        /* ... */
       }
-    },
-    "memory": {
-      "total": "32946864kB"
-      "free": "31682528kB"
     }
-    /* ... */
-  }
-}
-```
 
 We could match against these fields with this SKU definition:
 
-```js
-{
-  "name": "Intel 32GB RAM",
-  "rules": [
+.. code-block:: javascript
+
     {
-      "path": "dmi.dmi.base_board.manufacturer",
-      "contains": "Intel"
-    },
-    {
-      "path": "dmi.memory.total",
-      "equals": "32946864kB"
+      "name": "Intel 32GB RAM",
+      "rules": [
+        {
+          "path": "dmi.dmi.base_board.manufacturer",
+          "contains": "Intel"
+        },
+        {
+          "path": "dmi.memory.total",
+          "equals": "32946864kB"
+        }
+      ]
     }
-  ]
-}
-```
 
 In both cases, the "path" string starts with "dmi" to signify that the rule
 should apply to the catalog with a "source" value of "dmi".
@@ -67,94 +69,110 @@ can send:
 
 ##### Create a new SKU with a node
 
-```
-POST /api/1.1/skus
-{  
-  "name": "Intel 32GB RAM",
-  "rules": [
+.. code-block:: REST
+
+    POST /api/1.1/skus
     {
-      "path": "dmi.Base Board Information.manufacturer",
-      "contains": "Intel"
-    },
-    {
-      "path": "ohai.dmi.memory.total",
-      "equals": "32946864kB"
-    }
-  ],
-  "discoveryGraphName": "Graph.InstallCoreOS",
-  "discoveryGraphOptions": {
-    "username": "testuser",
-    "password": "hello",
-    "hostname": "mycoreos"
-  }
-}
-```
-
-[Sample output](https://hwstashprd01.isus.emc.com:8443/projects/ONRACK/repos/on-integration-test/browse/docs/samples/sku.json)
-
-
-##### Create a SKU to auto-configure IPMI settings
-
-```
-POST /api/1.1/skus
-{
-    "name": "Default IPMI settings for Quanta servers",
-    "discoveryGraphName": "Graph.Obm.Ipmi.CreateSettings",
-    "discoveryGraphOptions": {
-        "defaults": {
-            "user": "admin",
-            "password": "admin"
-        }
-    },
-    "rules": [
+      "name": "Intel 32GB RAM",
+      "rules": [
         {
-            "path": "bmc.IP Address"
+          "path": "dmi.Base Board Information.manufacturer",
+          "contains": "Intel"
         },
         {
-            "path": "dmi.Base Board Information.Manufacturer",
-            "equals": "Quanta"
+          "path": "ohai.dmi.memory.total",
+          "equals": "32946864kB"
         }
-    ]
-}
-```
+      ],
+      "discoveryGraphName": "Graph.InstallCoreOS",
+      "discoveryGraphOptions": {
+        "username": "testuser",
+        "password": "hello",
+        "hostname": "mycoreos"
+      }
+    }
 
-##### Get list of SKUs
+.. literalinclude:: samples/sku.json
+   :language: JSON
 
-```
-GET /api/1.1/skus
----
-curl <server>/api/1.1/skus
-```
 
-##### Get definition for a single SKU
+Create a SKU to auto-configure IPMI settings
+---------------------------------------
 
-```
-GET /api/1.1/skus/:id
----
-curl <server>/api/1.1/skus/<skuid>
-```
+.. code-block:: REST
 
-##### Update a single SKU
+    POST /api/1.1/skus
+    {
+        "name": "Default IPMI settings for Quanta servers",
+        "discoveryGraphName": "Graph.Obm.Ipmi.CreateSettings",
+        "discoveryGraphOptions": {
+            "defaults": {
+                "user": "admin",
+                "password": "admin"
+            }
+        },
+        "rules": [
+            {
+                "path": "bmc.IP Address"
+            },
+            {
+                "path": "dmi.Base Board Information.Manufacturer",
+                "equals": "Quanta"
+            }
+        ]
+    }
 
-```
-PATCH /api/1.1/skus/:id
-{  
-    "name": "Custom SKU Name"
-}
----
-curl -X PATCH \
-    -H 'Content-Type: application/json' \
-    -d '{"name":"Custom SKU Name"}' \
-    <server>/api/1.1/skus/<skuid>
-```
+Get list of SKUs
+------------------
 
-##### Delete a single SKU
+.. code-block:: REST
 
-```
-DELETE /api/1.1/skus/:id
----
-curl -X DELETE <server>/api/1.1/skus/<skuid>
-```
+    GET /api/1.1/skus
+
+.. code-block:: REST
+
+    curl <server>/api/1.1/skus
+
+
+Get definition for a single SKU
+---------------------------
+
+.. code-block:: REST
+
+    GET /api/1.1/skus/:id
+
+.. code-block:: REST
+
+    curl <server>/api/1.1/skus/<skuid>
+
+
+Update a single SKU
+---------------------------
+
+.. code-block:: REST
+    PATCH /api/1.1/skus/:id
+    {
+        "name": "Custom SKU Name"
+    }
+
+.. code-block:: REST
+
+    curl -X PATCH \
+        -H 'Content-Type: application/json' \
+        -d '{"name":"Custom SKU Name"}' \
+        <server>/api/1.1/skus/<skuid>
+
+
+Delete a single SKU
+-------------------
+
+.. code-block:: REST
+
+    DELETE /api/1.1/skus/:id
+
+.. code-block:: REST
+
+    curl -X DELETE <server>/api/1.1/skus/<skuid>
 
 SKU JSON format
 ---------------

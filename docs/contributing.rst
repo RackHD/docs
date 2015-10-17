@@ -1,6 +1,11 @@
 Contributing to RackHD
 ======================
 
+Join the [..........] mailing list
+
+Join the #rackhd [....] channel
+
+
 Project and code repository overview
 ------------------------------------
 
@@ -61,12 +66,3 @@ Integration tests with code for deploying and running those tests, as well as th
 - statsd
     https://github.com/RackHD/on-statsd
 A local statsD implementation that makes it easy to deploy on a local machine for capturing application metrics
-
-
-Submitting Bugs
----------------
-
-Contributing Code
------------------
-
-* How to making a pull requests

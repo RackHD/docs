@@ -1,5 +1,5 @@
-RackHD
-======
+RackHD Introduction
+===================
 
 RackHD is a technology stack up created for enabling hardware management and operations, to provide
 cohesive APIs to enabled automated infrastructure.

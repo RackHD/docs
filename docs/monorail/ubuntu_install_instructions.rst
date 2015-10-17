@@ -30,7 +30,7 @@ install supplemental packages:
     sudo apt-get install apt-mirror
     sudo apt-get install amtterm
 
-create a apt-sources list file : `/etc/apt/sources.list.d/renasar.list`
+create a apt-sources list file : `/etc/apt/sources.list.d/monorail.list`
 
     deb [arch=amd64] http://54.191.244.96/ trusty non-free
 
@@ -40,9 +40,9 @@ Update the package directories
 
 Install the renasar packages:
 
-    sudo apt-get install renasar-dhcp renasar-http renasar-taskgraph
-    sudo apt-get install renasar-tftp renasar-syslog renasar-cli
-    sudo apt-get install renasar-fog-ui
+    sudo apt-get install on-dhcp-proxy on-http on-taskgraph
+    sudo apt-get install on-tftp on-syslog
+    sudo apt-get install on-web-ui
 
 set the links to the mirrors:
 

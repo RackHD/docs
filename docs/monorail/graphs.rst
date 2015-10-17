@@ -49,8 +49,6 @@ Find the graph definition you would like to use, and copy the top-level *injecta
 
 Sample Output:
 
-:doc:`monorail/samples/serialized-graph-example.json`
-
 .. literalinclude:: samples/serialized-graph-example.json
    :language: JSON
 
@@ -63,9 +61,6 @@ Sample Output:
 .. code-block:: rest
     curl <server>/api/1.1/nodes/<id>/workflows/active
 
-
-.. literalinclude:: samples/serialized-graph-example.json
-   :language: JSON
 
 **Create a new graph definition**
 
