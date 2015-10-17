@@ -49,6 +49,7 @@ Contents
    monorail/naming_conventions
    monorail/passive_discovery
    monorail/pollers
+   glossary
 
 
 Indices and tables
