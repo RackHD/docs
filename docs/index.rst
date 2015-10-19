@@ -12,6 +12,7 @@ Hardware M&O software solution that interfaces with the managed hardware and pro
 
 RackHD Key Benefits
 ==================================
+Add intro statement...high level sections:
 Manage - discovery, genealogy, power
 Monitor - telemetry, health, performance
 Maintain - firmware updates
