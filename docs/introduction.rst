@@ -14,6 +14,13 @@ for managing hardware resources. The technology and architecture are built to pr
 agnostic solution for supporting automation needs for the hardware that makes up physical infrastructure
 our services all rely on.
 
+The key benefits of this system:
+
+* Manage - discovery, genealogy, power
+* Monitor - telemetry, health, performance
+* Maintain - firmware updates
+
+
 The combination of services is intended to provide a REST API based service to:
 
 * Install, configure, and monitor bare metal hardware such as compute servers, power distribution
