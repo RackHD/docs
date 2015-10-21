@@ -9,6 +9,7 @@ At the top level, we utilize 9 exchanges for passing various messages between ke
 RPC channel for making dynamic system configuration changes
 
 Routing keys:
+
 - `methods.set`
 - `methods.get`
 
@@ -18,6 +19,7 @@ Routing keys:
 one to many broadcast of events applicable to workflows and reactions (where poller/telemetry events will be placed in the future as well)
 
 Routing keys:
+
 - `tftp.success.[nodeid]`
 - `tftp.failure.[nodeid]`
 - `http.response.[nodeid]`
@@ -29,6 +31,7 @@ Routing keys:
 
 `http`
 ------
+
 - `http.response`
 
 (uncertain - duplicate of `http.response.[nodeid]`?)
