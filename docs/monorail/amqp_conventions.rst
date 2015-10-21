@@ -1,4 +1,5 @@
-# AMQP message bus conventions
+AMQP message bus conventions
+============================
 
 At the top level, we utilize 9 exchanges for passing various messages between key services and processes:
 
