@@ -25,9 +25,7 @@ Versioning Resources
 
 A translation and validation chain is used to support versioned "types" for URI resources from the RackHD system. The chain flow is:
 
-
     BUSINESS OBJECT --- TRANSLATE --- VALIDATE
-
 
 Data objects should be versioned in line with the API version.
 
