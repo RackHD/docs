@@ -1,6 +1,34 @@
 RackHD Introduction
 ===================
 
+In a Converged Infrastructure Platform (CIP) architecture, RackHD software provides hardware management and orchestration (M&O). It serves as an abstraction layer between other M&O layers and the underlying physical hardware. Developers can use the RackHD API to create a user interface that serves as single point of access for managing hardware services regardless of the specific hardware in place.
+Once RackHD is installed on the managed CIP platform, it has the ability to discover the existing hardware resources, catalog each component, and retrieve detailed telemetry information from each resource. The retrieved information can then be used to perform low-level hardware management functions for each resource, such as BIOS configuration, OS installation, and firmware management.
+As the following diagram shows, RackHD sits between the other M&0 layers and the underlying physical hardware devices. User interfaces at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting to and managing the hardware devices.
+
+                             DIAGRAM HERE
+
+Management Paradyme
+-------------------
+
+RackHD uses the concept of a ‘neighborhood’ to represent the compute nodes, storage nodes, network switches, and smart PDUs under management. In most cases, a neighborhood corresponds to one physical rack, although a neighborhood can span several racks. The physical compute, storage, and network devices in a neighborhood are logically represented as ‘elements’. For example, a compute element can represent a CPU, while a storage element might refer to a storage disk.
+Elements can be managed as separate entities or they can be combined and managed as one larger entity. For example, multiple storage elements can be combined to create a single storage pool.
+
+Benefits
+----------
+
+The key benefits of this system:
+
+* Manage - discovery, genealogy, power
+* Monitor - telemetry, health, performance
+* Maintain - firmware updates
+
+RackHD Project
+--------------
+
+RackHD is an open source project available under the Apache 2.0 license (or  compatible sub-licences for library dependencies). It is housed at https://github.com/RackHD. The code for RackHD is a combination of Python, Javascript (NodeJS), and C.
+The project provides a consistent mechanism inventory the underlying hardware, upgrade firmware, gather detailed information from the hardware devices. The gathered information is used for ongoing configuration, management, and orchestration of the devices.
+The project implements a generalized workflow engine that is used to manage the hardware through the use of pertinent services and protocols as required by specific devices. The workflow engine, workflow files, and the data models to support these functions make up the RackHD project and related repositories.
+
 RackHD is a technology stack up created for enabling hardware management and operations, to provide
 cohesive APIs to enabled automated infrastructure.
 
@@ -14,11 +42,7 @@ for managing hardware resources. The technology and architecture are built to pr
 agnostic solution for supporting automation needs for the hardware that makes up physical infrastructure
 our services all rely on.
 
-The key benefits of this system:
 
-* Manage - discovery, genealogy, power
-* Monitor - telemetry, health, performance
-* Maintain - firmware updates
 
 
 The combination of services is intended to provide a REST API based service to:
