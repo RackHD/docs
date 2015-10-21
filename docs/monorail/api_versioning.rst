@@ -5,13 +5,13 @@ All current APIs are prefixed with:
 
     /api/1.1
 
-RackHD extenders can supplement the central API (common) with versioned customer-specific APIs in parallel.
+RackHD extenders can supplement the *central* API (common) with versioned customer-specific APIs in parallel.
 
 Referencing API Versions in URIs
 --------------------------------
 
     /api/current/...
-    
+
     /api/1.1/...
 
 The second /[...]/ block in the URI is the version number. The "current" or "latest" placeholder points to the latest version of the API in the system.
