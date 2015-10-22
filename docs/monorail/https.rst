@@ -62,7 +62,7 @@ find them. It is suggested that you move them into the /opt/monorail/data folder
 .. code-block:: bash
 
     mv privkey.pem /opt/monorail/data/mykey.pem
-    my cacert.pem /opt/monorail/data/mycert.pem
+    mv cacert.pem /opt/monorail/data/mycert.pem
 
 Then, you can configure the paths by editing httpsCert and httpKey in
 /opt/monorail/etc/monorail.json (See Configuration section above).
