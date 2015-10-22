@@ -1,4 +1,3 @@
-
 Ubuntu installation/upgrade instructions
 ========================================
 
