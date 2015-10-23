@@ -16,7 +16,8 @@ API commands
 
 When running the renasar-http process, these are some common API commands you can send:
 
-**Get available graphs in the library**
+Get available graphs in the library
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: rest
 
