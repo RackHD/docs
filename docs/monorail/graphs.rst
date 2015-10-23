@@ -14,9 +14,11 @@ data/event channels that should exist between concurrently running tasks.
 API commands
 ------------
 
-When running the renasar-http process, these are some common API commands you can send:
+When running the on-http process, these are some common API commands you can send:
 
-**Get available graphs in the library**
+
+Get available graphs in the library
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: rest
 
@@ -26,7 +28,9 @@ When running the renasar-http process, these are some common API commands you ca
 
     curl <server>/api/1.1/workflows/library
 
-**Run a new graph against a node**
+
+Run a new graph against a node
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Find the graph definition you would like to use, and copy the top-level *injectableName* attribute
 
@@ -52,7 +56,9 @@ Sample Output:
 .. literalinclude:: samples/serialized-graph-example.json
    :language: JSON
 
-**Query an active graph's state**
+
+Query an active graph's state
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: rest
 
@@ -62,7 +68,8 @@ Sample Output:
     curl <server>/api/1.1/nodes/<id>/workflows/active
 
 
-**Create a new graph definition**
+Create a new graph definition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: rest
 
@@ -72,14 +79,13 @@ Sample Output:
     }
 
 Creating new graphs
-^^^^^^^^^^^^^^^^^
+-------------------------
 
 Graphs are defined via a JSON definition that conform to this schema:
 
 - friendlyName (string): a human readable name for the graph
 - injectableName (string): a unique name used by the system and the API to refer to the graph
-- tasks (array of objects): a list of task definitions or references to task definitions. For an in-depth explanation
-        of task definitions, see https://github.com/RackHD/on-tasks/
+- tasks (array of objects): a list of task definitions or references to task definitions. For an in-depth explanation of task definitions, see https://github.com/RackHD/on-tasks/
     - tasks.label (string): a unique string to be used as a reference within the graph definition
     - tasks.\[taskName\] (string): the injectableName of a task in the database to run. This or taskDefinition is required.
     - tasks.\[taskDefinition\] (object): an inline definition of a task, instead of one in the database. This or taskName is required.
