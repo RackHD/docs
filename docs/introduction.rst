@@ -22,10 +22,22 @@ Hardware Management
 
 To implement the API requests received from the other M&O layers, RackHD primarily uses out-of-band network management to communicate with hardware devices using platform APIs (IMPI, SNMP, etc.). For functionality that is not available out-of-band, RackHD can communicate with the in-band data network.
 
+
 Features
 ------------------------
 
-TBD
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Feature
+     - Description
+   * - Discovery and Cataloging
+     - Discovers the compute, network, and storage resources and catalogs their attributes and capabilities.
+   * - Telemetry and Genealogy
+     - Telemetry data includes genealogical details, such as hardware revisions, serial numbers and date of manufacture.
+   * - Device Management
+     - Powers devices on and off. Manages the firmware, power, OS installation, and base configuration of the resources.
 
 Goals
 -----------------------------------------
