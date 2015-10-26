@@ -43,6 +43,7 @@ Contents
    monorail/naming_conventions
    monorail/passive_discovery
    monorail/pollers
+   monorail/monorail_api
    glossary
 
 
