@@ -44,6 +44,7 @@ Contents
    monorail/passive_discovery
    monorail/pollers
    monorail/monorail_api
+   monorail/monorail_cli
    glossary
 
 
