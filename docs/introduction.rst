@@ -1,36 +1,67 @@
 RackHD Introduction
 ===================
 
-RackHD is a technology stack up created for enabling hardware management and operations, to provide
-cohesive APIs to enabled automated infrastructure. Key benefits include the ability to:
+In a Converged Infrastructure Platform (CIP) architecture, RackHD software provides hardware management and orchestration (M&O). It serves as an abstraction layer between other M&O layers and the underlying physical hardware. Developers can use the RackHD API to create a user interface that serves as single point of access for managing hardware services regardless of the specific hardware in place.
 
-* Manage - discovery, genealogy, power
-* Monitor - telemetry, health, performance
-* Maintain - firmware updates
+Once RackHD is installed on the managed CIP platform, it has the ability to discover the existing hardware resources, catalog each component, and retrieve detailed telemetry information from each resource. The retrieved information can then be used to perform low-level hardware management functions for each resource, such as BIOS configuration, OS installation, and firmware management.
+
+RackHD sits between the other M&0 layers and the underlying physical hardware devices. User interfaces at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting to and managing the hardware devices.
+
+Management Paradyme
+----------------------------
+RackHD uses the concept of a ‘neighborhood’ to represent the compute nodes, storage nodes, network switches, and smart PDUs under management. In most cases, a neighborhood corresponds to one physical rack, although a neighborhood can span several racks. The physical compute, storage, and network devices in a neighborhood are logically represented as ‘elements’. For example, a compute element can represent a CPU, while a storage element might refer to a storage disk.
+Elements can be managed as separate entities or they can be combined and managed as one larger entity. For example, multiple storage elements can be combined to create a single storage pool.
+
+RackHD API
+------------------
+
+The RESTful RackHD API provides interfaces for the full range of services. The API documentation is located at http://xxx:8080.
+
+Hardware Management
+---------------------------
+
+To implement the API requests received from the other M&O layers, RackHD primarily uses out-of-band network management to communicate with hardware devices using platform APIs (IMPI, SNMP, etc.). For functionality that is not available out-of-band, RackHD can communicate with the in-band data network.
+
+Features
+------------------------
+
+TBD
 
 Goals
 -----------------------------------------
-The primary goals of RackHD is to provide REST APIs and live data feeds to enable automated solutions
+
+The primary goals of RackHD are to provide REST APIs and live data feeds to enable automated solutions
 for managing hardware resources. The technology and architecture are built to provide a platform
-agnostic solution for supporting automation needs for the hardware that makes up physical infrastructure
-our services all rely on.
+agnostic solution.
 
 The combination of these services is intended to provide a REST API based service to:
 
-* Install, configure, and monitor bare metal hardware such as compute servers, power distribution
-  units (PDUs), direct attached extenders (DAE) for storage, network switches.
-* Provision, Erase, and Reprovision a compute server's OS
-* Install/Upgrade firmware for qualified hardware
-* Monitor and alert bare metal hardware through out of band management interfaces
-* Provide REST APIs for convenient access to hardware knowledge, both common and vendor specific
-* Provide pub/sub data feeds for alerts and raw telemetry from hardware
+* Install, configure, and monitor bare metal hardware, such as compute servers, power distribution
+  units (PDUs), direct attached extenders (DAE) for storage, and network switches.
+* Provision, erase, and reprovision a compute server's OS.
+* Install and upgrade firmware for qualified hardware.
+* Monitor and alert bare metal hardware through out-of-band management interfaces.
+* Provide RESTful APIs for convenient access to knowledge about both common and vendor-specific hardware.
+* Provide pub/sub data feeds for alerts and raw telemetry from hardware.
 
-About the Project
+The RackHD Project
 -----------------------------------------
+
+RackHD is an open source project available under the Apache 2.0 license (or
+compatible sub-licences for library dependencies). It is housed at https://github.com/RackHD.
+The code for RackHD is a combination of Python, Javascript (NodeJS), and C.
+
 The project is a collection of libraries and applications housed at `RackHD GitHub`_ and
 intended to be deployed together to provide a solution that can be used either standalone, or as a
 technology to be included and embedded in larger applications. This documentation is also housed on GitHub
-and hosted at `RackHD Documentation`_.
+and hosted at http://rackhd.readthedocs.org/en/latest/.
+
+The project implements a generalized workflow engine that manages hardware through
+the use of pertinent services and protocols as required by
+specific devices. The workflow engine, workflow files, and the data models
+to support these functions make up the RackHD project and related repositories.
+
+
 
 Why
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,14 +101,3 @@ of systems, and quickly expanded to be hosted on virtual machines as well. With 
 protocols needed to be coordinated to achieve these functions, there are a number of possible
 deployment configurations that can be architected. For more details of those configurations, both
 what's needed, why, and how we've created some reference examples of deployments see :doc:`how_it_works` and :doc:`packaging_and_deployment`.
-
-Getting Started
------------------------------------------
-
-For an overview of our code and architecture see :doc:`software_architecture`. For an
-introduction into the common data model, highest level API, and how to use it, see
-:doc:`getting_started_onserve`. For a more detailed view in the concepts and software
-clockwork that make up the workfow engine and low level interactions, see :doc:`getting_started_monorail`.
-
-.. _RackHD GitHub: https://github.com/RackHD/
-.. _RackHD Documentation: http://rackhd.readthedocs.org/
