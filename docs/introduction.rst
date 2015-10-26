@@ -1,6 +1,11 @@
 RackHD Introduction
 ===================
 
+In a Converged Infrastructure Platform (CIP) architecture, RackHD software provides hardware management and orchestration (M&O). It serves as an abstraction layer between other M&O layers and the underlying physical hardware. Developers can use the RackHD API to create a user interface that serves as single point of access for managing hardware services regardless of the specific hardware in place.
+Once RackHD is installed on the managed CIP platform, it has the ability to discover the existing hardware resources, catalog each component, and retrieve detailed telemetry information from each resource. The retrieved information can then be used to perform low-level hardware management functions for each resource, such as BIOS configuration, OS installation, and firmware management.
+As the following diagram shows, RackHD sits between the other M&0 layers and the underlying physical hardware devices. User interfaces at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting to and managing the hardware devices.
+
+
 RackHD is a technology stack up created for enabling hardware management and operations, to provide
 cohesive APIs to enabled automated infrastructure. Key benefits include the ability to:
 
