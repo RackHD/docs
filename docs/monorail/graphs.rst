@@ -1,4 +1,4 @@
-Workflow: Graphs
+Workflow Graphs
 =====================
 
 The graphs/workflows API (workflows is a backwards-compatible term for graphs) provides
@@ -48,6 +48,25 @@ The following are common API commands that can be used when running the *on-http
 
     curl <server>/api/1.1/workflows/library
 
+**Query the State of An Active Graph**
+
+.. code-block:: rest
+
+        GET /api/1.1/nodes/<id>/workflows/active
+
+.. code-block:: rest
+        curl <server>/api/1.1/nodes/<id>/workflows/active
+
+
+**Create a Graph Definition**
+
+    .. code-block:: rest
+
+        PUT /api/1.1/workflows
+        {
+            <json definition of graph>
+        }
+
 
 **Run a New Graph Against a Node**
 
@@ -74,23 +93,3 @@ Sample Output:
 
 .. literalinclude:: samples/serialized-graph-example.json
    :language: JSON
-
-
-**Query the State of An Active Graph**
-
-.. code-block:: rest
-
-    GET /api/1.1/nodes/<id>/workflows/active
-
-.. code-block:: rest
-    curl <server>/api/1.1/nodes/<id>/workflows/active
-
-
-**Create a Graph Definition**
-
-.. code-block:: rest
-
-    PUT /api/1.1/workflows
-    {
-        <json definition of graph>
-    }
