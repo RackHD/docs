@@ -1,7 +1,9 @@
-API Versioning
-===============
+Monorail API Versioning
+==================================
 
 All current APIs are prefixed with:
+
+.. code::
 
     /api/1.1
 
@@ -10,9 +12,14 @@ RackHD extenders can supplement the central API (common) with versioned customer
 Referencing API Versions in URIs
 --------------------------------
 
+Use the following convention when referencing API version:
+.. code::
+
     /api/current/...
 
     /api/1.1/...
+
+    /api/1.2/...
 
 The second /[...]/ block in the URI is the version number. The "current" or "latest" placeholder points to the latest version of the API in the system.
 
