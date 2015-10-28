@@ -1,114 +1,44 @@
 Monorail API
 ======================
 
-Workflows
---------------------
+The Monorail API is an abstraction layer for the low-level management tasks that are performed on hardware devices.
+For example, to boot an image on a compute node, the Monorail API is used to activate a workload containing
+the tasks that are appropriate to the device.
 
-Show All Available Workflows
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Any user on the ORA_ADMIN_IF network can call any Monorail API. The Monorail API can be used to manage nodes, catalogs, workflows, tasks, templates, pollers, and other
+entities. For the complete list of functions, generate the API documentation as described below.
 
-  .. code-block:: rest
+**Example: List All Nodes**
 
-   curl http://<server>:<port>/api/common/workflows/library | python -mjson.tool
+.. code::
 
-Display Current Active Workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  curl http://<server>:8080/api/common/nodes | python -mjson.tool
 
-  .. code-block:: rest
+**Example: Set the Active Workflow**
 
-    curl http://<server>:<port>/api/common/nodes/<identifier>/workflows/active | python -mjson.tool
+.. code::
 
-Set the Active Workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. code-block:: rest
-
-       curl -X POST <server>:<port>/api/common/nodes/<identifier>/workflows?name=Graph.InstallCentOS
-
-Delete the Active Workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. code-block:: rest
-
-        curl -X DELETE <server>:<port>/api/common/nodes/<identifier>/workflows/active
+  curl http://<server>:8080/api/common/nodes/<identifier>/workflows/active | python -mjson.tool
 
 
-Nodes
---------------
+Starting and Stopping the API Server
+----------------------------------------
 
-List All Nodes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The API server runs by default. Use the following commands to stop or start the API server.
 
-  .. code-block:: rest
-
-   curl http://<server>:<port>/api/common/nodes | python -mjson.tool
-
-Display a Node's Catalogs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. code-block:: rest
-
-   curl http://<server>:<port>/api/common/nodes/<identifier>/catalogs | python -mjson.tool
-
-Delete a Node
-~~~~~~~~~~~~~~~~~~~~~~
-
-   .. code-block:: rests
-
-      curl -X DELETE http://<server>:<port>/api/common/nodes/<identifier>
-
-Configure Node OBM Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    1. Create a JSON File with the Settings (in this case, **obm.json**)
-
-    .. code-block:: rest
-
-        {"obmSettings":[{"service":"ipmi-obm-service","config":{"user":"<username>",
-        "password":"<password>","host": "<MAC address>"}}]}
-
-    2. Execute Command
-
-    .. code-block:: rest
-
-     curl -X PATCH -H "Content-Type: application/json" --data @obm.json
-     http://<server>:<port>/api/common/nodes/<identifier>
+================ ===========================
+ Action           Command
+================ ===========================
+Stop API server   ``service apache2 stop``
+Start API server  ``service apache2 start``
+================ ===========================
 
 
-Templates
-------------------
+Generating API Documentation
+-------------------------------------
 
-Display a Template
-~~~~~~~~~~~~~~~~~~~~~~~~~
+You can generate an HTML version of the API documentation by cloning the *on-http* repository and running the following command.
 
-  .. code-block:: rest
+.. code::
 
-    curl <server>:<port>/api/common/templates/library/<template_name>
-
-Patch a Template
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-   .. code-block:: rest
-
-    curl -X PUT -H "Content-Type: application/octet-stream" --data-binary @/tmp/centos70.txt
-    <server>:<port>/api/common/templates/library/<template_name>
-
-
-LED Lights
-----------------
-
-Turn On LED Identify Light
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-   .. code-block:: rest
-
-         curl -X POST -H "Content-Type:application/json"
-         http://<server>:<port>/api/common/nodes/<identifier>/obm/identify -d '{"value":true}'
-
-Turn Off LED Identify Light
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. code-block:: rest
-
-   curl -X POST -H "Content-Type:application/json"
-   http://<server>:<port>/api/common/nodes/<identifier>/obm/identify -d '{"value":false}'
+  $ sh HWIMO-BUILD
