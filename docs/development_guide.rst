@@ -1,7 +1,7 @@
 Development Guide
 =================
 
-
+.. include:: monorail/graphs.txt
 
 Code conventions: python
 ^^^^^^^^^^^^^^^^^^^^^^^^
