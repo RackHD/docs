@@ -6,7 +6,7 @@
 RackHD
 ======
 
-RackHD is a technology stack up created for enabling hardware management and operations,
+RackHD(TM) is a technology stack up created for enabling hardware management and operations,
 to provide cohesive APIs to enabled automated infrastructure. In a Converged Infrastructure
 Platform (CIP) architecture, RackHD software provides hardware management and orchestration
 (M&O). It serves as an abstraction layer between other M&O layers and the underlying
@@ -44,7 +44,6 @@ Contents
    monorail/passive_discovery
    monorail/pollers
    monorail/monorail_api
-   monorail/monorail_cli
    glossary
 
 
