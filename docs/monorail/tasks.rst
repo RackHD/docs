@@ -1,5 +1,5 @@
 Workflow Tasks
-==============
+~~~~~~~~~~~~~~~~~~~~~~
 
 A workflow task is a unit of work decorated with data and logic that allows it to
 be included and run within a workflow. Tasks can be
@@ -13,7 +13,7 @@ A task is made up of three parts:
 * Job
 
 Task Definitions
----------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 A task definition contains the basic description of the task. It contains the following fields.
 
@@ -71,7 +71,7 @@ Sample output (returns injectableName):
 
 
 Base Task Definitions
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 A Base Task Definition outlines validation requirements (an interface) and a common
 job to be used for a certain class of tasks. Base Task Definitions exist to
@@ -160,7 +160,7 @@ is the profile value, which is the ipxe template that specifies the installer
 images that an installation target should download.
 
 Task Jobs
---------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 A job is a javascript subclass with a run function that can be referenced
 by a string. When a new task is created, and all of its validation and setup logic handled,
@@ -214,7 +214,7 @@ rendering requests, etc.
 
 
 Task Templates
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 There are some values that may be needed in a task definition which are not known in advance. In some cases, it is also more convenient to use placeholder values in a task definition than literal values. In these cases, a simple template rendering syntax can be used in task definitions. Rendering is also useful in places where two or more tasks need to use the same value (e.g. options.file), but it cannot be hardcoded ahead of time.
 
 Task templates use a mustache-style syntax. To define a value to be rendered, place it within curly braces in a string, e.g.
@@ -288,7 +288,7 @@ On creation, the options are rendered as below. The 'file' field is specified in
     }
 
 Task Rendering Features
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Fallback Rendering**
 
@@ -356,7 +356,7 @@ Template rendering can go many levels deep. So if the rendered result of a templ
 
 
 API Commands for Tasks
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 **Get Available Tasks in the Library**
 

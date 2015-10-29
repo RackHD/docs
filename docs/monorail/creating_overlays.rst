@@ -1,5 +1,5 @@
 Creating and Modifying Overlays
-===============================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Certain operations enabled by the monorail server, primarily node cataloging and
 firmware flashing, is performed within small-medium sized linux images that are
@@ -64,7 +64,8 @@ duplication across images, since all common files are located in a single base
 image.
 
 Base images
------------
+^^^^^^^^^^^^^^^^^^^^^^^
+
 We build almost all of our overlays off a single base image, named
 base.trusty.3.13.0-32.squashfs.img. In 99% of use cases, using this image is
 sufficient. A base filesystem is compressed into a
@@ -76,10 +77,9 @@ target kernel for the base image. We use [this script](https://hwstashprd01.isus
 to build the filesystem and create a squashfs.
 
 Creating overlayfs archives
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Simple modifications
-^^^^^^^^^^^^^^^^^^^^
+**Simple Modifications**
 
 Simple modifications are modifications that don't extend beyond copying files.
 These may include adding scripts, files, directories, statically linked binaries, etc.
@@ -109,8 +109,7 @@ Now rename overlay.cpio.gz, and move it into the monorail server static files
 directory in /opt/monorail/static/http. See :doc:`naming_conventions`
 for recommendations on what to name the overlay and where to put it.
 
-Complex modifications
-^^^^^^^^^^^^^^^^^^^^^
+**Complex Modifications**
 
 Complex modifications are modifications that require access to the OS filesystem
 and make more widespread modifications to it. These may include building kernel
@@ -207,7 +206,7 @@ server in order to receive commands.
 
 
 Modifying overlayfs archives
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The method of adding or remove files from an overlay is basically to decompress
 the CPIO structure into a directory, modify what you need, and then recreate
@@ -228,8 +227,8 @@ the un-zipped and un-archived overlay directory instead of a newly created
 overlay directory.
 
 
-Examples
---------
+**Examples**
+
 
 #### creating the EMC custom overlay with test-eses
 

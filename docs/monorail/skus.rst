@@ -1,5 +1,5 @@
 Workflow: SKU support
-=====================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The SKU API provides functionality to categorize nodes into groups based on data
 present in a node's catalogs. SKU matching is done using a series of rules. If
@@ -13,8 +13,8 @@ SKU definition is added, updated or deleted.
 A default graph can also be assigned to a SKU. When a node is discovered that
 matches the SKU, the specified graph will be executed on the node.
 
-Example
--------
+**Example**
+
 
 With a node that has the following catalog fields:
 
@@ -62,7 +62,7 @@ the bottom of this document for a list of additional validation rules that can
 be applied.
 
 API commands
-------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 When running the renasar-http process, these are some common API commands you
 can send:
@@ -97,7 +97,7 @@ can send:
 
 
 Create a SKU to auto-configure IPMI settings
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: REST
 
@@ -123,7 +123,7 @@ Create a SKU to auto-configure IPMI settings
     }
 
 Get list of SKUs
-------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: REST
 
@@ -135,7 +135,7 @@ Get list of SKUs
 
 
 Get definition for a single SKU
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: REST
 
@@ -147,7 +147,7 @@ Get definition for a single SKU
 
 
 Update a single SKU
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: REST
     PATCH /api/1.1/skus/:id
@@ -164,7 +164,7 @@ Update a single SKU
 
 
 Delete a single SKU
--------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: REST
 
@@ -175,7 +175,7 @@ Delete a single SKU
     curl -X DELETE <server>/api/1.1/skus/<skuid>
 
 SKU JSON format
----------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SKUs are defined via JSON, with these required fields:
 

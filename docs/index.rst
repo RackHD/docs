@@ -30,21 +30,8 @@ Contents
    software_architecture
    how_it_works
    contributing
+   packaging_and_deployment
    development_guide
-   monorail/graphs
-   monorail/tasks
-   monorail/skus
-   monorail/api_versioning
-   monorail/amqp_conventions
-   monorail/configuration
-   monorail/microkernel
-   monorail/creating_overlays
-   monorail/https
-   monorail/naming_conventions
-   monorail/passive_discovery
-   monorail/pollers
-   monorail/monorail_api
-   monorail/monorail_cli
    glossary
 
 

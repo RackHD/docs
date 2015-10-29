@@ -1,5 +1,7 @@
 MicroKernel and Overlays
-========================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: monorail/creating_overlays.rst
 
 The microkernel for tooling is a linux kernel and and a two-stage filesystem
 that loads up with it.

@@ -1,8 +1,8 @@
-General naming conventions
-==========================
+General Naming Conventions
+------------------------------------
 
 Workflow conventions
---------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We use the following conventions when creating workflow-related JSON documents:
 
@@ -23,7 +23,7 @@ For graph definitions, conventions are pretty much the same as tasks, except "in
 - "Graph.Arista.Zerotouch.EOS"
 
 Overlay conventions
--------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Overlay names**
 

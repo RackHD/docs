@@ -1,5 +1,5 @@
 Monorail API Versioning
-==================================
+----------------------------------
 
 All current APIs are prefixed with:
 
@@ -10,7 +10,7 @@ All current APIs are prefixed with:
 RackHD extenders can supplement the central API (common) with versioned customer-specific APIs in parallel.
 
 Referencing API Versions in URIs
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following convention when referencing API version:
 .. code::
@@ -28,7 +28,7 @@ Multiple API versions can be added in parallel. Use N, N-1, N-2, etc. as the nam
 All API versioning information should be conveyed in HTTP headers.
 
 Versioning Resources
----------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A translation and validation chain is used to support versioned "types" for URI resources from the RackHD system. The chain flow is:
 
@@ -37,7 +37,7 @@ A translation and validation chain is used to support versioned "types" for URI 
 Data objects should be versioned in line with the API version.
 
 API Version Guidelines
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following guide lines when determining if a new API version is needed.
 

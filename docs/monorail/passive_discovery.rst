@@ -1,11 +1,11 @@
 Hardware Discovery
-==================
+---------------------------
 
 Switch type nodes can be discovered either by running a discovery graph against
 them or creating via http calls with the autoDiscover field set to true.
 
 Automatic Discovery
---------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A new node created by posting to /api/1.1/node will be
 automatially discovered if:
@@ -41,7 +41,7 @@ automatially discovered if:
    :language: JSON
 
 Discover an existing switch node
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to discover a switch node manually either create
 the node without an autoDiscover option or set autoDiscover to false you
