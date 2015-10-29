@@ -1,9 +1,9 @@
 Ubuntu installation/upgrade instructions
-========================================
+----------------------------------------------
 
 
 Upgrading the code
-------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Log into the server (nuc, kylin, etc)
 
@@ -63,6 +63,7 @@ Install supplementary files:
     sudo apt-get install renasar-static-xen
 
 retrieve the installer/distribution media:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     mkdir -p /var/mirrors
     cd /var/mirrors
@@ -70,13 +71,13 @@ retrieve the installer/distribution media:
     curl http://xfer.renasar.com/emc/esxi.tgz | tar xvzf -
 
 Add ansible playbook for post-os install
-----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     cd /var/renasar
     curl http://xfer.renasar.com/emc/ansible_test.tar.gz | tar xvzf -
 
 Configure the applications to start
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 All of the renasar programs are set to respect and verify the existance of a
 default configuration file. If this file doesn't exist, the services will
@@ -91,7 +92,7 @@ To enable all the programs, create the files for each process after appropriate 
     touch /etc/default/renasar-taskgraph
 
 Upgrading the code
-------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The upgrade from version 1.1-19 to later versions includes underlying changes that redefine the
 exchanges used in RabbitMQ. Those aren't automatically reset at this time, and if the old
@@ -107,7 +108,7 @@ automatically attempt to reconnect and establish the correct exchanges.
 
 
 Making the mirrors
-------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #Centos - 6.5
 
@@ -173,7 +174,7 @@ for the Ubuntu repo, you need some additional installation. The mirrors are easi
     ###################
 
 How to wipe out the database to restart everything
---------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     sudo service renasar-http stop
     sudo service renasar-dhcp stop
@@ -193,7 +194,7 @@ How to wipe out the database to restart everything
     sudo service renasar-tftp start
 
 Post-install - what can you do and how to do it
------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To get a list of workflows in the library, run
 

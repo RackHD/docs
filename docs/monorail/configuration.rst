@@ -1,10 +1,10 @@
 Configuration
-=============
+----------------------
 
 The following JSON is an examples of the current defaults:
 
 monorail.json
---------------
+~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: JSON
 

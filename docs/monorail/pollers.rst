@@ -1,11 +1,11 @@
 Pollers
-=======
+-------------------
 
 The pollers API provides functionality for periodic collection of IPMI and SNMP
 data.
 
 IPMI
------
+~~~~~~~~~~
 
 IPMI Pollers can be standalone or can be associated with a node. When an
 IPMI poller is associated with a node, it will attempt to use that node's IPMI
@@ -27,7 +27,7 @@ See the Alerts section below for more information.
 
 
 SNMP
-----
+~~~~~~~~~~~~
 
 SNMP pollers can be standalone or associated with a node. With an SNMP poller is
 associated with a node, it will attempt to use that node's snmpSettings in order
@@ -57,7 +57,7 @@ Example request to create a switch and auto-discover it:
     }
 
 Metric Pollers
---------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 In some cases, the data desired from a poller may require more complex processing
 than simply running an IPMI or SNMP command and parsing it. To address this,
@@ -77,7 +77,7 @@ data about how much network bandwidth is flowing through each interface.
 
 
 API commands
-------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 When running the renasar-http process, these are some common API commands you
 can send:
@@ -485,7 +485,7 @@ to check against the given string/regex, e.g.,
     }
 
 Poller JSON format
--------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Pollers are defined via JSON, with these required fields:
 

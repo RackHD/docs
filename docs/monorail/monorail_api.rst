@@ -1,5 +1,5 @@
 Monorail API
-======================
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The Monorail API is an abstraction layer for the low-level management tasks that are performed on hardware devices.
 For example, to boot an image on a compute node, the Monorail API is used to activate a workload containing
@@ -22,7 +22,7 @@ entities. For the complete list of functions, generate the API documentation as 
 
 
 Starting and Stopping the API Server
-----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The API server runs by default. Use the following commands to stop or start the API server.
 
@@ -35,7 +35,7 @@ Start API server  ``service apache2 start``
 
 
 Generating API Documentation
--------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can generate an HTML version of the API documentation by cloning the *on-http* repository and running the following command.
 
