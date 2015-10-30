@@ -1,5 +1,5 @@
 Monorail API
-~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 The Monorail API is an abstraction layer for the low-level management tasks that are performed on hardware devices.
 For example, to boot an image on a compute node, the Monorail API is used to activate a workload containing
