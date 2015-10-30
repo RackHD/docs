@@ -13,9 +13,9 @@ OBM settings in order to communicate with the BMC. Otherwise, the poller must be
 manually configured with that node's IPMI settings.
 
 If a node is found via discovery and contains a BMC catalog, then five IPMI
-pollers will be created automatically for that node. The five pollers
+pollers are automatically created for that node. The five pollers
 correspond to the "power", "selInformation", "sel", "sdr" and "uid" (chassis LED)
-commands. These newly-created pollers will not collect any data until the node
+commands. These pollers do not collect data until the node
 has been configured with IPMIOBM settings.
 
 
@@ -29,8 +29,8 @@ See the Alerts section below for more information.
 SNMP
 ~~~~~~~~~~~~
 
-SNMP pollers can be standalone or associated with a node. With an SNMP poller is
-associated with a node, it will attempt to use that node's snmpSettings in order
+SNMP pollers can be standalone or associated with a node. When an SNMP poller is
+associated with a node, it attempts to use that node's snmpSettings in order
 to communicate via SNMP. Otherwise, the poller must be manually configured with
 that node's SNMP settings.
 
@@ -38,7 +38,7 @@ If a node with "type": "switch" is created via the /nodes API with autoDiscover
 set to true, then four SNMP-based metric pollers will be created automatically
 for that node (see the Metric pollers section below for a list of these).
 
-Example request to create a switch and auto-discover it:
+Example request to create and auto-discover a switch:
 
 .. code-block:: REST
 
@@ -61,8 +61,8 @@ Metric Pollers
 
 In some cases, the data desired from a poller may require more complex processing
 than simply running an IPMI or SNMP command and parsing it. To address this,
-there is a poller type called a metric. A metric utilizes SNMP or IPMI, but can
-make multiple of these calls in aggregate, and add post-processing logic to the
+there is a poller type called a metric. A metric uses SNMP or IPMI, but can
+make multiples of these calls in aggregate and add post-processing logic to the
 results. There are currently four metrics available in the Monorail system:
 
 - snmp-interface-state
@@ -79,10 +79,10 @@ data about how much network bandwidth is flowing through each interface.
 API commands
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-When running the renasar-http process, these are some common API commands you
+When running the on-http process, these are some common API commands you
 can send:
 
-* Get available pollers in the library
+**Get available pollers in the library**
 
 .. code-block:: REST
 
@@ -93,9 +93,10 @@ can send:
     curl <server>/api/1.1/pollers/library
 
 
-* Create a new SNMP poller with a node
+**Create a new SNMP poller with a node**
 
-To utilize an SNMP poller that references a node, the node document must have
+
+To use an SNMP poller that references a node, the node document must have
 an "snmpSettings" field with a host and community fields:
 
 .. code-block:: REST
@@ -133,7 +134,7 @@ an "snmpSettings" field with a host and community fields:
             "config":{"oids":["IF-MIB::ifSpeed","IF-MIB::ifOperStatus"}}' \
         <server>/api/1.1/pollers
 
-* Create a new IPMI poller with a node
+**Create a new IPMI poller with a node**
 
 .. code-block:: REST
 
@@ -158,7 +159,7 @@ an "snmpSettings" field with a host and community fields:
 .. literalinclude:: samples/ipmi-poller.json
    :language: JSON
 
-* Create a new IPMI poller without a node
+**Create a new IPMI poller without a node**
 
 .. code-block:: REST
 
@@ -185,7 +186,7 @@ an "snmpSettings" field with a host and community fields:
 .. literalinclude:: samples/ipmi-poller-no-node.json
    :language: JSON
 
-* Create a new SNMP poller
+**Create a new SNMP poller**
 
 .. code-block:: REST
 
@@ -215,7 +216,7 @@ an "snmpSettings" field with a host and community fields:
 .. literalinclude:: samples/snmp-poller.json
    :language: JSON
 
-* Create a new metric poller
+**Create a new metric poller**
 
 Metric pollers can be created by adding the name of the metric to the poller
 config instead of data like "oids" or "command"
@@ -240,7 +241,7 @@ config instead of data like "oids" or "command"
             "config":{"metric":"snmp-interface-bandwidth-poller"}}' \
         <server>/api/1.1/pollers
 
-* Get a poller's data stream
+**Get a poller's data stream**
 
 .. code-block:: REST
 
@@ -260,7 +261,7 @@ Sample Output: SNMP
 .. literalinclude:: samples/snmp-poller-data.json
   :language: JSON
 
-* Get list of active pollers
+**Get list of active pollers**
 
 .. code-block:: REST
 
@@ -270,7 +271,7 @@ Sample Output: SNMP
 
     curl <server>/api/1.1/pollers
 
-* Get definition for a single poller
+**Get definition for a single poller**
 
 .. code-block:: REST
 
@@ -280,7 +281,7 @@ Sample Output: SNMP
 
     curl <server>/api/1.1/pollers/<pollerid>
 
-* Update a single poller
+**Update a single poller**
 
 .. code-block:: REST
 
@@ -296,7 +297,7 @@ Sample Output: SNMP
         -d '{"pollInterval":15000}' \
         <server>/api/1.1/pollers/<pollerid>
 
-° Delete a single poller
+**Delete a single poller**
 
 .. code-block:: REST
 
@@ -307,19 +308,22 @@ Sample Output: SNMP
     curl -X DELETE <server>/api/1.1/pollers/<pollerid>
 
 
-* Get list of active pollers associated with a node
+**Get list of active pollers associated with a node**
 
-```
-GET /api/1.1/nodes/:id/pollers
----
-curl <server>/api/1.1/nodes/<nodeid>/pollers
-```
+ .. code-block:: REST
 
-* IPMI Poller Alerts
+    GET /api/1.1/nodes/:id/pollers
+
+ .. code-block:: REST
+  curl <server>/api/1.1/nodes/<nodeid>/pollers
+
+
+IPMI Poller Alerts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Alerting is currently supported for "sel" and "sdr" command type pollers.
 
-* Receiving alerts
+**Receiving Alerts**
 
 Alerts are published over AMQP:
 
@@ -408,13 +412,13 @@ Sample data for an "snmp" alert:
         ]
     }
 
-* Creating alerts
+**Creating Alerts**
 
-Alerting for sdr pollers is automatic, and determined by whether a "threshold" sensor
+Alerting for sdr pollers is automatic and triggered when a threshold sensor
 has a value that does not equal either "ok" or "Not available". In the example sdr
 alert above, the value being alerted is "nr", for Non-recoverable.
 
-Alerts for sel poller data are more flexible, and can be user-defined via string or
+Alerts for sel poller data are more flexible and can be user-defined via string or
 regex matching. The data structure for an sdr result has five keys: 'date', 'time',
 'sensor', 'event' and 'value'. Alert data can be specified via a JSON object that
 maps these keys to either exactly matched or regex matched values, e.g.
@@ -461,7 +465,7 @@ under config.alerts, e.g.,
 
 
 Snmp poller alerts can be defined just like sel alerts via string or regex matching.
-However, the keys for an snmp alert must be the numeric oid whose value you wish
+However, the keys for an snmp alert must be a numeric oid whose value you wish
 to check against the given string/regex, e.g.,
 
 .. code-block:: REST
@@ -484,35 +488,47 @@ to check against the given string/regex, e.g.,
         }
     }
 
-Poller JSON format
+Poller JSON Format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pollers are defined via JSON, with these required fields:
+Pollers are defined via JSON with these required fields:
 
-| Name | Type | Flags | Description |
-|------|------|-------|-------------|
-| type | String | **required** | Type of poller. Valid values: ipmi, snmp |
-| pollInterval | Number | **required** | Time in milliseconds to wait in between polls. |
+================= =========== ============ ============================================
+Name               Type         Flags       | Description
+================= =========== ============ ============================================
+type              String      **required**  | Poller type. Valid values: **ipmi**, **snmp**
+pollInterval      Number      **required**  | Time in milliseconds to wait between
+                                            | polls.
+================= =========== ============ ============================================
 
 The following fields are only valid for IPMI pollers:
 
-| Name | Type | Flags | Description |
-|------|------|-------|-------------|
-| config | Object | **required** | Hash of configuration parameters. |
-| config.command | String | **required** | IPMI command to run. Valid values: power, sel, sdr |
-| config.host | String | *optional* | IP/Hostname of the node's BMC. |
-| config.user | String | *optional* | IPMI username. |
-| config.password | String | *optional* | IPMI password. |
-| config.metric | String | *optional* |  Run a metric poller instead of a simple IPMI query. Use instead of config.command |
-| node | String | *optional* |  Node ID to associate this poller with/dynamically look up IPMI settings with. |
+================= =========== ============ ============================================
+Name               Type         Flags       | Description
+================= =========== ============ ============================================
+config             Object     **required**  | Hash of configuration parameters.
+config.command     String     **required**  | IPMI command to run.
+                                            | Valid values: **power**, **sel**, **sdr**
+config.host        String     *optional*    | IP/Hostname of the node's BMC.
+config.user        String     *optional*    | IPMI username.
+config.password    String     *optional*    | IPMI password.
+config.metric      String     *optional*    | Run a metric poller instead of a simple
+                                            | IPMI query. Use instead of **config.command**.
+node               String     *optional*    | Node ID to associate this poller with
+                                            | dynamically look up IPMI settings.
+================= =========== ============ ============================================
 
 The following fields are only valid for SNMP pollers:
 
-| Name | Type | Flags | Description |
-|------|------|-------|-------------|
-| config | Object | **required** | Hash of configuration parameters. |
-| config.host | String | *optional* | IP/Hostname of the node's BMC. |
-| config.communityString | String | *optional* | SNMP community string. |
-| config.oids | String[] | *optional* | Array of OIDs to poll. |
-| config.metric | String | *optional* |  Run a metric poller instead of a simple OID query. Use instead of config.oids |
-| node | String | *optional* |  Node ID to associate this poller with/dynamically look up SNMP settings with. |
+==================== =========== ============ ============================================
+Name                    Type      Flags       | Description
+==================== =========== ============ ============================================
+config                Object     **required** | Hash of configuration parameters.
+config.host           String     *optional*   | IP/Hostname of the node's BMC.
+config.community      String     *optional*   | SNMP community string.
+config.oids           String[]   *optional*   | Array of OIDs to poll.
+config.metric         String     *optional*   | Run a metric poller instead of a simple
+                                              | OID query. Use instead of **config.oids**.
+node                  String     *optional*   | Node ID to associate this poller with
+                                              | dynamically look up SNMP settings.
+==================== =========== ============ ============================================

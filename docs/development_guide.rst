@@ -4,8 +4,27 @@ Development Guide
 Development Setup
 -----------------
 
-Running from Source
--------------------
+**Prerequisites**
+
+Install Node.js and npm.
+
+**Note:** Currently, node versions 0.10.x are supported. node 0.12 and node 4.0 will be supported in the near future.
+
+
+
+Checking Out the Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Clone at minimum the **on-http**, **on-dhcp-proxy**, **on-tftp**, **on-taskgraph**, and **on-tasks** repositories.
+
+2. Run *npm install* in each repository.
+
+Performing Unit Tests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run *npm test* in each repository.
+
+
 
 .. include:: monorail/graphs.rst
 .. include:: monorail/tasks.rst
@@ -21,14 +40,4 @@ Running from Source
 Code Conventions
 --------------------
 
-Python Conventions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-JavaScript Conventions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-For more information on packaging and deployment, see :doc:`packaging_and_deployment`
+Content Under Development
