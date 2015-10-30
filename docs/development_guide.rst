@@ -1,9 +1,7 @@
 Development Guide
 =================
 
-.. class:: center
-
-Content in Development
+        ----------------------------- Content in Development -----------------------------
 
 Development Setup
 -----------------
