@@ -10,7 +10,7 @@ Upgrading the code
 get all current patches and remove non-essential packages:
 
 
-.. code::
+ .. code::
 
     sudo apt-get update
     sudo apt-get dist-upgrade
@@ -18,7 +18,7 @@ get all current patches and remove non-essential packages:
 
 install required packages:
 
-.. code::
+ .. code::
 
     sudo apt-get install rabbitmq-server
     sudo apt-get install mongodb
@@ -26,7 +26,7 @@ install required packages:
     sudo apt-get install ipmitool
     sudo apt-get install nodejs nodejs-legacy npm
 
-.. code::
+ .. code::
 
 install supplemental packages:
 
@@ -37,22 +37,27 @@ install supplemental packages:
 
 create a apt-sources list file : `/etc/apt/sources.list.d/monorail.list`
 
-.. code::
+ .. code::
     deb [arch=amd64] http://54.191.244.96/ trusty non-free
 
 **Update the package directories**
 
-.. code::
+ .. code::
     sudo apt-get update
 
 Install the renasar packages:
+
+ .. code::
 
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
     sudo apt-get install on-web-ui
 
-set the links to the mirrors:
+Set the Links to the Mirrors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  .. code::
+  
     sudo ln -s /var/mirrors/esxi /var/renasar/renasar-http/static/http/vmware
     sudo ln -s /var/mirrors/esxi /var/renasar/renasar-tftp/static/tftp/vmware
     sudo ln -s /var/mirrors/ubuntu_trusty /var/renasar/renasar-http/static/http/ubuntu_trusty
@@ -61,6 +66,9 @@ set the links to the mirrors:
     sudo ln -s /var/mirrors/suse /var/renasar/renasar-http/static/http/suse
 
 Install supplementary files:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  .. code::
 
     sudo apt-get install renasar-static-common renasar-mibs
     sudo apt-get install renasar-static-coreos
@@ -70,8 +78,10 @@ Install supplementary files:
     sudo apt-get install renasar-static-vmware
     sudo apt-get install renasar-static-xen
 
-retrieve the installer/distribution media:
+Retrieve the Installer/Distribution Media
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  .. code::
 
     mkdir -p /var/mirrors
     cd /var/mirrors
