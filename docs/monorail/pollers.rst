@@ -38,9 +38,7 @@ If a node with "type": "switch" is created via the /nodes API with autoDiscover
 set to true, then four SNMP-based metric pollers will be created automatically
 for that node (see the Metric pollers section below for a list of these).
 
-Example request to create and auto-discover a switch:
-
-.. code-block:: REST
+Example request to create and auto-discover a switch::
 
     POST /api/1.1/nodes
     Content-Type: application/json
