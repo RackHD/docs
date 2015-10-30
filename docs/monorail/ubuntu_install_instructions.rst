@@ -1,13 +1,16 @@
-Ubuntu installation/upgrade instructions
+Ubuntu Installation/Upgrade
 ----------------------------------------------
 
 
 Upgrading the code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Log into the server (nuc, kylin, etc)
+**Log into the server (nuc, kylin, etc)**
 
 get all current patches and remove non-essential packages:
+
+
+.. code::
 
     sudo apt-get update
     sudo apt-get dist-upgrade
@@ -15,12 +18,15 @@ get all current patches and remove non-essential packages:
 
 install required packages:
 
+.. code::
+
     sudo apt-get install rabbitmq-server
     sudo apt-get install mongodb
     sudo apt-get install snmp
     sudo apt-get install ipmitool
     sudo apt-get install nodejs nodejs-legacy npm
 
+.. code::
 
 install supplemental packages:
 
@@ -31,10 +37,12 @@ install supplemental packages:
 
 create a apt-sources list file : `/etc/apt/sources.list.d/monorail.list`
 
+.. code::
     deb [arch=amd64] http://54.191.244.96/ trusty non-free
 
-Update the package directories
+**Update the package directories**
 
+.. code::
     sudo apt-get update
 
 Install the renasar packages:

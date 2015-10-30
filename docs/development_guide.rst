@@ -21,10 +21,10 @@ Running from Source
 Code Conventions
 --------------------
 
-Code conventions: python
+Python Conventions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Code conventions: javascript
+JavaScript Conventions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
