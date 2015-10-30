@@ -35,9 +35,9 @@ properties      Object  Required    | JSON defining any relevant metadata or tag
 =============== ======= =========== =======================================================
 
 
-Below is a sample task definition in JSON for an ubuntu installer:
+Below is a sample task definition in JSON for an ubuntu installer.
 
-.. code-block:: JSON
+.. code-block:: rest
 
     {
         "friendlyName": "Install Ubuntu",
@@ -99,7 +99,7 @@ properties          Object  Required    | JSON defining any relevant metadata or
 
 The following example shows the base task **Install Ubuntu** task definition:
 
-.. code-block:: JSON
+ .. code-block::
 
         {
             "friendlyName": "Install OS",

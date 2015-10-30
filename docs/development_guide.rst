@@ -1,6 +1,10 @@
 Development Guide
 =================
 
+.. class:: center
+
+Content in Development
+
 Development Setup
 -----------------
 
