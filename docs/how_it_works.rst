@@ -46,8 +46,7 @@ Discovery tasks are performed sequentially:
 
 #. The workflow reboots the machine.
 
-Notes:
-~~~~~~~~~~~~~~~~~~~~~
+**Notes:**
 
 * No workflow is assigned to a PXE-booting system that is already known to RacKHD. Instead, the RackHD system responds with a "pass through" to iPXE, letting the system
   continue to boot as specified by its BIOS or UEFI boot order.
