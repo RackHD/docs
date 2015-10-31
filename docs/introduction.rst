@@ -76,7 +76,7 @@ The RackHD Project
 -----------------------------------------
 
 RackHD is an open source project available under the Apache 2.0 license (or
-compatible sub-licences for library dependencies). It is housed at https://github.com/RackHD.
+compatible sub-licenses for library dependencies). It is housed at https://github.com/RackHD.
 The code for RackHD is a combination of Python, Javascript (NodeJS), and C. The project is a collection
 of libraries and applications intended to be deployed together to provide a solution that can be used
 either standalone, or as a technology to be included and embedded in larger applications.
