@@ -50,8 +50,8 @@ data model and easy integration, and an underlying workflow engine (code named t
 
 .. image:: _static/high_level_architecture.png
 
-The upper layer of the architecture, called the "onserve executive" communicate using
-both an internal REST API and AMQP as a message bus between the various processes.
+The upper layer of the architecture, called the "onserve executive" communicates using
+both an internal REST API and AMQP as a message bus between the various processes. This layer is still under development.
 
 The lower layer of the architecture - the "monorail engine" provides the workflow
 engine and coordinated agents for interacting through multiple protocols with remote
@@ -64,25 +64,11 @@ using message passing over AMQP, and stores data as needed for persistence in Mo
 The Onserve Executive
 ---------------------
 
-* onserve
+The upper layer of the architecture, called the “onserve executive” communicates using both an internal REST API and AMQP as a
+message bus between the various processes. Onserve executive provides the simplified API and is built to encapsulate the
+monorail engine, converting internal data models into a common data format based on the Redfish 1.0 specification (http://www.dmtf.org/standards/redfish).
+OnServe executive conversions are still in development. Contact EMC for more information.
 
-    Provides the simplified API and is built to encapsulate the monorail engine, converting
-    internal data models into a common data format based on the Redfish 1.0 specification (http://www.dmtf.org/standards/redfish).
-    Onserve also hosts all additional API endpoints and provides access controls to enable (or hide)
-    access to the underlying monorail engine APIs
-
-* LTAE
-
-    Coordinates logging, tracing, and alert configuration and notifications. Provides internal
-    logging and supports alerting based on events gathered and processed through the monorail engine.
-    LTAE includes plugin mechanisms for additional plugins to support alternative alerting mechanisms
-    such as phone-home support systems.
-
-* conductor
-
-    Acts as an additional layer of orchestration to support coordinated efforts involving managing
-    multiple compute nodes, including a general state machine for nodes and will be expanded to
-    include a policy driven mechanism for multi-node coordination.
 
 The monorail engine
 -------------------
