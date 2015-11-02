@@ -1,8 +1,8 @@
 Software Architecture
 =====================================
 
-RackHD enables much of it's functionality by providing PXE boot services
-to machines that will be managed, and intergrating the services providing
+RackHD enables much of its functionality by providing PXE boot services
+to machines that will be managed, and integrating the services providing
 the protocols used into a workflow engine. RackHD is built to download a
 microkernel (a small OS) crafted to run tasks in coordination with the workflow
 engine. The default and most commonly used microkernel is based on Linux, although
@@ -11,7 +11,7 @@ we have also built and run WinPE and even DOS microkernels.
 Theory of operation and integration with other automation systems
 -----------------------------------------
 
-The base idea of RackHD was borne from the realization that our effective automation
+The base idea of RackHD was born from the realization that our effective automation
 in computing and improving efficiencies has come from multiple layers of orchestration,
 each building on a lower layer. A full featured API driven environment that is effective
 spawns additional wrappers to combined those lower level pieces into patterns that are
@@ -55,13 +55,13 @@ both an internal REST API and AMQP as a message bus between the various processe
 
 The lower layer of the architecture - the "monorail engine" provides the workflow
 engine and coordinated agents for interacting through multiple protocols with remote
-systems. The monorail engine is broken into indepdent processes with a mind to support
-scaling or distributing them indepdendently by protocol, and communicates together
+systems. The monorail engine is broken into independent processes with a mind to support
+scaling or distributing them independently by protocol, and communicates together
 using message passing over AMQP, and stores data as needed for persistence in MongoDB.
 
 .. image:: _static/process_level_architecture.png
 
-The Onserve Executive
+Onserve Executive
 ---------------------
 
 The upper layer of the architecture, called the “onserve executive” communicates using both an internal REST API and AMQP as a
@@ -70,7 +70,7 @@ monorail engine, converting internal data models into a common data format based
 OnServe executive conversions are still in development. Contact EMC for more information.
 
 
-The monorail engine
+Monorail Engine
 -------------------
 
 .. image:: _static/monorail_engine_dataflow.png
@@ -98,7 +98,7 @@ The monorail engine
 
     on-http provides both the REST interface to the workflow engine and data model APIs
     as well as a communication channel and potential proxy for hosting files and serving
-    them to support dynamic PXE responses. RackHD commonly uses iPXE as it's initial
+    them to support dynamic PXE responses. RackHD commonly uses iPXE as its initial
     bootloader, loading remaining files for PXE booting via HTTP and using that communications
     path as a mechanism to control what a remote server will do when rebooting.
 

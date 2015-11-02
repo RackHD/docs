@@ -6,7 +6,7 @@ be included and run within a workflow. Tasks can be
 defined to do wide-ranging operations, such as bootstrap a server node into a
 Linux microkernel, parse data for matches against a rule, and others. The tasks in a workflow are run in a specific order.
 
-A task is made up of three parts:
+A workflow task is made up of three parts:
 
 * Task Definition
 * Base Task Definition

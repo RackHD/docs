@@ -1,23 +1,13 @@
-Workflows
----------------------------
-
-
 Workflow Graphs
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-The graphs/workflows API (workflows is a backwards-compatible term for graphs) provides
-functionality for running :doc:`tasks` via
-graph-based control flow mechanisms. A typical graph consists of a list of
-tasks which themselves are essentially decorated functions.
-
-The graph definition specifies the order in which tasks should run and provides
+---------------------------
+The workflow graph definition specifies the order in which tasks should run and provides
 any context and/or option values to pass to these functions.
 
 Complex graphs may define event-based tasks or specify
 data/event channels that should exist between concurrently-run tasks.
 
 Defining Graphs
-^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Graphs are defined via a JSON definition that conform to this schema:
 
@@ -36,7 +26,7 @@ Graphs are defined via a JSON definition that conform to this schema:
 
 
 API Commands for Graphs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following are common API commands that can be used when running the *on-http* process.
 

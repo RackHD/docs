@@ -34,4 +34,4 @@ xCat comparison
 * Competing with Puppet/Chef/Ansible/cfEngine to own config management story
 * Extensibility model tied exclusively to Perl code
 * REST API is anemic with focus on CLI management
-* Built as a master controller of infratructure vs an element in the process
+* Built as a master controller of infrastructure vs an element in the process
