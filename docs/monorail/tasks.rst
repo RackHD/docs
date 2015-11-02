@@ -171,7 +171,7 @@ job constructor) and run that job.
 **Defining a Job**
 
 To create a job, define a subclass of
-[Job.Base](https://<server>:<port>/projects/ONRACK/repos/on-tasks/browse/lib/jobs/base-job.js)
+[Job.Base](https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/jobs/base-job.js)
 that has a method called **_run** and calls **this._done()** somewhere, if the job is
 not one that runs indefinitely.
 
@@ -239,7 +239,7 @@ At render time, values are rendered if the exist in the task render context. The
 - **options**
     - This refers to the task definition options itself. Mainly for referencing values in substrings that will eventually be defined by a user (e.g. `'sudo mv {{ options.targetFile }} /tmp/{{ options.targetfile }}'` )
 - **context**
-    - This refers to the shared context object that all tasks in a graph have R/W access to. Enables one task to use values produced by another at runtime. For example, the [ami catalog provider task](https://<server>:<port>/projects/ONRACK/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
+    - This refers to the shared context object that all tasks in a graph have R/W access to. Enables one task to use values produced by another at runtime. For example, the [ami catalog provider task](https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
 
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
