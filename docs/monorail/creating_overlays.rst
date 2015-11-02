@@ -4,7 +4,8 @@ Creating and Modifying Overlays
 Certain operations enabled by the monorail server, primarily node cataloging and
 firmware flashing, is performed within small-medium sized linux images that are
 booted into RAM (as a tmpfs). To optimize storage and download of these images,
-we use [overlayfs](https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/filesystems/overlayfs.txt),
+we use [overlayfs]
+(https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/filesystems/overlayfs.txt),
 which allows a machine to mount two filesystems together as one merged filesystem.
 What this allows us to do is store the essential components common to every live
 image we use in a single image (a squashfs image), and store custom binaries and
@@ -13,12 +14,12 @@ to be dedicated to image storage by pushing variations into the overlay space.
 It also makes it easy to change, re-package and re-distribute the contents of an
 overlay on any platform without having to touch the base image.
 
-(NOTE: overlayfs only supports two filesystems layered together, e.g. you
-cannot have 3 or 4 filesystem layers)
+NOTE: Overlayfs only supports two filesystems layered together, e.g. you
+cannot have 3 or 4 filesystem layers.
 
 **Example**
 
-Let's say we have a base image representing a standard linux file structure:
+Let's say we have a base image representing a standard Linux file structure:
 
 .. code-block:: bash
 
@@ -73,8 +74,8 @@ sufficient. A base filesystem is compressed into a
 read-only filesystem.
 
 Building a base image requires a host machine running the same kernel as the
-target kernel for the base image. We use [this script](https://hwstashprd01.isus.emc.com:8443/projects/ONRACK/repos/on-ansible/browse/roles/basefsmaker/files/make_base_trusty_squashfs.sh)
-to build the filesystem and create a squashfs.
+target kernel for the base image. We use [this script] (*URL to be provided*) to build the filesystem
+and create a squashfs .
 
 Creating overlayfs archives
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -199,8 +200,7 @@ to run these commands as root.
 Required files
 ^^^^^^^^^^^^^^
 
-All overlays should contain the file located at /etc/rc.local,
-located [here](https://hwstashprd01.isus.emc.com:8443/projects/ONRACK/repos/on-ansible/browse/roles/basefsmaker/files/rc.local).
+All overlays should contain the file located at /etc/rc.local, located [here](*URL to be provided*).
 This file is necessary for the node to be able to communicate with the monorail
 server in order to receive commands.
 
