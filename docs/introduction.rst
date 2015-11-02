@@ -90,6 +90,6 @@ The project started with the goal of providing a consistent and clear mechanism 
 inventory and firmware upgrades to commodity white-box servers.
 Existing open source solutions do an admirable job of inventory and bare OS provisioning, but the
 ability to upgrade firmware was beyond the existing technology stacks readily available. The expansion
-to utilizing a functional reactive based workflow engine in alignment with the services providing
+to utilizing a event-based workflow engine in alignment with the services providing
 classical PXE booting makes it possible to architect a number of different deployment configurations
 as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
