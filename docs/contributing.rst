@@ -5,7 +5,7 @@ The https://github.com/emccode/RackHD repository acts as a single source locatio
 take advantage of, and contribute to RackHD. The individual repositories are within the organizations https://github.com/RackHD. We accept
 bugs at github issues for bug reports and pull requests for the individual repositories.
 
-The code for RackHD is a combination of Python, Javascript (NodeJS), and C, available under the Apache 2.0
+The code for RackHD is a combination of Javascript/Node.js and C, available under the Apache 2.0
 license (or compatible sublicences for library dependencies).
 
 We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group
