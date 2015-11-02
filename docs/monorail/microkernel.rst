@@ -1,5 +1,5 @@
 MicroKernel and Overlays
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------
 
 .. include:: monorail/creating_overlays.rst
 
