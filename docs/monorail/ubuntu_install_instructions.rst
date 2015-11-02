@@ -5,10 +5,9 @@ Ubuntu Installation/Upgrade
 Upgrading the code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Log into the server (nuc, kylin, etc)**
+1. Log into the Server (nuc, kylin, etc).
 
-get all current patches and remove non-essential packages:
-
+2. Get All Patches and Remove Non-essential Packages.
 
 .. code::
 
@@ -16,7 +15,7 @@ get all current patches and remove non-essential packages:
     sudo apt-get dist-upgrade
     sudo apt-get autoremove
 
-install required packages:
+3.Install Required Packages
 
 .. code::
 
@@ -28,7 +27,7 @@ install required packages:
 
 .. code::
 
-install supplemental packages:
+4. Install Supplemental Packages.
 
     sudo apt-get install python-pywbem
     sudo apt-get install ansible
