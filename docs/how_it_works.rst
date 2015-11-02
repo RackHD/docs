@@ -27,7 +27,7 @@ Discovery tasks are performed sequentially:
    the remote machine and reports them back to RackHD, which adds this information to the machine record.
 
 #. RackHD then responds with an additional iPXE script that downloads
-   and runs the microkernel. The microkernel boots up and requests a NodeJS "bootstrap" program
+   and runs the microkernel. The microkernel boots up and requests a Node.js "bootstrap" program
    from RackHD. RackHD runs the bootstrap program which uses a simple REST API to "ask" what it should do on the remote host from RackHD. The workflow engine,
    running the discovery workflow, provides a set of tasks to run. These tasks are matched with parsers in RackHD to understand and store the output. They work
    together to run Linux commands that interrogate the hardware from the microkernel running in memory. These commands include interrogating the machines BMC
@@ -89,7 +89,7 @@ simple logic (as demonstrated in the discovery workflow) to perform arbitrarily
 complex tasks based on the workflow definition. The workflow definitions
 themselves are accessible through the Monorail engine's REST API as a "graph"
 of "tasks". Both graphs and tasks are fully declarative with a JSON format.
-Tasks are also mapped up "Jobs", which is the NodeJS code that's included
+Tasks are also mapped up "Jobs", which is the Node.js code that's included
 within RackHD. 
 
 Workflow Graphs

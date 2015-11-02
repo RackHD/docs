@@ -74,7 +74,7 @@ Setting        | Description
 server         | IP address of interface to bind to for TFTP, SYSLOG and HTTP services.
                |
                | **Note:** DHCP binds to 0.0.0.0 to support broadcast request/response within
-               | NodeJS.
+               | Node.js.
 broadcastaddr  | Broadcast address for the network range (for DHCP)
 subnetmask     | Subnet mask for the network range (for DHCP)
 iprange        | Range of IP addresses, either in CIDR format or a list of IP addresses

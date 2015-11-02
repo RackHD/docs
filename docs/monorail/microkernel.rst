@@ -27,7 +27,7 @@ Overlays:
 The overlay files are CPIO archives with additional "user-space" programs added
 into them. The initramfs loads the base OS, and then overlays the CPIO archive,
 and the resulting image contains common Linux tooling and immediately loads and
-runs a NodeJS task-runner that is built and rendered on the fly to the microkernel
+runs a Node.js task-runner that is built and rendered on the fly to the microkernel
 to invoke commands on the remote machine as needed. This process is embedded
 into the overlay itself, and relies on parameters passed into it through PXE
 using `/proc/commandline` and the kernel parameters.

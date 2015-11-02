@@ -14,7 +14,7 @@ physical hardware.
 
 The project is a collection of libraries and applications housed at https://github.com/RackHD/
 and documentation hosted at http://rackhd.readthedocs.org. The code for RackHD is a combination
-of Python, Javascript (NodeJS), and C, available under the Apache 2.0 license (or
+of Javascript/Node.js and C, available under the Apache 2.0 license (or
 compatible sublicences for library dependencies).
 
 

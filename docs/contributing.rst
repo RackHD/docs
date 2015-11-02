@@ -20,11 +20,11 @@ Applications
      - Description
    * - on-tftp
      - https://github.com/RackHD/on-tftp
-     - | Nodejs application provided TFTP service integrated
+     - | Node.js application provided TFTP service integrated
        | with the workflow engine.
    * - on-http
      - https://github.com/RackHD/on-http
-     - | Nodejs application provided TFTP service integrated
+     - | Node.js application provided TFTP service integrated
        | with the workflow engine.
    * - on-syslog
      - https://github.com/RackHD/on-syslog
@@ -32,10 +32,10 @@ Applications
        | the workflow engine.
    * - on-taskgraph
      - https://github.com/RackHD/on-taskgraph
-     - | Nodejs application providing the workflow engine.
+     - | Node.js application providing the workflow engine.
    * - on-dhcp-proxy
      - https://github.com/RackHD/on-dhcp-proxy
-     - | Nodejs application providing DHCP proxy support
+     - | Node.js application providing DHCP proxy support
        | integrated into the workflow engine.
 
 Libraries
@@ -49,10 +49,10 @@ Libraries
      - Description
    * - core
      - https://github.com/RackHD/on-core
-     - Core libraries in use across NodeJS applications.
+     - Core libraries in use across Node.js applications.
    * - tasks
      - https://github.com/RackHD/on-tasks
-     - NodeJS task library for the workflow engine.
+     - Node.js task library for the workflow engine.
 
 
 Supplemental code
