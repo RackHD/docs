@@ -6,7 +6,7 @@ to machines that will be managed, and integrating the services providing
 the protocols used into a workflow engine. RackHD is built to download a
 microkernel (a small OS) crafted to run tasks in coordination with the workflow
 engine. The default and most commonly used microkernel is based on Linux, although
-we have also built and run WinPE and even DOS microkernels.
+WinPE and DOS netbooting is also possible.
 
 Theory of operation and integration with other automation systems
 -----------------------------------------
