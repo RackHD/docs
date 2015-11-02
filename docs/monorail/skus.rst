@@ -64,7 +64,7 @@ be applied.
 API commands
 ^^^^^^^^^^^^^^^^^^^^^^
 
-When running the renasar-http process, these are some common API commands you
+When running the on-http process, these are some common API commands you
 can send:
 
 ##### Create a new SKU with a node

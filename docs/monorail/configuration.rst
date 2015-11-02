@@ -8,38 +8,40 @@ The following JSON is an examples of the current defaults:
 
 .. code-block:: JSON
 
-    {
-        "amqp": "amqp://localhost",
-        "mongo": {
-            "host": "localhost",
-            "port": 27017,
-            "database": "pxe",
-            "user": "",
-            "password": ""
-        },
-        "verbose": true,
-        "color": true,
-        "server": "10.1.1.1",
-        "http": true,
-        "https": true,
-        "httpPort": 80,
-        "httpsPort": 443,
-        "httpsCert": "data/dev-cert.pem",
-        "httpsKey": "data/dev-key.pem",
-        "subnetnetmask": "255.255.255.0",
-        "gatewayaddr": "10.1.1.1",
-        "broadcastaddr": "10.1.1.255",
-        "httpStaticDirectory": "./static/http",
-        "httpFrontendDirectory": "../renasar-fog-ui/dist",
-        "httpApiDocsDirectory": "./build/apidoc",
-        "stompLogLevel": "info",
-        "stompIdentifier": "Renasar",
-        "sockJsStompPrefix": "/sockjs_stomp",
-        "logfileLocation": "./logs",
-        "maxTaskPayloadSize": "10mb",
-        "statsdPrefix": "http."
-    }
-
+{
+    "CIDRNet": "172.31.128.0/22",
+    "amqp": "amqp://localhost",
+    "apiServerAddress": "172.31.128.1",
+    "apiServerPort": 8080,
+    "broadcastaddr": "172.31.131.255",
+    "dhcpGateway": "172.31.128.1",
+    "dhcpProxyBindAddress": "172.31.128.1",
+    "dhcpProxyBindPort": 4011,
+    "dhcpSubnetMask": "255.255.252.0",
+    "gatewayaddr": "172.31.128.1",
+    "httpBindAddress": "0.0.0.0",
+    "httpBindPort": 8080,
+    "httpDocsRoot": "./build/apidoc",
+    "httpEnabled": true,
+    "httpFileServiceRoot": "./static/files",
+    "httpFileServiceType": "FileSystem",
+    "httpStaticRoot": "/opt/monorail/static/http",
+    "httpsBindAddress": "0.0.0.0",
+    "httpsBindPort": 8443,
+    "httpsCert": "data/dev-cert.pem",
+    "httpsEnabled": false,
+    "httpsKey": "data/dev-key.pem",
+    "httpsPfx": null,
+    "mongo": "mongodb://localhost/pxe",
+    "sharedKey": "<key>",
+    "statsd": "127.0.0.1:8125",
+    "subnetmask": "255.255.252.0",
+    "syslogBindAddress": "172.31.128.1",
+    "syslogBindPort": 514,
+    "tftpBindAddress": "172.31.128.1",
+    "tftpBindPort": 69,
+    "tftpRoot": "./static/tftp"
+}
 
 Keys
 ~~~~~~~~~~~~~~~~~~

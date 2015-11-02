@@ -22,7 +22,7 @@ an inline task definition (as opposed to creating a new task definition as a sep
                     startupConfig: 'arista-startup-config',
                     eosImage: 'common/zerotouch-vEOS.swi',
                     bootfile: 'zerotouch-vEOS.swi',
-                    hostname: 'RenasarVEOS'
+                    hostname: 'MonorailVEOS'
                 },
                 properties: {
                     os: {
@@ -115,7 +115,7 @@ curl -X PUT \
 
 ### Adding EOS Images
 
-Move any EOS images you would like to use into /var/renasar/renasar-http/static/http/common/
+Move any EOS images you would like to use into <on-http directory>/static/http/common/
 
 In your task options, reference the EOS image name along with the common 
 directory, e.g. eosImage: common/<eosImageName>

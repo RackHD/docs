@@ -30,7 +30,7 @@
                         "bootConfig": "arista-boot-config",
                         "bootfile": "zerotouch-vEOS.swi",
                         "eosImage": "zerotouch-vEOS.swi",
-                        "hostname": "RenasarVEOS",
+                        "hostname": "MonorailVEOS",
                         "profile": "zerotouch-configure.zt",
                         "startupConfig": "arista-startup-config"
                     },
@@ -80,7 +80,7 @@
                     "bootConfig": "arista-boot-config",
                     "bootfile": "zerotouch-vEOS.swi",
                     "eosImage": "zerotouch-vEOS.swi",
-                    "hostname": "RenasarVEOS",
+                    "hostname": "MonorailVEOS",
                     "profile": "zerotouch-configure.zt",
                     "startupConfig": "arista-startup-config"
                 },
@@ -108,7 +108,7 @@
                 "bootConfig": "arista-boot-config",
                 "bootfile": "zerotouch-vEOS.swi",
                 "eosImage": "zerotouch-vEOS.swi",
-                "hostname": "RenasarVEOS",
+                "hostname": "MonorailVEOS",
                 "profile": "zerotouch-configure.zt",
                 "startupConfig": "arista-startup-config"
             },
@@ -166,7 +166,7 @@
                     "bootConfig": "arista-boot-config",
                     "bootfile": "zerotouch-vEOS.swi",
                     "eosImage": "zerotouch-vEOS.swi",
-                    "hostname": "RenasarVEOS",
+                    "hostname": "MonorailVEOS",
                     "profile": "zerotouch-configure.zt",
                     "startupConfig": "arista-startup-config"
                 },
@@ -194,7 +194,7 @@
                 "bootConfig": "arista-boot-config",
                 "bootfile": "zerotouch-vEOS.swi",
                 "eosImage": "zerotouch-vEOS.swi",
-                "hostname": "RenasarVEOS",
+                "hostname": "MonorailVEOS",
                 "profile": "zerotouch-configure.zt",
                 "startupConfig": "arista-startup-config"
             },

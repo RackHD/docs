@@ -3,11 +3,7 @@
 The monorail system includes a sample, yet functional, flashing workflow that
 can be used to flash the MegaRAID, BIOS, and BMC on a Quanta T41 server.
 
-#### Step 1: Update/verify the on-taskgraph config ####
-
-In lieu of a centralized configuration file, the on-taskgraph config must contain some duplicate values from the http config. Edit `/var/renasar/on-taskgraph/config.json` and make sure the `"server"`, `"httpPort"` and `"httpsPort"` values match those in `/var/renasar/on-http/config.json`.
-
-#### Step 2: Upload firmware files ####
+#### Step 1: Upload firmware files ####
 
 All flashing workflows require firmware files to be flashed onto a target system.
 These files are stored via the Monorail files backend 
@@ -34,7 +30,7 @@ After uploading the files, make sure to note the filenames used, as these are
 options required by the flashing workflow.
 
 
-#### Step 3: Run the workflow against a node ####
+#### Step 2: Run the workflow against a node ####
 
 Before you run the workflow, ensure you have a recent overlay package containing
 the quanta t41 flashing overlay. The on-static-common package must be version (1.0-7)
