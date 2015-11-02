@@ -20,36 +20,56 @@ Applications
      - Description
    * - on-tftp
      - https://github.com/RackHD/on-tftp
-     - nodejs application provided TFTP service integrated with the workflow engine
+     - | Nodejs application provided TFTP service integrated
+       | with the workflow engine.
    * - on-http
      - https://github.com/RackHD/on-http
-     - nodejs application provided TFTP service integrated with the workflow engine
+     - | Nodejs application provided TFTP service integrated
+       | with the workflow engine.
    * - on-syslog
      - https://github.com/RackHD/on-syslog
-     - syslog endpoint integrated to feed data into workflow engine
+     - | Syslog endpoint integrated to feed data into
+       | the workflow engine.
    * - on-taskgraph
      - https://github.com/RackHD/on-taskgraph
-     - nodejs application providing the workflow engine
+     - | Nodejs application providing the workflow engine.
    * - on-dhcp-proxy
      - https://github.com/RackHD/on-dhcp-proxy
-     - nodejs application providing DHCP proxy support integrated into the workflow engine
+     - | Nodejs application providing DHCP proxy support
+       | integrated into the workflow engine.
 
 Libraries
 ^^^^^^^^^
-.. csv-table::
-   :header: "Library", "Repository", "Description"
-   :widths: 20, 20, 40
+.. list-table::
+   :widths: 20 20 100
+   :header-rows: 1
 
-   "core", "https://github.com/RackHD/on-core", "Core libraries in use across NodeJS applications"
-   "tasks", "https://github.com/RackHD/on-tasks", "NodeJS task library for the workflow engine"
+   * - Library
+     - Repository
+     - Description
+   * - core
+     - https://github.com/RackHD/on-core
+     - Core libraries in use across NodeJS applications.
+   * - tasks
+     - https://github.com/RackHD/on-tasks
+     - NodeJS task library for the workflow engine.
 
 
 Supplemental code
 ^^^^^^^^^^^^^^^^^
-.. csv-table::
-   :header: "Code", "Repository", "Description"
-   :widths: 20, 20, 40
+.. list-table::
+   :widths: 20 20 100
+   :header-rows: 1
 
-   "tools", "https://github.com/RackHD/on-tools", "Useful dev tools for running locally"
-   "Web user interface", "https://github.com/RackHD/on-web-ui", "Initial web interfaces to some of the APIs - multiple interfaces embedded into a single project"
-   "statsd", "https://github.com/RackHD/on-statsd", "A local statsD implementation that makes it easy to deploy on a local machine for capturing application metrics"
+   * - Library
+     - Repository
+     - Description
+
+   * - Web user interface
+     - https://github.com/RackHD/on-web-ui
+     - | Initial web interfaces to some of the APIs - multiple
+       | interfaces embedded into a single project.
+   * - statsd
+     - https://github.com/RackHD/on-statsd
+     - | A local statsD implementation that makes it easy to deploy
+       | on a local machine for capturing application metrics.
