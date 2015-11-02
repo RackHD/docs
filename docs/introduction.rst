@@ -14,7 +14,7 @@ Elements can be managed as separate entities or they can be combined and managed
 Hardware Management
 ---------------------------
 
-To implement the API requests received from the other M&O layers, RackHD primarily uses out-of-band network management to communicate with hardware devices using platform APIs (IMPI, SNMP, etc.). For functionality that is not available out-of-band, RackHD can communicate with the in-band data network.
+To implement the API requests received from the other M&O layers, RackHD primarily uses out-of-band network management to communicate with hardware devices using platform APIs (IPMI, SNMP, etc.). For functionality that is not available out-of-band, RackHD can communicate with the in-band data network.
 
 Features
 ------------------------
