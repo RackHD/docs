@@ -1,8 +1,18 @@
 Contributing to RackHD
 ======================
 
-The https://github/emccode/RackHD repository acts as a single source location to help you get or build all the pieces to learn about,
-take advantage of, and contribute to RackHD.
+The https://github.com/emccode/RackHD repository acts as a single source location to help you get or build all the pieces to learn about,
+take advantage of, and contribute to RackHD. The individual repositories are within the organizations https://github.com/RackHD. We accept
+bugs at github issues for bug reports and pull requests for the individual repositories.
+
+The code for RackHD is a combination of Python, Javascript (NodeJS), and C, available under the Apache 2.0
+license (or compatible sublicences for library dependencies).
+
+We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group
+through the web page, or subscribe directly from email by sending email to rackhd+subscribe@googlegroups.com
+
+We also have a #RackHD slack channel at https://codecommunity.slack.com/messages/rackhd/.
+You can get an invite by requesting one at http://community.emccode.com.
 
 
 Project and code repository overview
