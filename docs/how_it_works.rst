@@ -11,7 +11,7 @@ these as *active* and *passive* discovery.
 * Active discovery is where a user or outside system actively tells RackHD that the system exists. This is enabled through making a post to the REST interface that RackHD can then add to its data model.
 
 * Passive discovery can be either enabled or disabled through configuration in RackHD, and is invoked when a machine attempts to PXE boot on the network that RackHD is
-  "listening" on. As a new machine PXE boots, RackHD compares the mac-address of the hardware booting to it's internal information. If MAC address has not been previously recorded,
+  "listening" on. As a new machine PXE boots, RackHD compares the mac-address of the hardware booting to its internal information. If MAC address has not been previously recorded,
   it creates a new record in the data model and then invokes a default workflow.
 
 The default workflow is pre-configured to download a pre-made Linux kernel and initrd (a microkernel) to run in memory and coordinate
@@ -68,7 +68,7 @@ alerting mechanisms that compare the data collected by the pollers to regular
 expressions, and if they match create an additional event that is published on
 an "alert" exchange in AMQP.
 
-Other workflows
+Other Workflows
 ---------------
 
 Other workflows can be configured and assigned to run on remote systems. For example, **OS install** can be set to explicitly power cycle (reboot) a remote node. As the system PXE boots, an installation kernel is sent down and run instead of the discovery microkernel.
@@ -90,5 +90,22 @@ complex tasks based on the workflow definition. The workflow definitions
 themselves are accessible through the Monorail engine's REST API as a "graph"
 of "tasks". Both graphs and tasks are fully declarative with a JSON format.
 Tasks are also mapped up "Jobs", which is the NodeJS code that's included
-within RackHD. For more detailed information on the workflow engine, graphs,
-and tasks, see :doc:`monorail/graphs` and :doc:`monorail/tasks`.
+within RackHD. 
+
+Workflow Graphs
+^^^^^^^^^^^^^^^^^
+The graphs/workflows API (workflows is a backwards-compatible term for graphs) provides
+functionality for running :doc:`tasks` via
+graph-based control flow mechanisms. A typical graph consists of a list of
+tasks which themselves are essentially decorated functions.
+
+For more detailed information on the workflow graphs, see :doc:`monorail/graphs`.
+
+Workflow Tasks
+^^^^^^^^^^^^^^^^^
+A workflow task is a unit of work decorated with data and logic that allows it to
+be included and run within a workflow. Tasks can be
+defined to do wide-ranging operations, such as bootstrap a server node into a
+Linux microkernel, parse data for matches against a rule, and others. The tasks in a workflow are run in a specific order.
+
+For more detailed information on tasks, see :doc:`monorail/tasks`.

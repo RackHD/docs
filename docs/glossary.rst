@@ -53,15 +53,11 @@ provide conflicting information on the same network broadcast segment (and this 
 be obnoxiously difficult to diagnose). Likewise, most switches won't pass DHCP
 traffic across networks unless specifically configured to do so with a DHCP relay.
 
-.. image:: _static/basic_dhcp_sequence.png
-
 The PXE mechanisms add additional information, and conditional responses, based on
 the DHCP client requesting information. As PXE gained traction, the DHCP protocol
 was extended to allow that additional information to come from a separate source
 with a mechanism called DHCP Proxy, so that PXE could be configured and managed
 independently of a DHCP infrastructure.
-
-.. image:: _static/dhcp_proxy_sequence.png
 
 When set up in a datacenter environment, many PXE environments are configured with
 DHCP, TFTP together. As such, if a DHCP proxy is used, it's often on the same
@@ -86,7 +82,7 @@ within the BIOS or UEFI on which are enabled.
 
 Desktop hardware (like the PC under your desk, or your laptop) and some of the early
 OCP servers don't include BMC's to keep down the cost of those devices - and remote
-power control isn't as nessecary.
+power control isn't as necessary.
 
 Note: Intel has recently been releasing desktops and client systems with a roughly
 equivalent management tooling called AMT (Active Management Technology)
@@ -151,7 +147,7 @@ other devices, using protocols such a ZTP (Juniper, Arista)
 "SmartInstall"
 (http://www.cisco.com/c/en/us/products/collateral/switches/catalyst-3750-x-series-switches/white_paper_c11-651895.html)
 
-All of these systems basically operate similiarly to the PXE protocol - leveraging
+All of these systems basically operate similarly to the PXE protocol - leveraging
 TFTP for the transfer of files, and DHCP for network information, but a common
 standard adopted by all switch vendors has yet to emerge.
 
