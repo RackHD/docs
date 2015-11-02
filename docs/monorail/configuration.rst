@@ -48,7 +48,7 @@ Queue
 ^^^^^^^^^^^^^^^^^^^^^^
 
 =============== ===============================================================================
-Setting         | Description
+Setting           Description
 =============== ===============================================================================
 amqp            | URI for accessing the AMQP interprocess communications channel
 =============== ===============================================================================
@@ -57,7 +57,7 @@ Persistence
 ^^^^^^^^^^^^^^^^^^^^^^
 
 ============= ===================================================================================
-Setting       | Description
+Setting         Description
 ============= ===================================================================================
 dbURI         | The URI for accessing an instance of MongoDB database used for persistence.
 databasetype  | Back-end persistence for the DHCP lease data. "MEMORY-MONGODB" is
