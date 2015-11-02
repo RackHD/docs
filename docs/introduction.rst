@@ -90,8 +90,7 @@ The project started with the goal of providing a consistent and clear mechanism 
 inventory and firmware upgrades to commodity white-box servers.
 Existing open source solutions do an admirable job of inventory and bare OS provisioning, but the
 ability to upgrade firmware was beyond the existing technology stacks
-readily available (xCat, Cobber, Razor for example). For a detailed comparison of the open source
-technologies, see :doc:`project_comparson`.
+readily available.
 
 To simplify integrations, an API layer was added so that consuming applications could
 request and retrieve information using a consistent data model.
