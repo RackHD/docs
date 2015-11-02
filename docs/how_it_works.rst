@@ -8,13 +8,13 @@ Discovery
 RackHD supports two modes of learning about machines that it manages. We loosely group
 these as *active* and *passive* discovery.
 
-* Active discovery is where a user or outside system actively tells RackHD that the system exists. This is enabled through making a post to the REST interface that RackHD can then add to its data model.
+* Passive discovery is where a user or outside system actively tells RackHD that the system exists. This is enabled through making a post to the REST interface that RackHD can then add to its data model.
 
-* Passive discovery can be either enabled or disabled through configuration in RackHD, and is invoked when a machine attempts to PXE boot on the network that RackHD is
-  "listening" on. As a new machine PXE boots, RackHD compares the mac-address of the hardware booting to its internal information. If MAC address has not been previously recorded,
-  it creates a new record in the data model and then invokes a default workflow.
+* Active discovery is invoked when a machine attempts to PXE boot on the network that RackHD is
+  "listening" on. As a new machine PXE boots, RackHD compares the MAC address of the hardware booting to its internal information. If the MAC address has not been previously recorded,
+  it creates a new record in the data model and then invokes a default discovery workflow.
 
-The default workflow is pre-configured to download a pre-made Linux kernel and initrd (a microkernel) to run in memory and coordinate
+The discovery workflow is pre-configured to download a pre-built Linux kernel, initrd and ubuntu filesystem to run in memory and coordinate
 with the monorail engine to run commands on the remote machine to interrogate the device's motherboard.
 
 Discovery Workflow
@@ -23,22 +23,23 @@ Discovery Workflow
 Discovery tasks are performed sequentially:
 
 #. Discovery is initiated by sending down the iPXE boot loader with a pre-built script to run within
-   iPXE. This script interrogates the enabled network interfaces on
-   the remote machine and reports them back to RackHD, which adds this information to the machine record.
+   iPXE. This script then chainloads into a new, dynamically rendered iPXE script that interrogates the 
+   enabled network interfaces on the remote machine and reports them back to RackHD, which adds this 
+   information to the machine and lookup records.
 
-#. RackHD then responds with an additional iPXE script that downloads
-   and runs the microkernel. The microkernel boots up and requests a Node.js "bootstrap" program
+#. RackHD then renders an additional iPXE script to be chainloaded that downloads
+   and runs the microkernel. The microkernel boots up and requests a Node.js "bootstrap" script
    from RackHD. RackHD runs the bootstrap program which uses a simple REST API to "ask" what it should do on the remote host from RackHD. The workflow engine,
    running the discovery workflow, provides a set of tasks to run. These tasks are matched with parsers in RackHD to understand and store the output. They work
    together to run Linux commands that interrogate the hardware from the microkernel running in memory. These commands include interrogating the machines BMC
    settings through IPMI, the PCI cards installed, the DMI information embedded in the BIOS, and others. The resulting information is then stored in JSON format
    as "catalogs" in RackHD.
 
-#. The default workflow then performs a workflow task process called "SKU
-   analysis" that compares the catalogs against SKU definitions
+#. The discovery workflow then performs a workflow task process called "SKU
+   analysis" that compares the catalog data for the node against SKU definitions
    loaded into the system through the REST interface. If the definitions match,
    RackHD updates its data model indicating that the node belongs
-   to one or more SKUs (depending on how the definitions have been crafted).
+   to a SKU.
 
 #. The workflow uses the IPMI channels to set up a connection to the BMC so that it can control that node in the future (power on, off and reboot).
 
@@ -48,10 +49,10 @@ Discovery tasks are performed sequentially:
 
 **Notes:**
 
-* No workflow is assigned to a PXE-booting system that is already known to RacKHD. Instead, the RackHD system responds with a "pass through" to iPXE, letting the system
-  continue to boot as specified by its BIOS or UEFI boot order.
+* No workflow is assigned to a PXE-booting system that is already known to RacKHD. Instead, the RackHD system ignores proxy DHCP requests from booting
+  nodes with no active workflow, letting the system continue to boot as specified by its BIOS or UEFI boot order.
 
-* The default workflow can be updated to do additional work or steps for the installation of RackHD - to run other workflows based on the SKU analysis, or
+* The discovery workflow can be updated to do additional work or steps for the installation of RackHD - to run other workflows based on the SKU analysis, or
   different actions based on the logic embedded into the workflow itself.
 
 * Additional pollers exist and can be configured to capture data through SNMP, and the RackHD project is set up to support additional pollers as plugins that can be
@@ -63,7 +64,8 @@ Telemetry and Alerting
 
 Poller information is converted into a "live data feed" and published through
 AMQP, providing a "live telemetry feed" for the raw data collected on the
-remote systems. In addition to this live feed, RackHD includes some rudimentary
+remote systems (recent data is also cached for manual access). In addition to 
+this live feed, RackHD includes some rudimentary
 alerting mechanisms that compare the data collected by the pollers to regular
 expressions, and if they match create an additional event that is published on
 an "alert" exchange in AMQP.
