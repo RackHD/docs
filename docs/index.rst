@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 RackHD
-======
+==========
 
 RackHD is a technology stack created for enabling hardware management and operations,
 to provide cohesive APIs to enabled automated infrastructure. In a Converged Infrastructure
@@ -34,11 +34,3 @@ Contents
    packaging_and_deployment
    development_guide
    glossary
-
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
