@@ -38,11 +38,13 @@ install supplemental packages:
 create a apt-sources list file : `/etc/apt/sources.list.d/monorail.list`
 
  .. code::
+
     deb [arch=amd64] http://54.191.244.96/ trusty non-free
 
 **Update the package directories**
 
  .. code::
+
     sudo apt-get update
 
 Install the renasar packages:
@@ -57,7 +59,7 @@ Set the Links to the Mirrors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   .. code::
-  
+
     sudo ln -s /var/mirrors/esxi /var/renasar/renasar-http/static/http/vmware
     sudo ln -s /var/mirrors/esxi /var/renasar/renasar-tftp/static/tftp/vmware
     sudo ln -s /var/mirrors/ubuntu_trusty /var/renasar/renasar-http/static/http/ubuntu_trusty
@@ -91,6 +93,8 @@ Retrieve the Installer/Distribution Media
 Add ansible playbook for post-os install
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  .. code::
+
     cd /var/renasar
     curl http://xfer.renasar.com/emc/ansible_test.tar.gz | tar xvzf -
 
@@ -102,6 +106,8 @@ default configuration file. If this file doesn't exist, the services will
 fail to start with a relevant message in the upstart log for that process.
 
 To enable all the programs, create the files for each process after appropriate configuration has been put into place:
+
+  .. code::
 
     touch /etc/default/renasar-http
     touch /etc/default/renasar-dhcp
@@ -117,6 +123,9 @@ exchanges used in RabbitMQ. Those aren't automatically reset at this time, and i
 exchanges exist when the new code runs, errors will appear in all relevant programs. To reset
 the exchanges, use the following commands:
 
+
+  .. code::
+
     rabbitmqctl stop_app
     rabbitmqctl force_reset
     rabbitmqctl start_app
@@ -125,32 +134,43 @@ You do not need to restart the applications after this has occured - the applica
 automatically attempt to reconnect and establish the correct exchanges.
 
 
-Making the mirrors
+Making the Mirrors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#Centos - 6.5
+**Centos 6.5**
+
+
+  .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
     --exclude "i386" rsync://centos.eecs.wsu.edu/centos/6.5/ /var/mirrors/centos/6.5
 
-#Centos - 7.0
+**Centos - 7.0**
+
+  .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
     --exclude "i386" rsync://centos.eecs.wsu.edu/centos/7/ /var/mirrors/centos/7
 
-#OpenSuse - 12.3
+**OpenSuse - 12.3**
+
+  .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/12.3/ /var/mirrors/suse/distribution/12.3
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/12.3 /var/mirrors/suse/update
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/12.3-non-oss /var/mirrors/suse/update
 
-#OpenSuse - 13.1
+**OpenSuse - 13.1**
+
+  .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/13.1/ /var/mirrors/suse/distribution/13.1
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.1 /var/mirrors/suse/update
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.1-non-oss /var/mirrors/suse/update
 
-#OpenSuse - 13.2
+**OpenSuse - 13.2**
+
+  .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/13.2/ /var/mirrors/suse/distribution/13.2
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.2 /var/mirrors/suse/update
@@ -158,6 +178,8 @@ Making the mirrors
 
 
 for the Ubuntu repo, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
+
+  .. code::
 
 	# make the mirror directory (can sometimes hit a permissions issue)
 	sudo mkdir -p /var/mirrors/ubuntu/14.04/mirror
@@ -194,6 +216,8 @@ for the Ubuntu repo, you need some additional installation. The mirrors are easi
 How to wipe out the database to restart everything
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  .. code::
+
     sudo service renasar-http stop
     sudo service renasar-dhcp stop
     sudo service renasar-syslog stop
@@ -216,19 +240,27 @@ Post-install - what can you do and how to do it
 
 To get a list of workflows in the library, run
 
+  .. code::
+
     curl <server>/api/1.1/workflows/library
 
 Sample output:
 
+  .. code::
+
     {"friendlyName":"Install Ubuntu","injectableName":"Graph.InstallUbuntu","tasks":[{"label":"set-boot-pxe","taskName":"Task.Obm.Node.PxeBoot","ignoreFailure":true},{"label":"reboot","taskName":"Task.Obm.Node.Reboot","waitOn":{"set-boot-pxe":"finished"}},{"label":"install-ubuntu","taskName":"Task.Os.Install.Ubuntu","waitOn":{"reboot":"succeeded"}}]}
 
 To create workflows, reference them by the “injectableName” property, i.e.
+
+  .. code::
 
     curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.InstallUbuntu
 
 There is now basic support for a custom type workflow that takes a list of shell commands and runs them. In order to utilize this feature, new workflows and tasks (units of work) must be registered in the system. Note that currently, these are only stored in memory, so they must be recreated whenever the renasar-taskgraph process is restarted. To create a basic workflow that runs user specified shell commands, with user specified images, the following steps are necessary:
 
 Define a custom workflow task with the images specified to be used:
+
+  .. code::
 
     PUT <server>/api/1.1/workflows/tasks
     Content-Type: application/json
@@ -249,6 +281,8 @@ Define a custom workflow task with the images specified to be used:
 
 Now define a custom workflow task that contains the commands to be run. The below format for the command objects must be followed (command, format, and source keys). Supported format values are ‘raw’, ‘json’, and ‘xml’. The ‘source’ key is the source value in the catalogs entry in the database.
 
+  .. code::
+
     PUT <server>/api/1.1/workflows/tasks
     Content-Type: application/json
     {
@@ -265,6 +299,8 @@ Now define a custom workflow task that contains the commands to be run. The belo
     }
 
 Now define a custom workflow that combines these tasks and runs them in a sequence. This one is set up to make OBM calls as well.
+
+  .. code::
 
     PUT <server>/api/1.1/workflows/
     Content-Type: application/json
@@ -312,4 +348,5 @@ With all of these data, the injectableName and friendlyName can be any string va
 
 After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the json POSTed to /api/1.1/workflows/:
 
+  .. code::
     curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
