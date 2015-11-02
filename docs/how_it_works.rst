@@ -49,7 +49,7 @@ Discovery tasks are performed sequentially:
 
 **Notes:**
 
-* No workflow is assigned to a PXE-booting system that is already known to RacKHD. Instead, the RackHD system ignores proxy DHCP requests from booting
+* No workflow is assigned to a PXE-booting system that is already known to RackHD. Instead, the RackHD system ignores proxy DHCP requests from booting
   nodes with no active workflow, letting the system continue to boot as specified by its BIOS or UEFI boot order.
 
 * The discovery workflow can be updated to do additional work or steps for the installation of RackHD - to run other workflows based on the SKU analysis, or
