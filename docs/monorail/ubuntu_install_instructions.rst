@@ -47,7 +47,7 @@ create a apt-sources list file : `/etc/apt/sources.list.d/monorail.list`
 
     sudo apt-get update
 
-Install the renasar packages:
+Install the monorail packages:
 
  .. code::
 
@@ -60,79 +60,38 @@ Set the Links to the Mirrors
 
   .. code::
 
-    sudo ln -s /var/mirrors/esxi /var/renasar/renasar-http/static/http/vmware
-    sudo ln -s /var/mirrors/esxi /var/renasar/renasar-tftp/static/tftp/vmware
-    sudo ln -s /var/mirrors/ubuntu_trusty /var/renasar/renasar-http/static/http/ubuntu_trusty
-    sudo ln -s /var/mirrors/ubuntu/14.04/mirror/mirror.pnl.gov/ubuntu/ /var/renasar/renasar-http/static/http/trusty
-    sudo ln -s /var/mirrors/centos /var/renasar/renasar-http/static/http/centos
-    sudo ln -s /var/mirrors/suse /var/renasar/renasar-http/static/http/suse
+    sudo ln -s /var/mirrors/esxi <on-http directory>/static/http/vmware
+    sudo ln -s /var/mirrors/esxi <on-tftp directory>/static/tftp/vmware
+    sudo ln -s /var/mirrors/ubuntu_trusty <on-http directory>/static/http/ubuntu_trusty
+    sudo ln -s /var/mirrors/ubuntu/14.04/mirror/mirror.pnl.gov/ubuntu/ <on-http directory>/static/http/trusty
+    sudo ln -s /var/mirrors/centos <on-http directory>/static/http/centos
+    sudo ln -s /var/mirrors/suse <on-http directory>/static/http/suse
 
 Install supplementary files:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   .. code::
 
-    sudo apt-get install renasar-static-common renasar-mibs
-    sudo apt-get install renasar-static-coreos
-    sudo apt-get install renasar-static-emc
-    sudo apt-get install renasar-static-arista
-    sudo apt-get install renasar-static-intel
-    sudo apt-get install renasar-static-vmware
-    sudo apt-get install renasar-static-xen
+    sudo apt-get install on-static-common
+
+  TODO: add more instructions here
 
 Retrieve the Installer/Distribution Media
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  .. code::
-
-    mkdir -p /var/mirrors
-    cd /var/mirrors
-    curl http://xfer.renasar.com/emc/ubuntu_trusty.tgz | tar xvzf -
-    curl http://xfer.renasar.com/emc/esxi.tgz | tar xvzf -
+  TODO: add instructions here
 
 Add ansible playbook for post-os install
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  .. code::
-
-    cd /var/renasar
-    curl http://xfer.renasar.com/emc/ansible_test.tar.gz | tar xvzf -
+  TODO: update instructions here
 
 Configure the applications to start
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All of the renasar programs are set to respect and verify the existance of a
-default configuration file. If this file doesn't exist, the services will
+All of the monorail programs are set to respect and verify the existence of a
+default configuration file (/opt/onrack/etc/monorail.json). If this file doesn't exist, the services will
 fail to start with a relevant message in the upstart log for that process.
-
-To enable all the programs, create the files for each process after appropriate configuration has been put into place:
-
-  .. code::
-
-    touch /etc/default/renasar-http
-    touch /etc/default/renasar-dhcp
-    touch /etc/default/renasar-syslog
-    touch /etc/default/renasar-tftp
-    touch /etc/default/renasar-taskgraph
-
-Upgrading the code
-~~~~~~~~~~~~~~~~~~~~~~~
-
-The upgrade from version 1.1-19 to later versions includes underlying changes that redefine the
-exchanges used in RabbitMQ. Those aren't automatically reset at this time, and if the old
-exchanges exist when the new code runs, errors will appear in all relevant programs. To reset
-the exchanges, use the following commands:
-
-
-  .. code::
-
-    rabbitmqctl stop_app
-    rabbitmqctl force_reset
-    rabbitmqctl start_app
-
-You do not need to restart the applications after this has occured - the applications will
-automatically attempt to reconnect and establish the correct exchanges.
-
 
 Making the Mirrors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -218,22 +177,21 @@ How to wipe out the database to restart everything
 
   .. code::
 
-    sudo service renasar-http stop
-    sudo service renasar-dhcp stop
-    sudo service renasar-syslog stop
-    sudo service renasar-taskgraph stop
-    sudo service renasar-tftp stop
+    sudo service on-http stop
+    sudo service on-dhcp-proxy stop
+    sudo service on-syslog stop
+    sudo service on-taskgraph stop
+    sudo service on-tftp stop
 
-    mongo
-        use pxe
+    mongo pxe
         db.dropDatabase()
         ^D
 
-    sudo service renasar-http start
-    sudo service renasar-dhcp start
-    sudo service renasar-syslog start
-    sudo service renasar-taskgraph start
-    sudo service renasar-tftp start
+    sudo service on-http start
+    sudo service on-dhcp-proxy start
+    sudo service on-syslog start
+    sudo service on-taskgraph start
+    sudo service on-tftp start
 
 Post-Installation Procedures
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,7 +219,7 @@ To create workflows, reference them by the “injectableName” property, i.e.
 
     curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.InstallUbuntu
 
-There is now basic support for a custom type workflow that takes a list of shell commands and runs them. In order to utilize this feature, new workflows and tasks (units of work) must be registered in the system. Note that currently, these are only stored in memory, so they must be recreated whenever the renasar-taskgraph process is restarted. To create a basic workflow that runs user specified shell commands, with user specified images, the following steps are necessary:
+There is now basic support for a custom type workflow that takes a list of shell commands and runs them. In order to utilize this feature, new workflows and tasks (units of work) must be registered in the system. Note that currently, these are only stored in memory, so they must be recreated whenever the on-taskgraph process is restarted. To create a basic workflow that runs user specified shell commands, with user specified images, the following steps are necessary:
 
 Define a custom workflow task with the images specified to be used:
 

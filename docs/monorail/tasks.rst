@@ -44,12 +44,12 @@ Below is a sample task definition in JSON for an ubuntu installer.
         "injectableName": "Task.Os.Install.Ubuntu",
         "implementsTask": "Task.Base.Os.Install",
         "options": {
-            "username": "renasar",
+            "username": "monorail",
             "password": "password",
             "profile": "install-trusty.ipxe",
-            "hostname": "renasar-nuc",
+            "hostname": "monorail",
             "uid": 1010,
-            "domain": "renasar.com",
+            "domain": "",
             "completionUri": "renasar-ansible.pub"
         },
         "properties": {
@@ -206,7 +206,7 @@ not one that runs indefinitely.
     }
 
 Many jobs are event-based by nature, so the base job provides many helpers for
-assigning callbacks to a myriad of AMQP events published by renasar services, such
+assigning callbacks to a myriad of AMQP events published by monorail services, such
 as DHCP requests from a specific mac address, HTTP downloads from a specific IP, template
 rendering requests, etc.
 
@@ -226,7 +226,7 @@ Task templates use a mustache-style syntax. To define a value to be rendered, pl
 At render time, values are rendered if the exist in the task render context. The render context contains the following fields:
 
 - **server**
-    - The server field contains all values found in the configuration for the on-taskgraph process (/var/renasar/on-taskgraph/config.json)
+    - The server field contains all values found in the configuration for the on-taskgraph process (/opt/onrack/etc/monorail.json)
     - example usage: `{{ server.mongo.port }}`
 - **api**
     - Various values to be used for constructing API requests in a template
