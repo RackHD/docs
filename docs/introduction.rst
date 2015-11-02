@@ -6,7 +6,7 @@ Once RackHD is installed on the managed CIP platform, it has the ability to disc
 
 RackHD sits between the other M&0 layers and the underlying physical hardware devices. User interfaces at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting to and managing the hardware devices.
 
-Management Paradyme
+Management Paradigm
 ----------------------------
 RackHD uses the concept of a ‘neighborhood’ to represent the compute nodes, storage nodes, network switches, and smart PDUs under management. In most cases, a neighborhood corresponds to one physical rack, although a neighborhood can span several racks. The physical compute, storage, and network devices in a neighborhood are logically represented as ‘elements’. For example, a compute element can represent a CPU, while a storage element might refer to a storage disk.
 Elements can be managed as separate entities or they can be combined and managed as one larger entity. For example, multiple storage elements can be combined to create a single storage pool.
@@ -89,12 +89,7 @@ Project History
 The project started with the goal of providing a consistent and clear mechanism to perform hardware
 inventory and firmware upgrades to commodity white-box servers.
 Existing open source solutions do an admirable job of inventory and bare OS provisioning, but the
-ability to upgrade firmware was beyond the existing technology stacks
-readily available.
-
-To simplify integrations, an API layer was added so that consuming applications could
-request and retrieve information using a consistent data model.
-
-The project was also extended to include the management of virtual machines. This makes it possible
-to architect a number of different deployment configurations as described in :doc:`how_it_works`
-and :doc:`packaging_and_deployment`.
+ability to upgrade firmware was beyond the existing technology stacks readily available. The expansion
+to utilizing a functional reactive based workflow engine in alignment with the services providing
+classical PXE booting makes it possible to architect a number of different deployment configurations
+as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
