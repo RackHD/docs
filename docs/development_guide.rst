@@ -32,7 +32,7 @@ Run *npm test* in each repository.
 .. include:: monorail/tasks.rst
 .. include:: monorail/skus.rst
 .. include:: monorail/pollers.rst
-.. include:: monorail/microkernal.rst
+.. include:: monorail/microkernel.rst
 .. include:: monorail/passive_discovery.rst
 .. include:: monorail/monorail_api.rst
 .. include:: monorail/naming_conventions.rst
