@@ -235,7 +235,7 @@ How to wipe out the database to restart everything
     sudo service renasar-taskgraph start
     sudo service renasar-tftp start
 
-Post-install - what can you do and how to do it
+Post-Installation Procedures
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To get a list of workflows in the library, run
@@ -244,11 +244,16 @@ To get a list of workflows in the library, run
 
     curl <server>/api/1.1/workflows/library
 
-Sample output:
+ Sample output
 
-  .. code::
+.. code-block:: rest
 
-    {"friendlyName":"Install Ubuntu","injectableName":"Graph.InstallUbuntu","tasks":[{"label":"set-boot-pxe","taskName":"Task.Obm.Node.PxeBoot","ignoreFailure":true},{"label":"reboot","taskName":"Task.Obm.Node.Reboot","waitOn":{"set-boot-pxe":"finished"}},{"label":"install-ubuntu","taskName":"Task.Os.Install.Ubuntu","waitOn":{"reboot":"succeeded"}}]}
+    {"friendlyName":"Install Ubuntu","injectableName":"Graph.InstallUbuntu",
+     "tasks":[{"label":"set-boot-pxe","taskName":"Task.Obm.Node.PxeBoot",
+     "ignoreFailure":true},{"label":"reboot","taskName":"Task.Obm.Node.Reboot",
+     "waitOn":{"set-boot-pxe":"finished"}}, {"label":"install-ubuntu",
+     "taskName":"Task.Os.Install.Ubuntu","waitOn":
+     {"reboot":"succeeded"}}]     }
 
 To create workflows, reference them by the “injectableName” property, i.e.
 
