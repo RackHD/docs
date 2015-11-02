@@ -1,4 +1,4 @@
-## Walkthrough: Creating workflows with custom overlays and commands
+Walkthrough: Creating workflows with custom overlays and commands
 
 This example will demonstrate how to create a workflow that runs shell commands or scripts packaged into in a custom overlay image.
 
@@ -10,9 +10,9 @@ This example will demonstrate how to create a workflow that runs shell commands 
 
 ##### Terminology:
 
-*Workflow*:  A pre-defined series of operations to run against a server node, specified by a graph definition  
-*Task*: A JSON definition for a specific step in a workflow  
-*Graph*: A JSON definition that specifies a series of tasks, with optional configurations, that constitutes a workflow  
+*Workflow*:  A pre-defined series of operations to run against a server node, specified by a graph definition
+*Task*: A JSON definition for a specific step in a workflow
+*Graph*: A JSON definition that specifies a series of tasks, with optional configurations, that constitutes a workflow
 *Overlay/Overlay Image*:  A minimal filesystem image that is overlaid on top of a base filesystem image (it gets mounted as a filesystem of type: overlayfs)
 
 #### Step 1: Creating the workflow tasks
@@ -20,6 +20,9 @@ This example will demonstrate how to create a workflow that runs shell commands 
 **Creating a task for custom commands**
 
 Let's say we want to run a workflow that runs two custom scripts against a node. We've packaged these scripts into our overlay, stored in /opt/scripts/myscript.sh and would like to be able to use it.  In order to do that, we can define a workflow task with the following JSON and POST it to the server:
+
+
+.. code-block:: bash
 
 ```
 PUT /api/1.1/workflows/tasks
@@ -29,12 +32,12 @@ Content-Type: application/json
     "injectableName" : "Task.Linux.Commands.MyCustomScripts",
     "implementsTask" : "Task.Base.Linux.Commands",
     "options" : {
-        "commands" : [ 
+        "commands" : [
             {
-                "command" : "/opt/scripts/myscript1.sh" 
+                "command" : "/opt/scripts/myscript1.sh"
             },
             {
-                "command" : "/opt/scripts/myscript2.sh" 
+                "command" : "/opt/scripts/myscript2.sh"
             }
         ]
     },
@@ -51,6 +54,8 @@ The above JSON is a definition of a new workflow task that implements the "Task.
 **Creating a task to boot a custom overlay**
 
 In order to run the above task, we first need to bootstrap the node into the custom overlay image we have made that contains our scripts. To do this, we will leverage the pre-existing base task definition for bootstrapping a node. We can define this task with the following JSON:
+
+.. code-block:: bash
 
 ```
 PUT /api/1.1/workflows/tasks
@@ -81,6 +86,8 @@ Again, the friendlyName and injectableName can be whatever you want as long as t
 #### Step 2: Creating the workflow graph
 
 The workflow graph is the definition of which tasks should be run and in what order. In this case, we want to reboot a node, PXE boot it into our microkernel (which will run in RAM), run our scripts, then reboot the node again. We can combine pre-defined system tasks with the ones we have created with the following JSON:
+
+.. code-block:: bash
 
 ```
 PUT /api/1.1/workflows
@@ -125,13 +132,18 @@ Content-Type: application/json
 }
 ```
 
-*For more information on graph definitions, see [graphs](https://hwstashprd01.isus.emc.com:8443/projects/ONRACK/repos/on-integration-test/browse/docs/graphs.md)*
+*For more information on graph definitions,
+see [graphs](https://<hostname>:8443/projects/RackHD/repos/on-integration-test/browse/docs/graphs.md)*
+
+**Note:** Host name to be provided soon.
 
 The third and fourth task objects in this definition reference the custom tasks created above via their taskName fields, which map to the injectableName values of the task definitions.
-		
+
 #### Step 3: Running the workflow
 
 To run the workflow against a node, first retrieve the nodeId, and then submit the following API request:
+
+.. code-block:: bash
 
 ```
 POST /api/1.1/nodes/<nodeId>/workflows
@@ -144,4 +156,3 @@ Content-Type: application/json
 The "name" field value should equal the "injectableName" string of the graph to be run. In these examples, the graph JSON definition has an "injectableName" field that equals "Graph.Custom.OverlayScripts".
 
 After submitting the API request, the server should respond with JSON data representing the serialized state of the active graph being run against the target node. You can also tail the `/var/log/upstart/on-taskgraph.log` file for warnings and errors related to the running of the graph.
-

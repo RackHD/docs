@@ -68,7 +68,7 @@ duplication across images, since all common files are located in a single base
 image.
 
 Base images
-^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 We build almost all of our overlays off a single base image, named
 base.trusty.3.13.0-32.squashfs.img. In 99% of use cases, using this image is
@@ -81,7 +81,7 @@ target kernel for the base image. We use [this script] (*URL to be provided*) to
 and create a squashfs .
 
 Creating overlayfs archives
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Simple Modifications**
 
@@ -200,16 +200,15 @@ to run these commands as root.
     cd ..
     gzip -c overlay.cpio > <name of zipped overlay> (see [naming conventions](LINK)).
 
-Required files
-^^^^^^^^^^^^^^
+**Required Files**
 
 All overlays should contain the file located at /etc/rc.local, located [here](*URL to be provided*).
 This file is necessary for the node to be able to communicate with the monorail
 server in order to receive commands.
 
 
-Modifying overlayfs archives
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Modifying Overlayfs Archives
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The method of adding or remove files from an overlay is basically to decompress
 the CPIO structure into a directory, modify what you need, and then recreate
