@@ -179,21 +179,38 @@ SKU JSON format
 
 SKUs are defined via JSON, with these required fields:
 
-| Name                  | Type     | Flags                    | Description                                               |
-|-----------------------|----------|--------------------------|-----------------------------------------------------------|
-| name                  | String   | **required**, **unique** | Unique name identifying this SKU definition.              |
-| rules                 | Object[] | **required**             | Array of validation rules that define the SKU.            |
-| rules[].path          | String   | **required**             | Path into the catalog to validate against.                |
-| rules[].equals        | \*       | *optional*               | Exact value to match against.                             |
-| rules[].in            | \*[]     | *optional*               | Array of possibly valid values.                           |
-| rules[].notIn         | \*[]     | *optional*               | Array of possibly invalid values.                         |
-| rules[].contains      | String   | *optional*               | A string that the value should contain.                   |
-| rules[].notContains   | String   | *optional*               | A string that the value should not contain.               |
-| rules[].greaterThan   | Number   | *optional*               | Number that the value should be greater than.             |
-| rules[].lessThan      | Number   | *optional*               | Number that the value should be less than.                |
-| rules[].min           | Number   | *optional*               | Number that the value should be greater than or equal to. |
-| rules[].max           | Number   | *optional*               | Number that the value should be less than or equal to.    |
-| rules[].regex         | String   | *optional*               | A regular expression that the value should match.         |
-| rules[].notRegex      | String   | *optional*               | A regular expression that the value should not match.     |
-| discoveryGraphName    | String   | *optional*               | Name of graph to run against matching nodes on discovery. |
-| discoveryGraphOptions | Object   | *optional*               | Options to pass to the graph being run on node discovery. |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| Name                   |  Type     | Flags                    | Description                                              |
++========================+===========+==========================+==========================================================+
+| name                   |  String   | **required**, **unique** | Unique name identifying this SKU definition.             |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules                  |  Object[] | **required**             | Array of validation rules that define the SKU.           |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].path           |  String   | **required**             | Path into the catalog to validate against.               |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].equals         |  \*       | *optional*               | Exact value to match against.                            |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].in             |  \*[]     | *optional*               | Array of possibly valid values.                          |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].notIn          |  \*[]     | *optional*               | Array of possibly invalid values.                        |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].contains       |  String   | *optional*               | A string that the value should contain.                  |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].notContains    |  String   | *optional*               | A string that the value should not contain.              |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].greaterThan    |  Number   | *optional*               | Number that the value should be greater than.            |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].lessThan       |  Number   | *optional*               | Number that the value should be less than.               |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].min            |  Number   | *optional*               | Number that the value should be greater than or equal to.|
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].max            |  Number   | *optional*               | Number that the value should be less than or equal to.   |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].regex          |  String   | *optional*               | A regular expression that the value should match.        |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| rules[].notRegex       |  String   | *optional*               | A regular expression that the value should not match.    |
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| discoveryGraphName     |  String   | *optional*               | Name of graph to run against matching nodes on discovery.|
++------------------------+-----------+--------------------------+----------------------------------------------------------+
+| discoveryGraphOptions  |  Object   | *optional*               | Options to pass to the graph being run on node discovery.|
++------------------------+-----------+--------------------------+----------------------------------------------------------+
