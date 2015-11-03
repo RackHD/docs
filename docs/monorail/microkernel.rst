@@ -7,7 +7,7 @@ Creating and Modifying Overlays
 Certain operations enabled by the monorail server, primarily node cataloging and
 firmware flashing, are performed within small-medium sized Linux images that are
 booted into RAM (as a tmpfs). To optimize the storage and download of these images,
-we use overlayfs_, which allows a machine to mount two filesystems together as one merged filesystem.
+we use overlayfs_ , which allows a machine to mount two filesystems together as one merged filesystem.
 
 The merged filesystem permits the storage of essential and common components
 in a single image (a squashfs image). Custom binaries and
