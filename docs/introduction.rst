@@ -31,8 +31,6 @@ Device Management        | Powers devices on and off. Manages the firmware, powe
 Configuration            | Configures the hardware per application requirements. This can
                          | range from the BIOS configuration on compute devices
                          | to the port configurations in a network switch.
-Application Launch       | Launches (or boots) applications across the various nodes where
-                         | they are deployed.
 Provisioning             | Provisions a node to support the intended application workflow,
                          | for example lays down ESXi from an image repository.
                          | Reprovisions a node to support a different workload, for example
