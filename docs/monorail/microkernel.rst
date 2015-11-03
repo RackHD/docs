@@ -7,7 +7,7 @@ Creating and Modifying Overlays
 Certain operations enabled by the monorail server, primarily node cataloging and
 firmware flashing, are performed within small-medium sized Linux images that are
 booted into RAM (as a tmpfs). To optimize the storage and download of these images,
-we use overlayfs_, which allows a machine to mount two filesystems together as one merged filesystem.
+we use overlayfs_ which allows a machine to mount two filesystems together as one merged filesystem.
 
 The merged filesystem permits the storage of essential and common components
 in a single image (a squashfs image). Custom binaries and
@@ -15,7 +15,7 @@ scripts are stored in much smaller overlay filesystem archives. This reduces dis
 and makes it easy to change, re-package, and re-distribute the contents of an
 overlay on any platform without having to touch the base image.
 
-.. _overlayfs:https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/filesystems/overlayfs.txt
+.. _overlayfs: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/filesystems/overlayfs.txt
 
 **NOTE:** Overlayfs can merge no more than two filesystems. Merging three or four filesystems is not supported.
 
@@ -79,7 +79,7 @@ Building a base image requires a host machine running the same kernel as the
 target kernel for the base image. We use [this script] (*URL to be provided*) to build the filesystem
 and create a squashfs .
 
-Creating overlayfs archives
+Creating Overlayfs Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Simple Modifications**
@@ -109,7 +109,7 @@ overlay. Then run:
 
 
 Now rename overlay.cpio.gz and move it into the monorail server static files
-directory in /opt/monorail/static/http. See :doc:`naming_conventions`
+directory in /opt/monorail/static/http. See :doc:`monorail/naming_conventions`
 for recommendations on what to name the overlay and where to put it.
 
 **Complex Modifications**
@@ -229,10 +229,7 @@ the un-zipped and un-archived overlay directory instead of a newly created
 overlay directory.
 
 
-Examples
-^^^^^^^^^^^^^^^^^^^^^^
-
-**creating the EMC custom overlay with test-eses**
+**Example: Creating the EMC Custom Overlay with Test-eses**
 
 Below is the example script/process to create the custom overlay
 for EMC with test_eses installed.
@@ -315,7 +312,3 @@ runs a Node.js task-runner that is built and rendered on the fly to the microker
 to invoke commands on the remote machine as needed. This process is embedded
 into the overlay itself, and relies on parameters passed into it through PXE
 using `/proc/commandline` and the kernel parameters.
-
-**tweaking the overlay**
-
-For instructions on how to create and modify overlays, see :doc:`creating_overlays`
