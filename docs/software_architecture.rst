@@ -68,7 +68,7 @@ The upper layer of the architecture, called the “onserve executive” communic
 message bus between the various processes. Onserve executive provides the simplified API and is built to encapsulate the
 monorail engine, converting internal data models into a common data format based on the Redfish 1.0 specification (http://www.dmtf.org/standards/redfish).
 
-OnServe executive conversions are still in development. For more information, contact us at: rackhd@googlegroups.com.
+Onserve executive conversions are still in development. For more information, contact us at: rackhd@googlegroups.com.
 
 
 Monorail Engine
