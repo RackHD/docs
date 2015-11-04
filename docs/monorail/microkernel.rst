@@ -96,7 +96,7 @@ overlay like this, first create a directory:
     cd overlay
 
 Now add the files and directories that you want in the overlay, as well as
-all required files as detailed in the Required Files section below.
+all required files as detailed in the `Required Files`_ section.
 
 To package up the overlay, ensure that you are in the top level directory of the
 overlay. Then run:
@@ -173,7 +173,7 @@ root. Some examples:
     sudo apt-get install <package name>
     sudo dpkg -i <path to a copied debian package>
 
-7. Make sure to add all required files as described in the Required Files section below.
+7. Make sure to add all required files as described in the `Required Files`_ section.
 
 8. Exit the chroot and unmount everything:
 
@@ -202,19 +202,19 @@ to run these commands as root.
 Required Files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All overlays should contain the file located at /etc/rc.local, located (*URL to be provided*).
-This file is necessary for the node to communicate with the monorail
-server in order to receive commands.
+All overlays should contain the file located at /etc/rc.local, located in (*URL to be provided*).
+This file is necessary for the node to to receive commands from the monorail
+server.
 
 
 Modifying Overlayfs Archives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The method of adding or remove files from an overlay is basically to decompress
+To add or remove files from an overlay, decompress
 the CPIO structure into a directory, modify what you need, and then recreate
 another CPIO filesystem from that directory.
 
-To make modifications to existing overlayfs archives, first un-zip and un-archive
+To modify an existing overlay, first un-zip and un-archive
 the overlay (you may need to run these commands as root):
 
 .. code-block:: bash
@@ -288,13 +288,14 @@ The microkernel for tooling is a Linux kernel and and a two-stage filesystem
 that loads up with it.
 
 The first stage is a standard initramfs that can be loaded by any PXE booting
-system. `initrd.img-3.13.0-32-generic` is generated from an ubuntu system
+system. *initrd.img-3.13.0-32-generic* is generated from an ubuntu system
 running the kernel assocaited with it (3.13.0-32 in this case, represented by
-the file `vmlinuz-3.13.0-32-generic`). The kernel itself has OverlayFS enabled
-within it, and the initrd uses that to load a base (read-only) filesystem into
-a RAM filesystem and then a single overlay filesystem (readwrite) over the top
-of that. The base filesystem is created with debbootstrap and custom commands
-to build up a "just enough OS" filesystem based on Ubuntu 14.04 (trusty).
+the file *vmlinuz-3.13.0-32-generic*).
+
+The kernel itself has OverlayFS enabled within it. The initrd uses it to load a base
+(read-only) filesystem into a RAM filesystem and then a single overlay
+filesystem (readwrite) over the top of that. The base filesystem is created with
+debbootstrap and custom commands to build up a "just enough OS" filesystem based on Ubuntu 14.04 (trusty).
 
 - kernel: `vmlinuz-3.13.0-32-generic`
 - initramfs: `initrd.img-3.13.0-32-generic`
@@ -305,10 +306,9 @@ Overlays:
 - debug overlay: `overlayfs_debug_files.trusty.cpio.gz`
 - general overlay: `overlayfs_all_files.cpio.gz`
 
-The overlay files are CPIO archives with additional "user-space" programs added
-into them. The initramfs loads the base OS, and then overlays the CPIO archive,
-and the resulting image contains common Linux tooling and immediately loads and
-runs a Node.js task-runner that is built and rendered on the fly to the microkernel
+The overlay files are CPIO archives with additional "user-space" programs.
+The initramfs loads the base OS and then overlays the CPIO archive. The resulting image
+immediately loads and runs a Node.js task-runner that is built and rendered on the fly to the microkernel
 to invoke commands on the remote machine as needed. This process is embedded
-into the overlay itself, and relies on parameters passed into it through PXE
+into the overlay itself and relies on parameters passed into it through PXE
 using `/proc/commandline` and the kernel parameters.

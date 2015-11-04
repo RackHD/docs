@@ -1,16 +1,14 @@
 Development Guide
 =================
 
-        ----------------------------- Content in Development -----------------------------
+        *----------------------------- Content in Development -----------------------------*
 
 Development Setup
 -----------------
 
 **Prerequisites**
 
-Install Node.js and npm.
-
-**Note:** Currently, node versions 0.10.x are supported. node 0.12 and node 4.0 will be supported in the near future.
+Install Node.js and npm. **Note:** Currently, node versions 0.10.x are supported. node 0.12 and node 4.0 will be supported in the near future.
 
 
 
