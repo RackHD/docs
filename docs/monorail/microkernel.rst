@@ -136,7 +136,7 @@ overlay directory. Then run the commands within a chroot jail.
     mkdir overlay
 
 
-3. Create directories to be used as the mount point for the base image and the overlayfs:
+3. Create directories to be used as the mount point for the base image and overlayfs:
 
 .. code-block:: bash
 
