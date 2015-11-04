@@ -26,12 +26,12 @@ Starting and Stopping the API Server
 
 The API server runs by default. Use the following commands to stop or start the API server.
 
-================ ===========================
+================ ===============================
  Action           Command
-================ ===========================
-Stop API server   ``service apache2 stop``
-Start API server  ``service apache2 start``
-================ ===========================
+================ ===============================
+Stop API server   ``sudo service on-http stop``
+Start API server  ``sudo service on-http start``
+================ ===============================
 
 
 Generating API Documentation
@@ -41,4 +41,4 @@ You can generate an HTML version of the API documentation by cloning the *on-htt
 
 .. code::
 
-  $ sh HWIMO-BUILD
+  $ npm run apidoc
