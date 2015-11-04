@@ -88,7 +88,7 @@ OCP servers don't include BMC's to keep down the cost of those devices - and rem
 power control isn't as necessary.
 
 Note: Intel has recently been releasing desktops and client systems with a roughly
-equivalent management tooling called `Active Management Technology`_ (AMT)). AMT uses it's
+equivalent management tooling called `Active Management Technology`_ (AMT). AMT uses it's
 own protocol, supporting the DMTF standard DASH, running over HTTP/HTTPS and genearlly
 leveraging the `WS-Management`_ server management standards.
 
