@@ -1,6 +1,7 @@
 {%- if show_source and has_source and sourcename %}
-  <h3>{{ _('This Page') }}</h3>
-  <ul class="this-page-menu">
+  <!-- <h3>{{ _('This Page') }}</h3> -->
+  <!-- <ul class="this-page-menu"> -->
+  <ul class="nav navbar-nav navbar-right">
     <li><a href="{{ pathto('_sources/' + sourcename, true)|e }}"
            rel="nofollow">{{ _('Show Source') }}</a></li>
   {%- if show_on_github_url %}
@@ -11,5 +12,10 @@
     <li><a href="{{ edit_on_github_url }}"
            rel="nofollow">{{ _('Edit on GitHub') }}</a></li>
   {%- endif %}
+    <li>
+        <a href="https://emccode.github.io">
+            <i class="fa icon-emccode-logo"></i>
+        </a>
+    </li>
   </ul>
 {%- endif %}
