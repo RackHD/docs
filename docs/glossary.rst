@@ -5,9 +5,9 @@ PXE
 ----
 
 Most datacenter computers, and some desktop computers, have a mechanism to allow them to
-start up and inquire on a network for what they should be running, called PXE (preboot
-execution environment). There's a good wikipedia article on PXE at
-https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
+start up and inquire on a network for what they should be running, called `Preboot Execution Environment`_ (PXE).
+
+.. _Preboot Execution Environment: https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
 
 This mechanism was originally developed by Intel in 1998/1999, leveraging DHCP and TFTP
 protocols to have a remote system provide IP address information and provide the files
@@ -33,12 +33,14 @@ bootloaders
 
 TFTP used is to transfer tiny executable programs that computers use to initialize
 hardware and set up additional systems in order to "boot and run" a larger operating
-system. pxelinux (http://www.syslinux.org/wiki/index.php/Doc/pxelinux) and iPXE
-(http://ipxe.org) (evolved from earlier gPXE) are mostly commonly used. PXElinux
+system. pxelinux_ and iPXE_ (evolved from earlier gPXE) are mostly commonly used. PXElinux
 heavily leverages TFTP and is a fairly static system, where iPXE includes a small
 scripting interpretter and supports downloading additional files for booting (such
 as a WinPE or Kernel and Initrd file for Linux) over HTTP as a more reliable transport
 protocol.
+
+.. _prelinux: http://www.syslinux.org/wiki/index.php/Doc/pxelinux
+.. _iPXE: http://ipxe.org
 
 DHCP
 ----
@@ -69,9 +71,10 @@ BMC
 ---
 
 In addition to PXE booting, most server hardware meant to be used in the data center
-also includes a secondary computer that manages the main computer - called a "BMC"
-(baseboard motherboard controller).
-https://en.m.wikipedia.org/wiki/Baseboard_management_controller
+also includes a secondary computer that manages the main computer - called a
+`Baseboard Motherboard Controller`_ (BMC).
+
+.. _Baseboard Motherboard Controller: https://en.m.wikipedia.org/wiki/Baseboard_management_controller
 
 BMC's connect to or control portions of servers, but don't generally have full access
 to the computer they're managing. Most typically they have access to power, sensors,
@@ -85,11 +88,12 @@ OCP servers don't include BMC's to keep down the cost of those devices - and rem
 power control isn't as necessary.
 
 Note: Intel has recently been releasing desktops and client systems with a roughly
-equivalent management tooling called AMT (Active Management Technology)
-(https://en.m.wikipedia.org/wiki/Intel_Active_Management_Technology). AMT uses it's
+equivalent management tooling called `Active Management Technology`_ (AMT)). AMT uses it's
 own protocol, supporting the DMTF standard DASH, running over HTTP/HTTPS and genearlly
-leveraging the WS-Management server management standards
-(https://en.m.wikipedia.org/wiki/WS-Management).
+leveraging the `WS-Management`_ server management standards.
+
+.. _Active Management Technology: https://en.m.wikipedia.org/wiki/Intel_Active_Management_Technology
+.. _WS-Management: https://en.m.wikipedia.org/wiki/WS-Management
 
 BMCs primarily provide an interface using a protocol called IPMI, and many these
 days also provide a web based interface that adds additional proprietary features,
@@ -99,20 +103,25 @@ to "remote mount" ISO files or other remote media.
 IPMI
 ----
 
-BMCs typically communicate on the network using the protocol IPMI.
-https://en.m.wikipedia.org/wiki/Intelligent_Platform_Management_Interface
+BMCs typically communicate on the network using the IPMI_ protocol.
+
+.. _IPMI: https://en.m.wikipedia.org/wiki/Intelligent_Platform_Management_Interface
 
 IPMI is a binary protocol with some authentication, although many security researchers
 have shown the security properties of IPMI to be quite weak and easily exploited.
 
-https://community.rapid7.com/community/metasploit/blog/2013/07/02/a-penetration-testers-guide-to-ipmi
+* `A Penetration Tester's Guide to IPMI and BMCs`_
+* `Many servers expose insecure out-of-band management interfaces to the Internet`_
+* `IPMI The most dangerous protocol you've never heard of`_
 
-http://www.pcworld.com/article/2361040/many-servers-expose-insecure-outofband-management-interfaces-to-the-internet.html
 
-http://www.itworld.com/article/2708437/security/ipmi--the-most-dangerous-protocol-you-ve-never-heard-of.html
+.. _A Penetration Tester's Guide to IPMI and BMCs: https://community.rapid7.com/community/metasploit/blog/2013/07/02/a-penetration-testers-guide-to-ipmi
+.. _Many servers expose insecure out-of-band management interfaces to the Internet: http://www.pcworld.com/article/2361040/many-servers-expose-insecure-outofband-management-interfaces-to-the-internet.html
+.. _IPMI The most dangerous protocol you've never heard of: http://www.itworld.com/article/2708437/security/ipmi--the-most-dangerous-protocol-you-ve-never-heard-of.html
+
 
 While generally considered insecure by security experts, it's still the default
-implemented standard. As such, most datacenter networks secure and highly control
+implemented standard. As such, most data center networks secure and highly control
 the access to networks where IPMI is enabled to control remote machines, often in
 a private "out of band management" network.
 
@@ -139,13 +148,13 @@ ZTP/ONIE
 --------
 
 Some switches are now supporting self-configuration and automatic installation from
-other devices, using protocols such a ZTP (Juniper, Arista)
-(https://www.arista.com/en/products/eos/automation)
-(https://www.arista.com/en/products/eos/automation) or ONIE (http://www.onie.org)
-(Cumulus). Some Cisco switches and routers support ZTP
-(https://www.arista.com/en/products/eos/automation) or their own proprietary protocol
-"SmartInstall"
-(http://www.cisco.com/c/en/us/products/collateral/switches/catalyst-3750-x-series-switches/white_paper_c11-651895.html)
+other devices, using protocols such a ZTP (Juniper, Arista_)
+or ONIE_ (Cumulus). Some Cisco switches and routers support ZTP or their own proprietary protocol
+"SmartInstall_".
+
+.. _Arista: https://www.arista.com/en/products/eos/automation
+.. _INIE: http://www.onie.org
+.. _SmartInstall: http://www.cisco.com/c/en/us/products/collateral/switches/catalyst-3750-x-series-switches/white_paper_c11-651895.html
 
 All of these systems basically operate similarly to the PXE protocol - leveraging
 TFTP for the transfer of files, and DHCP for network information, but a common
@@ -153,7 +162,9 @@ standard adopted by all switch vendors has yet to emerge.
 
 Likewise, cross-vendor protocols to control and manage switches have yet to emerge,
 with switch vendors supporting either proprietary protocols and standards tied
-closely to their feature sets. The recent advances in SDN (software defined
-networking - https://www.opennetworking.org/sdn-resources/sdn-definition) has started
+closely to their feature sets. The recent advances in software defined
+networking (SDN_) has started
 to drive commonalities out into the market, but the current state is far from
 a cohesive standard.
+
+.. _SDN: https://www.opennetworking.org/sdn-resources/sdn-definition
