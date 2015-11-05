@@ -14,7 +14,7 @@ automatially discovered if:
 * it has an snmpSettings field with the host to query and snmp community string
 * the autoDiscover field is set to true
 
-## Create a node to be autoDiscovered
+## Create a Node to be Auto-Discovered**
 
 .. code-block:: REST
 
