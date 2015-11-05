@@ -1,15 +1,17 @@
 {%- if show_source and has_source and sourcename %}
-  <h3>{{ _('This Page') }}</h3>
-  <ul class="this-page-menu">
-    <li><a href="{{ pathto('_sources/' + sourcename, true)|e }}"
-           rel="nofollow">{{ _('Show Source') }}</a></li>
-  {%- if show_on_github_url %}
-    <li><a href="{{ show_on_github_url }}"
-           rel="nofollow">{{ _('Show on GitHub') }}</a></li>
-  {%- endif %}
-  {%- if edit_on_github_url %}
-    <li><a href="{{ edit_on_github_url }}"
-           rel="nofollow">{{ _('Edit on GitHub') }}</a></li>
-  {%- endif %}
-  </ul>
+  <div class="btn-group" role="group">
+    <a href="{{ pathto('_sources/' + sourcename, true)|e }}" class="btn btn-default" rel="nofollow">
+      {{ _('Show Source') }}
+    </a>
+    {%- if show_on_github_url %}
+      <a href="{{ show_on_github_url }}" class="btn btn-default" rel="nofollow">
+        {{ _('Show on GitHub') }}
+      </a>
+    {%- endif %}
+    {%- if edit_on_github_url %}
+      <a href="{{ edit_on_github_url }}" class="btn btn-default" rel="nofollow">
+        {{ _('Edit on GitHub') }}
+      </a>
+    {%- endif %}
+  </div>
 {%- endif %}

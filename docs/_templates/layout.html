@@ -1,0 +1,12 @@
+{% extends "!layout.html" %}
+
+{# Custom CSS overrides #}
+{% set bootswatch_css_custom = [
+  '_static/theme/css/font-awesome-4.0.3.css',
+  '_static/theme/css/emccode-font.css',
+  '_static/theme/css/base.css',
+] %}
+
+{% set script_files = script_files + [
+  '_static/theme/js/base.js'
+] %}
