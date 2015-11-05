@@ -12,13 +12,13 @@ For task definitions, the only convention is for values in the "injectableName" 
 We tend to prefix all names with "Task." and then add some categorization to classify what
 functionality the task adds.
 
-| Examples:
-|
+Examples:
+
 | "Task.Os.Install.CentOS"
 | "Task.Os.Install.Ubuntu"
 | "Task.Obm.Node.PowerOff"
 | "Task.Obm.Node.PowerOn"
-|
+
 
 **Graphs**
 
@@ -72,7 +72,7 @@ create subdirectories within this directory for further organization.
 |
 | /opt/monorail/static/http/teamA/intel_flashing/overlayfs_3.13.0-32_flashupdt.cpio.gz
 | /opt/monorail/static/http/teamA/generic/overlayfs_3.13.0-32_all_binaries.cpio.gz
-|
+
 
 These file paths can then be referenced in workflows starting from the base path
 of /opt/monorail/static/http, so the above paths are referenced for download as:

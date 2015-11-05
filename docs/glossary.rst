@@ -1,74 +1,9 @@
 Glossary
 ========
 
-PXE
-----
-
-Most datacenter computers, and some desktop computers, have a mechanism to allow them to
-start up and inquire on a network for what they should be running, called `Preboot Execution Environment`_ (PXE).
-
-.. _Preboot Execution Environment: https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
-
-This mechanism was originally developed by Intel in 1998/1999, leveraging DHCP and TFTP
-protocols to have a remote system provide IP address information and provide the files
-that the computer would execute. PXE was embraced by most vendors, originally provided
-through the network interface cards, but now built into most BIOS or UEFI implementations,
-supporting network booting.
-
-PXE has since been used to run diskless computers and common Linux operating systems have
-all adopted a network based install that can be initiated and leveraged by PXE - RedHat's
-kickstart, Debian's debseed, and SUSE's YaST.
-
-TFTP
-----
-
-One of the earliest protocols, TFTP provides simple, unauthenticated file transfer
-protocol over TCP/IP. The protocol itself is quite simple, hence it's adoption as a
-common mechanism to remote boot or transfer files for remote installation. Because of
-it's simplicity, the protocol is also not terribly robust in the face of failures or
-temporary network outages, and can be somewhat unreliable at scale or high load.
-
-bootloaders
------------
-
-TFTP used is to transfer tiny executable programs that computers use to initialize
-hardware and set up additional systems in order to "boot and run" a larger operating
-system. pxelinux_ and iPXE_ (evolved from earlier gPXE) are mostly commonly used. PXElinux
-heavily leverages TFTP and is a fairly static system, where iPXE includes a small
-scripting interpretter and supports downloading additional files for booting (such
-as a WinPE or Kernel and Initrd file for Linux) over HTTP as a more reliable transport
-protocol.
-
-.. _prelinux: http://www.syslinux.org/wiki/index.php/Doc/pxelinux
-.. _iPXE: http://ipxe.org
-
-DHCP
-----
-
-DHCP is an expansive protocol with many extensions that's leveraged to provide network
-configuration information on request to other computers on the same "broadcast"
-segment. As such, it relies on operating on raw sockets and TCP/IP broadcasts.
-Many excellent DHCP servers exist, and as a protocol it is a common mainstay of
-networks in the home and in data centers. Because DHCP services operate at Layer 2
-on the networking stack, they are carefully controlled as two DHCP servers can
-provide conflicting information on the same network broadcast segment (and this can
-be obnoxiously difficult to diagnose). Likewise, most switches won't pass DHCP
-traffic across networks unless specifically configured to do so with a DHCP relay.
-
-The PXE mechanisms add additional information, and conditional responses, based on
-the DHCP client requesting information. As PXE gained traction, the DHCP protocol
-was extended to allow that additional information to come from a separate source
-with a mechanism called DHCP Proxy, so that PXE could be configured and managed
-independently of a DHCP infrastructure.
-
-When set up in a datacenter environment, many PXE environments are configured with
-DHCP, TFTP together. As such, if a DHCP proxy is used, it's often on the same
-physical OS as the DHCP service being provided, but the protocol does allow and
-support a DHCP proxy server completely independent of a main DHCP service.
 
 
-BMC
----
+**BMC**
 
 In addition to PXE booting, most server hardware meant to be used in the data center
 also includes a secondary computer that manages the main computer - called a
@@ -100,8 +35,46 @@ days also provide a web based interface that adds additional proprietary feature
 the most common of which are a virtual keyboard/mouse and console, and the capability
 to "remote mount" ISO files or other remote media.
 
-IPMI
-----
+**Bootloaders**
+
+TFTP used is to transfer tiny executable programs that computers use to initialize
+hardware and set up additional systems in order to "boot and run" a larger operating
+system. pxelinux_ and iPXE_ (evolved from earlier gPXE) are mostly commonly used. PXElinux
+heavily leverages TFTP and is a fairly static system, where iPXE includes a small
+scripting interpretter and supports downloading additional files for booting (such
+as a WinPE or Kernel and Initrd file for Linux) over HTTP as a more reliable transport
+protocol.
+
+.. _prelinux: http://www.syslinux.org/wiki/index.php/Doc/pxelinux
+.. _iPXE: http://ipxe.org
+
+**DHCP**
+
+DHCP is an expansive protocol with many extensions that's leveraged to provide network
+configuration information on request to other computers on the same "broadcast"
+segment. As such, it relies on operating on raw sockets and TCP/IP broadcasts.
+Many excellent DHCP servers exist, and as a protocol it is a common mainstay of
+networks in the home and in data centers. Because DHCP services operate at Layer 2
+on the networking stack, they are carefully controlled as two DHCP servers can
+provide conflicting information on the same network broadcast segment (and this can
+be obnoxiously difficult to diagnose). Likewise, most switches won't pass DHCP
+traffic across networks unless specifically configured to do so with a DHCP relay.
+
+The PXE mechanisms add additional information, and conditional responses, based on
+the DHCP client requesting information. As PXE gained traction, the DHCP protocol
+was extended to allow that additional information to come from a separate source
+with a mechanism called DHCP Proxy, so that PXE could be configured and managed
+independently of a DHCP infrastructure.
+
+When set up in a datacenter environment, many PXE environments are configured with
+DHCP, TFTP together. As such, if a DHCP proxy is used, it's often on the same
+physical OS as the DHCP service being provided, but the protocol does allow and
+support a DHCP proxy server completely independent of a main DHCP service.
+
+
+
+
+**IPMI**
 
 BMCs typically communicate on the network using the IPMI_ protocol.
 
@@ -130,8 +103,24 @@ extensions to the protocol to support additional information or functionality
 specific to their platform. Some proprietary management tools leverage these
 protocols to provide additional vendor specific functionality.
 
-SNMP
-----
+**PXE**
+
+Most datacenter computers, and some desktop computers, have a mechanism to allow them to
+start up and inquire on a network for what they should be running, called `Preboot Execution Environment`_ (PXE).
+
+.. _Preboot Execution Environment: https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
+
+This mechanism was originally developed by Intel in 1998/1999, leveraging DHCP and TFTP
+protocols to have a remote system provide IP address information and provide the files
+that the computer would execute. PXE was embraced by most vendors, originally provided
+through the network interface cards, but now built into most BIOS or UEFI implementations,
+supporting network booting.
+
+PXE has since been used to run diskless computers and common Linux operating systems have
+all adopted a network based install that can be initiated and leveraged by PXE - RedHat's
+kickstart, Debian's debseed, and SUSE's YaST.
+
+**SNMP**
 
 Network Switches have long supported their own management tooling, based on the SNMP
 protocol. Switches booting and loading software automatically was one of the last
@@ -144,8 +133,16 @@ As BMCs have evolved, many are now fully computers on their own, often based on 
 power ARM processors and running a linux based OS, and some support retrieving
 information about the BMC and hardware it manages through SNMP as well.
 
-ZTP/ONIE
---------
+**TFTP**
+
+One of the earliest protocols, TFTP provides simple, unauthenticated file transfer
+protocol over TCP/IP. The protocol itself is quite simple, hence it's adoption as a
+common mechanism to remote boot or transfer files for remote installation. Because of
+it's simplicity, the protocol is also not terribly robust in the face of failures or
+temporary network outages, and can be somewhat unreliable at scale or high load.
+
+
+**ZTP/ONIE**
 
 Some switches are now supporting self-configuration and automatic installation from
 other devices, using protocols such a ZTP (Juniper, Arista_)

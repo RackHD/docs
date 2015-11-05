@@ -65,9 +65,9 @@ API commands
 ^^^^^^^^^^^^^^^^^^^^^^
 
 When running the on-http process, these are some common API commands you
-can send:
+can send.
 
-##### Create a new SKU with a node
+**Create a New SKU with a Node**
 
 .. code-block:: REST
 
@@ -96,8 +96,8 @@ can send:
    :language: JSON
 
 
-Create a SKU to auto-configure IPMI settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Create a SKU to Auto-Configure IPMI Settings**
+
 
 .. code-block:: REST
 
@@ -122,8 +122,8 @@ Create a SKU to auto-configure IPMI settings
         ]
     }
 
-Get list of SKUs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Get List of SKUs**
+
 
 .. code-block:: REST
 
@@ -134,8 +134,8 @@ Get list of SKUs
     curl <server>/api/1.1/skus
 
 
-Get definition for a single SKU
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Get Definition for a Single SKU**
+
 
 .. code-block:: REST
 
@@ -146,8 +146,8 @@ Get definition for a single SKU
     curl <server>/api/1.1/skus/<skuid>
 
 
-Update a single SKU
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Update a Single SKU**
+
 
 .. code-block:: REST
     PATCH /api/1.1/skus/:id
@@ -163,8 +163,8 @@ Update a single SKU
         <server>/api/1.1/skus/<skuid>
 
 
-Delete a single SKU
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Delete a Single SKU**
+
 
 .. code-block:: REST
 

@@ -42,12 +42,12 @@ Use the following guide lines when determining if a new API version is needed.
 
 The following changes require a new API version:
 
- - changing the semantic meaning of a URI route
- - removing a URI route
+- changing the semantic meaning of a URI route
+- removing a URI route
 
 The following changes do not require a new API version:
 
- - adding an entirely new URI route
- - changing the query parameters (pagination, filtering, etc.) accepted by the URI route
- - changing the return values on error conditions
- - changing the data structure for a resource at a given URI
+- adding an entirely new URI route
+- changing the query parameters (pagination, filtering, etc.) accepted by the URI route
+- changing the return values on error conditions
+- changing the data structure for a resource at a given URI
