@@ -12,15 +12,14 @@ Install Node.js and npm. **Note:** Currently, node versions 0.10.x are supported
 
 
 
-Checking Out the Code
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Checking Out the Code**
 
 1. Clone at minimum the **on-http**, **on-dhcp-proxy**, **on-tftp**, **on-taskgraph**, and **on-tasks** repositories.
 
 2. Run *npm install* in each repository.
 
-Performing Unit Tests
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Performing Unit Tests**
+
 
 Run *npm test* in each repository.
 

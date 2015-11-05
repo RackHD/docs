@@ -15,14 +15,16 @@ Graphs are defined via a JSON definition that conform to this schema:
 - injectableName (string): a unique name used by the system and the API to refer to the graph
 - tasks (array of objects): a list of task definitions or references to task definitions.
 
-    - tasks.label (string): a unique string to be used as a reference within the graph definition
-    - tasks.\[taskName\] (string): the injectableName of a task in the database to run. This or taskDefinition is required.
-    - tasks.\[taskDefinition\] (object): an inline definition of a task, instead of one in the database. This or taskName is required.
-    - tasks.\[ignoreFailure\] (boolean): ignoreFailure: true will prevent the graph from failing on task failure
-    - tasks.\[waitOn\] (object): key/value pairs referencing other task labels to desired states of those tasks to trigger running on. Available states are *succeeded*, *failed* and *finished* (run on succeeded or failed). If waitOn is not specified, the task will run on graph start.
+  - tasks.label (string): a unique string to be used as a reference within the graph definition
+  - tasks.\[taskName\] (string): the injectableName of a task in the database to run. This or taskDefinition is required.
+  - tasks.\[taskDefinition\] (object): an inline definition of a task, instead of one in the database. This or taskName is required.
+  - tasks.\[ignoreFailure\] (boolean): ignoreFailure: true will prevent the graph from failing on task failure
+  - tasks.\[waitOn\] (object): key/value pairs referencing other task labels to desired states of those tasks to trigger running on. Available states are *succeeded*, *failed* and *finished* (run on succeeded or failed). If waitOn is not specified, the task will run on graph start.
+
 - [options]
-    - options.\[defaults\] (object): key, value pairs that will be handed to any tasks that have matching option keys
-    - options.\<label\> (object): key, value pairs that should all be handed to a specific task
+
+  - options.\[defaults\] (object): key, value pairs that will be handed to any tasks that have matching option keys
+  - options.\<label\> (object): key, value pairs that should all be handed to a specific task
 
 
 API Commands for Graphs

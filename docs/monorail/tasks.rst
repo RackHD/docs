@@ -18,26 +18,21 @@ Task Definitions
 A task definition contains the basic description of the task. It contains the following fields.
 
 =============== ======= =========== =======================================================
-Name            Type    Flags       | Description
+Name            Type    Flags       Description
 =============== ======= =========== =======================================================
-friendlyName    String  Required    | A human-readable name for the task
-injectableName  String  Required    | A unique name used by the system and the API
-                                    | to refer to the task.
-implementsTask  String  Required    | The injectableName of the base task.
-options         Object  Required    | Key value pairs that are passed in as options to
-                                    | the job.
-                                    |
-                                    | Values required by a job may be defined in the
-                                    | task definition or overriden by options in a
-                                    | a graph definition.
-properties      Object  Required    | JSON defining any relevant metadata or tagging
-                                    | for the task.
+friendlyName    String  Required    A human-readable name for the task
+injectableName  String  Required    A unique name used by the system and the API to refer to the task.
+implementsTask  String  Required    The injectableName of the base task.
+options         Object  Required    Key value pairs that are passed in as options to the job.
+
+                                    Values required by a job may be defined in the task definition or overriden by options in a a graph definition.
+properties      Object  Required    JSON defining any relevant metadata or tagging for the task.
 =============== ======= =========== =======================================================
 
 
 Below is a sample task definition in JSON for an ubuntu installer.
 
-.. code-block:: rest
+.. code-block:: JSON
 
     {
         "friendlyName": "Install Ubuntu",
@@ -78,28 +73,23 @@ job to be used for a certain class of tasks. Base Task Definitions exist to
 provide strict and standardized validation schemas for graphs, and to improve
 code re-use and modularity.
 
-The following table descriptions the fields of a Base Task Definition.
+The following table describes the fields of a Base Task Definition.
 
-=================== ======= =========== =========================================================
-Name                Type    Flags       | Description
-=================== ======= =========== =========================================================
-friendlyName        String  Required    | A human-readable name for the task.
-injectableName      String  Required    | A unique name used by the system and the
-                                        | the API to refer to the task.
-requiredOptions     Object  Required    | required option values to be set in a task
-                                        | definition implementing the base task.
-requiredProperties  Object  Required    | JSON defining required properties that need to
-                                        | exist in other tasks in a graph in order for
-                                        | this task to be able to be run successfully.
-properties          Object  Required    | JSON defining any relevant metadata or tagging
-                                        | for the task. This metadata is merged with any
-                                        | properties defined in task definitions that
-                                        | implement the base task.
-=================== ======= =========== =========================================================
+=================== ======= ========= =========================================================
+Name                Type    Flags     Description
+=================== ======= ========= =========================================================
+friendlyName        String  Required  A human-readable name for the task.
+injectableName      String  Required  A unique name used by the system and the the API to refer to the task.
+requiredOptions     Object  Required  Required option values to be set in a task definition implementing the base task.
+requiredProperties  Object  Required  JSON defining required properties that need to exist in other tasks in a graph in
+                                      order for this task to be able to be run successfully.
+properties          Object  Required  JSON defining any relevant metadata or tagging for the task. This metadata is
+                                      merged with any properties defined in task definitions that implement the base task.
+=================== ======= ========= =========================================================
 
-The following example shows the base task **Install Ubuntu** task definition:
+The following example shows the base task *Install Ubuntu* task definition:
 
- .. code-block::
+  .. code-block:: javascript
 
         {
             "friendlyName": "Install OS",
@@ -120,9 +110,9 @@ The following example shows the base task **Install Ubuntu** task definition:
         }
 
 
-This base task is a generic Install OS task. It runs the job named **Job.Os.Install** and
+This base task is a generic Install OS task. It runs the job named *Job.Os.Install* and
 specifies that this job requires the options 'profile' and 'completionUri'. As a result, any
-task definition using the **Install OS** base task must provide at least these options to
+task definition using the *Install OS* base task must provide at least these options to
 the OS installer job. These options are utilized by logic in the job.
 
 .. code-block:: javascript
@@ -155,7 +145,7 @@ Another task definition that utilizes the above base task looks like:
             }
         }
 
-The primary difference between the **Install CoreOS** task and the **Install Ubuntu** task
+The primary difference between the *Install CoreOS* task and the *Install Ubuntu* task
 is the profile value, which is the ipxe template that specifies the installer
 images that an installation target should download.
 
@@ -172,7 +162,7 @@ job constructor) and run that job.
 
 To create a job, define a subclass of
 [Job.Base](https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/jobs/base-job.js)
-that has a method called **_run** and calls **this._done()** somewhere, if the job is
+that has a method called *_run* and calls *this._done()* somewhere, if the job is
 not one that runs indefinitely.
 
 .. code-block:: javascript
@@ -217,29 +207,38 @@ Task Templates
 ^^^^^^^^^^^^^^^^^^^^^^^
 There are some values that may be needed in a task definition which are not known in advance. In some cases, it is also more convenient to use placeholder values in a task definition than literal values. In these cases, a simple template rendering syntax can be used in task definitions. Rendering is also useful in places where two or more tasks need to use the same value (e.g. options.file), but it cannot be hardcoded ahead of time.
 
-Task templates use a mustache-style syntax. To define a value to be rendered, place it within curly braces in a string, e.g.
+Task templates use a mustache-style syntax. To define a value to be rendered, place it within curly braces in a string:
 
-.. code-block:: rest
+.. code-block:: javasript
 
     someOption: 'an option to be rendered: {{ options.renderedOption }}'
 
 At render time, values are rendered if the exist in the task render context. The render context contains the following fields:
 
-- **server**
-    - The server field contains all values found in the configuration for the on-taskgraph process (/opt/onrack/etc/monorail.json)
-    - example usage: `{{ server.mongo.port }}`
-- **api**
-    - Various values to be used for constructing API requests in a template
-        - server: the base URI for the monorail http server (e.g. http://<server>:<port>)
-        - httpsServer: the base https URI for the monorail https server (e.g. https://<server>:<port>)
-        - base[Https]: the base http/https URIs for the monorail api (e.g. http://<server>:<port>/api/current)
-        - files[Https]: the base http/https URIs for the monorail api files routes (e.g. http://<server>:<port>/api/current/files)
-- **task**
-    - This allows access to instance variables of the task class instance created from the task definition. This is mainly used to access task.nodeId
-- **options**
-    - This refers to the task definition options itself. Mainly for referencing values in substrings that will eventually be defined by a user (e.g. `'sudo mv {{ options.targetFile }} /tmp/{{ options.targetfile }}'` )
-- **context**
-    - This refers to the shared context object that all tasks in a graph have R/W access to. Enables one task to use values produced by another at runtime. For example, the [ami catalog provider task](https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Field
+     - Description
+   * - server
+     - The server field contains all values found in the configuration for the on-taskgraph process (/opt/onrack/etc/monorail.json)
+       Example Usage: `{{ server.mongo.port }}`
+   * - api
+     - Values used for constructing API requests in a template:
+           - **server** -- the base URI for the monorail http server (e.g. `http://<server>:<port>` )
+           - **httpsServer** -- the base https URI for the monorail https server (e.g. `https://<server>:<port>` )
+           - **base[Https]** -- the base http/https URIs for the monorail api (e.g. `http://<server>:<port>/api/current` )
+           - **files[Https]** -- the base http/https URIs for the monorail api files routes (e.g. `http://<server>:<port>/api/current/files`)
+   * - tasks
+     - Allows access to instance variables of the task class instance created from the task definition. This is mainly used to access task.nodeId
+   * - options
+     - This refers to the task definition options itself. Mainly for referencing values in substrings that will eventually be defined by a user (e.g. `'sudo mv {{ options.targetFile }} /tmp/{{ options.targetfile }}'` )
+   * - context
+     - This refers to the shared context object that all tasks in a graph have R/W access to. Enables one task to use values produced by another at runtime.
+
+       For example, the [ami catalog provider task](`https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js`) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
 
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
