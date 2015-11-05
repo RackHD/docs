@@ -8,7 +8,7 @@ microkernel (a small OS) crafted to run tasks in coordination with the workflow
 engine. The default and most commonly used microkernel is based on Linux, although
 WinPE and DOS netbooting is also possible.
 
-Theory of operation and integration with other automation systems
+Theory of Operations
 -----------------------------------------
 
 The base idea of RackHD was born from the realization that our effective automation
@@ -17,7 +17,13 @@ each building on a lower layer. A full featured API driven environment that is e
 spawns additional wrappers to combined those lower level pieces into patterns that are
 at first experiment, and over time become either defacto, or concrete, standards.
 
+|
+
 .. image:: _static/automation_layers.png
+ :height: 500
+ :align: center
+
+|
 
 Application automation - such as services like Heroku or CloudFoundry - are built overlying
 infrastructure as a service API layers (AWS, Google Cloud Engine, SoftLayer, OpenStack, etc).
@@ -48,7 +54,11 @@ The software is roughly divided into a simplified REST API oriented towards a co
 data model and easy integration, and an underlying workflow engine (code named the
 "monorail engine", after a popular Seattle coffee shop: http://www.yelp.com/biz/monorail-espresso-seattle).
 
+|
+
 .. image:: _static/high_level_architecture.png
+  :align: center
+|
 
 The upper layer of the architecture, called the "onserve executive" communicates using
 both an internal REST API and AMQP as a message bus between the various processes. This layer is still under development.
@@ -59,7 +69,13 @@ systems. The monorail engine is broken into independent processes with a mind to
 scaling or distributing them independently by protocol, and communicates together
 using message passing over AMQP, and stores data as needed for persistence in MongoDB.
 
+
+|
+
 .. image:: _static/process_level_architecture.png
+ :align: center
+
+|
 
 Onserve Executive
 ---------------------
@@ -74,28 +90,38 @@ Onserve executive conversions are still in development. For more information, co
 Monorail Engine
 -------------------
 
-.. image:: _static/monorail_engine_dataflow.png
+|
 
-* ISC DHCP
+.. image:: _static/monorail_engine_dataflow.png
+ :height: 600
+ :align: center
+
+|
+
+ISC DHCP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     A DHCP server is a critical component of a standard PXE (https://en.wikipedia.org/wiki/Preboot_Execution_Environment) process,
     providing IP addresses dynamically using the DHCP protocol
 
-* on-dhcp-proxy
+on-dhcp-proxy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     The DHCP protocol supports getting additional data specifically for the PXE
     process from a secondary service that also responds on the same network as
     the DHCP server. The DHCP proxy service provides that information, generated
     dynamically from the workflow engine.
 
-* on-tftp
+on-tftp
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     TFTP is the common protocol used to initiate a PXE process, and on-tftp is
     tied into the workflow engine to be able to dynamically provide responses
     based on the state of the workflow engine, and to provide events to the workflow
     engine when servers request files via TFTP
 
-* on-http
+on-http
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     on-http provides both the REST interface to the workflow engine and data model APIs
     as well as a communication channel and potential proxy for hosting files and serving
@@ -107,7 +133,8 @@ Monorail Engine
     deep hardware interrogation, firmware updates, and other actions that can only be
     invoked directly on the hardware and not through an out of band management channel.
 
-* on-syslog
+on-syslog
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     on-syslog is a syslog receiver endpoint that channels all syslog data sent to the
     host into the workflow engine to provide annotated and structured logging

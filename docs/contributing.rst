@@ -22,28 +22,28 @@ The RackHD project is a collection of libraries and applications housed at https
 Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-+-------------+---------------------------------------+----------------------------------+
-| Application | Repository                            || Description                     |
-+=============+=======================================+==================================+
-|on-tftp      |https://github.com/RackHD/on-tftp      || Node.js application provided    |
-|             |                                       || TFTP service integrated with    |
-|             |                                       || the workflow engine.            |
-+-------------+---------------------------------------+----------------------------------+
-|on-http      |https://github.com/RackHD/on-http      || Node.js application provided    |
-|             |                                       || HTTP service integrated with    |
-|             |                                       || the workflow engine.            |
-+-------------+---------------------------------------+----------------------------------+
-|on-syslog    |https://github.com/RackHD/on-syslog    || Syslog endpoint integrated to   |
-|             |                                       || feed data to the workflow       |
-|             |                                       || engine.                         |
-+-------------+---------------------------------------+----------------------------------+
-|on-taskgraph |https://github.com/RackHD/on-taskgraph || Node.js application providing   |
-|             |                                       || the workflow engine.            |
-+-------------+---------------------------------------+----------------------------------+
-|on-dhcp-proxy|https://github.com/RackHD/on-dhcp-proxy|| Node.js application providing   |
-|             |                                       || DHCP proxy support in the       |
-|             |                                       || workflow engine.                |
-+-------------+---------------------------------------+----------------------------------+
+.. list-table::
+   :widths: 20 20 100
+   :header-rows: 1
+
+   * - Application
+     - Repository
+     - Description
+   * - on-tftp
+     - https://github.com/RackHD/on-tftp
+     - Node.js application provided TFTP service integrated with the workflow engine.
+   * - on-http
+     - https://github.com/RackHD/on-http
+     - Node.js application provided HTTP service integrated with the workflow engine.
+   * - on-syslog
+     - https://github.com/RackHD/on-syslog
+     - Syslog endpoint integrated to feed data to the workflow engine.
+   * - on-taskgraph
+     - https://github.com/RackHD/on-taskgraph
+     - Node.js application providing the workflow engine.
+   * - on-dhcp-proxy
+     - https://github.com/RackHD/on-dhcp-proxy
+     - Node.js application providing DHCP proxy support in the workflow engine.
 
 
 
