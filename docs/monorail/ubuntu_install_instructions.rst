@@ -32,7 +32,6 @@ Upgrading the code
 
  .. code::
 
-    sudo apt-get install python-pywbem
     sudo apt-get install ansible
     sudo apt-get install apt-mirror
     sudo apt-get install amtterm
@@ -41,7 +40,14 @@ Upgrading the code
 
  .. code::
 
-    deb [arch=amd64] http://54.191.244.96/ trusty non-free
+    deb [arch=amd64] http://TBD/ trusty non-free
+
+.. note::
+
+   RackHD is in the process of setting up debian packages in a public repository
+   with a service like bintray, but it's not yet complete. In the meantime, it's
+   possible to build the packages directly (yourself) or we recommend you install
+   from source.
 
 **Update the Package Directories:**
 
