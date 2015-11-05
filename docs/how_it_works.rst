@@ -25,26 +25,12 @@ Discovery Workflow
 
 Discovery tasks are performed sequentially:
 
-1. Discovery is initiated by sending down the iPXE boot loader with a pre-built script to run within
-   iPXE. This script then chainloads into a new, dynamically rendered iPXE script that interrogates the
-   enabled network interfaces on the remote machine and reports them back to RackHD. RackHD adds this
-   information to the machine and lookup records.
+1. Discovery is initiated by sending down the iPXE boot loader with a pre-built script to run within iPXE. This script then chainloads into a new, dynamically rendered iPXE script that interrogates the enabled network interfaces on the remote machine and reports them back to RackHD. RackHD adds this information to the machine and lookup records.
 
-2. RackHD then renders an additional iPXE script to be chainloaded that downloads
-   and runs the microkernel. The microkernel boots up and requests a Node.js "bootstrap" script
-   from RackHD. RackHD runs the bootstrap program which uses a simple REST API to "ask" what it
-   should do on the remote host. The workflow engine,
-   running the discovery workflow, provides a set of tasks to run. These tasks are matched with
-   parsers in RackHD to understand and store the output. They work
-   together to run Linux commands that interrogate the hardware from the microkernel running in memory.
-   These commands include interrogating the machine's BMC settings through IPMI, the installed PCI cards, the DMI information embedded in the BIOS, and others. The resulting information is then stored in JSON format
-   as "catalogs" in RackHD.
+2. RackHD then renders an additional iPXE script to be chainloaded that downloads and runs the microkernel. The microkernel boots up and requests a Node.js "bootstrap" script from RackHD. RackHD runs the bootstrap program which uses a simple REST API to "ask" what it should do on the remote host. The workflow engine, running the discovery workflow, provides a set of tasks to run. These tasks are matched with parsers in RackHD to understand and store the output. They work together to run Linux commands that interrogate the hardware from the microkernel running in memory. These commands include interrogating the machine's BMC settings through IPMI, the installed PCI cards, the DMI information embedded in the BIOS, and others. The resulting information is then stored in JSON format as "catalogs" in RackHD.
 
-3. The discovery workflow then performs a workflow task process called "SKU
-   analysis" that compares the catalog data for the node against SKU definitions
-   loaded into the system through the REST interface. If the definitions match,
-   RackHD updates its data model indicating that the node belongs
-   to a SKU.
+3. The discovery workflow then performs a workflow task process called "SKU analysis" that compares the catalog data for the node against SKU definitions
+   loaded into the system through the REST interface. If the definitions match, RackHD updates its data model indicating that the node belongs to a SKU.
 
 4. The workflow uses the IPMI channels to set up a connection to the BMC so that it can control that node in the future (power on, off and reboot).
 
@@ -59,8 +45,7 @@ Discovery tasks are performed sequentially:
 
 * The discovery workflow can be updated to do additional work or steps for the installation of RackHD, to run other workflows based on the SKU analysis, or perform other actions based on the logic embedded into the workflow itself.
 
-* Additional pollers exist and can be configured to capture data through SNMP. The RackHD project is set up to support additional pollers as plugins that can be
-  configured and run as desired.
+* Additional pollers exist and can be configured to capture data through SNMP. The RackHD project is set up to support additional pollers as plugins that can be configured and run as desired.
 
 
 Telemetry and Alerting
@@ -79,10 +64,10 @@ an "alert" exchange in AMQP.
 Other Workflows
 ---------------
 
-Other workflows can be configured and assigned to run on remote systems. For example, **OS install** can be set to explicitly power cycle (reboot) a remote node. As the system PXE boots, an installation kernel is sent down and run instead of the discovery microkernel.
+Other workflows can be configured and assigned to run on remote systems. For example, *OS install* can be set to explicitly power cycle (reboot) a remote node. As the system PXE boots, an installation kernel is sent down and run instead of the discovery microkernel.
 
 The remote network-based OS installation process that runs from Linux OS
-distributions typically runs with a configuration file - **debseed** or **kickstart**.
+distributions typically runs with a configuration file - *debseed* or *kickstart*.
 The monorail engine provides a means to render these configuration files
 through templates, with the values derived from the workflow itself - either as
 defaults built into the workflow, discovered data in the system (such as data
@@ -103,11 +88,11 @@ within RackHD.
 Workflow Graphs
 ^^^^^^^^^^^^^^^^^
 The graphs/workflows API (workflows is a backwards-compatible term for graphs) provides
-functionality for running :doc:`tasks` via
+functionality for running tasks via
 graph-based control flow mechanisms. A typical graph consists of a list of
 tasks which themselves are essentially decorated functions.
 
-For more detailed information, see :doc:`monorail/graphs`.
+For more detailed information on graphs, see :doc:`monorail/graphs`.
 
 Workflow Tasks
 ^^^^^^^^^^^^^^^^^

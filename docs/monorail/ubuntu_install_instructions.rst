@@ -5,9 +5,9 @@ Ubuntu Installation/Upgrade
 Upgrading the code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Log into the server (nuc, kylin, etc)**
+**Log into the Server (nuc, kylin, etc)**
 
-get all current patches and remove non-essential packages:
+**Get All Current Patches and Remove Non-essential Packages:**
 
 
  .. code::
@@ -16,7 +16,7 @@ get all current patches and remove non-essential packages:
     sudo apt-get dist-upgrade
     sudo apt-get autoremove
 
-install required packages:
+**Install Required Packages:**
 
  .. code::
 
@@ -28,26 +28,28 @@ install required packages:
 
  .. code::
 
-install supplemental packages:
+**Install Supplemental Packages:**
+
+ .. code::
 
     sudo apt-get install python-pywbem
     sudo apt-get install ansible
     sudo apt-get install apt-mirror
     sudo apt-get install amtterm
 
-create a apt-sources list file : `/etc/apt/sources.list.d/monorail.list`
+**Create an apt-sources List FDile:** `/etc/apt/sources.list.d/monorail.list`
 
  .. code::
 
     deb [arch=amd64] http://54.191.244.96/ trusty non-free
 
-**Update the package directories**
+**Update the Package Directories:**
 
  .. code::
 
     sudo apt-get update
 
-Install the monorail packages:
+**Install the mMnorail Packages:**
 
  .. code::
 
@@ -55,8 +57,7 @@ Install the monorail packages:
     sudo apt-get install on-tftp on-syslog
     sudo apt-get install on-web-ui
 
-Set the Links to the Mirrors
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Set the Links to the Mirrors:**
 
   .. code::
 
@@ -67,8 +68,7 @@ Set the Links to the Mirrors
     sudo ln -s /var/mirrors/centos <on-http directory>/static/http/centos
     sudo ln -s /var/mirrors/suse <on-http directory>/static/http/suse
 
-Install supplementary files:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Install Supplementary Files:**
 
   .. code::
 
@@ -76,18 +76,15 @@ Install supplementary files:
 
   TODO: add more instructions here
 
-Retrieve the Installer/Distribution Media
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Retrieve the Installer/Distribution Media**
 
   TODO: add instructions here
 
-Add ansible playbook for post-os install
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Add Ansible Playbook for Post-OS Install:**
 
   TODO: update instructions here
 
-Configure the applications to start
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Configure the Applications to Start**
 
 All of the monorail programs are set to respect and verify the existence of a
 default configuration file (/opt/onrack/etc/monorail.json). If this file doesn't exist, the services will
@@ -98,20 +95,19 @@ Making the Mirrors
 
 **Centos 6.5**
 
-
   .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
     --exclude "i386" rsync://centos.eecs.wsu.edu/centos/6.5/ /var/mirrors/centos/6.5
 
-**Centos - 7.0**
+**Centos 7.0**
 
   .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
     --exclude "i386" rsync://centos.eecs.wsu.edu/centos/7/ /var/mirrors/centos/7
 
-**OpenSuse - 12.3**
+**OpenSuse 12.3**
 
   .. code::
 
@@ -119,7 +115,7 @@ Making the Mirrors
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/12.3 /var/mirrors/suse/update
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/12.3-non-oss /var/mirrors/suse/update
 
-**OpenSuse - 13.1**
+**OpenSuse 13.1**
 
   .. code::
 
@@ -127,7 +123,7 @@ Making the Mirrors
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.1 /var/mirrors/suse/update
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.1-non-oss /var/mirrors/suse/update
 
-**OpenSuse - 13.2**
+**OpenSuse 13.2**
 
   .. code::
 
@@ -136,7 +132,7 @@ Making the Mirrors
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.2-non-oss /var/mirrors/suse/update
 
 
-for the Ubuntu repo, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
+For the Ubuntu repo, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
 
   .. code::
 
@@ -172,7 +168,7 @@ for the Ubuntu repo, you need some additional installation. The mirrors are easi
     #end of file
     ###################
 
-How to wipe out the database to restart everything
+How to Erase the Database to Restart Everything
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   .. code::

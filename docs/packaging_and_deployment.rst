@@ -6,9 +6,9 @@ Packaging and Deployment
 Requirements
 ----------------------------
 
-DHCP - Layer2 access to PXE network
-TFTP, HTTP - L3 access to PXE network
-IPMI or Redfish - L3 access to OOB network
+- DHCP - Layer2 access to PXE network
+- TFTP, HTTP - L3 access to PXE network
+- IPMI or Redfish - L3 access to OOB network
 
 * scenarios
 
