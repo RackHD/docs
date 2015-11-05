@@ -20,7 +20,7 @@ at first experiment, and over time become either defacto, or concrete, standards
 |
 
 .. image:: _static/automation_layers.png
- :height: 500
+ :height: 600
  :align: center
 
 |
@@ -54,10 +54,11 @@ The software is roughly divided into a simplified REST API oriented towards a co
 data model and easy integration, and an underlying workflow engine (code named the
 "monorail engine", after a popular Seattle coffee shop: http://www.yelp.com/biz/monorail-espresso-seattle).
 
+
 |
 
 .. image:: _static/high_level_architecture.png
-  :align: center
+
 |
 
 The upper layer of the architecture, called the "onserve executive" communicates using
@@ -101,8 +102,12 @@ Monorail Engine
 ISC DHCP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A DHCP server is a critical component of a standard PXE (https://en.wikipedia.org/wiki/Preboot_Execution_Environment) process,
-providing IP addresses dynamically using the DHCP protocol
+A DHCP server is a critical component of a standard `Preboot Execution Environment (PXE)`_ process,
+providing IP addresses dynamically using the DHCP protocol.
+
+.. _Preboot Execution Environment (PXE): https://en.wikipedia.org/wiki/Preboot_Execution_Environment
+
+
 
 on-dhcp-proxy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

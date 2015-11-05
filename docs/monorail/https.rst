@@ -86,11 +86,11 @@ Then configure the paths by editing *httpsCert* and *httpKey* in
 
 If using a self-signed certificate, add a security exception to your client of
 choice. Verify the certificate by restarting on-http and visiting
-https://<host>/api/current/versions.
+`https://<host>/api/current/versions`.
 
 See Also
 ~~~~~~~~~~~~~~~~
 
-More information is available in the OpenSSL documentation:
+More information is available in the `OpenSSL documentation`_.
 
-https://www.openssl.org/docs/
+.. _OpenSSL documentation: https://www.openssl.org/docs/
