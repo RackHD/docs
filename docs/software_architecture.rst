@@ -101,41 +101,41 @@ Monorail Engine
 ISC DHCP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    A DHCP server is a critical component of a standard PXE (https://en.wikipedia.org/wiki/Preboot_Execution_Environment) process,
-    providing IP addresses dynamically using the DHCP protocol
+A DHCP server is a critical component of a standard PXE (https://en.wikipedia.org/wiki/Preboot_Execution_Environment) process,
+providing IP addresses dynamically using the DHCP protocol
 
 on-dhcp-proxy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    The DHCP protocol supports getting additional data specifically for the PXE
-    process from a secondary service that also responds on the same network as
-    the DHCP server. The DHCP proxy service provides that information, generated
-    dynamically from the workflow engine.
+The DHCP protocol supports getting additional data specifically for the PXE
+process from a secondary service that also responds on the same network as
+the DHCP server. The DHCP proxy service provides that information, generated
+dynamically from the workflow engine.
 
 on-tftp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    TFTP is the common protocol used to initiate a PXE process, and on-tftp is
-    tied into the workflow engine to be able to dynamically provide responses
-    based on the state of the workflow engine, and to provide events to the workflow
-    engine when servers request files via TFTP
+TFTP is the common protocol used to initiate a PXE process, and on-tftp is
+tied into the workflow engine to be able to dynamically provide responses
+based on the state of the workflow engine, and to provide events to the workflow
+engine when servers request files via TFTP
 
 on-http
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    on-http provides both the REST interface to the workflow engine and data model APIs
-    as well as a communication channel and potential proxy for hosting files and serving
-    them to support dynamic PXE responses. RackHD commonly uses iPXE as its initial
-    bootloader, loading remaining files for PXE booting via HTTP and using that communications
-    path as a mechanism to control what a remote server will do when rebooting.
+on-http provides both the REST interface to the workflow engine and data model APIs
+as well as a communication channel and potential proxy for hosting files and serving
+them to support dynamic PXE responses. RackHD commonly uses iPXE as its initial
+bootloader, loading remaining files for PXE booting via HTTP and using that communications
+path as a mechanism to control what a remote server will do when rebooting.
 
-    on-http also serves as the communication channel for the microkernel to support
-    deep hardware interrogation, firmware updates, and other actions that can only be
-    invoked directly on the hardware and not through an out of band management channel.
+on-http also serves as the communication channel for the microkernel to support
+deep hardware interrogation, firmware updates, and other actions that can only be
+invoked directly on the hardware and not through an out of band management channel.
 
 on-syslog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    on-syslog is a syslog receiver endpoint that channels all syslog data sent to the
-    host into the workflow engine to provide annotated and structured logging
-    from the hosts under management.
+on-syslog is a syslog receiver endpoint that channels all syslog data sent to the
+host into the workflow engine to provide annotated and structured logging
+from the hosts under management.
