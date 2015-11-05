@@ -115,7 +115,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()#c:\python27\lib\site-packages)
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -125,7 +125,7 @@ html_theme_options = {
     'navbar_title': "RackHD",
 
     # Tab name for entire site. (Default: "Site")
-    'navbar_site_name': "RackHD",
+    'navbar_site_name': "Docs",
 
     # A list of tuples containing pages or urls to link to.
     # Valid tuples should be in the following forms:
@@ -135,18 +135,18 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     # 'navbar_links': [
-    #     ("Examples", "examples"),
-    #     ("Link", "http://example.com", True),
+        # ("Examples", "examples"),
+        # ("Link", "http://example.com", True),
     # ],
 
     # Render the next and previous page links in navbar. (Default: true)
-    # 'navbar_sidebarrel': False,
+    'navbar_sidebarrel': False,
 
     # Render the current pages TOC in the navbar. (Default: true)
-    # 'navbar_pagenav': False,
+    'navbar_pagenav': False,
 
     # Tab name for the current pages TOC. (Default: "Page")
-    'navbar_pagenav_name': "Docs",
+    # 'navbar_pagenav_name': "Page",
 
     # Global TOC depth for "site" navbar tab. (Default: 1)
     # Switching to -1 shows all levels.
@@ -169,7 +169,7 @@ html_theme_options = {
 
     # Location of link to source.
     # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "nav",
+    'source_link_position': "footer",
 
     # Bootswatch (http://bootswatch.com/) theme.
     # Options are nothing (default) or the name of a valid theme
@@ -219,7 +219,9 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+  '*': ['localtoc.html', 'searchbox.html']
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -238,7 +240,7 @@ html_static_path = ['_static']
 #html_show_sourcelink = True
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
+# html_show_sphinx = True
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 #html_show_copyright = True

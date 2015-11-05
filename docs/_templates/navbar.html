@@ -1,0 +1,22 @@
+{% extends "!navbar.html" %}
+
+{% block navbarextra %}
+  {{ super() }}
+{% endblock %}
+
+{% block navbarsearch %}
+  <ul class="nav navbar-nav navbar-right">
+    {% include "relations.html" %}
+    <li>
+        <a href="https://github.com/RackHD/docs">
+            <i class="fa fa-github"></i>
+            <span>GitHub</span>
+        </a>
+    </li>
+    <li>
+        <a href="https://emccode.github.io">
+          <i class="fa icon-emccode-logo"></i>
+        </a>
+    </li>
+  </ul>
+{% endblock %}
