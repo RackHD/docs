@@ -20,7 +20,7 @@ Features
 ------------------------
 
 ======================== ============================================================================
-Feature                  | Description
+Feature                   Description
 ======================== ============================================================================
 Discovery and Cataloging | Discovers the compute, network, and storage resources and catalogs
                          | their attributes and capabilities.
@@ -99,22 +99,22 @@ Comparison to other open source technologies:
 **Cobbler comparison**
 
 * XML-RPC interface for automation
- - No dynamic events or control for TFTP, DHCP
+* No dynamic events or control for TFTP, DHCP
 * Original workhorse of datacenter PXE automation
 * Extensive manual and OS level configuration needed to utilize
 * One-shot operations
- - No workflow engine or concept of orchestration with multiple reboots
+* No workflow engine or concept of orchestration with multiple reboots
 
 **Razor comparison**
 
 * HTTP wrapper to configure standard open source tooling for imaging
- - No dynamic events or control for TFTP, DHCP
+* No dynamic events or control for TFTP, DHCP
 * Catalog and policy equivalent to discovery workflow and SKU mechanism oriented on single, static OS for hardware
- - Focused on hardware inventory to choose and enable OS installation
- - No workflow engine or concept of orchestration with multiple reboots
+* Focused on hardware inventory to choose and enable OS installation
+* No workflow engine or concept of orchestration with multiple reboots
 * Tightly bound to and maintained by Puppet
- - “Loss leader” to provide bare-metal provisioning lock for Puppet
- - Forked variant “Hanlon” used for Chef Metal driver
+* “Loss leader” to provide bare-metal provisioning lock for Puppet
+* Forked variant “Hanlon” used for Chef Metal driver
 
 **xCat comparison**
 
