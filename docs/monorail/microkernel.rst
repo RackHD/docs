@@ -1,7 +1,7 @@
 MicroKernel and Overlays
 ----------------------------------------------------------
 
-RackHD uses microkernal images and overlay filesystems to deploy operating systems on managed hardware.
+RackHD utilizes microkernel images booted in RAM to perform various operations such as node discovery and firmware management.
 
 The `on-imagebuilder`_ repository contains a set of ansible playbooks and roles used for building
 debian-based linux microkernel images and overlay filesystems. They are primarily used with
