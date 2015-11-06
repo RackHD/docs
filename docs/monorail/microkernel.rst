@@ -1,314 +1,153 @@
 MicroKernel and Overlays
 ----------------------------------------------------------
 
-Creating and Modifying Overlays
+RackHD uses microkernal images and overlay filesystems to deploy operating systems on managed hardware.
+
+The `on-imagebuilder`_ repository contains a set of ansible playbooks and roles used for building
+debian-based linux microkernel images and overlay filesystems. They are primarily used with
+the `on-taskgraph`_ workflow engine.
+
+.. _on-imagebuilder: https://github.com/rackhd/on-imagebuilder
+.. _on-taskgraph: https://github.com/rackhd/on-taskgraph
+
+There are three ansible playbooks included, which build mountable
+`squashfs`_ images, `overlay`_ filesystems, and initrd images.
+
+.. _squashfs: https://en.wikipedia.org/wiki/SquashFS
+.. _overlay: https://en.wikipedia.org/wiki/OverlayFS
+
+Requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Any Debian/Ubuntu-based system (support for other distributions coming soon, however simply installing debootstrap and it should work).
+- ansible is installed (`apt-get install ansible`)
+- Internet access OR network access to an apt cache/proxy server from the build machine
+
+
+Terms
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Term
+     - Description
+   * - Base Image
+     - This is a lightweight debian filesystem packaged up as a mountable squashfs image. Essentially, it's just a `debootstrap`_ minbase filesystem with some added configurations and packages. It is ~50mb squashed and occupies ~120mb of space when mounted. The base image[s] are used as a shared image that different overlays can be built and mounted with, and take 3-5 minutes to build.
+   * - overlay filesystem
+     - The overlay filesystem is a gzipped cpio archive of copy-on-write changes made to a mounted base image. Usually an overlay filesystem just contains a few packages and/or shell scripts, and is often under 10mb in size and takes under a minute to build.
+   * - provisioner
+     - An ansible role used to specify changes that should be made to the filesystem of an initrd, base image or overlay (e.g. extra packages, scripts, files).
+
+.. _debootstrap: https://wiki.debian.org/Debootstrap
+
+
+
+
+Bootstrap Process
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The images produced by these playbooks are intended to be netbooted and run in RAM.
+The typical flow for how these images are used/booted is this:
+
+1. Netboot the kernel and initrd via PXE/iPXE.
+2. The custom-built initrd runs a startup script (roles/initrd/provision_initrd/files/local) that requests a base squashfs image and an overlay filesystem from the boot server.
+3. The initrd mounts both images together (union mount) into a tmpfs and boots into that as the root.
+
+The basefs and initrd images are not intended to be changed very often. It's more likely
+that one will add new provisioner roles to build custom overlays that can then be mounted
+with the base image built by the existing ansible roles in this repository.
+
+
+
+Building Images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To build images, define an imagebuilding playbook (see example.yml for an example) or
+use the default one (all.yml)::
+
+    sudo ansible-playbook -i hosts <playbook.yml>
+
+
+Adding Provisioner Roles and Configuration Files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The provisioner role specifies how the filesystem of an initrd, base image, or overlay should be customized.
+
+To add a new provisioner, do the following:
+
+1. Make a new directory in `roles/<initrd|basefs|overlay>/tasks`, depending on the image type.
+2. Create and edit a main.yml file in the above directory to do the tasks you want (see `ansible modules`_).
+3. Add a new config_file into the vars directory. This will be included in the Ansible run as a set of top-level variables (via vars_files) to be included/used by tasks in the role.
+
+   **NOTE:** The config_file must have as a bare minimum a provisioner variable that points to the role::
+
+                      provisioner: roles/overlay/provision_discovery_overlay
+
+
+4. Configure a new playbook (see example.yml) to run the appropriate wrapper playbook with the config_file, for example::
+
+              - include: common/overlay_wrapper.yml
+                 vars:
+                   - config_file: vars/my_overlay.yml
+
+
+The wrapper playbooks handle all the setup and cleanup required to run a provisioner, such as filesystem mounting and creation, and build file creation.
+
+.. _ansible modules: http://docs.ansible.com/ansible/modules_intro.html
+
+
+Changing the Global Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Certain operations enabled by the monorail server, primarily node cataloging and
-firmware flashing, are performed within small-medium sized Linux images that are
-booted into RAM (as a tmpfs). To optimize the storage and download of these images,
-we use overlayfs_ which allows a machine to mount two filesystems together as one merged filesystem.
+All playbooks and roles depend on the variables defined in hosts and group_vars/on_imagebuild.
+These variables specifies the location of the build roots and the apt server/package repositories that are used.
 
-The merged filesystem permits the storage of essential and common components
-in a single image (a squashfs image). Custom binaries and
-scripts are stored in much smaller overlay filesystem archives. This reduces disk space requirements
-and makes it easy to change, re-package, and re-distribute the contents of an
-overlay on any platform without having to touch the base image.
+Changing the Build Root
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _overlayfs: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/filesystems/overlayfs.txt
+Update the paths in hosts to the desired build root. The build root paths must be updated in specified in both the *[overlay_build_chroot]* and the *[on_imagebuild:vars]* sections.
 
-**NOTE:** Overlayfs can merge no more than two filesystems. Merging three or four filesystems is not supported.
 
-**Example**
+Changing the Repository URLs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Let's say we have a base image representing a standard Linux file structure:
 
-.. code-block:: bash
+It is highly recommended that an apt-cacher-ng server be used rather than the upstream
+archive.ubuntu.com server that is specified by default. Depending on the network connection,
+this can reduce the build times for the basefs and initrd images by 50%.
 
-    bin    boot    dev    etc    grub.debconf    home
-    initrd.img -> boot/initrd.img-3.13.0-32-generic    lib
-    lib64    media    mnt    opt    proc    root    run
-    sbin    srv    sys    tmp    usr    var
-    vmlinuz -> boot/vmlinuz-3.13.0-32-generic
+To do this:
 
+1. Run *apt-get install apt-cacher-ng*.
+2. Edit the apt_server variable in group_vars/on_imagebuild to equal the address of your apt cache server, for example::
 
-And we have a simple overlay file structure that only contains a couple of scripts:
+             apt_server: 192.168.100.5:3142
 
-.. code-block:: bash
 
-    /opt/MegaRAID/MegaCli/libstorelibir-2.so.14.07-0
-    /opt/MegaRAID/MegaCli/MegaCli
-    /opt/MegaRAID/MegaCli/MegaCli64
+The first build will still be slow, because no packages are cached, but subsequent builds will be much faster.
 
-If we mount the base image only and take a look at the /opt directory, here is what
-we'll see:
 
-.. code-block:: bash
+**Note:** The playbooks can only be run LOCALLY -- not against remote hosts as
+is usual with Ansible. This is because the chroot ansible_connection type
+used for most builders and provisioners is not supported over ssh and
+other remote ansible_connection types.
 
-    /opt/downloads
-    /opt/uploads
 
-However, if we mount the base and the overlay as an overlayfs, then the /opt directory
-will look like this:
+Why Not Containers?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
+The goal is to optimize for size on disk and modularity. By creating many different overlays that share a base image, we avoid data
+duplication on the boot server (50mb base image + 10 * 5mb overlay archives vs. 10 * 55mb container images).
 
-    /opt/downloads
-    /opt/uploads
-    /opt/MegaRAID/MegaCli/libstorelibir-2.so.14.07-0
-    /opt/MegaRAID/MegaCli/MegaCli
-    /opt/MegaRAID/MegaCli/MegaCli64
+Additionally, it gives us flexibility to update the base image
+and any system dependencies/scripts/etc. on it without having to rebuild
+any overlays. For example, we use a custom rc.local script in the base image
+that is used to receive commands from `workflows`_ on startup. Making
+changes to this script should only have to be done in one place.
 
-In this example, the entire overlay is approximately 6 MB (the size of the
-MegaRAID binaries). With this low footprint, it is easier to make
-incremental and quick changes to an image without having to entirely rebuild it.
-It also permits many slight variations to be stored with very little
-duplication across images.
+.. _workflows: https://github.com/rackhd/on-tasks
 
-Base images
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Almost all the overlays are built off of a single base image, named
-base.trusty.3.13.0-32.squashfs.img. This image is sufficient in 99% of use cases.
-A base filesystem is compressed into a
-squashfs_ image, which is a highly compressed, read-only filesystem.
-
-.. _squashfs: http://squashfs.sourceforge.net
-
-Building a base image requires a host machine running the same kernel as the
-target kernel for the base image. We use [this script] (*URL to be provided*) to build the filesystem
-and create a squashfs .
-
-Creating Overlayfs Archives
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**Simple Modifications**
-
-Simple modifications are those that do not extend beyond copying files.
-These may include adding scripts, files, directories, statically linked binaries, etc.
-
-Simple modifications do not require mounting the base image. To create a simple
-overlay like this, first create a directory:
-
-.. code-block:: bash
-
-    mkdir overlay
-    cd overlay
-
-Now add the files and directories that you want in the overlay, as well as
-all required files as detailed in the `Required Files`_ section.
-
-To package up the overlay, ensure that you are in the top level directory of the
-overlay. Then run:
-
-.. code-block:: bash
-
-    find . | cpio -H newc -o > ../overlay.cpio
-    cd ..
-    gzip -c overlay.cpio > ./overlay.cpio.gz
-
-
-Now rename overlay.cpio.gz and move it into the monorail server static files
-directory in /opt/monorail/static/http. See :doc:`monorail/naming_conventions`
-for recommendations on what to name the overlay and where to put it.
-
-**Complex Modifications**
-
-Complex modifications require access to the OS filesystem
-and make major modifications, such as building kernel
-modules, installing packages with apt, etc. These modifications can be done only
-on a Linux system. If you are building kernel modules, the Linux system must also
-be running the same kernel version as the base image and target kernel.
-
-To make these changes, mount the base image along with an
-overlay directory. Then run the commands within a chroot jail.
-
-1. Install squashfs tooling:
-
-.. code-block:: bash
-
-    sudo apt-get install squashfs-tools
-
-2. Create a directory for the overlay files:
-
-.. code-block:: bash
-
-    mkdir overlay
-
-
-3. Create directories to be used as the mount point for the base image and overlayfs:
-
-.. code-block:: bash
-
-    mkdir lower
-    mkdir overlay_mount
-
-4. Mount the filesystem:
-
-.. code-block:: bash
-
-    sudo mount -n -t squashfs -o loop <path to base image> lower
-    sudo mount -t overlayfs overlayfs overlay_mount rw,upperdir=<path to overlay>,lowerdir=lower
-
-5. If you are doing things like building kernel modules, you will need to bind
-mount /dev, /proc and /sys:
-
-.. code-block:: bash
-
-    sudo chroot ./overlay_mount mount -t proc none /proc
-    sudo chroot ./overlay_mount mount -t sysfs none /sys
-    sudo mount --bind /dev ./overlay_mount/dev
-
-6. chroot into the filesystem:
-
-.. code-block:: bash
-
-    sudo chroot ./overlay_mount
-
-From here, you should have a shell prompt using the root of the overlayfs as its
-root. Some examples:
-
-.. code-block:: bash
-
-    sudo apt-get install <package name>
-    sudo dpkg -i <path to a copied debian package>
-
-7. Make sure to add all required files as described in the `Required Files`_ section.
-
-8. Exit the chroot and unmount everything:
-
-.. code-block:: bash
-
-    exit
-    sudo umount ./overlay_mount/proc
-    sudo umount ./overlay_mount/sys
-    sudo umount ./overlay_mount/dev
-    sudo umount overlay_mount
-    sudo umount lower
-
-All the modifications will be located in the overlay directory
-(named **overlay** in this example). Package up the overlay directory using the below
-commands. Depending on the file permissions of the changes made, you may want
-to run these commands as root.
-
-.. code-block:: bash
-
-    cd overlay
-    # May need to run this as root
-    find . | cpio -H newc -o > ../overlay.cpio
-    cd ..
-    gzip -c overlay.cpio > <name of zipped overlay>
-
-Required Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-All overlays should contain the file located at /etc/rc.local, located in (*URL to be provided*).
-This file is necessary for the node to to receive commands from the monorail
-server.
-
-
-Modifying Overlayfs Archives
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To add or remove files from an overlay, decompress
-the CPIO structure into a directory, modify what you need, and then recreate
-another CPIO filesystem from that directory.
-
-To modify an existing overlay, first un-zip and un-archive
-the overlay (you may need to run these commands as root):
-
-.. code-block:: bash
-
-    mkdir overlay_src
-    cd overlay_src
-    gzip -dc <path to zipped overlay archive> | cpio -id
-
-
-Now, follow the above Simple and Complex Modification sections above, but use
-the un-zipped and un-archived overlay directory instead of a newly created
-overlay directory.
-
-
-**Example: Creating the EMC Custom Overlay with Test-eses**
-
-Below is the example script/process to create the custom overlay
-for EMC with test_eses installed.
-
-.. code-block:: bash
-
-    # clean up the workspace
-    rm -rf upper/ lower/ root_mount/
-
-    # get the packages you want to install
-    apt-get download libxml2 libxml2-dev sgml-base xml-core libxslt1.1
-
-    mkdir upper lower root_overlay
-    cd upper
-    # In this case we are modifying the existing overlayfs_all_files overlay from the on-static-common package
-    gunzip < ../overlayfs_all_files.cpio.gz | cpio -i
-    cd ..
-    sudo mount -n -t squashfs -o loop ~/base.trusty.3.13.0-32.squashfs.img lower
-    sudo mount -t overlayfs overlayfs root_overlay -o rw,upperdir=upper,lowerdir=lower
-
-    sudo chroot ./root_overlay mount -t proc none /proc
-    sudo chroot ./root_overlay mount -t sysfs none /sys
-    sudo mount --bind /dev ./root_overlay/dev
-
-    sudo mv *.deb ./root_overlay
-    sudo chroot ./root_overlay dpkg -i *.deb
-    cd ~/emc_test_eses
-    ln -s ../root_overlay
-    sudo cp ./libtesteses.a ./root_overlay/usr/local/lib/
-    sudo chmod 0644 ./root_overlay/usr/local/lib/libtesteses.a
-    sudo cp ./libtesteses.la ./root_overlay/usr/local/lib/
-    sudo chmod 0755 ./root_overlay/usr/local/lib/libtesteses.la
-    sudo cp ./libtesteses.so.0.0.0 ./root_overlay/usr/local/lib/
-    sudo chmod 0755 ./root_overlay/usr/local/lib/libtesteses.so.0.0.0
-    sudo ln -s -f ./root_overlay/usr/local/lib/libtesteses.so.0.0.0 ./root_overlay/usr/local/lib/libtesteses.so
-    sudo ln -s -f ./root_overlay/usr/local/lib/libtesteses.so.0.0.0 ./root_overlay/usr/local/lib/libtesteses.so.0
-    sudo cp ./test_eses ./root_overlay/usr/local/bin/
-    sudo chmod 0755 ./root_overlay/usr/local/bin/test_eses
-    sudo mkdir -p ./root_overlay/usr/local/share/test_eses
-    sudo cp ./test_eses.xsl ./root_overlay/usr/local/share/test_eses
-    sudo chmod 0644 ./root_overlay/usr/local/share/test_eses/test_eses.xsl
-
-    sudo umount ./root_overlay/proc
-    sudo umount ./root_overlay/sys
-    sudo umount ./root_overlay/dev
-    sudo umount root_overlay
-    sudo umount lower
-
-    cd upper
-    sudo find ./ | sudo cpio -H newc -o > ../overlay.cpio
-    cd ..
-    gzip -c ./overlay.cpio > overlayfs.trusty.emc.cpio.gz
-
-
-The microkernel for tooling is a Linux kernel and and a two-stage filesystem
-that loads up with it.
-
-The first stage is a standard initramfs that can be loaded by any PXE booting
-system. *initrd.img-3.13.0-32-generic* is generated from an ubuntu system
-running the kernel assocaited with it (3.13.0-32 in this case, represented by
-the file *vmlinuz-3.13.0-32-generic*).
-
-The kernel itself has OverlayFS enabled within it. The initrd uses it to load a base
-(read-only) filesystem into a RAM filesystem and then a single overlay
-filesystem (readwrite) over the top of that. The base filesystem is created with
-debbootstrap and custom commands to build up a "just enough OS" filesystem based on Ubuntu 14.04 (trusty).
-
-- kernel: `vmlinuz-3.13.0-32-generic`
-- initramfs: `initrd.img-3.13.0-32-generic`
-- readonly base FS: `base.trusty.3.13.0-32.squashfs.img`
-
-Overlays:
-
-- debug overlay: `overlayfs_debug_files.trusty.cpio.gz`
-- general overlay: `overlayfs_all_files.cpio.gz`
-
-The overlay files are CPIO archives with additional "user-space" programs.
-The initramfs loads the base OS and then overlays the CPIO archive. The resulting image
-immediately loads and runs a Node.js task-runner that is built and rendered on the fly to the microkernel
-to invoke commands on the remote machine as needed. This process is embedded
-into the overlay itself and relies on parameters passed into it through PXE
-using `/proc/commandline` and the kernel parameters.
+Please send us a note if you think this is incorrect! So log as our design contraints are preserved, we are more than open to leveraging
+existing container technology.
