@@ -10,6 +10,11 @@ body {
     padding-top: 70px;
 }
 
+#sidebar {
+  padding: 10px;
+  overflow: auto;
+}
+
 /* First level of nav */
 .bs-sidenav {
   margin-top: 30px;
