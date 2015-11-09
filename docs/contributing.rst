@@ -1,84 +1,95 @@
 Contributing to RackHD
 ======================
 
-The https://github.com/emccode/RackHD repository acts as a single source location to help you get or build all the pieces to learn about,
-take advantage of, and contribute to RackHD. The individual repositories are within the organizations https://github.com/RackHD. We accept
-bugs at github issues for bug reports and pull requests for the individual repositories.
+We certainly welcome and encourage contributions in the form of issues and pull requests, but please read the
+guidelines in this document before you get involved.
 
-The code for RackHD is a combination of Javascript/Node.js and C, available under the Apache 2.0
-license (or compatible sublicences for library dependencies).
-
-We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group
-through the web page or subscribe directly by sending email to rackhd+subscribe@googlegroups.com
-
-We also have a #RackHD slack channel at https://codecommunity.slack.com/messages/rackhd/.
-You can receive an invite by requesting one at http://community.emccode.com.
-
-
-Project and code repository overview
-------------------------------------
-The RackHD project is a collection of libraries and applications housed at https://github.com/RackHD/.
-
-Applications
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. list-table::
-   :widths: 20 20 100
-   :header-rows: 1
-
-   * - Application
-     - Repository
-     - Description
-   * - on-tftp
-     - https://github.com/RackHD/on-tftp
-     - Node.js application provided TFTP service integrated with the workflow engine.
-   * - on-http
-     - https://github.com/RackHD/on-http
-     - Node.js application provided HTTP service integrated with the workflow engine.
-   * - on-syslog
-     - https://github.com/RackHD/on-syslog
-     - Syslog endpoint integrated to feed data to the workflow engine.
-   * - on-taskgraph
-     - https://github.com/RackHD/on-taskgraph
-     - Node.js application providing the workflow engine.
-   * - on-dhcp-proxy
-     - https://github.com/RackHD/on-dhcp-proxy
-     - Node.js application providing DHCP proxy support in the workflow engine.
+Since our project is relatively new, we don't yet have many hard and fast rules. As the project grows and more
+people get involved, we will solidify and extend our guidelines as needed.
 
 
 
-Libraries
-^^^^^^^^^
-.. list-table::
-   :widths: 20 20 100
-   :header-rows: 1
 
-   * - Library
-     - Repository
-     - Description
-   * - core
-     - https://github.com/RackHD/on-core
-     - Core libraries in use across Node.js applications.
-   * - tasks
-     - https://github.com/RackHD/on-tasks
-     - Node.js task library for the workflow engine.
+Understand the Repositories
+-------------------------------------------------
+
+The https://github.com/emccode/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
+
+A thorough understanding of the individual repositories is essential for contributing to the project. The repositories are described in our documentation at
+http://rackhd.readthedocs.org/en/latest/repositories.html.
 
 
-Supplemental code
-^^^^^^^^^^^^^^^^^
-.. list-table::
-   :widths: 20 20 100
-   :header-rows: 1
 
-   * - Library
-     - Repository
-     - Description
 
-   * - Web user interface
-     - | https://github.com/RackHD/on-web-ui
-     - | Initial web interfaces to some of the APIs - multiple
-       | interfaces embedded into a single project.
-   * - statsd
-     - https://github.com/RackHD/on-statsd
-     - | A local statsD implementation that makes it easy to deploy
-       | on a local machine for capturing application metrics.
+
+Submitting Contributions
+----------------------------------------
+
+
+To submit coding additions or changes for a repository, fork the repository and clone it locally. Then use a unique branch to make commits and send pull requests.
+
+Keep your pull requests limited to a single issue. Make sure that the description of the pull request is clear and complete.
+
+Run your changes against existing tests or create new ones if needed. Keep tests as simple as possible.  At a minimum, make sure your changes don’t break the existing project.
+
+After receiving the pull request, our core committers will give you feedback on your work and may request that you make further changes and resubmit the request. The core committers will handle all merges.
+
+If you have questions about the disposition of a  request, feel free to email one of our core committers:
+
+* Ben.BroderickPhillips@emc.com
+* Felix.Yuan@emc.com
+* Joseph.Longever@emc.com
+* Andrew.Hou@emc.com
+* Brian.Parry@emc.com
+* John.Frey@emc.com
+
+
+
+Issues and Bugs
+-----------------------------------
+
+Use the **Issues** section of each repository to raise issues, ask questions, and report bugs.
+
+Search existing issues to ensure that you do report a topic that has already been covered. If you have new information to share about an existing issue, add your information to the existing discussion.
+
+When reporting problems, include the following information:
+
+* Problem Description
+* Steps to Reproduce
+* Actual Results
+* Expected Results
+* Additional Information
+
+
+Coding Guidelines
+-----------------------------------
+
+Use the same coding style as the rest of the codebase. In general, write clean code and supply meaningful and comprehensive code comments.
+
+See the following sections in our documentation for guidance about a number of our standard practices:
+
+
+* `Naming Conventions`_
+* `API Versioning Conventions`_
+* `AMPQ Message Bus Conventions`_
+
+
+.. _Naming Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#naming-conventions
+.. _API Versioning Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#api-versioning-conventions
+.. _AMPQ Message Bus Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#amqp-message-bus-conventions
+
+
+Communicating with Other Users
+-----------------------------------------
+
+We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group through the web page or subscribe directly by sending email to rackhd+subscribe@googlegroups.com.
+
+We also have a #RackHD slack channel at https://codecommunity.slack.com/messages/rackhd/. You can receive an invite by requesting one at http://community.emccode.com.
+
+
+
+
+Community Guidelines
+------------------------------------------
+
+Be respectful and polite to other community members - and make everyone in our community feel welcome.
