@@ -1,12 +1,12 @@
 Contributing to RackHD
 ======================
 
-Our project is relatively new, so we don't yet have many hard and fast rules.
+We certainly welcome and encourage contributions in the form of issues and pull requests, but please read the
+guidelines in this document before you get involved.
 
-As the project grows and more people get involved, we may find the need to 
-solidify our contributing guides.
+Since our project is relatively new, we don't yet have many hard and fast rules. As the project grows and more
+people get involved, we will solidify and extend our guidelines as needed.
 
-e certainly welcome and encourage contributions in the form of issues and pull requests are welcomed and encouraged.
 
 
 
