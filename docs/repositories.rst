@@ -1,5 +1,5 @@
 
-RackHD Project Repositories
+Repositories
 ------------------------------------
 
 
@@ -49,7 +49,7 @@ Libraries
      - Node.js task library for the workflow engine. Tasks are loaded and run by taskgraphs as needed.
 
 
-Supplemental code
+Supplemental Code
 ^^^^^^^^^^^^^^^^^
 .. list-table::
    :widths: 20 20 100

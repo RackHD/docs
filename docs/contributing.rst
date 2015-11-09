@@ -1,10 +1,12 @@
 Contributing to RackHD
 ======================
 
-Our project is relatively new...
+Our project is relatively new, so we don't yet have many hard and fast rules.
 
-Contributions in the form of issues and pull requests are welcomed and encouraged. This document contains information and guidelines about contributing to the RackHD project.
+As the project grows and more people get involved, we may find the need to 
+solidify our contributing guides.
 
+e certainly welcome and encourage contributions in the form of issues and pull requests are welcomed and encouraged.
 
 
 
@@ -12,7 +14,9 @@ Understand the Repositories
 -------------------------------------------------
 
 The https://github.com/emccode/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
-A thorough understanding of the repositories is essential for contributing to the project. The repositories are described at
+A thorough understanding of the repositories is essential for contributing to the project.
+
+The repositories are described in our documentation at
 http://rackhd.readthedocs.org/en/latest/repositories.html.
 
 
@@ -27,15 +31,15 @@ To submit coding additions or changes for a repository, fork the repository and 
 
 Keep your Pull requests limited to a single issue. Make sure that the description of the pull requests is clear and complete.
 
-Run your changes against any existing tests or create new ones if needed. keep your tests as simple as possible.  Make sure your changes don’t break the existing project.
+Run your changes against any existing tests or create new ones if needed. Keep tests as simple as possible.  Make sure your changes don’t break the existing project.
 
-Pull requests will be reviewed within 24 hours. We will give you feedback on your work and may request that you make further changes and resubmit the request. We will handle all merges.
+After receiving the pull request, wWe will give you feedback on your work and may request that you make further changes and resubmit the request. We will handle all merges.
 
 
 Issues and Bugs
 -----------------------------------
 
-Use the Issues section of the repository to raise issues, ask questions, and report bugs.
+Use the Issues section of each repository to raise issues, ask questions, and report bugs.
 
 Search existing issues to ensure that you not reporting a topic that has already been covered. If you have new information to share about an existing issue, add your information to the existing discussion.
 
@@ -56,9 +60,9 @@ Use the same coding style as the rest of the codebase. In general, write clean c
 See the following sections in our documentation for guidance about a number of our standard practices:
 
 
-`Naming Conventions`_
-`API Versioning Conventions`_
-`AMPQ Message Bus Conventions`_
+* `Naming Conventions`_
+* `API Versioning Conventions`_
+* `AMPQ Message Bus Conventions`_
 
 
 .. _Naming Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#naming-conventions
