@@ -59,6 +59,11 @@ When reporting problems, include the following information:
 * Expected Results
 * Additional Information
 
+Security Issues
+------------------------------
+
+If you discover a security issue, please report it in an email to rackhd@emc.com. Do not use the Issues section to describe a security issue.
+
 
 Coding Guidelines
 -----------------------------------
@@ -73,6 +78,14 @@ See the following sections in our documentation for guidance about a number of o
 * :doc:`monorail/amqp_conventions`
 
 
+
+Contributing to the Documentation
+--------------------------------------
+
+To contribute to our documentation, clone the `RackHD/docs`_ repository and submit commits and pull requests as is done for the other repositories.
+When we merge your pull requests, your changes are automatically published to our documentation site at http://rackhd.readthedocs.org/en/latest/.
+
+.. _RackHD/docs: https://github.com/RackHD/docs
 
 Communicating with Other Users
 -----------------------------------------
