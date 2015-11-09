@@ -30,6 +30,7 @@ Contents
    introduction
    software_architecture
    how_it_works
+   repositories
    contributing
    packaging_and_deployment
    development_guide
