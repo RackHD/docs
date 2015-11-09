@@ -1,4 +1,4 @@
-Workflow: SKU support
+Workflow SKU Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The SKU API provides functionality to categorize nodes into groups based on data
