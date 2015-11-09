@@ -51,6 +51,7 @@ Libraries
 
 Supplemental Code
 ^^^^^^^^^^^^^^^^^
+
 .. list-table::
    :widths: 20 20 100
    :header-rows: 1
@@ -60,10 +61,20 @@ Supplemental Code
      - Description
 
    * - Web user interface
-     - | https://github.com/RackHD/on-web-ui
-     - | Initial web interfaces to some of the APIs - multiple
-       | interfaces embedded into a single project.
+     - https://github.com/RackHD/on-web-ui
+     - Initial web interfaces to some of the APIs - multiple interfaces embedded into a single project.
    * - statsd
      - https://github.com/RackHD/on-statsd
-     - | A local statsD implementation that makes it easy to deploy
-       | on a local machine for aggregating and summarizing application metrics.
+     - A local statsD implementation that makes it easy to deploy on a local machine for aggregating and summarizing application metrics.
+
+Documentation
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Repository
+     - Description
+   * - https://github.com/RackHD/docs
+     - The RackHD documentation as published to http://rackhd.readthedocs.org/en/latest/.

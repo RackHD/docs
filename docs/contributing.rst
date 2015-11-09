@@ -13,10 +13,10 @@ people get involved, we will solidify and extend our guidelines as needed.
 Understand the Repositories
 -------------------------------------------------
 
-The https://github.com/emccode/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
+The https://github.com/rackhd/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
 
-A thorough understanding of the individual repositories is essential for contributing to the project. The repositories are described in our documentation at
-http://rackhd.readthedocs.org/en/latest/repositories.html.
+A thorough understanding of the individual repositories is essential for contributing to the project. The repositories are described in our documentation
+at :doc:`repositories`.
 
 
 
@@ -41,7 +41,6 @@ If you have questions about the disposition of a  request, feel free to email on
 * Joseph.Longever@emc.com
 * Andrew.Hou@emc.com
 * Brian.Parry@emc.com
-* John.Frey@emc.com
 
 
 
@@ -60,6 +59,11 @@ When reporting problems, include the following information:
 * Expected Results
 * Additional Information
 
+Security Issues
+------------------------------
+
+If you discover a security issue, please report it in an email to rackhd@emc.com. Do not use the Issues section to describe a security issue.
+
 
 Coding Guidelines
 -----------------------------------
@@ -68,16 +72,20 @@ Use the same coding style as the rest of the codebase. In general, write clean c
 
 See the following sections in our documentation for guidance about a number of our standard practices:
 
+* :doc:`monorail/graphs`
+* :doc:`monorail/naming_conventions`
+* :doc:`monorail/api_versioning`
+* :doc:`monorail/amqp_conventions`
 
-* `Naming Conventions`_
-* `API Versioning Conventions`_
-* `AMPQ Message Bus Conventions`_
 
 
-.. _Naming Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#naming-conventions
-.. _API Versioning Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#api-versioning-conventions
-.. _AMPQ Message Bus Conventions: http://rackhd.readthedocs.org/en/latest/development_guide.html#amqp-message-bus-conventions
+Contributing to the Documentation
+--------------------------------------
 
+To contribute to our documentation, clone the `RackHD/docs`_ repository and submit commits and pull requests as is done for the other repositories.
+When we merge your pull requests, your changes are automatically published to our documentation site at http://rackhd.readthedocs.org/en/latest/.
+
+.. _RackHD/docs: https://github.com/RackHD/docs
 
 Communicating with Other Users
 -----------------------------------------
