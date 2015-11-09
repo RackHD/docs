@@ -71,7 +71,7 @@ Documentation
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-   :widths: 20 80
+   :widths: 20 80 
    :header-rows: 1
 
    * - Repository

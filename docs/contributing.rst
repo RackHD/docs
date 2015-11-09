@@ -80,7 +80,7 @@ See the following sections in our documentation for guidance about a number of o
 
 
 Contributing to the Documentation
---------------------------------------
+-------------------------------------
 
 To contribute to our documentation, clone the `RackHD/docs`_ repository and submit commits and pull requests as is done for the other repositories.
 When we merge your pull requests, your changes are automatically published to our documentation site at http://rackhd.readthedocs.org/en/latest/.
