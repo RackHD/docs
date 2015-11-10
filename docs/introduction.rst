@@ -70,13 +70,15 @@ and hosted at http://rackhd.readthedocs.org/en/latest/.
 Project History
 ~~~~~~~~~~~~~~~~~~~~~
 
-The project started with the goal of providing a consistent and clear mechanism to perform hardware
-inventory and firmware upgrades to commodity white-box servers.
-Existing open source solutions do an admirable job of inventory and bare OS provisioning, but the
-ability to upgrade firmware was beyond the technology stacks currently available (i.e. xCat, Cobber, Razor).
-The expansion to utilizing an event-based workflow engine in alignment with the services providing
-classical PXE booting makes it possible to architect a number of different deployment configurations
-as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
+The project started with the goal of providing a consistent and clear mechanism to
+perform hardware inventory and firmware upgrades to commodity white-box servers.
+Existing open source solutions do an admirable job of inventory and bare OS
+provisioning, but the ability to upgrade firmware was beyond the technology
+stacks currently available (i.e. `xCat`_, `Cobbler`_, `Razor`_ or `Hanlon`_).
+The expansion to utilizing an event-based workflow engine in alignment with the
+services providing classical PXE booting makes it possible to architect a number
+of different deployment configurations as described in :doc:`how_it_works` and
+:doc:`packaging_and_deployment`.
 
 Project Comparison
 ~~~~~~~~~~~~~~~~~~~~~
@@ -84,31 +86,43 @@ Comparison to other open source technologies:
 
 **Cobbler comparison**
 
-* XML-RPC interface for automation
-* No dynamic events or control for TFTP, DHCP
+* Grand-daddy of open source tools to enable PXE imaging
 * Original workhorse of datacenter PXE automation
+* XML-RPC interface for automation, no REST interface
+* No dynamic events or control for TFTP, DHCP
 * Extensive manual and OS level configuration needed to utilize
-* One-shot operations
+* One-shot operations - not structured to change personalities (OS installed) on
+  a target machine, or multiple reboots to support some firmware update needs
 * No workflow engine or concept of orchestration with multiple reboots
 
-**Razor comparison**
+**Razor/Hanlon comparison**
 
-* HTTP wrapper to configure standard open source tooling for imaging
+* HTTP wrapper around stock open source tools to enable PXE booting (DHCP,
+  TFTP, HTTP)
+* Extended beyond Cobbler concepts to include microkernel to interrogate remote
+  host and enable some pre-OS-install interactions or diagnostics
 * No dynamic events or control for TFTP, DHCP
-* Catalog and policy equivalent to discovery workflow and SKU mechanism oriented on single, static OS for hardware
+* Catalog and policy are roughly equivalent to RackHD default/discovery workflow
+  and SKU mechanism, but oriented on single OS deployment for a piece or type
+  of hardware
 * Focused on hardware inventory to choose and enable OS installation
 * No workflow engine or concept of orchestration with multiple reboots
 * Tightly bound to and maintained by Puppet
-* “Loss leader” to provide bare-metal provisioning lock for Puppet
-* Forked variant “Hanlon” used for Chef Metal driver
+* Forked variant `Hanlon`_ used for Chef Metal driver
 
 **xCat comparison**
 
 * HPC Cluster Centric tool focused on IBM supported hardware
-* Firmware update features restricted to IBM/Lenovo proprietary hardware
+* Firmware update features restricted to IBM/Lenovo proprietary hardware where
+  firmware was made to "one-shot-update", not explicitly requiring a reboot
 * Has no concept of workflow or sequencing
-* Has no concept of failure recovery
+* Has no obvious mechanism for failure recovery
 * Competing with Puppet/Chef/Ansible/cfEngine to own config management story
 * Extensibility model tied exclusively to Perl code
-* REST API is anemic with focus on CLI management
+* REST API is extremely light with focus on CLI management
 * Built as a master controller of infrastructure vs an element in the process
+
+.. _Cobbler: http://cobbler.github.io
+.. _Razor: https://github.com/puppetlabs/razor-server
+.. _Hanlon: https://github.com/csc/Hanlon
+.. _xCat: http://xcat.org
