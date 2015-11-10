@@ -1,5 +1,3 @@
-### Linux Commands task
-
 The Linux Commands task is a generic task that enables running of any shell commands against a node booted into
 a microkernel. These commands are specified in JSON objects within the options.commands array of the task definition.
 Optional parameters can be specified to enable cataloging of command output.
@@ -7,7 +5,7 @@ Optional parameters can be specified to enable cataloging of command output.
 A very simple example task definition looks like:
 
 
-.. code-block:: rest
+.. code-block:: guess
 
  {
     "friendlyName" : "Shell commands basic",
@@ -33,7 +31,7 @@ makes use of all parameters that the task can take:
 
 
 
-.. code-block:: rest
+.. code-block:: guess
 
  {
     "friendlyName" : "Shell commands",
@@ -71,7 +69,7 @@ makes use of all parameters that the task can take:
 
 The task above runs three commands and catalogs the output of the first two.
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
   sudo ls /var
   sudo lshw -json
@@ -84,7 +82,7 @@ Some use cases are too complex to be performed by embedding commands in JSON. Us
 may be more convenient. You can define a file to download and run by specifying a "downloadUrl" field in
 addition to the "command" field.
 
-.. code-block:: rest
+.. code-block:: guess
 
 
  "options": {
@@ -115,7 +113,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 .. _ejs:https://github.com/tj/ejs
 
-.. code-block:: rest
+.. code-block:: guess
 
  "options": {
     "foo": "bar",
@@ -131,7 +129,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 ...then the following script template...
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  echo <%=foo%>
  echo <%=baz%>
@@ -140,7 +138,7 @@ rendered based on the option values of task definition, for example, if a task i
 ...is rendered as below when it is run by a node:
 
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  echo bar
  echo qux
@@ -151,7 +149,7 @@ rendered based on the option values of task definition, for example, if a task i
 Script templates can be uploaded using the Monorail templates API:
 
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  PUT /api/1.1/templates/<filename>
  Content-type: application/octet-stream
@@ -165,7 +163,7 @@ Binary executables can be uploaded using the Monorail files API:
 
 
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  PUT /api/1.1/files/<filename>
  ---
@@ -230,31 +228,27 @@ The catalog object in the above table may look like:
 To use this feature, new workflows and tasks (units of work) must be registered in the system.
 To create a basic workflow that runs user-specified shell commands with specified images, do the following steps:
 
-1. Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom overlay):
+1. Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom overlay)::
 
 
-.. code-block:: rest
+       PUT <server>/api/1.1/workflows/tasks
+        Content-Type: application/json
+        {
+            "friendlyName": "Bootstrap Linux Custom",
+            "injectableName": "Task.Linux.Bootstrap.Custom",
+            "implementsTask": "Task.Base.Linux.Bootstrap",
+            "options": {
+                "kernelversion": "vmlinuz-3.13.0-32-generic",
+                "kernel": "common/vmlinuz-3.13.0-32-generic",
+                "initrd": "common/initrd.img-3.13.0-32-generic",
+                "basefs": "common/base.trusty.3.13.0-32.squashfs.img",
+                "overlayfs": "common/overlayfs_all_files.cpio.gz",
+                "profile": "linux.ipxe"
+                },
+                "properties": { }
+        }
 
-    PUT <server>/api/1.1/workflows/tasks
-    Content-Type: application/json
-    {
-        "friendlyName": "Bootstrap Linux Custom",
-        "injectableName": "Task.Linux.Bootstrap.Custom",
-        "implementsTask": "Task.Base.Linux.Bootstrap",
-        "options": {
-            "kernelversion": "vmlinuz-3.13.0-32-generic",
-            "kernel": "common/vmlinuz-3.13.0-32-generic",
-            "initrd": "common/initrd.img-3.13.0-32-generic",
-            "basefs": "common/base.trusty.3.13.0-32.squashfs.img",
-            "overlayfs": "common/overlayfs_all_files.cpio.gz",
-            "profile": "linux.ipxe"
-        },
-        "properties": { }
-    }
-
-2. Define a task that contains the commands to be run, adding or removing command objects below in the options.commands array.
-
-.. code-block:: rest
+2. Define a task that contains the commands to be run, adding or removing command objects below in the options.commands array::
 
     PUT <server>/api/1.1/workflows/tasks
     Content-Type: application/json
@@ -275,7 +269,7 @@ The output from the first command (lshw) will be parsed as JSON and cataloged in
 
 Now define a custom workflow that combines these tasks and runs them in a sequence. This one is set up to make OBM calls as well.
 
-.. code-block:: rest
+.. code-block:: guess
 
     PUT <server>/api/1.1/workflows/
     Content-Type: application/json
@@ -323,7 +317,7 @@ With all of these data, the injectableName and friendlyName can be any string va
 
 After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the JSON posted to /api/1.1/workflows/:
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
     curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
 
