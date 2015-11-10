@@ -92,7 +92,7 @@ can send.
       }
     }
 
-.. literalinclude:: samples/sku.json
+.. literalinclude:: monorail/samples/sku.json
    :language: JSON
 
 

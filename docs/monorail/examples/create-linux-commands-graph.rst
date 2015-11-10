@@ -5,7 +5,7 @@ Optional parameters can be specified to enable cataloging of command output.
 A very simple example task definition looks like:
 
 
-.. code-block:: guess
+.. code-block:: JSON
 
  {
     "friendlyName" : "Shell commands basic",
@@ -31,7 +31,7 @@ makes use of all parameters that the task can take:
 
 
 
-.. code-block:: guess
+.. code-block:: JSON
 
  {
     "friendlyName" : "Shell commands",
@@ -69,7 +69,7 @@ makes use of all parameters that the task can take:
 
 The task above runs three commands and catalogs the output of the first two.
 
-.. code-block:: BatchLexer
+.. code-block:: JSON
 
   sudo ls /var
   sudo lshw -json
@@ -82,7 +82,7 @@ Some use cases are too complex to be performed by embedding commands in JSON. Us
 may be more convenient. You can define a file to download and run by specifying a "downloadUrl" field in
 addition to the "command" field.
 
-.. code-block:: guess
+.. code-block:: JSON
 
 
  "options": {
@@ -113,7 +113,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 .. _ejs:https://github.com/tj/ejs
 
-.. code-block:: guess
+.. code-block:: JSON
 
  "options": {
     "foo": "bar",
@@ -129,7 +129,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 ...then the following script template...
 
-.. code-block:: BatchLexer
+.. code-block:: JSON
 
  echo <%=foo%>
  echo <%=baz%>
@@ -138,7 +138,7 @@ rendered based on the option values of task definition, for example, if a task i
 ...is rendered as below when it is run by a node:
 
 
-.. code-block:: BatchLexer
+.. code-block:: JSON
 
  echo bar
  echo qux
@@ -146,10 +146,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 **Uploading Script Templates**
 
-Script templates can be uploaded using the Monorail templates API:
-
-
-.. code-block:: BatchLexer
+Script templates can be uploaded using the Monorail templates API::
 
  PUT /api/1.1/templates/<filename>
  Content-type: application/octet-stream
@@ -163,7 +160,7 @@ Binary executables can be uploaded using the Monorail files API:
 
 
 
-.. code-block:: BatchLexer
+.. code-block:: JSON
 
  PUT /api/1.1/files/<filename>
  ---
@@ -269,7 +266,7 @@ The output from the first command (lshw) will be parsed as JSON and cataloged in
 
 Now define a custom workflow that combines these tasks and runs them in a sequence. This one is set up to make OBM calls as well.
 
-.. code-block:: guess
+.. code-block:: JSON
 
     PUT <server>/api/1.1/workflows/
     Content-Type: application/json
@@ -317,7 +314,7 @@ With all of these data, the injectableName and friendlyName can be any string va
 
 After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the JSON posted to /api/1.1/workflows/:
 
-.. code-block:: BatchLexer
+.. code-block:: JSON
 
     curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
 

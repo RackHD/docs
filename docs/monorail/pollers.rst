@@ -154,7 +154,7 @@ an "snmpSettings" field with a host and community fields:
             "config":{"command":"power"}}' \
         <server>/api/1.1/pollers
 
-.. literalinclude:: samples/ipmi-poller.json
+.. literalinclude:: monorail/samples/ipmi-poller.json
    :language: JSON
 
 **Create a New IPMI Poller Without a Node**
@@ -181,7 +181,7 @@ an "snmpSettings" field with a host and community fields:
             "config":{"command":"power","host":"10.1.1.2","user":"admin","password":"admin"}}' \
         <server>/api/1.1/pollers
 
-.. literalinclude:: samples/ipmi-poller-no-node.json
+.. literalinclude:: monorail/samples/ipmi-poller-no-node.json
    :language: JSON
 
 **Create a New SNMP Poller**
@@ -211,7 +211,7 @@ an "snmpSettings" field with a host and community fields:
               "oids":["PDU-MIB::outletVoltage","PDU-MIB::outletCurrent"]}}' \
         <server>/api/1.1/pollers
 
-.. literalinclude:: samples/snmp-poller.json
+.. literalinclude:: monorail/samples/snmp-poller.json
    :language: JSON
 
 **Create a New Metric Poller**
