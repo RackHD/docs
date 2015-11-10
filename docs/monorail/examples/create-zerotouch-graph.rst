@@ -7,7 +7,7 @@ an inline task definition (as opposed to creating a new task definition as a sep
 
 
 
-.. code-block:: rest
+.. code-block:: guess
 
  {
     friendlyName: 'Zerotouch vEOS Graph',
@@ -84,7 +84,7 @@ variables, use this syntax:
 
 .. _ejs: https://github.com/tj/ejs
 
-.. code-block:: rest
+.. code-block:: ejs
 
    <%=variableName%>
 
@@ -92,7 +92,7 @@ variables, use this syntax:
 In order to provide a value for this variable when the template is rendered, add the variable
 name as a key in the options object of the custom zerotouch task definition:
 
-.. code-block:: rest
+.. code-block:: guess
 
 
  taskDefinition: {
@@ -105,7 +105,7 @@ name as a key in the options object of the custom zerotouch task definition:
 
 The above code renders the following startup config as shown here:
 
-.. code-block:: rest
+.. code-block:: guess
 
  Unrendered:
  !
@@ -122,7 +122,7 @@ The above code renders the following startup config as shown here:
 
 To upload a template, use the templates API:
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  PUT /api/1.1/templates/library/<filename>
  Content-Type: application/octet-stream
@@ -147,7 +147,7 @@ A zerotouch profile is a script template that is executed by the switch during z
 A basic profile looks like the following:
 
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  #!/usr/bin/Cli -p2
  enable
@@ -167,6 +167,6 @@ The zerotouch boot config is a very simple config that specifies which EOS image
 This should almost always match the EOS image filename you have provided, e.g.:
 
 
-.. code-block:: rest
+.. code-block:: BatchLexer
 
  SWI=flash:/<%=bootfile%>
