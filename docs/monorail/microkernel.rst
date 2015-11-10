@@ -139,7 +139,7 @@ Why Not Containers?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The goal is to optimize for size on disk and modularity. By creating many different overlays that share a base image, we avoid data
-duplication on the boot server (50mb base image + 10 * 5mb overlay archives vs. 10 * 55mb container images).
+duplication on the boot server (50MB base image + 10 * 5MB overlay archives vs. 10 * 55MB container images).
 
 Additionally, it gives us flexibility to update the base image
 and any system dependencies/scripts/etc. on it without having to rebuild
