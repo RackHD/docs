@@ -1,12 +1,15 @@
-Instructions for creating a custom zerotouch graph for Arista machines, 
-including defining a custom EOS image, custom startup-config and custom zerotouch script.
+This section provides instructions for creating a custom zerotouch graph for Arista machines,
+including defining a custom EOS image, custom startup-config, and custom zerotouch script.
 
 
-Below is an example zerotouch graph for booting a vEOS (virtual arista) machine, utilizing 
+Below is an example zerotouch graph for booting a vEOS (virtual arista) machine. It uses
 an inline task definition (as opposed to creating a new task definition as a separate step):
 
-```
-{
+
+
+.. code-block:: rest
+
+ {
     friendlyName: 'Zerotouch vEOS Graph',
     injectableName: 'Graph.Arista.Zerotouch.vEOS',
     tasks: [
@@ -35,114 +38,135 @@ an inline task definition (as opposed to creating a new task definition as a sep
             }
         }
     ]
-}
-```
+ }
+
+
 
 To customize this graph, change the following fields:
 
-- friendlyName - choose a new unique friendly name for your graph
-- injectableName - choose a new unique name for your graph
-- tasks[0]
-    - friendlyName - choose a new unique friendly name for your task
-    - injectableName - choose a new unique name for your task
-    - options
-        - profile - the default profile should be sufficient for most cases, see 
-                    the Zerotouch Profile] section for more information
-        - bootConfig - the default bootConfig should be sufficient for most cases,
-                    see the Zerotouch Boot Config section for more information
-        - startupConfig - change this to the name of your custom startup config. See
-                    the Adding Zerotouch Templates] section.
-        - eosImage - change this to the name of your EOS image. See the Adding EOS Images
-                    section.
-        - bootfile - in almost all cases this should be the same as your eosImage name
-        - hostname - an option value rendered into the default arista-startup-config template. 
-                    Optional depending on the template.
-    - properties - a object containing any tags/metadata you wish to add
+
+.. list-table::
+   :widths: 10 80
+   :header-rows: 1
+
+   * - Field
+     - Description
+   * - friendlyName
+     - A unique friendly name for the graph.
+   * - injectableName
+     - A unique injectable name for the graph.
+   * - task/friendlyName
+     - A unique friendlyName for the task.
+   * - task/injectableName
+     - A unique injectableName for the task.
+   * - profile
+     - The default profile is sufficient for most cases. See the Zerotouch Profile section for more information.
+   * - bootConfig
+     - The default bootConfig is sufficient for most cases. See the Zerotouch Profile section for more information.
+   * - startupConfig
+     - Specify the name of the custom startup config. See the Adding Zerotouch Templates section for more information.
+   * - eosImage
+     - Specify the name of the EOS image. See the Adding EOS Images section for more information.
+   * - bootfile
+     - In most cases, specify the eosImage name.
+   * - hostname
+     - An value rendered into the default arista-startup-config template. Depending on the template, this may be optional.
+   * - properties
+     - A object containing any tags/metadata that you wish to add.
 
 
-### Adding Zerotouch Templates
+**Adding Zerotouch Templates**
 
-#### Creation
+**Creation**
 
-Templates are defined using [ejs](https://github.com/tj/ejs) syntax. To define template
+Templates are defined using `ejs`_ syntax. To define template
 variables, use this syntax:
 
-```
-<%=variableName%>
-```
+.. _ejs: https://github.com/tj/ejs
+
+.. code-block:: rest
+
+   <%=variableName%>
+
 
 In order to provide a value for this variable when the template is rendered, add the variable
-name as a key in the options object of the custom zerotouch task definition, e.g.
+name as a key in the options object of the custom zerotouch task definition:
 
-```
-taskDefinition: {
+.. code-block:: rest
+
+
+ taskDefinition: {
     <other values>
     options: {
         hostname: 'CustomHostName'
     }
-}
-```
+ }
 
-will render the following startup config as:
 
-```
-Unrendered:
+The above code renders the following startup config as shown here:
 
-!
-hostname <%=hostname%>
-!
+.. code-block:: rest
 
-Rendered:
-!
-hostname CustomHostName
-!
-```
+ Unrendered:
+ !
+ hostname <%=hostname%>
+ !
 
-#### Uploading
+ Rendered:
+ !
+ hostname CustomHostName
+ !
+
+
+**Uploading**
 
 To upload a template, use the templates API:
 
-```
-PUT /api/1.1/templates/library/<filename>
-Content-Type: application/octet-stream
----
-curl -X PUT \
+.. code-block:: rest
+
+ PUT /api/1.1/templates/library/<filename>
+ Content-Type: application/octet-stream
+ ---
+ curl -X PUT \
      -H 'Content-Type: application/octet-stream' \
      -d "<startup config template>" \
     <server>/api/1.1/templates/library/<filename>
 
-```
 
-### Adding EOS Images
 
-Move any EOS images you would like to use into <on-http directory>/static/http/common/
+**Adding EOS Images**
 
-In your task options, reference the EOS image name along with the common 
-directory, e.g. eosImage: common/<eosImageName>
+Move any EOS images you would like to use into <on-http directory>/static/http/common/.
 
-### Zerotouch Profile
+In the task options, reference the EOS image name along with the common
+directory, e.g. eosImage: common/<eosImageName>.
+
+**Zerotouch Profile**
 
 A zerotouch profile is a script template that is executed by the switch during zerotouch.
-A basic profile looks like:
+A basic profile looks like the following:
 
-```
-#!/usr/bin/Cli -p2
-enable
-copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=startupConfig%> flash:startup-config
-copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=bootConfig%> flash:boot-config
-copy http://<%=server%>:<%=port%>/common/<%=eosImage%> flash:
-exit
-```
 
-Adding #!/usr/bin/Cli -p2 tells the script to be executed by the Arista's CLI parser. 
-Using #!/bin/bash for more control is also an option. If using bash for zerotouch config, any 
+.. code-block:: rest
+
+ #!/usr/bin/Cli -p2
+ enable
+ copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=startupConfig%> flash:startup-config
+ copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=bootConfig%> flash:boot-config
+ copy http://<%=server%>:<%=port%>/common/<%=eosImage%> flash:
+ exit
+
+
+Adding #!/usr/bin/Cli -p2 tells the script to be executed by the Arista's CLI parser.
+Using #!/bin/bash for more control is also an option. If using bash for zerotouch config, any
 config and imaging files should go into the /mnt/flash/ directory.
 
-### Zerotouch Boot Config
+**Zerotouch Boot Config**
 
 The zerotouch boot config is a very simple config that specifies which EOS image file to boot.
 This should almost always match the EOS image filename you have provided, e.g.:
 
-```
-SWI=flash:/<%=bootfile%>
-```
+
+.. code-block:: rest
+
+ SWI=flash:/<%=bootfile%>
