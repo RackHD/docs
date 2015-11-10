@@ -150,6 +150,7 @@ can send.
 
 
 .. code-block:: REST
+
     PATCH /api/1.1/skus/:id
     {
         "name": "Custom SKU Name"
