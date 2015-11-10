@@ -88,9 +88,6 @@ If using a self-signed certificate, add a security exception to your client of
 choice. Verify the certificate by restarting on-http and visiting
 `https://<host>/api/current/versions`.
 
-See Also
-~~~~~~~~~~~~~~~~
-
-More information is available in the `OpenSSL documentation`_.
+**Note:** For information about OpenSSL, see the `OpenSSL documentation`_.
 
 .. _OpenSSL documentation: https://www.openssl.org/docs/
