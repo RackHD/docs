@@ -204,7 +204,7 @@ To get a list of workflows in the library, run
 
     curl <server>/api/1.1/workflows/library
 
- Sample output
+Sample output:
 
 .. code-block:: rest
 
