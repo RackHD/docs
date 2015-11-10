@@ -20,7 +20,7 @@ directly on your local machine.
    `git clone https://github.com/RackHD/RackHD`
 
    Within the example/ directory is a setup script to set up an "example rack"
-   entirely virtually - albiet a very simple one. It creates a virtualbox with
+   entirely virtual - albiet a very simple one. It creates a virtualbox with
    RackHD running within it, and another that is connected to it to PXE boot
 
 2. Create a local configuration file and spin up vagrant
@@ -44,7 +44,7 @@ directly on your local machine.
 
 5. Move the resulting files into the HTTP server's static files directory
 
-   `mv /tmp/on-imagebuilder/builds/* ~/RackHD/on-http/static/http/common`
+   `mv /tmp/on-imagebuilder/builds/* ~/src/on-http/static/http/common/`
 
 
 6. Finally, bring up the RackHD services
