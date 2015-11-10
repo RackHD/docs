@@ -20,7 +20,7 @@ directly on your local machine.
    `git clone https://github.com/RackHD/RackHD`
 
    Within the example/ directory is a setup script to set up an "example rack"
-   entirely virtual - albiet a very simple one. It creates a virtualbox with
+   virtually - albeit a very simple one. It creates a virtualbox VM with
    RackHD running within it, and another that is connected to it to PXE boot
 
 2. Create a local configuration file and spin up vagrant
