@@ -49,7 +49,8 @@ directly on your local machine.
 
 6. Finally, bring up the RackHD services
 
-    `sudo nf start` or `sudo nf start [graph,http,dhcp,tftp,syslog]`
+   `cd ~`
+   `sudo nf start` or `sudo nf start [graph,http,dhcp,tftp,syslog]`
 
    Now that the services are running we can begin powering on pxe clients
    and watch them boot.
