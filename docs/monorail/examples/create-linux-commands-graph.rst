@@ -4,13 +4,15 @@ The Linux Commands task is a generic task that enables running of any shell comm
 
 A very simple example task definition looks like:
 
-```
+
+::
+
 {
     "friendlyName" : "Shell commands basic",
     "implementsTask" : "Task.Base.Linux.Commands",
     "injectableName" : "Task.Linux.Commands.BasicExample",
     "options" : {
-        "commands" : [ 
+        "commands" : [
             {
                 "command" : "echo testing"
             },
@@ -22,34 +24,37 @@ A very simple example task definition looks like:
     "properties" : { }
 }
 
-```
+
 
 There is an example task included in the monorail system under the name "Task.Linux.Commands" that makes use of all the different parameters the task can take:
 
-```
+
+
+::
+
 {
     "friendlyName" : "Shell commands",
     "implementsTask" : "Task.Base.Linux.Commands",
     "injectableName" : "Task.Linux.Commands",
     "options" : {
-        "commands" : [ 
+        "commands" : [
             {
                 "command" : "sudo ls /var",
                 "catalog" : {
                     "format" : "raw",
                     "source" : "ls var"
                 }
-            }, 
+            },
             {
                 "command" : "sudo lshw -json",
                 "catalog" : {
                     "format" : "json",
                     "source" : "lshw user"
                 }
-            }, 
+            },
             {
                 "command" : "test",
-                "acceptedResponseCodes" : [ 
+                "acceptedResponseCodes" : [
                     1
                 ]
             }
@@ -59,21 +64,24 @@ There is an example task included in the monorail system under the name "Task.Li
         "commands" : {}
     }
 }
-```
+
 
 The task above will run three commands. It will catalog the output of the first two.
 
-```
+::
+
 sudo ls /var
 sudo lshw -json
 test
-```
 
-**Specifying scripts or binaries to download and run**
+
+**Specifying Scripts or Binaries to Download and Run**
 
 Some use cases are too complex to be performed by embedding commands in json, and using a pre-defined file may be more convenient. You can define a file to download and run by specifying a "downloadUrl" field in addition to the "command" field.
 
-```
+::
+
+
 "options": {
     "commands" : [
         {
@@ -82,19 +90,22 @@ Some use cases are too complex to be performed by embedding commands in json, an
         }
     ]
 }
-```
+
 
 This will cause the command runner script on the node to download the script from the specified route (server:port will be prepended) to the working directory, and execute it according to the specified command (e.g. `bash myscript.sh`). You must specify how to run the script correctly in the command field (e.g. `node myscript.js arg1 arg2`, `./myExecutable`).
 
 A note on convention: binary files should be uploaded via the /api/1.1/files route, and script templates should be uploaded/downloaded via the /api/1.1/templates route.
 
-**Defining script templates**
+**Defining Script Templates**
 
-Scripts can mean simple shell scripts, python scripts, etc. 
+Scripts can mean simple shell scripts, python scripts, etc.
 
 In many cases, you may need access to variables in the script that can be rendered at runtime. Templates are defined using ejs syntax (variables in <%=variable%> tags), and any variables will be rendered based on the option values of task definition, for example, if a task is defined with these options:
 
-```
+
+
+::
+
 "options": {
     "foo": "bar",
     "baz": "qux",
@@ -105,68 +116,107 @@ In many cases, you may need access to variables in the script that can be render
         }
     ]
 }
-```
+
 
 Then the following script template...
 
-```
+::
+
 echo <%=foo%>
 echo <%=baz%>
-```
+
 
 ...will get rendered as below when it gets run by a node
 
-```
+
+::
+
 echo bar
 echo qux
-```
 
-**Uploading script templates**
+
+**Uploading Script Templates**
 
 Script templates can be uploaded using the Monorail templates API:
 
-```
+
+::
+
 PUT /api/1.1/templates/<filename>
 Content-type: application/octet-stream
 ---
 curl -X PUT -H "Content-Type: application/octet-stream" --data-binary @<script> <server>/api/1.1/templates/library/<scriptname>
-```
 
-**Uploading binary files**
+
+**Uploading Binary Files**
 
 Binary executables can be uploaded using the Monorail files API
 
-```
+
+
+::
+
 PUT /api/1.1/files/<filename>
 ---
 curl -T <binary> <server>/api/1.1/templates/library/<filename>
-```
 
-**Available options for command JSON objects**
+
+**Available Options for Command JSON Objects**
 
 The task definition above makes use of the different options available for parsing and handling of command output. Available options are detailed below:
 
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-|command|string|command or script field required|the command to run|
-|downloadUrl|string|API route suffix for file download|the script/file to download and run|
-|catalog|object|no|an object specifying cataloging parameters if the command output should be cataloged
-|acceptedResponseCodes|arrayOfString|no| non-zero exit codes from the command that should not be treated as failures
+
+.. list-table::
+   :widths: 10 20 20 50
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Required?
+     - Description
+   * - command
+     - string
+     - command or script field required
+     - command to run
+   * - downloadUrl
+     - string
+     - API route suffix for file download
+     - script/file to download and run
+   * - catalog
+     - object
+     - no
+     - an object specifying cataloging parameters if the command output should be cataloged
+   * - acceptedResponseCodes
+     - arrayOfString
+     - no
+     - non-zero exit codes from the command that should not be treated as failures
 
 The catalog object in the above table may look like:
 
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-|format|string|yes|what parser we should use for output. Available formats are 'raw', 'json' and 'xml'|
-|source|string|no|what the 'source' key value in the database document should be. Will default to 'unknown' if not specified|
+* - Name
+  - Type
+  - Required?
+  - Description
+* - format
+  - string
+  - yes
+  - command to run
+  - The parser to should use for output. Available formats are *raw*, *json*, and *xml*.
+* - source
+  - string
+  - no
+  - What the 'source' key value in the database document should be. Defaults to 'unknown' if not specified.
 
-<hr>
 
-### Creating a new graph with a custom shell commands task
+
+**Creating a Graph with a Custom Shell Commands Task**
 
 In order to utilize this feature, new workflows and tasks (units of work) must be registered in the system. To create a basic workflow that runs user specified shell commands, with user specified images, do the following steps:
 
 Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom overlay):
+
+
+::
 
     PUT <server>/api/1.1/workflows/tasks
     Content-Type: application/json
@@ -187,6 +237,8 @@ Define a custom workflow task with the images specified to be used (this is not 
 
 Now define a task that contains the commands to be run, adding or removing command objects below in the options.commands array.
 
+::
+
     PUT <server>/api/1.1/workflows/tasks
     Content-Type: application/json
     {
@@ -202,9 +254,11 @@ Now define a task that contains the commands to be run, adding or removing comma
 The output from the first command (lshw) will be parsed as json and cataloged in the database under the "lshw user" source value. The output from the second command will only be logged, since format and source haven't been specified. The third command will normally fail, since \`test\` has an exit code of 1, but in this case we have specified that this is acceptable and not to fail. This feature is useful with certain binaries that have acceptable non-zero exit codes.
 
 
-**Putting it all together**
+**Putting it All Together**
 
 Now define a custom workflow that combines these tasks and runs them in a sequence. This one is set up to make OBM calls as well.
+
+::
 
     PUT <server>/api/1.1/workflows/
     Content-Type: application/json
@@ -252,6 +306,8 @@ With all of these data, the injectableName and friendlyName can be any string va
 
 After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the json POSTed to /api/1.1/workflows/:
 
+::
+
     curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
-    
+
  Output from these commands will be logged by the taskgraph runner in /var/log/upstart/on-taskgraph.log.

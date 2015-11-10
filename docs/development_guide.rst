@@ -28,6 +28,7 @@ Run *npm test* in each repository.
 .. include:: monorail/graphs.rst
 .. include:: monorail/tasks.rst
 .. include:: monorail/skus.rst
+. include:: monorail/workflow_examples.rst
 .. include:: monorail/pollers.rst
 .. include:: monorail/microkernel.rst
 .. include:: monorail/passive_discovery.rst
