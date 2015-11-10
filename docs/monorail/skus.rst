@@ -92,7 +92,7 @@ can send.
       }
     }
 
-.. literalinclude:: samples/sku.json
+.. literalinclude:: monorail/samples/sku.json
    :language: JSON
 
 
@@ -150,6 +150,7 @@ can send.
 
 
 .. code-block:: REST
+
     PATCH /api/1.1/skus/:id
     {
         "name": "Custom SKU Name"
