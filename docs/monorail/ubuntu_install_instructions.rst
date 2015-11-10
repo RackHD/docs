@@ -5,7 +5,7 @@ Ubuntu Installation/Upgrade
 Upgrading the code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Log into the Server (nuc, kylin, etc)**
+**Log into the Server**
 
 **Get All Current Patches and Remove Non-essential Packages:**
 
