@@ -13,7 +13,7 @@ RackHD running within it, and another that is connected to it to PXE boot.
 
 #. Clone at minimum the rackHD repository. This repository includes both git submodules with relevant source code and the example vagrant instance::
 
-     git clone https://github.com/RackHD/RackHD
+     git clone --recursive https://github.com/RackHD/RackHD
 
 #. Create a local configuration file and spin up vagrant::
 
