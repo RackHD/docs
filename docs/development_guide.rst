@@ -6,58 +6,51 @@ Development Guide
 Example RackHD Setup
 --------------------
 
-**Prerequisites**
+The example/ directory contains a setup script to run an example virtual rack. It creates a virtualbox VM with
+RackHD running within it, and another that is connected to it to PXE boot.
 
-The example setup uses Vagrant and ansible locally. Please install them
+**Prerequisite**: The example setup uses Vagrant and ansible locally. Please install them
 directly on your local machine.
 
 
-
 1. Clone at minimum the rackHD repository. This repository includes both git
-   submodules with all the relevant source code, as well as an example vagrant
-   instance to get an instance up and running locally very easily.
+   submodules with relevant source code and the example vagrant
+   instance::
 
-   `git clone https://github.com/RackHD/RackHD`
+     git clone https://github.com/RackHD/RackHD
 
-   Within the example/ directory is a setup script to set up an "example rack"
-   virtually - albeit a very simple one. It creates a virtualbox VM with
-   RackHD running within it, and another that is connected to it to PXE boot
+2. Create a local configuration file and spin up vagrant::
 
-2. Create a local configuration file and spin up vagrant
+     cd RackHD
+     cp example/config/monorail_rack.cfg.example example/config/monorail_rack.cfg
 
-   `cd RackHD`
-   `cp example/config/monorail_rack.cfg.example example/config/monorail_rack.cfg`
+3. Fire up the virtual rack::
 
-3. Fire up the virtual rack
+     cd example/bin
+     ./monorail_rack
 
-   `cd example/bin`
-   `./monorail_rack`
+4. ssh into the RackHD server and use on-imagebuilder to build the static files::
 
-4. ssh into the RackHD server and use on-imagebuilder to build the static files
+     vagrant ssh dev
+     sudo apt-get install -y ansible
+     cd ~
+     git clone https://github.com/rackhd/on-imagebuilder
+     cd on-imagebuilder
+     sudo ansible-playbook -i hosts all.yml
 
-   `vagrant ssh dev`
-   `sudo apt-get install -y ansible`
-   `cd ~`
-   `git clone https://github.com/rackhd/on-imagebuilder`
-   `cd on-imagebuilder`
-   `sudo ansible-playbook -i hosts all.yml`
+5. Move the resulting files into the HTTP server's static files directory::
 
-5. Move the resulting files into the HTTP server's static files directory
-
-   `sudo mv /tmp/on-imagebuilder/builds/* ~/src/on-http/static/http/common/`
+     sudo mv /tmp/on-imagebuilder/builds/* ~/src/on-http/static/http/common/
 
 
-6. Finally, bring up the RackHD services
+6. Finally, bring up the RackHD services::
 
-   `cd ~`
-   `sudo nf start` or `sudo nf start [graph,http,dhcp,tftp,syslog]`
-
-   Now that the services are running we can begin powering on pxe clients
-   and watch them boot.
+      cd ~
+      sudo nf start or sudo nf start [graph,http,dhcp,tftp,syslog]
 
 
-Working with RackHD APIs
-------------------------
+Now that the services are running we can begin powering on pxe clients and watch them boot.
+
 
 .. include:: monorail/graphs.rst
 .. include:: monorail/tasks.rst
