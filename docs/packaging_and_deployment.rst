@@ -17,4 +17,3 @@ Requirements
 .. include:: monorail/ubuntu_install_instructions.rst
 .. include:: monorail/configuration.rst
 .. include:: monorail/https.rst
-.. include:: monorail/rackhd_sample_instance.rst
