@@ -44,7 +44,7 @@ directly on your local machine.
 
 5. Move the resulting files into the HTTP server's static files directory
 
-   `mv /tmp/on-imagebuilder/builds/* ~/src/on-http/static/http/common/`
+   `sudo mv /tmp/on-imagebuilder/builds/* ~/src/on-http/static/http/common/`
 
 
 6. Finally, bring up the RackHD services
