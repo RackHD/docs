@@ -3,27 +3,61 @@ Development Guide
 
         *----------------------------- Content in Development -----------------------------*
 
-Development Setup
------------------
+Example RackHD Setup
+--------------------
 
 **Prerequisites**
 
-Install Node.js and npm. **Note:** Currently, node versions 0.10.x are supported. node 0.12 and node 4.0 will be supported in the near future.
+The example setup uses Vagrant and ansible locally. Please install them
+directly on your local machine.
 
 
 
-**Checking Out the Code**
+1. Clone at minimum the rackHD repository. This repository includes both git
+   submodules with all the relevant source code, as well as an example vagrant
+   instance to get an instance up and running locally very easily.
 
-1. Clone at minimum the **on-http**, **on-dhcp-proxy**, **on-tftp**, **on-taskgraph**, and **on-tasks** repositories.
+   `git clone https://github.com/RackHD/RackHD`
 
-2. Run *npm install* in each repository.
+   Within the example/ directory is a setup script to set up an "example rack"
+   virtually - albeit a very simple one. It creates a virtualbox VM with
+   RackHD running within it, and another that is connected to it to PXE boot
 
-**Performing Unit Tests**
+2. Create a local configuration file and spin up vagrant
+
+   `cd RackHD`
+   `cp example/config/monorail_rack.cfg.example example/config/monorail_rack.cfg`
+
+3. Fire up the virtual rack
+
+   `cd example/bin`
+   `./monorail_rack`
+
+4. ssh into the RackHD server and use on-imagebuilder to build the static files
+
+   `vagrant ssh dev`
+   `sudo apt-get install -y ansible`
+   `cd ~`
+   `git clone https://github.com/rackhd/on-imagebuilder`
+   `cd on-imagebuilder`
+   `sudo ansible-playbook -i hosts all.yml`
+
+5. Move the resulting files into the HTTP server's static files directory
+
+   `sudo mv /tmp/on-imagebuilder/builds/* ~/src/on-http/static/http/common/`
 
 
-Run *npm test* in each repository.
+6. Finally, bring up the RackHD services
+
+   `cd ~`
+   `sudo nf start` or `sudo nf start [graph,http,dhcp,tftp,syslog]`
+
+   Now that the services are running we can begin powering on pxe clients
+   and watch them boot.
 
 
+Working with RackHD APIs
+------------------------
 
 .. include:: monorail/graphs.rst
 .. include:: monorail/tasks.rst
