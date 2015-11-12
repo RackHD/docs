@@ -2,17 +2,17 @@ Development Guide
 =================
 
         *----------------------------- Content in Development -----------------------------*
-.. include:: monorail/monorail_api.rst
+.. include:: rackhd/rackhd_api.rst
 
-.. include:: monorail/graphs.rst
-.. include:: monorail/tasks.rst
-.. include:: monorail/skus.rst
-.. include:: monorail/workflow_examples.rst
-.. include:: monorail/pollers.rst
-.. include:: monorail/passive_discovery.rst
+.. include:: rackhd/graphs.rst
+.. include:: rackhd/tasks.rst
+.. include:: rackhd/skus.rst
+.. include:: rackhd/workflow_examples.rst
+.. include:: rackhd/pollers.rst
+.. include:: rackhd/passive_discovery.rst
 
-.. include:: monorail/microkernel.rst
+.. include:: rackhd/microkernel.rst
 
-.. include:: monorail/naming_conventions.rst
-.. include:: monorail/api_versioning.rst
-.. include:: monorail/amqp_conventions.rst
+.. include:: rackhd/naming_conventions.rst
+.. include:: rackhd/api_versioning.rst
+.. include:: rackhd/amqp_conventions.rst

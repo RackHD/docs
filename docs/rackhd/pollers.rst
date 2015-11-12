@@ -61,7 +61,7 @@ In some cases, the data desired from a poller may require more complex processin
 than simply running an IPMI or SNMP command and parsing it. To address this,
 there is a poller type called a metric. A metric uses SNMP or IPMI, but can
 make multiples of these calls in aggregate and add post-processing logic to the
-results. There are currently four metrics available in the Monorail system:
+results. There are currently four metrics available in the RackHD system:
 
 - snmp-interface-state
 - snmp-interface-bandwidth-utilization
@@ -154,7 +154,7 @@ an "snmpSettings" field with a host and community fields:
             "config":{"command":"power"}}' \
         <server>/api/1.1/pollers
 
-.. literalinclude:: monorail/samples/ipmi-poller.json
+.. literalinclude:: rackhd/samples/ipmi-poller.json
    :language: JSON
 
 **Create a New IPMI Poller Without a Node**
@@ -181,7 +181,7 @@ an "snmpSettings" field with a host and community fields:
             "config":{"command":"power","host":"10.1.1.2","user":"admin","password":"admin"}}' \
         <server>/api/1.1/pollers
 
-.. literalinclude:: monorail/samples/ipmi-poller-no-node.json
+.. literalinclude:: rackhd/samples/ipmi-poller-no-node.json
    :language: JSON
 
 **Create a New SNMP Poller**
@@ -211,7 +211,7 @@ an "snmpSettings" field with a host and community fields:
               "oids":["PDU-MIB::outletVoltage","PDU-MIB::outletCurrent"]}}' \
         <server>/api/1.1/pollers
 
-.. literalinclude:: monorail/samples/snmp-poller.json
+.. literalinclude:: rackhd/samples/snmp-poller.json
    :language: JSON
 
 **Create a New Metric Poller**
@@ -251,12 +251,12 @@ config instead of data like "oids" or "command"
 
 Sample Output: IPMI
 
-.. literalinclude:: monorail/samples/ipmi-sdr-poller-data.json
+.. literalinclude:: rackhd/samples/ipmi-sdr-poller-data.json
    :language: JSON
 
 Sample Output: SNMP
 
-.. literalinclude:: monorail/samples/snmp-poller-data.json
+.. literalinclude:: rackhd/samples/snmp-poller-data.json
   :language: JSON
 
 **Get List of Active Pollers**

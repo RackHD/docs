@@ -91,5 +91,5 @@ Find the graph definition you would like to use and copy the top-level *injectab
 
 Sample Output:
 
-.. literalinclude:: monorail/samples/serialized-graph-example.json
+.. literalinclude:: rackhd/samples/serialized-graph-example.json
    :language: JSON
