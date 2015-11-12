@@ -83,7 +83,7 @@ Some proprietary management tools leverage these protocols to provide additional
 
 **PXE**
 
- The `Preboot Execution Environment (PXE)`_ is a vendor-independent mechanism that allows networked computers
+The `Preboot Execution Environment (PXE)`_ is a vendor-independent mechanism that allows networked computers
 to be remotely booted and configured.
 
 .. _Preboot Execution Environment: https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
@@ -109,10 +109,10 @@ information about the BMC and hardware it manages through SNMP as well.
 
 **TFTP**
 
-TFTP provides simple, unauthenticated file transfer over TCP/IP. It is widely used  protocol itself is as a
- mechanism to remote boot or transfer files for remote installation.
+TFTP provides simple, unauthenticated file transfer over TCP/IP. It is a widely-used protocol
+for remote booting or installation.
 
- Due to the simplicity of TFTP, it is not terribly robust in the face of failures or
+Due to the simplicity of TFTP, it is not terribly robust in the face of failures or
 temporary network outages -- and can be somewhat unreliable at scale or high load.
 
 
