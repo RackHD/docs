@@ -1,5 +1,5 @@
-Getting Started
-===============
+RackHD: Quick Setup
+===================
 
 *----------------------------- Content in Development -----------------------------*
 
