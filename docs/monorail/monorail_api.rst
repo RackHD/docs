@@ -1,12 +1,17 @@
-Monorail API
+RackHD API
 -------------------------
 
-The Monorail API is an abstraction layer for the low-level management tasks that are performed on hardware devices.
-For example, to boot an image on a compute node, the Monorail API is used to activate a workload containing
-the tasks that are appropriate to the device.
+Our REST based API is the abstraction layer for the low-level management tasks
+that are performed on hardware devices, and information about those devices.
+For example, when a compute server is "discovered" (see :doc:`passive_discovery`
+for more details on this process), the information about that server is expressed
+as `nodes` and `catalogs` in the RackHD API. When you want to re-image that
+compute node, the RackHD API is used to activate a workflow containing the tasks
+that are appropriate to doing that function.
 
-Any user on the ORA_ADMIN_IF network can call any Monorail API. The Monorail API can be used to manage nodes, catalogs, workflows, tasks, templates, pollers, and other
-entities. For the complete list of functions, generate the API documentation as described below.
+The RackHD API can be used to manage nodes, catalogs, workflows, tasks, templates,
+pollers, and other entities. For the complete list of functions, generate the RackHD
+API documentation as described below.
 
 **List All Nodes**
 
@@ -37,8 +42,16 @@ Start API server  `sudo service on-http start`
 Generating API Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can generate an HTML version of the API documentation by cloning the *on-http* repository and running the following command.
+You can generate an HTML version of the API documentation by cloning the *on-http*
+repository and running the following command.
 
 .. code::
 
+  $ git clone https://github.com/RackHD/on-http
+  $ cd on-http
+  $ npm install
   $ npm run apidoc
+
+The default and example quick start build that we describe in :doc:`getting_started`
+has the API docs rendered and embedded within that instance for easy use, available
+at http://[IP ADDRESS OF VM]:8080/docs/
