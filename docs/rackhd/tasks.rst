@@ -196,7 +196,7 @@ not one that runs indefinitely.
     }
 
 Many jobs are event-based by nature, so the base job provides many helpers for
-assigning callbacks to a myriad of AMQP events published by monorail services, such
+assigning callbacks to a myriad of AMQP events published by RackHD services, such
 as DHCP requests from a specific mac address, HTTP downloads from a specific IP, template
 rendering requests, etc.
 
@@ -227,10 +227,10 @@ At render time, values are rendered if the exist in the task render context. The
        Example Usage: `{{ server.mongo.port }}`
    * - api
      - Values used for constructing API requests in a template:
-           - **server** -- the base URI for the monorail http server (e.g. `http://<server>:<port>` )
-           - **httpsServer** -- the base https URI for the monorail https server (e.g. `https://<server>:<port>` )
-           - **base[Https]** -- the base http/https URIs for the monorail api (e.g. `http://<server>:<port>/api/current` )
-           - **files[Https]** -- the base http/https URIs for the monorail api files routes (e.g. `http://<server>:<port>/api/current/files`)
+           - **server** -- the base URI for the RackHD http server (e.g. `http://<server>:<port>` )
+           - **httpsServer** -- the base https URI for the RackHD https server (e.g. `https://<server>:<port>` )
+           - **base[Https]** -- the base http/https URIs for the RackHD api (e.g. `http://<server>:<port>/api/current` )
+           - **files[Https]** -- the base http/https URIs for the RackHD api files routes (e.g. `http://<server>:<port>/api/current/files`)
    * - tasks
      - Allows access to instance variables of the task class instance created from the task definition. This is mainly used to access task.nodeId
    * - options

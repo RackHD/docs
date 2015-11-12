@@ -55,7 +55,7 @@ Upgrading the code
 
     sudo apt-get update
 
-**Install the Monorail Packages:**
+**Install the RackHD Packages:**
 
  .. code::
 

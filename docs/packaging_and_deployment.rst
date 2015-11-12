@@ -14,6 +14,6 @@ Requirements
 
 * existing configuration/mechanisms
 
-.. include:: monorail/ubuntu_install_instructions.rst
-.. include:: monorail/configuration.rst
-.. include:: monorail/https.rst
+.. include:: rackhd/ubuntu_install_instructions.rst
+.. include:: rackhd/configuration.rst
+.. include:: rackhd/https.rst

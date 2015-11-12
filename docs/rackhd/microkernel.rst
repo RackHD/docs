@@ -138,8 +138,10 @@ other remote ansible_connection types.
 Why Not Containers?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The goal is to optimize for size on disk and modularity. By creating many different overlays that share a base image, we avoid data
-duplication on the boot server (50MB base image + 10 * 5MB overlay archives vs. 10 * 55MB container images).
+The goal is to optimize for size on disk and modularity. By creating many
+different overlays that share a base image, we avoid data duplication on the
+boot server (50MB base image + 10 * 5MB overlay archives vs. 10 * 55MB container
+images).
 
 Additionally, it gives us flexibility to update the base image
 and any system dependencies/scripts/etc. on it without having to rebuild
@@ -149,5 +151,6 @@ changes to this script should only have to be done in one place.
 
 .. _workflows: https://github.com/rackhd/on-tasks
 
-Please send us a note if you think this is incorrect! So log as our design contraints are preserved, we are more than open to leveraging
-existing container technology.
+Please send us a note if you think this is incorrect! So long as our design
+constraints are preserved, we are more than open to leveraging existing container
+technology.

@@ -72,10 +72,9 @@ Use the same coding style as the rest of the codebase. In general, write clean c
 
 See the following sections in our documentation for guidance about a number of our standard practices:
 
-* :doc:`monorail/graphs`
-* :doc:`monorail/naming_conventions`
-* :doc:`monorail/api_versioning`
-* :doc:`monorail/amqp_conventions`
+* :doc:`rackhd/naming_conventions`
+* :doc:`rackhd/api_versioning`
+* :doc:`rackhd/amqp_conventions`
 
 
 
