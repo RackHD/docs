@@ -5,83 +5,65 @@ Glossary
 
 **BMC**
 
-In addition to PXE booting, most server hardware meant to be used in the data center
-also includes a secondary computer that manages the main computer - called a
-`Baseboard Motherboard Controller`_ (BMC).
+A `Baseboard Motherboard Controller`_ (BMC) is a microcontroller (small computer) embedded on the motherboard of
+data center servers. The BMC provides the interface that enables out-of-band management of the server using IPMI.
 
 .. _Baseboard Motherboard Controller: https://en.m.wikipedia.org/wiki/Baseboard_management_controller
 
-BMC's connect to or control portions of servers, but don't generally have full access
-to the computer they're managing. Most typically they have access to power, sensors,
-and some amount of control over the controlled computer can boot. BMC's are network
-connected sharing an Ethernet port (but having it's own mac-address) with the computer
-being managed, having it's own dedicated ethernet port, or supporting both, configurable
-within the BIOS or UEFI on which are enabled.
+Some BMCs provide a web-based interface that adds additional proprietary features,
+such as the ability to remotely mount ISO files or other media.
 
-Desktop hardware (like the PC under your desk, or your laptop) and some of the early
-OCP servers don't include BMC's to keep down the cost of those devices - and remote
-power control isn't as necessary.
+Because the BMC has a separate MAC address, it can be connected to the network using a dedicated or shared Ethernet port.
 
-Note: Intel has recently been releasing desktops and client systems with a roughly
-equivalent management tooling called `Active Management Technology`_ (AMT). AMT uses it's
-own protocol, supporting the DMTF standard DASH, running over HTTP/HTTPS and genearlly
-leveraging the `WS-Management`_ server management standards.
+Note: Intel has recently been released desktops and client systems with roughly
+equivalent management tooling called `Active Management Technology`_ (AMT). AMT uses its
+own protocol that supports the DMTF standard DASH. It runs over HTTP/HTTPS and generally
+leverages the `WS-Management`_ server management standards.
 
 .. _Active Management Technology: https://en.m.wikipedia.org/wiki/Intel_Active_Management_Technology
 .. _WS-Management: https://en.m.wikipedia.org/wiki/WS-Management
 
-BMCs primarily provide an interface using a protocol called IPMI, and many these
-days also provide a web based interface that adds additional proprietary features,
-the most common of which are a virtual keyboard/mouse and console, and the capability
-to "remote mount" ISO files or other remote media.
+
 
 **Bootloaders**
 
-TFTP used is to transfer tiny executable programs that computers use to initialize
+RackHD uses TFTP to transfer tiny executable programs that are used to initialize
 hardware and set up additional systems in order to "boot and run" a larger operating
-system. pxelinux_ and iPXE_ (evolved from earlier gPXE) are mostly commonly used. PXElinux
-heavily leverages TFTP and is a fairly static system, where iPXE includes a small
-scripting interpretter and supports downloading additional files for booting (such
+system. PXELINUX_ and iPXE_ (evolved from earlier gPXE) are most commonly used.
+
+PXElinux heavily leverages TFTP and is a fairly static system. iPXE includes a small
+scripting interpreter and supports downloading additional files for booting (such
 as a WinPE or Kernel and Initrd file for Linux) over HTTP as a more reliable transport
 protocol.
 
-.. _prelinux: http://www.syslinux.org/wiki/index.php/Doc/pxelinux
+.. _PXELINUX: http://www.syslinux.org/wiki/index.php/Doc/pxelinux
 .. _iPXE: http://ipxe.org
 
 **DHCP**
 
-DHCP is an expansive protocol with many extensions that's leveraged to provide network
-configuration information on request to other computers on the same "broadcast"
-segment. As such, it relies on operating on raw sockets and TCP/IP broadcasts.
-Many excellent DHCP servers exist, and as a protocol it is a common mainstay of
-networks in the home and in data centers. Because DHCP services operate at Layer 2
-on the networking stack, they are carefully controlled as two DHCP servers can
-provide conflicting information on the same network broadcast segment (and this can
-be obnoxiously difficult to diagnose). Likewise, most switches won't pass DHCP
+DHCP is an expansive protocol with many extensions that are leveraged to provide network
+configuration information to other computers on the same "broadcast"
+segment. It communicates using raw sockets or TCP/IP.
+
+Because DHCP services operate at Layer 2 of the networking stack, they must be carefully controlled so as to prevent
+the generation of IP address conflicts on the same network segment. Most switches do not pass DHCP
 traffic across networks unless specifically configured to do so with a DHCP relay.
 
-The PXE mechanisms add additional information, and conditional responses, based on
-the DHCP client requesting information. As PXE gained traction, the DHCP protocol
-was extended to allow that additional information to come from a separate source
-with a mechanism called DHCP Proxy, so that PXE could be configured and managed
-independently of a DHCP infrastructure.
-
-When set up in a datacenter environment, many PXE environments are configured with
-DHCP, TFTP together. As such, if a DHCP proxy is used, it's often on the same
-physical OS as the DHCP service being provided, but the protocol does allow and
-support a DHCP proxy server completely independent of a main DHCP service.
-
+RackHD uses a DHCP Proxy server to support PXE operations. It sends auxiliary boot information to clients, like the boot filename, tftp server
+or rootpath, but leaves generation of IP addresses to the DHCP server.
 
 
 
 **IPMI**
 
+The `Intelligent Platform Management Interface (IPMI)`_ is the protocol by which BMCs can manage and monitor servers independent of
+the CPU, firmware (BIOS or UEFI), and operating system.
 BMCs typically communicate on the network using the IPMI_ protocol.
 
-.. _IPMI: https://en.m.wikipedia.org/wiki/Intelligent_Platform_Management_Interface
+.. _Intelligent Platform Management Interface (IPMI): https://en.m.wikipedia.org/wiki/Intelligent_Platform_Management_Interface
 
-IPMI is a binary protocol with some authentication, although many security researchers
-have shown the security properties of IPMI to be quite weak and easily exploited.
+Although IPMI supports authentication, many security researchers
+have shown that IPMI is easily exploited:
 
 * `A Penetration Tester's Guide to IPMI and BMCs`_
 * `Many servers expose insecure out-of-band management interfaces to the Internet`_
@@ -93,36 +75,28 @@ have shown the security properties of IPMI to be quite weak and easily exploited
 .. _IPMI The most dangerous protocol you've never heard of: http://www.itworld.com/article/2708437/security/ipmi--the-most-dangerous-protocol-you-ve-never-heard-of.html
 
 
-While generally considered insecure by security experts, it's still the default
-implemented standard. As such, most data center networks secure and highly control
-the access to networks where IPMI is enabled to control remote machines, often in
-a private "out of band management" network.
+Due to security weaknesses, most data center networks secure and highly control
+the access to networks where IPMI is enabled.
 
-In addition to the IPMI standard, many hardware vendors also include proprietary
-extensions to the protocol to support additional information or functionality
-specific to their platform. Some proprietary management tools leverage these
-protocols to provide additional vendor specific functionality.
+Many hardware vendors provide proprietary DHCP extensions that support additional information or functionality.
+Some proprietary management tools leverage these protocols to provide additional vendor-specific functionality.
 
 **PXE**
 
-Most datacenter computers, and some desktop computers, have a mechanism to allow them to
-start up and inquire on a network for what they should be running, called `Preboot Execution Environment`_ (PXE).
+ The `Preboot Execution Environment (PXE)`_ is a vendor-independent mechanism that allows networked computers
+to be remotely booted and configured.
 
 .. _Preboot Execution Environment: https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
 
-This mechanism was originally developed by Intel in 1998/1999, leveraging DHCP and TFTP
-protocols to have a remote system provide IP address information and provide the files
-that the computer would execute. PXE was embraced by most vendors, originally provided
-through the network interface cards, but now built into most BIOS or UEFI implementations,
-supporting network booting.
+PXE was originally developed by Intel in 1998/1999. Once provided through the network interface cards, it
+is now built into most BIOS or UEFI implementations.
 
-PXE has since been used to run diskless computers and common Linux operating systems have
-all adopted a network based install that can be initiated and leveraged by PXE - RedHat's
-kickstart, Debian's debseed, and SUSE's YaST.
+PXE has since been used to run diskless computers. Common Linux operating systems (Red Hat kickstart, Debian debseed,
+and SUSE YaST) have adopted a network-based install that can be initiated and leveraged by PXE.
 
 **SNMP**
 
-Network Switches have long supported their own management tooling, based on the SNMP
+Network Switches have long supported their own management tooling based on the SNMP
 protocol. Switches booting and loading software automatically was one of the last
 pieces to get enabled, mostly because everything else relied on the networks to
 exist and be functional in order to set up their automation. In many respects, the
@@ -130,16 +104,16 @@ physical networks and switches connecting them, are the lowest layer of the pyra
 upon which our services are built.
 
 As BMCs have evolved, many are now fully computers on their own, often based on low
-power ARM processors and running a linux based OS, and some support retrieving
+power ARM processors and running a Linux-based OS, and some support retrieving
 information about the BMC and hardware it manages through SNMP as well.
 
 **TFTP**
 
-One of the earliest protocols, TFTP provides simple, unauthenticated file transfer
-protocol over TCP/IP. The protocol itself is quite simple, hence it's adoption as a
-common mechanism to remote boot or transfer files for remote installation. Because of
-it's simplicity, the protocol is also not terribly robust in the face of failures or
-temporary network outages, and can be somewhat unreliable at scale or high load.
+TFTP provides simple, unauthenticated file transfer over TCP/IP. It is widely used  protocol itself is as a
+ mechanism to remote boot or transfer files for remote installation.
+
+ Due to the simplicity of TFTP, it is not terribly robust in the face of failures or
+temporary network outages -- and can be somewhat unreliable at scale or high load.
 
 
 **ZTP/ONIE**
@@ -157,9 +131,9 @@ All of these systems basically operate similarly to the PXE protocol - leveragin
 TFTP for the transfer of files, and DHCP for network information, but a common
 standard adopted by all switch vendors has yet to emerge.
 
-Likewise, cross-vendor protocols to control and manage switches have yet to emerge,
-with switch vendors supporting either proprietary protocols and standards tied
-closely to their feature sets. The recent advances in software defined
+Likewise, cross-vendor protocols that control and manage switches have yet to emerge,
+with switch vendors supporting proprietary protocols and standards that are tied
+closely to their feature sets. The recent advances in software-defined
 networking (SDN_) has started
 to drive commonalities out into the market, but the current state is far from
 a cohesive standard.
