@@ -152,5 +152,5 @@ changes to this script should only have to be done in one place.
 .. _workflows: https://github.com/rackhd/on-tasks
 
 Please send us a note if you think this is incorrect! So long as our design
-contraints are preserved, we are more than open to leveraging existing container
+constraints are preserved, we are more than open to leveraging existing container
 technology.
