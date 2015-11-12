@@ -55,7 +55,7 @@ Upgrading the code
 
     sudo apt-get update
 
-**Install the mMnorail Packages:**
+**Install the Monorail Packages:**
 
  .. code::
 
