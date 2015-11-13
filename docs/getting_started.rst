@@ -5,11 +5,19 @@ RackHD: Quick Setup
 
 
 
-The example/ directory contains a setup script that you can use to get RackHD up and running in a example virtual rack.
-It creates a virtualbox VM with
-RackHD running within it, and another that is connected to it to PXE boot.
+To make it easy to see RackHD in action and start to play with it, we've
+set up a vagrant based example deployment and script to help get everything
+up and running on a local laptop.
 
-**Prerequisite**: The example setup uses Vagrant and ansible locally. Please install them directly on your local machine.
+The example/ directory contains the script fire up RackHD, and also creates
+a virtual machine to act as a "sample machine in a rack".
+
+.. note::
+
+   **Prerequisite**: The example setup uses `Vagrant`_ with an `Ansible`_ based
+   provisioner to get everything set up. You will need to install both locally
+   in order to run this example.
+
 
 #. Clone at minimum the rackHD repository. This repository includes both git submodules with relevant source code and the example vagrant instance::
 
@@ -46,3 +54,6 @@ RackHD running within it, and another that is connected to it to PXE boot.
 
 
 Now that the services are running we can begin powering on pxe clients and watch them boot.
+
+.. _Vagrant: https://www.vagrantup.com
+.. _Ansible: http://www.ansible.com
