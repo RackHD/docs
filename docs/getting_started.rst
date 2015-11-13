@@ -56,8 +56,8 @@ https://github.com/rackhd/on-imagebuilder repository, and `travisCI`_ based
 builds (https://travis-ci.org/RackHD/on-taskgraph) populate the binaries from
 there directly into bintray for example usage.
 
-The ansible roles places in a Procfile and installs `node-foreman`_ to run all
-the applications from a single script.
+The ansible role installs `node-foreman`_ and runs the node.js applications
+from a single script.
 
 The vagrant file is configured to set up enable a network interface on a
 private virtual network, and the `./monorail_rack` script creates a sample
