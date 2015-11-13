@@ -5,7 +5,7 @@
 
 
 |
-.. image:: _static/theme/img/Logo_Large.png
+.. image:: _static/theme/img/logo.png
  :height: 300
  :align: left
 
