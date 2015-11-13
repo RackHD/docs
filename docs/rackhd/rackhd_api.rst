@@ -3,7 +3,7 @@ RackHD API
 
 Our REST based API is the abstraction layer for the low-level management tasks
 that are performed on hardware devices, and information about those devices.
-For example, when a compute server is "discovered" (see :doc:`passive_discovery`
+For example, when a compute server is "discovered" (see :doc:`how_it_works`
 for more details on this process), the information about that server is expressed
 as `nodes` and `catalogs` in the RackHD API. When you want to re-image that
 compute node, the RackHD API is used to activate a workflow containing the tasks
