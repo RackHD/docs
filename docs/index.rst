@@ -41,7 +41,6 @@ Contents
    contributing
    packaging_and_deployment
    development_guide
-   glossary
 
 
 RackHD is a Trademark of EMC Corporation.
