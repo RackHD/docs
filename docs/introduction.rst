@@ -113,8 +113,8 @@ a process that  involved the steps such as:
  * SCORE!
 
 To achieve this, the existing systems (Cobbler, Razor, etc) needed another
-evel of orchestration - resetting what we PXE boot, interacting with data from
-he machine in question, and making some logical decisions. This sequence of
+level of orchestration - resetting what we PXE boot, interacting with data from
+the machine in question, and making some logical decisions. This sequence of
 needing multiple steps that involved PXE booting is what ultimately led to the
 project RackHD.
 
@@ -151,7 +151,7 @@ provided via a pub/sub style interface.
 As we went through use cases and expanded features, we made the capability for
 the workflow engine to react to what it discovered - what we call “SKU” support,
 dynamic rendering of templates for OS installs, and passing of variables and
-data from the APIs that invoke workflow through to the configuration files that
+data from the APIs that invoke workflows through to the configuration files that
 drive OS installs - like a kickstart or debseed file.
 
 While we have a number of workflows in our code repository as examples of how
