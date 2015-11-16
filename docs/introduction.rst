@@ -80,6 +80,109 @@ services providing classical PXE booting makes it possible to architect a number
 of different deployment configurations as described in :doc:`how_it_works` and
 :doc:`packaging_and_deployment`.
 
+The motivation for starting RackHD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The original problem we were sorting out how to solve was how to handle some of
+the complexities of firmware and BIOS updates in a fully automated fashion. The
+dirty secret of the computer hardware industry is that many of those tools are
+far from automated, requiring tremendous manual effort and often a physical human
+presence in the datacenter to accomplish some tasks. We aimed to automate as
+absolutely much of that effort as possible.
+
+The first problem was getting to the tools to the machine - where there is
+pretty good support. PXE booting was the obvious choice for a platform agnostic
+mechanism, as it’s fairly industry standard, and while not without it’s quirks,
+it’s reasonably consistent and most platforms conform to the specs that Intel
+wrote for the process. Perfect - Cobbler, Razor, etc all exist - Razor (or it’s
+clone/rewrite Hanlon) have lovely APIs, and even better - they have a microkernel
+for doing what is essentially arbitrary tasks on the remote machine - in the
+case of Razor and Hanlon, what those tasks are is baked into the microkernel -
+but still a tremendous capability to leverage.
+
+The second problem is what really hit us - When it came to needing needing to do
+a process that  involved the steps such as:
+
+ * PXE boot the server
+ * interrogate the hardware, see if we’re at the right version of firmware
+ * if not, flash the firmware to the version we want
+ * reboot (mandated by things like BIOS and BMC flashing)
+ * PXE boot again
+ * interrogate the hardware
+ * make sure we’re at the right version of firmware
+ * SCORE!
+
+To achieve this, the existing systems (Cobbler, Razor, etc) needed another
+evel of orchestration - resetting what we PXE boot, interacting with data from
+he machine in question, and making some logical decisions. This sequence of
+needing multiple steps that involved PXE booting is what ultimately led to the
+project RackHD.
+
+At the highest level RackHD couples standard open source tools and daemons used
+for PXE booting with a declarative, event-based workflow engine. We leveraged
+the same concept that Razor and Hanlon used in setting up and booting a
+microkernel, and rather than just enabling it to do one-shot activities
+(whatever you built into the microkernel), we went ahead and added a simple
+agent and some communications mechanisms so that the workflow engine interact
+could specify tasks to be accomplished on the target machine. Zero-ing out
+disks, interrogating the PCI bus, or resetting the IPMI settings through a
+hosts’s internal KCS channel. With this remote agent to workflow integration,
+we also optimized the path for interrogating and gathering data - leveraging
+existing linux tools and parsing the outputs, sending that information back to
+be stored as relatively free-form JSON data structures.
+
+We extended the workflow engine to support polling out of band interfaces to
+capture information about the sensors, and whatever generally useful information
+we could get from those standard interfaces via IPMI. In RackHD these become
+“pollers”, with the intention of periodically capturing telemetry data from
+the hardware interfaces.
+
+What RackHD is good at
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The obvious mechanism of provisioning an OS is one of the more straightforward
+workflows you can image, and fundamentally RackHD is really focused on being
+the lowest level of automation supporting interrogating hardware, setting a
+“personality” onto it (in the form of an OS), providing consistent REST based
+API’s for controlling that hardware - agnostic of hardware vendor, and for
+using the pollers to capture telemetry - create “live data feeds” that can be
+provided via a pub/sub style interface.
+
+As we went through use cases and expanded features, we made the capability for
+the workflow engine to react to what it discovered - what we call “SKU” support,
+dynamic rendering of templates for OS installs, and passing of variables and
+data from the APIs that invoke workflow through to the configuration files that
+drive OS installs - like a kickstart or debseed file.
+
+While we have a number of workflows in our code repository as examples of how
+you can do a variety of actions, the real power of the system is in being able
+to create your own workflows - and submit those through the REST API. So you
+can define arbitrary workflows for your needs, specific to your hardware if
+needed, to accomplish your automation goals.
+
+
+Where we stopped/What RackHD doesn’t do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We intentionally stopped at two conceptual boundaries - the first, we didn’t
+attempt to replicate all the work and effort that’s gone into software
+configuration management systems. Ansible, Puppet, Chef, and so forth have a
+long history of dealing with a lot of that complexity, and doing it pretty well.
+We made sure our workflow system could integrate seamlessly with those kinds of
+systems - making a call to register a machine with a Puppet or Chef service, or
+in the case of ansible, some example hooks for how to invoke a playbook or
+arbitrary script on the remote machine.
+
+The second - we intentionally made RackHD a comparatively passive system. You
+can embed a lot of logic in a workflow, but we stopped short of building in more
+complex logic that amounting to functions more commonly done as scheduling -
+choosing which machines to install with what OS, etc. We expect that someone,
+or some thing, will be making those relevant choices - a layer above hardware
+management and orchestration that we saw as “infrastructure orchestration and
+management”. We documented and exposed all of the events around the workflow
+engine to be utilized, extended, and even incorporated by an infrastructure
+management system - but we didn’t take RacKHD directly into that layer.
+
 Project Comparison
 ~~~~~~~~~~~~~~~~~~~~~
 Comparison to other open source technologies:
