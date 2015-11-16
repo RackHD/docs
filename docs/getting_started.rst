@@ -3,24 +3,27 @@ RackHD: Quick Setup
 
 *----------------------------- Content in Development -----------------------------*
 
-To make it easy to see RackHD in action and start to play with it, we've
-set up a vagrant based example deployment and script to help get everything
-up and running on a local laptop.
+To make it easy to see and play with a sample RackHD instance, we've
+set up a vagrant-based example deployment and script to help get everything
+up and running on a local system.
 
-The example/ directory contains the script fire up RackHD, and also creates
-a virtual machine to act as a "sample machine in a rack".
+The example/ directory in the `RackHD repository`_ contains the script creates a VM that simulates a sample machine in a
+rack and fires up a RackHD instance that connects to and manages that machine.
+
+
+.. _RackHD repository: https://github.com/RackHD/RackHD
+
+Setup Steps
+------------------------------
 
 .. note::
 
-   **Prerequisite**: The example setup uses `Vagrant`_ with an `Ansible`_ based
-   provisioner to get everything set up. You will need to install both locally
-   in order to run this example.
-
+**Prerequisite**: The example setup requires local installation of `Vagrant`_ with an `Ansible`_ based provisioner.
 
 .. _Vagrant: https://www.vagrantup.com
 .. _Ansible: http://www.ansible.com
 
-#. Clone at minimum the rackHD repository. This repository includes both git submodules with relevant source code and the example vagrant instance::
+#. Clone the RackHD repository. This repository includes git submodules with relevant source code and the example vagrant instance::
 
     git clone --recursive https://github.com/RackHD/RackHD
 
@@ -34,39 +37,35 @@ a virtual machine to act as a "sample machine in a rack".
     cd example/bin
     ./monorail_rack
 
-#. Finally, bring up the RackHD services::
+#. Bring up RackHD services::
 
     cd ~
     sudo nf start or sudo nf start [graph,http,dhcp,tftp,syslog]
 
-Now that the services are running we can begin powering on pxe clients and
-watch them boot.
+Once all services are running, you can power on PXE clients and watch them boot.
 
-What this sets up
------------------
 
-The vagrant file and ansible provisioner roles checks out the relevant
-applications from the submodules included in this repository, and does the
-relevant work to setup Node4 and run "npm install" on each o the applications.
+How It Works
+---------------------
 
-The system also expects to use some
-specific binaries, microkernels and bootloaders - and pulls those files down
-from bintray. The mechanisms to create those files are all in the
-https://github.com/rackhd/on-imagebuilder repository, and `travisCI`_ based
-builds (https://travis-ci.org/RackHD/on-taskgraph) populate the binaries from
-there directly into bintray for example usage.
+The vagrant file and ansible provisioner roles check out the relevant
+applications from the repository submodules. Then Node4 is set up and "npm install" is run for each application.
+
+The system also pulls specific binaries, microkernels, and bootloaders from
+from bintray. The mechanisms that create those files are in the
+https://github.com/rackhd/on-imagebuilder repository. When the files are retrieved, `travisCI`_
+builds (https://travis-ci.org/RackHD/on-taskgraph) populate the binaries into bintray for example usage.
 
 The ansible role installs `node-foreman`_ and runs the node.js applications
 from a single script.
 
-The vagrant file is configured to set up enable a network interface on a
-private virtual network, and the `./monorail_rack` script creates a sample
-virtual machine, also connected to that same private network. The configuration
-is set to run DHCP, TFTP, etc on the interface to that private network (to PXE
-boot that virtual machine). RackHD would normally work with a full out of band
-networking control setup, which this currently does not set up - so running
-workflows within this example set up will require a "no-op" OBM management
-setting on discovered nodes, and manual restarting of VMs to vet workflows.
+The vagrant file enables a network interface on a private virtual network. The VM that is created by
+the `./monorail_rack` script connects to this network.
+
+RackHD can then run DHCP, TFTP, etc on the interface to the private network (to PXE boot the VM).
+
+**Note:** This example RackHD instance does not include complete out-of-band networking control. Running workflows requires
+a "no-op" OBM management setting on discovered nodes and manual restarts of VMs.
 
 .. _travisCI: https://travis-ci.org/
 .. _node-foreman: https://github.com/strongloop/node-foreman
