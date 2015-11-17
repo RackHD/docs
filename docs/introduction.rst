@@ -80,61 +80,39 @@ services providing classical PXE booting makes it possible to architect a number
 of different deployment configurations as described in :doc:`how_it_works` and
 :doc:`packaging_and_deployment`.
 
-The motivation for starting RackHD
+The Motivation for Starting RackHD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The original problem we were sorting out how to solve was how to handle some of
-the complexities of firmware and BIOS updates in a fully automated fashion. The
-dirty secret of the computer hardware industry is that many of those tools are
-far from automated, requiring tremendous manual effort and often a physical human
-presence in the datacenter to accomplish some tasks. We aimed to automate as
-absolutely much of that effort as possible.
+The original motivation centered on maximizing the automation of firmware and BIOS updates
+in the data center, thereby reducing the extensive manual processes that are still required
+for these operations.
 
-The first problem was getting to the tools to the machine - where there is
-pretty good support. PXE booting was the obvious choice for a platform agnostic
-mechanism, as it’s fairly industry standard, and while not without it’s quirks,
-it’s reasonably consistent and most platforms conform to the specs that Intel
-wrote for the process. Perfect - Cobbler, Razor, etc all exist - Razor (or it’s
-clone/rewrite Hanlon) have lovely APIs, and even better - they have a microkernel
-for doing what is essentially arbitrary tasks on the remote machine - in the
-case of Razor and Hanlon, what those tasks are is baked into the microkernel -
-but still a tremendous capability to leverage.
+One way that RackHD increases automation is by going beyond simple PXE booting
+and performing highly customizeable tasks on machines, as is illustrated by the following sequence:
 
-The second problem is what really hit us - When it came to needing needing to do
-a process that  involved the steps such as:
+* PXE boot the server
+* interrogate the hardware, see if we’re at the right version of firmware
+* if not, flash the firmware to the version we want
+* reboot (mandated by things like BIOS and BMC flashing)
+* PXE boot again
+* interrogate the hardware
+* make sure we’re at the right version of firmware
+* SCORE!
 
- * PXE boot the server
- * interrogate the hardware, see if we’re at the right version of firmware
- * if not, flash the firmware to the version we want
- * reboot (mandated by things like BIOS and BMC flashing)
- * PXE boot again
- * interrogate the hardware
- * make sure we’re at the right version of firmware
- * SCORE!
-
-To achieve this, the existing systems (Cobbler, Razor, etc) needed another
-level of orchestration - resetting what we PXE boot, interacting with data from
-the machine in question, and making some logical decisions. This sequence of
-needing multiple steps that involved PXE booting is what ultimately led to the
-project RackHD.
-
-At the highest level RackHD couples standard open source tools and daemons used
-for PXE booting with a declarative, event-based workflow engine. We leveraged
-the same concept that Razor and Hanlon used in setting up and booting a
-microkernel, and rather than just enabling it to do one-shot activities
-(whatever you built into the microkernel), we went ahead and added a simple
-agent and some communications mechanisms so that the workflow engine interact
-could specify tasks to be accomplished on the target machine. Zero-ing out
+In effect, RackHD combines open source tools with a declarative, event-based workflow engine.
+It is similar to Razor and Hanlon in that it sets up and boots a microkernal that can perform predefined tasks. However, it
+extends this model by adding remote agent that communicates with the workflow engine to
+*dynamically* determine the tasks to perform on the target machine, such as zero-ing out
 disks, interrogating the PCI bus, or resetting the IPMI settings through a
-hosts’s internal KCS channel. With this remote agent to workflow integration,
-we also optimized the path for interrogating and gathering data - leveraging
-existing linux tools and parsing the outputs, sending that information back to
-be stored as relatively free-form JSON data structures.
+hosts’s internal KCS channel.
 
-We extended the workflow engine to support polling out of band interfaces to
-capture information about the sensors, and whatever generally useful information
-we could get from those standard interfaces via IPMI. In RackHD these become
-“pollers”, with the intention of periodically capturing telemetry data from
+Along with this agent-to-workflow integration, RackHD optimizes the path
+for interrogating and gathering data. It leverages existing Linux tools and parses
+outputs that are sent back and stored as free-form JSON data structures.
+
+The workflow engine was extended to support polling via out-of-band interfaces in order to
+capture sensor information and other data that can be retrieved using IPMI.
+In RackHD these become “pollers” that periodically capture telemetry data from
 the hardware interfaces.
 
 What RackHD is good at
