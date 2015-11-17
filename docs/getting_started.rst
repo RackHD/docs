@@ -43,7 +43,11 @@ Setup Steps
     sudo nf start or sudo nf start [graph,http,dhcp,tftp,syslog]
 
 Once all services are running, you can power on PXE clients and watch them boot.
+To do so, open another terminal window and run the command::
 
+    vboxmanage startvm pxe-1 --type gui
+
+or open the virtualbox application and manually start the PXE demonstration VM.
 
 How It Works
 ---------------------
