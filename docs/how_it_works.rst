@@ -1,21 +1,31 @@
 How It Works
 ============
 
-General bare metal automation with PXE
+General Bare Metal Automation with PXE
 --------------------------------------
 
-As we shared in :doc:`introduction`, the RackHD system leverages standard open source tools
-and protocols. `PXE`_ is the most important, originally created as a specification by Intel
-on how to have servers boot off a network. To PXE boot a machine, you need to minimally have
-`DHCP`_, and `TFTP`_ configured and responding on the network to which the machine is attached. We
-additionally leverage iPXE `bootloader`_, which takes advantage of HTTP and allows us to
-dynamically generate iPXE scripts (which we call profiles) based on what we need the server
-to do when it is PXE booting.
+RackHD uses the `Preboot Execution Environment (PXE)`_ for booting machines. PXE is a vendor-independent mechanism that
+allows networked computers to be remotely booted and configured. PXE booting requires that `DHCP`_ and `TFTP`_
+are configured and responding on the network to which the machine is attached.
 
-The mechanism that allows us to automate this for datacenter style servers is that most of
-those are built with what's called a `BMC`_. Most servers that you'd want to control remotely
-like this (datacenter style servers) support the protocol `IPMI`_, which gives us the ability
-to power on, power off, reboot, and request a machine to PXE boot, among other possibilities.
+.. _DHCP: http://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol
+.. _TFTP: https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol
+
+In addition, RackHD commonly uses `iPXE`_ as its initial bootloader. iPXE takes advantage of HTTP and permits the dynamic
+generation of iPXE scripts -- referred to in RackHD as *profiles* -- based on what the server
+should do when it is PXE booting.
+
+.. _Preboot Execution Environment (PXE): https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
+.. _iPXE: http://en.wikipedia.org/wiki/IPXE
+
+Data center automation is enabled through each server's `Baseboard Motherboard Controller (BMC)`_ embedded on the
+server motherboard. Using `Intelligent Platform Management Interface (IPMI)`_
+to communicate with the BMC, RackHD can remotely power on, power off, reboot, request a PXE boot,
+and perform other operations.
+
+.. _Baseboard Motherboard Controller (BMC): https://en.m.wikipedia.org/wiki/Baseboard_management_controller
+.. _Intelligent Platform Management Interface (IPMI): https://en.m.wikipedia.org/wiki/Intelligent_Platform_Management_Interface
+
 
 Many open source tools, such as `Cobbler`_, `Razor`_, and `Hanlon`_ use this kind of mechanism.
 RackHD goes beyond this and adds a workflow engine that interacts with these existing protocols
@@ -151,109 +161,3 @@ Linux microkernel, parse data for matches against a rule, and others. The tasks 
 
 For more detailed information on tasks, see the section on :doc:`rackhd/tasks`
 under our :doc:`development_guide`.
-
-
-Glossary
---------
-
-PXE
-^^^
-
-The `Preboot Execution Environment (PXE)`_ is a vendor-independent mechanism that allows networked computers
-to be remotely booted and configured. PXE has been used to run diskless computers. Common Linux operating systems (Red Hat kickstart, Debian debseed,
-and SUSE YaST) have adopted a network-based install that can be initiated and leveraged using PXE.
-
-.. _Preboot Execution Environment: https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
-
-PXE was originally developed by Intel in 1998/1999. Once provided through the network interface cards, it
-is now built into most BIOS or UEFI implementations. The PXE specification is still available for download
-at Intel: http://www.intel.com/design/archives/wfm/downloads/pxespec.htm
-
-
-DHCP
-^^^^
-
-DHCP is an expansive protocol with many extensions that are leveraged to provide network
-configuration information to other computers on the same "broadcast"
-segment. It communicates using raw sockets or TCP/IP.
-
-Because DHCP services operate at Layer 2 of the networking stack, they must be carefully controlled
-so as to prevent the generation of IP address conflicts on the same network segment. Most switches do
-not pass DHCP traffic across networks unless specifically configured to do so with a DHCP relay.
-
-RackHD uses a DHCP Proxy server to support PXE operations. It sends auxiliary boot information to
-clients, like the boot filename, tftp server or rootpath, but leaves generation of IP addresses to
-the DHCP server.
-
-TFTP
-^^^^
-
-TFTP provides simple, unauthenticated file transfer over TCP/IP. It is a widely-used protocol
-for remote booting or installation.
-
-Due to the simplicity of TFTP, it is not terribly robust in the face of failures or
-temporary network outages -- and can be somewhat unreliable at scale or high load.
-
-bootloader
-^^^^^^^^^^
-
-RackHD uses TFTP to transfer tiny executable programs that are used to initialize
-hardware and set up additional systems in order to "boot and run" a larger operating
-system. PXELINUX_ and iPXE_ (evolved from earlier gPXE) are most commonly used.
-
-PXElinux heavily leverages TFTP and is a fairly static system. iPXE includes a small
-scripting interpreter and supports downloading additional files for booting (such
-as a WinPE or Kernel and Initrd file for Linux) over HTTP as a more reliable transport
-protocol.
-
-.. _PXELINUX: http://www.syslinux.org/wiki/index.php/Doc/pxelinux
-.. _iPXE: http://ipxe.org
-
-IPMI
-^^^^
-
-The `Intelligent Platform Management Interface (IPMI)`_ is the protocol by which BMCs can
-manage and monitor servers independent of the CPU, firmware (BIOS or UEFI), and operating
-system. BMCs typically communicate on the network using the IPMI_ protocol.
-
-.. _Intelligent Platform Management Interface (IPMI): https://en.m.wikipedia.org/wiki/Intelligent_Platform_Management_Interface
-
-Although IPMI supports authentication, many security researchers
-have shown that IPMI is easily exploited:
-
-* `A Penetration Tester's Guide to IPMI and BMCs`_
-* `Many servers expose insecure out-of-band management interfaces to the Internet`_
-* `IPMI The most dangerous protocol you've never heard of`_
-
-
-.. _A Penetration Tester's Guide to IPMI and BMCs: https://community.rapid7.com/community/metasploit/blog/2013/07/02/a-penetration-testers-guide-to-ipmi
-.. _Many servers expose insecure out-of-band management interfaces to the Internet: http://www.pcworld.com/article/2361040/many-servers-expose-insecure-outofband-management-interfaces-to-the-internet.html
-.. _IPMI The most dangerous protocol you've never heard of: http://www.itworld.com/article/2708437/security/ipmi--the-most-dangerous-protocol-you-ve-never-heard-of.html
-
-
-Due to security weaknesses, most data center networks secure and highly control
-the access to networks where IPMI is enabled.
-
-Many hardware vendors provide proprietary DHCP extensions that support additional information or functionality.
-Some proprietary management tools leverage these protocols to provide additional vendor-specific functionality.
-
-BMC
-^^^
-
-A `Baseboard Motherboard Controller`_ (BMC) is a microcontroller (small computer) embedded on the motherboard of
-data center servers. The BMC provides the interface that enables out-of-band management of the server using IPMI.
-
-.. _Baseboard Motherboard Controller: https://en.m.wikipedia.org/wiki/Baseboard_management_controller
-
-Some BMCs provide a web-based interface that adds additional proprietary features,
-such as the ability to remotely mount ISO files or other media.
-
-Because the BMC has a separate MAC address, it can be connected to the network using a dedicated or shared Ethernet port.
-
-Note: Intel has recently been released desktops and client systems with roughly
-equivalent management tooling called `Active Management Technology`_ (AMT). AMT uses its
-own protocol that supports the DMTF standard DASH. It runs over HTTP/HTTPS and generally
-leverages the `WS-Management`_ server management standards.
-
-.. _Active Management Technology: https://en.m.wikipedia.org/wiki/Intel_Active_Management_Technology
-.. _WS-Management: https://en.m.wikipedia.org/wiki/WS-Management
