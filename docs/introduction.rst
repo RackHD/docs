@@ -115,28 +115,22 @@ capture sensor information and other data that can be retrieved using IPMI.
 In RackHD these become “pollers” that periodically capture telemetry data from
 the hardware interfaces.
 
-What RackHD is good at
+What RackHD Does Well
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The obvious mechanism of provisioning an OS is one of the more straightforward
-workflows you can image, and fundamentally RackHD is really focused on being
-the lowest level of automation supporting interrogating hardware, setting a
-“personality” onto it (in the form of an OS), providing consistent REST based
-API’s for controlling that hardware - agnostic of hardware vendor, and for
-using the pollers to capture telemetry - create “live data feeds” that can be
-provided via a pub/sub style interface.
+RackHD is focused on being the lowest level of automation that interrogates agnostic hardware,
+provisions machines with operating systems. With SKU support, the workflow engine can react to
+information found during discovery and respond with dynamic rendering of installation templates.
+During this process, the API can be used to pass variables and data to the configuration files
+that drive OS installs. This method can be used, for example, to include a kickstart or debseed file.
 
-As we went through use cases and expanded features, we made the capability for
-the workflow engine to react to what it discovered - what we call “SKU” support,
-dynamic rendering of templates for OS installs, and passing of variables and
-data from the APIs that invoke workflows through to the configuration files that
-drive OS installs - like a kickstart or debseed file.
+The real power of RackHD, therefore, is that you can develop your own workflows and
+use the REST API to pass in dynamic configuration details. This allows you to execute
+a specific sequence of arbitrary tasks that satisfy your requirements.
 
-While we have a number of workflows in our code repository as examples of how
-you can do a variety of actions, the real power of the system is in being able
-to create your own workflows - and submit those through the REST API. So you
-can define arbitrary workflows for your needs, specific to your hardware if
-needed, to accomplish your automation goals.
+When creating your initial workflows, it is recommended that you use the existing workflows
+in our code repository to see how different actions can be performed.
+
 
 
 Where we stopped/What RackHD doesn’t do
