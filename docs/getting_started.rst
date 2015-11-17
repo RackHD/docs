@@ -39,8 +39,7 @@ Setup Steps
 
 #. Bring up RackHD services::
 
-    cd ~
-    sudo nf start or sudo nf start [graph,http,dhcp,tftp,syslog]
+    vagrant ssh -c "sudo nf start"
 
 Once all services are running, you can power on PXE clients and watch them boot.
 To do so, open another terminal window and run the command::
