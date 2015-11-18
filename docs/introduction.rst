@@ -61,10 +61,9 @@ The RackHD Project
 RackHD is an open source project available under the Apache 2.0 license (or
 compatible sub-licenses for library dependencies). It is housed at https://github.com/RackHD.
 The code for RackHD is a combination of Javascript/Node.js and C. The project is a collection
-of libraries and applications intended to be deployed together to provide a solution that can be used
-either standalone, or as a technology to be included and embedded in larger applications.
+of libraries and applications intended to be deployed as a standalone solution or embedded in larger systems.
 
-The RackHD documentation is also housed on GitHub
+The RackHD documentation is housed in GitHub
 and hosted at http://rackhd.readthedocs.org/en/latest/.
 
 Project History
@@ -73,22 +72,21 @@ Project History
 The project started with the goal of providing a consistent and clear mechanism to
 perform hardware inventory and firmware upgrades to commodity white-box servers.
 Existing open source solutions do an admirable job of inventory and bare OS
-provisioning, but the ability to upgrade firmware was beyond the technology
+provisioning, but the ability to upgrade firmware is beyond the technology
 stacks currently available (i.e. `xCat`_, `Cobbler`_, `Razor`_ or `Hanlon`_).
-The expansion to utilizing an event-based workflow engine in alignment with the
-services providing classical PXE booting makes it possible to architect a number
-of different deployment configurations as described in :doc:`how_it_works` and
-:doc:`packaging_and_deployment`.
+The expansion an event-based workflow engine that aligns with the
+services providing classical PXE booting makes it possible to architect different deployment configurations
+as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
 
 The Motivation for Starting RackHD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The original motivation centered on maximizing the automation of firmware and BIOS updates
+The original motive centered on maximizing the automation of firmware and BIOS updates
 in the data center, thereby reducing the extensive manual processes that are still required
 for these operations.
 
-One way that RackHD increases automation is by going beyond simple PXE booting
-and performing highly customizeable tasks on machines, as is illustrated by the following sequence:
+RackHD increases automation by going beyond simple PXE booting. It can perform highly
+customizeable tasks on machines, as is illustrated by the following sequence:
 
 * PXE boot the server
 * Interrogate the hardware to determine if it has the correct firmware version
@@ -100,10 +98,10 @@ and performing highly customizeable tasks on machines, as is illustrated by the 
 
 In effect, RackHD combines open source tools with a declarative, event-based workflow engine.
 It is similar to Razor and Hanlon in that it sets up and boots a microkernal that can perform predefined tasks. However, it
-extends this model by adding remote agent that communicates with the workflow engine to
-*dynamically* determine the tasks to perform on the target machine, such as zero-ing out
-disks, interrogating the PCI bus, or resetting the IPMI settings through a
-hosts’s internal KCS channel.
+extends this model by adding a remote agent that communicates with the workflow engine to
+*dynamically* determine the tasks to perform on the target machine, such as zero out
+disks, interrogate the PCI bus, or reset the IPMI settings through the
+hosts internal KCS channel.
 
 Along with this agent-to-workflow integration, RackHD optimizes the path
 for interrogating and gathering data. It leverages existing Linux tools and parses
@@ -111,13 +109,13 @@ outputs that are sent back and stored as free-form JSON data structures.
 
 The workflow engine was extended to support polling via out-of-band interfaces in order to
 capture sensor information and other data that can be retrieved using IPMI.
-In RackHD these become “pollers” that periodically capture telemetry data from
+In RackHD these become *pollers* that periodically capture telemetry data from
 the hardware interfaces.
 
 What RackHD Does Well
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-RackHD is focused on being the lowest level of automation that interrogates agnostic hardware,
+RackHD is focused on being the lowest level of automation that interrogates agnostic hardware and
 provisions machines with operating systems. The API can be used to pass in data through variables
 in the workflow configuration, so you can parameterize workflows. Since workflows also have
 access to all of the SKU information and other catalogs, they can be authored to
