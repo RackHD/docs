@@ -98,18 +98,23 @@ certificate, clients must manually include a rule to trust the certificate's aut
 By default, the application uses a self-signed certificate issued by Monorail which requires no
 configuration. Custom certificates can also be used with some configuration.
 
-Configuration
+Parameters
 ~~~~~~~~~~~~~~~~~~~~~~
 
-See the table under `Configuration Parameters` for information about HTTP/HTTPS configuration parameters. These parameters beging with *HTTP* and *HTTPS*.
+See the table in `Configuration Parameters`_ for information about HTTP/HTTPS configuration parameters.
+These parameters beging with *HTTP* and *HTTPS*.
 
+
+Certificates
+-------------------------
+
+This section describes how to generate and install a self-signed certificate to use for testing.
 
 Generating Self-Signed Certificates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This section demonstrates how to generate a self-signed certificate with personalized metadata.
 If you already have a key and certificate, skip down to the
-Installing Certificates section.
+`Installing Certificates`_ section.
 
 First, generate a new RSA key::
 
@@ -140,7 +145,7 @@ find them. It is suggested that you move them into the /opt/monorail/data folder
     mv cacert.pem /opt/monorail/data/mycert.pem
 
 Then configure the paths by editing *httpsCert* and *httpKey* in
-/opt/monorail/etc/monorail.json (See Configuration section above).
+/opt/monorail/etc/monorail.json. (See the `Configuration Parameters`_ section above).
 
 If using a self-signed certificate, add a security exception to your client of
 choice. Verify the certificate by restarting on-http and visiting
