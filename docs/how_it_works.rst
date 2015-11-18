@@ -79,11 +79,15 @@ For an example, the "SKU Discovery" workflow runs through its tasks as follows:
    catalog data for the node against SKU definition loaded into the system through the REST interface. If
    the definitions match, RackHD updates its data model indicating that the node belongs to a SKU.
 
-4. The task "generate-enclosure" uses the IPMI channels to set up a connection to the BMC so that it can control that
-   node in the future (power on, off and reboot).
+3. The task "generate-enclosure" interrogates catalog data for the system serial number and/or IPMI fru devices
+   to determine whether the node is part of an enclosure (for example, a chassis that aggregates power for
+   multiple nodes), and updates the relations in the node document if matches are found.
 
-5. The last task ("create-default-pollers") creates a set of default pollers that periodically monitor the
+4. The task "create-default-pollers" creates a set of default pollers that periodically monitor the
    device for system hardware alerts, built in sensor data, power status, and similar information.
+
+5. The last task ("run-sku-graph") checks if there are additional workflow hooks defined on the SKU definition
+   associated with the node, and creates a new workflow dynamically if defined.
 
 You can find the SKU Discovery graph at https://github.com/RackHD/on-taskgraph/blob/master/lib/graphs/discovery-sku-graph.js,
 and the simpler "Discovery" graph it uses at https://github.com/RackHD/on-taskgraph/blob/master/lib/graphs/discovery-graph.js
