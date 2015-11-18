@@ -91,12 +91,11 @@ One way that RackHD increases automation is by going beyond simple PXE booting
 and performing highly customizeable tasks on machines, as is illustrated by the following sequence:
 
 * PXE boot the server
-* interrogate the hardware, see if we’re at the right version of firmware
-* if not, flash the firmware to the version we want
-* reboot (mandated by things like BIOS and BMC flashing)
+* Interrogate the hardware to determine if it has the correct firmware version
+* If needed, flash the firmware to the correct version
+* Reboot (mandated by things like BIOS and BMC flashing)
 * PXE boot again
-* interrogate the hardware
-* make sure we’re at the right version of firmware
+* Interrogate the hardware to ensure it has the correct firmware version.
 * SCORE!
 
 In effect, RackHD combines open source tools with a declarative, event-based workflow engine.
