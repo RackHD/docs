@@ -87,7 +87,7 @@ tftproot               Fully-qualified directory from which static TFTP content 
 ==================== ===================================================================================
 
 HTTPS/TLS Configuration
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To use TLS, a private RSA key and X.509 certificate must be provided. On Ubuntu and
 Mac OS X, the openssl command line tool can be used to generate keys and certificates.
@@ -98,8 +98,7 @@ certificate, clients must manually include a rule to trust the certificate's aut
 By default, the application uses a self-signed certificate issued by Monorail which requires no
 configuration. Custom certificates can also be used with some configuration.
 
-Parameters
-~~~~~~~~~~~~~~~~~~~~~~
+**Parameters**
 
 See the table in `Configuration Parameters`_ for information about HTTP/HTTPS configuration parameters.
 These parameters beging with *HTTP* and *HTTPS*.
