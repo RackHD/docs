@@ -41,12 +41,12 @@ Setup Steps
 
     vagrant ssh -c "sudo nf start"
 
-Once all services are running, you can power on PXE clients and watch them boot.
-To do so, open another terminal window and run the command::
+#. Once all services are running, you can power on PXE clients and watch them boot. To do so, open the virtualbox application and manually start the PXE demonstration VM.
+Alternatively, simply open another terminal window and run the following command::
 
     vboxmanage startvm pxe-1 --type gui
 
-or open the virtualbox application and manually start the PXE demonstration VM.
+
 
 How It Works
 ---------------------
