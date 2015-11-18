@@ -43,125 +43,44 @@ The following JSON is an examples of the current defaults:
       "tftpRoot": "./static/tftp"
   }
 
-Keys
-~~~~~~~~~~~~~~~~~~
+  Configuration Parameters
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Queue
-^^^^^^^^^^^^^^^^^^^^^^
+  The following table describes the configuration parameters in monorail.json.
 
-================= ===================================================================================
-Setting             Description
-================= ===================================================================================
-amqp              | URI for accessing the AMQP interprocess communications channel
-================= ===================================================================================
-
-Networking
-^^^^^^^^^^^^^^^^^^^^^^
-
-==================== ===================================================================================
-Setting              | Description
-==================== ===================================================================================
-apiServerAddress     | Externally facing IP address that the API server can be accessed at.
-apiServerPort        | Externally facing port that the API server can be accessed at.
-==================== ===================================================================================
-
-HTTP
-^^^^^^^^^^^^^^^^^^^^^^
-
-==================== ===================================================================================
-Setting              | Description
-==================== ===================================================================================
-httpEnabled          | Toggle HTTP.
-httpsEnabled         | Toggle HTTPS.
-httpBindAddress      | ip/interface to bind to for HTTP. Typically this is '0.0.0.0'
-httpBindPort         | Local port to use for HTTP. Typically this is port 80
-httpsBindPort        | Local port to use for HTTPS. Typically this is port 443.
-httpsCert            | Filename of the X.509 certificate to use for TLS. Expected format is PEM.
-httpsKey             | Filename of the RSA private key to use for TLS. Expected format is PEM.
-httpFileServiceRoot  | Directory path for uploaded files to be stored on disk.
-httpFileServiceType  | backend storage mechanism for file service. Currently only FileSystem is supported.
-httpsCert            | Filename of SSL certificate
-httpsKey             | Filename of RSA private key
-httpsPfx             | pfx file containing the SSL cert and private key (only needed if
-                     | the key and cert are omitted)
-maxTaskPayloadSize   | maximum payload size expected through TASK runner API callbacks from
-                     | microkernel
-==================== ===================================================================================
-
-DHCP
-^^^^^^^^^^^^^^^^^^^^^^
-
-==================== ===================================================================================
-Setting              | Description
-==================== ===================================================================================
-dhcpGateway          | Gateway IP for the network (for DHCP)
-dhcpProxyBindAddress | IP for DHCP proxy server to bind to (defaults to '0.0.0.0').
-                     | **Note:** DHCP binds to 0.0.0.0 to support broadcast request/response within
-                     | Node.js.
-dhcpProxyBindPort    | Port for DHCP proxy server to bind to (defaults to 4011).
-dhcpProxyOutPort     | Port for DHCP proxy server to respond to legacy boot clients on (defaults to 68).
-dhcpProxyEFIOutPort  | Port for DHCP proxy server to respond to EFI clients on (defaults to 4011).
-==================== ===================================================================================
-
-TFTP
-^^^^^^^^^^^^^^^^^^^^^^
-
-==================== ===================================================================================
-Setting              | Description
-==================== ===================================================================================
-tftpBindAddress      | Address for TFTP server to bind to (defaults to '0.0.0.0').
-tftpBindPort         | Port for TFTP server to listen on (defaults to 69).
-tftpBindAddress      | File root for TFTP server to serve files from (defaults to './static/tftp').
-==================== ===================================================================================
-
-Syslog
-^^^^^^^^^^^^^^^^^^^^^^
-
-==================== ===================================================================================
-Setting              | Description
-==================== ===================================================================================
-syslogBindPort       | Port for syslog (defaults to 514).
-syslogBindAddress    | Address for the syslog server to bind to (defaults to '0.0.0.0').
-==================== ===================================================================================
-
-Pollers
-^^^^^^^^^^^^^^^^^^^^^^
-
-================= ===================================================================================
-Setting           | Description
-================= ===================================================================================
-pollerCacheSize   | Maximum poller entries to keep cached in memory
-================= ===================================================================================
-
-
-Out-of-Band Management Control
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-================= ===================================================================================
-Setting           | Description
-================= ===================================================================================
-obmInitialDelay   | Delay before retrying an OBM invocation
-obmRetries        | Number of retries to attempt before failing an OBM invocation
-================= ===================================================================================
-
-
-Content Directories
-^^^^^^^^^^^^^^^^^^^^^^
-
-======================= ===================================================================================
-Setting                 | Description
-======================= ===================================================================================
-httpStaticDirectory     | Fully-qualified directory to where static HTTP content is served
-httpFrontendDirectory   | Fully-qualified directory to the web GUI content
-httpApiDocsDirectory    | Fully-qualified directory to the API docs
-tftproot                | Fully-qualified directory to where static TFTP content is served
-======================= ===================================================================================
-
-Debugging
-^^^^^^^^^^^^^^^^^^^
-
-======================= ===================================================================================
-Setting                 | Description
-======================= ===================================================================================
-statsdPrefix            | Application-specific *statsd* metrics
-======================= ===================================================================================
+  ===================== ===================================================================================
+  Parameter              Description
+  ===================== =============== ===================================================================
+  amqp                   URI for accessing the AMQP interprocess communications channel
+  apiServerAddress       External facing IP address of the API server
+  apiServerPort          External facing port of the API server
+  dhcpGateway            Gateway IP for the network for DHCP
+  dhcpProxyBindAddress   IP for DHCP proxy server to bind  (defaults to '0.0.0.0'). **Note:** DHCP binds to 0.0.0.0 to support broadcast request/response within Node.js.
+  dhcpProxyBindPort      Port for DHCP proxy server to bind (defaults to 4011).
+  dhcpProxyOutPort       Port for DHCP proxy server to respond to legacy boot clients (defaults to 68).
+  dhcpProxyEFIOutPort    Port for DHCP proxy server to respond to EFI clients (defaults to 4011).
+  httpApiDocsDirectory   Fully-qualified directory containing the API docs.
+  httpEnabled            Toggle HTTP.
+  httpsEnabled           Toggle HTTPS.
+  httpBindAddress        IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
+  httpBindPort           Local port to use for HTTP. Typically, port 80
+  httpsBindPort          Local port to use for HTTPS. Typically, port 443.
+  httpsCert              Filename of the X.509 certificate to use for TLS. Expected format is PEM.
+  httpFileServiceRoot    Directory path for for storing uploaded files on disk.
+  httpFileServiceType    Backend storage mechanism for file service. Currently only FileSystem is supported.
+  httpFrontendDirectory  Fully-qualified directory to the web GUI content
+  httpsKey               Filename of the RSA private key to use for TLS. Expected format is PEM.
+  httpsPfx               Pfx file containing the SSL cert and private key (only needed if the key and cert are omitted)
+  httpStaticDirectory    Fully-qualified directory to where static HTTP content is served
+  maxTaskPayloadSize     Maximum payload size expected through TASK runner API callbacks from microkernel
+  obmInitialDelay        Delay before retrying an OBM invocation
+  obmRetries             Number of retries to attempt before failing an OBM invocation
+  pollerCacheSize        Maximum poller entries to cache in memory
+  statsdPrefix           Application-specific *statsd* metrics for debugging
+  syslogBindPort         Port for syslog (defaults to 514).
+  syslogBindAddress      Address for the syslog server to bind to (defaults to '0.0.0.0').
+  tftpBindAddress        Address for TFTP server to bind to (defaults to '0.0.0.0').
+  tftpBindPort           Listening port for TFTP server  (defaults to 69).
+  tftpBindAddress        File root for TFTP server to serve files (defaults to './static/tftp').
+  tftproot               Fully-qualified directory from which static TFTP content is served
+  ===================== ===================================================================================
