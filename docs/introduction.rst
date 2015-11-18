@@ -6,11 +6,6 @@ Once RackHD is installed on the managed CIP platform, it has the ability to disc
 
 RackHD sits between the other M&O layers and the underlying physical hardware devices. User interfaces at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting to and managing the hardware devices.
 
-Management Paradigm
-----------------------------
-RackHD uses the concept of a ‘neighborhood’ to represent the compute nodes, storage nodes, network switches, and smart PDUs under management. In most cases, a neighborhood corresponds to one physical rack, although a neighborhood can span several racks. The physical compute, storage, and network devices in a neighborhood are logically represented as ‘elements’. For example, a compute element can represent a CPU, while a storage element might refer to a storage disk.
-Elements can be managed as separate entities or they can be combined and managed as one larger entity. For example, multiple storage elements can be combined to create a single storage pool.
-
 Hardware Management
 ---------------------------
 
