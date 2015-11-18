@@ -135,8 +135,8 @@ What RackHD Doesn’t Do
 
 RackHD is a comparatively passive system. Workflows do not contain the complex logic for
 functionality that is implemented in the layers above hardware management and orchestration.
-For example, workflows do not provide scheduling functionality and they cannot be used to install
-a specific OS on a range of machines.
+For example, workflows do not provide scheduling functionality to choose which
+machines should be allocated to what services.
 
 We document and expose the events around the workflow
 engine to be utilized, extended, and incorporated into an infrastructure
