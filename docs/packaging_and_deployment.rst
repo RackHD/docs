@@ -12,3 +12,4 @@ Requirements
 
 
 .. include:: rackhd/ubuntu_install_instructions.rst
+.. include:: rackhd/configuration.rst
