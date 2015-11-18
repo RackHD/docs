@@ -119,10 +119,10 @@ What RackHD Does Well
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 RackHD is focused on being the lowest level of automation that interrogates agnostic hardware,
-provisions machines with operating systems. With SKU support, the workflow engine can react to
-information found during discovery and respond with dynamic rendering of installation templates.
-During this process, the API can be used to pass variables and data to the configuration files
-that drive OS installs. This method can be used, for example, to include a kickstart or debseed file.
+provisions machines with operating systems. The API can be used to pass in data through variables
+in the workflow configuration, so you can parameterize workflows. Since workflows also have
+access to all of the SKU information and other catalogs, they can be authored to
+react to that information.
 
 The real power of RackHD, therefore, is that you can develop your own workflows and
 use the REST API to pass in dynamic configuration details. This allows you to execute
@@ -133,27 +133,17 @@ in our code repository to see how different actions can be performed.
 
 
 
-Where we stopped/What RackHD doesn’t do
+What RackHD Doesn’t Do
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We intentionally stopped at two conceptual boundaries - the first, we didn’t
-attempt to replicate all the work and effort that’s gone into software
-configuration management systems. Ansible, Puppet, Chef, and so forth have a
-long history of dealing with a lot of that complexity, and doing it pretty well.
-We made sure our workflow system could integrate seamlessly with those kinds of
-systems - making a call to register a machine with a Puppet or Chef service, or
-in the case of ansible, some example hooks for how to invoke a playbook or
-arbitrary script on the remote machine.
+RackHD is a comparatively passive system. Workflows do not contain the complex logic for
+functionality that is implemented in the layers above hardware management and orchestration.
+For example, workflows do not provide scheduling functionality and they cannot be used to install
+a specific OS on a range of machines.
 
-The second - we intentionally made RackHD a comparatively passive system. You
-can embed a lot of logic in a workflow, but we stopped short of building in more
-complex logic that amounting to functions more commonly done as scheduling -
-choosing which machines to install with what OS, etc. We expect that someone,
-or some thing, will be making those relevant choices - a layer above hardware
-management and orchestration that we saw as “infrastructure orchestration and
-management”. We documented and exposed all of the events around the workflow
-engine to be utilized, extended, and even incorporated by an infrastructure
-management system - but we didn’t take RacKHD directly into that layer.
+We document and expose the events around the workflow
+engine to be utilized, extended, and incorporated into an infrastructure
+management system, but we did not take RacKHD itself directly into the infrastructure layer.
 
 Project Comparison
 ~~~~~~~~~~~~~~~~~~~~~
