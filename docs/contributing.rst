@@ -8,6 +8,13 @@ Since our project is relatively new, we don't yet have many hard and fast rules.
 people get involved, we will solidify and extend our guidelines as needed.
 
 
+Community Discussions
+-------------------------------------------------
+
+We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group through the
+web page, or subscribe directly from email by sending email to rackhd+subscribe@googlegroups.com
+
+We also have a #RackHD slack channel: You can join it by requesting an invitation at http://community.emccode.com.
 
 
 Understand the Repositories
