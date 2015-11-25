@@ -19,6 +19,10 @@ A thorough understanding of the individual repositories is essential for contrib
 at :doc:`repositories`.
 
 
+Submitting Design Proposals
+----------------------------------------
+
+To submit a new design proposal, please follow the procedure described in the RackHD specs repository https://github.com/RackHD/specs.
 
 
 
