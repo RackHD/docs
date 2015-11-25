@@ -156,13 +156,16 @@ Comparison to other open source technologies:
 
 * HTTP wrapper around stock open source tools to enable PXE booting (DHCP,
   TFTP, HTTP)
-* Extended beyond Cobbler concepts to include microkernel to interrogate remote
-  host and enable some pre-OS-install interactions or diagnostics
-* No dynamic events or control for TFTP, DHCP
+* Razor and Hanlon extended beyond Cobbler's concepts to include microkernel
+  to interrogate remote host and use that information with policies to choose
+  what to PXE boot
+* Razor isn't set to make dynamic responses through TFTP or DHCP where RackHD
+  uses dynamic responses based on current state for PXE to enable workflows
 * Catalog and policy are roughly equivalent to RackHD default/discovery workflow
   and SKU mechanism, but oriented on single OS deployment for a piece or type
   of hardware
-* Focused on hardware inventory to choose and enable OS installation
+* Razor and Hanlon are often focused on hardware inventory to choose and
+  enable OS installation through Razor's policy mechanisms.
 * No workflow engine or concept of orchestration with multiple reboots
 * Tightly bound to and maintained by Puppet
 * Forked variant `Hanlon`_ used for Chef Metal driver
