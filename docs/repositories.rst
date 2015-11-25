@@ -83,6 +83,7 @@ Documentation
 Repositories Status
 ^^^^^^^^^^^^^^^^^
 
+The following badges in the tables may take a while to load.
 
 .. list-table::
    :widths: 20 20 20 40
@@ -109,7 +110,7 @@ Repositories Status
      - .. image:: https://codeclimate.com/github/RackHD/on-dhcp-proxy/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-dhcp-proxy
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-dhcp-proxy/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-dhcp-proxy/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-dhcp-proxy?branch=master
           :alt: Test Coverage
    * - on-http
@@ -119,7 +120,7 @@ Repositories Status
      - .. image:: https://codeclimate.com/github/RackHD/on-http/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-http
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-http/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-http/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-http?branch=master
           :alt: Test Coverage
    * - on-imagebuilder
@@ -135,7 +136,7 @@ Repositories Status
      - .. image:: https://codeclimate.com/github/RackHD/on-statsd/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-statsd
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-statsd/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-statsd/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-statsd?branch=master
           :alt: Test Coverage
    * - on-syslog
@@ -145,15 +146,17 @@ Repositories Status
      - .. image:: https://codeclimate.com/github/RackHD/on-syslog/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-syslog
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-syslog/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-syslog/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-syslog?branch=master
           :alt: Test Coverage
    * - on-taskgraph
-     - .. image:: https://img.shields.io/travis/RackHD/on-taskgraph/master.svg?style=flat-square :target: https://travis-ci.org/RackHD/on-taskgraph :alt: Travis Build
+     - .. image:: https://img.shields.io/travis/RackHD/on-taskgraph/master.svg?style=flat-square
+          :target: https://travis-ci.org/RackHD/on-taskgraph
+          :alt: Travis Build
      - .. image:: https://codeclimate.com/github/RackHD/on-taskgraph/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-taskgraph
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-taskgraph/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-taskgraph/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-taskgraph?branch=master
           :alt: Test Coverage
    * - on-tasks
@@ -163,7 +166,7 @@ Repositories Status
      - .. image:: https://codeclimate.com/github/RackHD/on-tasks/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-tasks
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-tasks/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-tasks/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-tasks?branch=master
           :alt: Test Coverage
    * - on-tftp
@@ -173,11 +176,13 @@ Repositories Status
      - .. image:: https://codeclimate.com/github/RackHD/on-tftp/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-tftp
           :alt: Code Climate GPA
-     - .. image:: https://coveralls.io/repos/RackHD/on-tftp/badge.png?branch=master
+     - .. image:: https://img.shields.io/coveralls/RackHD/on-tftp/master.svg?style=flat-square
           :target: https://coveralls.io/r/RackHD/on-tftp?branch=master
           :alt: Test Coverage
    * - on-web-ui
-     - .. image:: https://img.shields.io/travis/RackHD/on-web-ui/master.svg?style=flat-square :target: https://travis-ci.org/RackHD/on-web-ui :alt: Travis Build
+     - .. image:: https://img.shields.io/travis/RackHD/on-web-ui/master.svg?style=flat-square
+          :target: https://travis-ci.org/RackHD/on-web-ui
+          :alt: Travis Build
      - .. image:: https://codeclimate.com/github/RackHD/on-web-ui/badges/gpa.svg?style=flat-square
           :target: https://codeclimate.com/github/RackHD/on-web-ui
           :alt: Code Climate GPA
