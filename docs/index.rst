@@ -40,7 +40,9 @@ Contents
    getting_started
    contributing
    packaging_and_deployment
-   development_guide
+
+   devguide/index
+   rackhd/index
 
 
 RackHD is a Trademark of EMC Corporation.
