@@ -209,7 +209,7 @@ There are some values that may be needed in a task definition which are not know
 
 Task templates use a mustache-style syntax. To define a value to be rendered, place it within curly braces in a string:
 
-.. code-block:: javasript
+.. code-block:: javascript
 
     someOption: 'an option to be rendered: {{ options.renderedOption }}'
 

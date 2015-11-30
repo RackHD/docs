@@ -76,9 +76,9 @@ Use the same coding style as the rest of the codebase. In general, write clean c
 
 See the following sections in our documentation for guidance about a number of our standard practices:
 
-* :doc:`rackhd/naming_conventions`
-* :doc:`rackhd/api_versioning`
-* :doc:`rackhd/amqp_conventions`
+* :doc:`devguide/naming_conventions`
+* :doc:`devguide/api_versioning`
+* :doc:`devguide/amqp_conventions`
 
 
 

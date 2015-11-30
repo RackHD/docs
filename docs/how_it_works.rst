@@ -154,7 +154,7 @@ graph-based control flow mechanisms. A typical graph consists of a list of
 tasks which themselves are essentially decorated functions.
 
 For more detailed information on graphs, see the section on :doc:`rackhd/graphs`
-under our :doc:`development_guide`.
+under our :doc:`rackhd/index`.
 
 Workflow Tasks
 ^^^^^^^^^^^^^^^^^
@@ -164,4 +164,4 @@ defined to do wide-ranging operations, such as bootstrap a server node into a
 Linux microkernel, parse data for matches against a rule, and others. The tasks in a workflow are run in a specific order.
 
 For more detailed information on tasks, see the section on :doc:`rackhd/tasks`
-under our :doc:`development_guide`.
+under our :doc:`rackhd/index`.
