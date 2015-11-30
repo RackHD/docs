@@ -3,7 +3,6 @@ RackHD Users Guide
 
 .. toctree::
    :maxdepth: 1
-   :numbered:
 
    rackhd_api
    configuration
