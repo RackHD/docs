@@ -53,44 +53,46 @@ these as *passive* and *active* discovery.
   will be run when a new machine is identified to one of the discovery workflows included
   within the system. The most common is the SKU Discovery workflow.
 
-For an example, the "SKU Discovery" workflow runs through its tasks as follows:
+To illustrate how workflows run, the following steps describe the processing sequence that is performed
+by the SKU Discovery workflow. This workflow initially calls the Discovery sub-workflow which performs a
+number of tasks and then reboots the machine. After the reboot, the remaining tasks of the SKU Discovery workflow
+are performed.
 
-1. It runs a sub-workflow called 'Discovery'
+1. The Discovery sub-workflow is run:
 
    a) Discovery is initiated by sending down the iPXE boot loader with a pre-built script to run
-      within iPXE. This script then chainloads into a new, dynamically rendered iPXE script that interrogates
-      the enabled network interfaces on the remote machine and reports them back to RackHD. RackHD adds
+      within iPXE. This script chainloads into a new, dynamically-rendered iPXE script that interrogates
+      the enabled network interfaces on the machine and reports them back to RackHD. RackHD adds
       this information to the machine and lookup records. RackHD then renders an additional iPXE script
-      to be chainloaded that downloads and runs the microkernel. The microkernel boots up and requests a
+      that downloads and runs the microkernel. The microkernel boots and requests a
       Node.js "bootstrap" script from RackHD. RackHD runs the bootstrap program which uses a simple REST
       API to "ask" what it should do on the remote host.
 
-   b) The workflow engine, running the discovery
-      workflow, provides a set of tasks to run. These tasks are matched with parsers in RackHD to understand
-      and store the output. They work together to run Linux commands that interrogate the hardware from the
-      microkernel running in memory. These commands include interrogating the machine's BMC settings through
-      IPMI, the installed PCI cards, the DMI information embedded in the BIOS, and others. The resulting
-      information is then stored in JSON format as "catalogs" in RackHD.
+   b) The tasks belonging to the Discovery sub-workflow are performed. These tasks are matched with
+      parsers in RackHD to understand and store the output. They work together to run Linux commands
+      that retrieve information from the microkernel running in memory. These commands interrogate the machine's BMC settings through
+      IPMI, the installed PCI cards, the DMI information embedded in the BIOS, and other componentss. The resulting
+      information is stored in JSON format as "catalogs" in RackHD.
 
-   c) When it's completed with all the tasks, it tells the microkernel to reboot the machine and sends an
-      internal event that the basic bootstrapping process is finished
+   c) When all tasks of the Discovery sub-workflow are complete, RackHD tells the microkernel to reboot the machine and sends an
+      internal event that the basic bootstrapping process is finished.
 
-2. The SKU Discovery workflow then performs a workflow task process called "generate-sku" that compares the
+2. After reboot, the "generate-sku" task compares the
    catalog data for the node against SKU definition loaded into the system through the REST interface. If
    the definitions match, RackHD updates its data model indicating that the node belongs to a SKU.
 
-3. The task "generate-enclosure" interrogates catalog data for the system serial number and/or IPMI fru devices
-   to determine whether the node is part of an enclosure (for example, a chassis that aggregates power for
-   multiple nodes), and updates the relations in the node document if matches are found.
+3. The "generate-enclosure" task interrogates catalog data for the system serial number and/or IPMI fru devices
+   to determine if the node is part of an enclosure (for example, a chassis that aggregates power for
+   multiple nodes). If matches are found, it updates the relations in the node document.
 
-4. The task "create-default-pollers" creates a set of default pollers that periodically monitor the
-   device for system hardware alerts, built in sensor data, power status, and similar information.
+4. The "create-default-pollers" task creates a set of default pollers that periodically monitor the
+   device for system hardware alerts, built-in sensor data, power status, and similar information.
 
-5. The last task ("run-sku-graph") checks if there are additional workflow hooks defined on the SKU definition
+5. The "run-sku-graph" task checks if additional workflow hooks are defined on the SKU definition
    associated with the node, and creates a new workflow dynamically if defined.
 
-You can find the SKU Discovery graph at https://github.com/RackHD/on-taskgraph/blob/master/lib/graphs/discovery-sku-graph.js,
-and the simpler "Discovery" graph it uses at https://github.com/RackHD/on-taskgraph/blob/master/lib/graphs/discovery-graph.js
+You can find the SKU Discovery workflow at https://github.com/RackHD/on-taskgraph/blob/master/lib/graphs/discovery-sku-graph.js
+and the Discovery sub-workflow at https://github.com/RackHD/on-taskgraph/blob/master/lib/graphs/discovery-graph.js
 
 **Notes:**
 
