@@ -69,18 +69,18 @@ perform hardware inventory and firmware upgrades to commodity white-box servers.
 Existing open source solutions do an admirable job of inventory and bare OS
 provisioning, but the ability to upgrade firmware is beyond the technology
 stacks currently available (i.e. `xCat`_, `Cobbler`_, `Razor`_ or `Hanlon`_).
-The expansion an event-based workflow engine that aligns with the
-services providing classical PXE booting makes it possible to architect different deployment configurations
+By adding an event-based workflow engine that works in conjunction with classical PXE
+booting, RackHD makes it possible to architect different deployment configurations
 as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
 
-The Motivation for Starting RackHD
+Motivation for Starting RackHD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The original motive centered on maximizing the automation of firmware and BIOS updates
 in the data center, thereby reducing the extensive manual processes that are still required
 for these operations.
 
-RackHD increases automation by going beyond simple PXE booting. It can perform highly
+RackHD extends automation beyond simple PXE booting. It can perform highly
 customizeable tasks on machines, as is illustrated by the following sequence:
 
 * PXE boot the server
