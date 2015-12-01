@@ -1,9 +1,6 @@
 RackHD Development Guide
 ========================
 
-.. toctree::
-   :maxdepth: 1
-
-   naming_conventions
-   api_versioning
-   amqp_conventions
+.. include:: naming_conventions.rst
+.. include:: api_versioning.rst
+.. include:: amqp_conventions.rst
