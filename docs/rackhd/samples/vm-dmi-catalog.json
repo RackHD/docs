@@ -1,0 +1,76 @@
+{
+    "createdAt": "2015-11-30T21:37:49.696Z",
+    "data": {
+        "BIOS Information": {
+            "Address": "0xE0000",
+            "Characteristics": [
+                "ISA is supported",
+                "PCI is supported",
+                "Boot from CD is supported",
+                "Selectable boot is supported",
+                "8042 keyboard services are supported (int 9h)",
+                "CGA/mono video services are supported (int 10h)",
+                "ACPI is supported"
+            ],
+            "ROM Size": "128 kB",
+            "Release Date": "12/01/2006",
+            "Runtime Size": "128 kB",
+            "Vendor": "innotek GmbH",
+            "Version": "VirtualBox"
+        },
+        "Base Board Information": {
+            "Asset Tag": "Not Specified",
+            "Chassis Handle": "0x0003",
+            "Contained Object Handles": "0",
+            "Features": [
+                "Board is a hosting board"
+            ],
+            "Location In Chassis": "Not Specified",
+            "Manufacturer": "Oracle Corporation",
+            "Product Name": "VirtualBox",
+            "Serial Number": "0",
+            "Type": "Motherboard",
+            "Version": "1.2"
+        },
+        "Chassis Information": {
+            "Asset Tag": "Not Specified",
+            "Boot-up State": "Safe",
+            "Lock": "Not Present",
+            "Manufacturer": "Oracle Corporation",
+            "Power Supply State": "Safe",
+            "Security Status": "None",
+            "Serial Number": "Not Specified",
+            "Thermal State": "Safe",
+            "Type": "Other",
+            "Version": "Not Specified"
+        },
+        "Inactive": [
+            {},
+            {},
+            {}
+        ],
+        "OEM Strings": {
+            "String 1": "vboxVer_5.0.10",
+            "String 2": "vboxRev_104061"
+        },
+        "OEM-specific Type": {
+            "Header and Data": [
+                "80 08 08 00 E7 7D 21 00"
+            ]
+        },
+        "System Information": {
+            "Family": "Virtual Machine",
+            "Manufacturer": "innotek GmbH",
+            "Product Name": "VirtualBox",
+            "SKU Number": "Not Specified",
+            "Serial Number": "0",
+            "UUID": "992DA874-C028-4CDD-BB06-C86D525A7056",
+            "Version": "1.2",
+            "Wake-up Type": "Power Switch"
+        }
+    },
+    "id": "565cc1ad807f92fc51a7c9bf",
+    "node": "565cc18ec3f522fe51620fa2",
+    "source": "dmi",
+    "updatedAt": "2015-11-30T21:37:49.696Z"
+}
