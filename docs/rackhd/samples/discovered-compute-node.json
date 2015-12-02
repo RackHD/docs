@@ -1,0 +1,28 @@
+{
+        "autoDiscover": false,
+        "catalogs": [],
+        "createdAt": "2015-11-30T21:37:18.441Z",
+        "id": "565cc18ec3f522fe51620fa2",
+        "identifiers": [
+            "08:00:27:27:eb:12"
+        ],
+        "name": "08:00:27:27:eb:12",
+        "obmSettings": [
+            {
+                "config": {},
+                "service": "noop-obm-service"
+            }
+        ],
+        "relations": [
+            {
+                "relationType": "enclosedBy",
+                "targets": [
+                    "565cc1d2807f92fc51a7c9c5"
+                ]
+            }
+        ],
+        "sku": "565cb91669aa70ab450da9dd",
+        "type": "compute",
+        "updatedAt": "2015-11-30T21:38:26.755Z",
+        "workflows": []
+    }
