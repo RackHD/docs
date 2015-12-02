@@ -23,9 +23,11 @@ Setup Steps
 .. _Vagrant: https://www.vagrantup.com
 .. _Ansible: http://www.ansible.com
 
-#. Clone the RackHD repository. This repository includes git submodules with relevant source code and the example vagrant instance::
+#. Clone the `RackHD`_ repository. This repository includes git submodules with relevant source code and the example vagrant instance::
 
     git clone --recursive https://github.com/RackHD/RackHD
+
+.. _RackHD: https://github.com/RackHD/RackHD
 
 #. Create a local configuration file and spin up vagrant::
 
