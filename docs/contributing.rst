@@ -54,12 +54,14 @@ When reporting problems, include the following information:
 * Expected Results
 * Additional Information
 
+
 Security Issues
 ------------------------------
 
 If you discover a security issue, please report it in an email to rackhd@emc.com. Do not use the Issues section to describe a security issue.
 
-Understand the Repositories
+
+Understanding the Repositories
 -------------------------------------------------
 
 The https://github.com/rackhd/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
