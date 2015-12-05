@@ -52,21 +52,23 @@ Setup Steps
 How It Works
 ---------------------
 
-The vagrant file and ansible provisioner roles check out the relevant
-applications from the repository submodules. Then Node4 is set up and "npm install" is run for each application.
+The vagrant instance setups a pre-installed RackHD VM to be connected to a VM set to PXE boot to emulate hardware.
+The RackHD VM has two network interfaces, one local to your machine via NAT, and the other a private network (`closednet`) 
+connecting the PXE vm to the RackHD instance. We keep this on a private network because RackHD runs DHCP and PXE, and
+we don't want to accidentally expose that to your local network.
 
-The system also pulls specific binaries, microkernels, and bootloaders from
-from bintray. The mechanisms that create those files are in the
-https://github.com/rackhd/on-imagebuilder repository. When the files are retrieved, `travisCI`_
-builds (https://travis-ci.org/RackHD/on-taskgraph) populate the binaries into bintray for example usage.
+The Vagrant setup also enables port forwarding to access the RackHD instance:
 
-The ansible role installs `node-foreman`_ and runs the node.js applications
-from a single script.
+ - localhost:9090 redirects to rackhd:8080 for access to the REST API
+ - localhost:2222 redirects to rackhd:22 for SSH access - how `vagrant ssh` works
 
-The vagrant file enables a network interface on a private virtual network. The VM that is created by
-the `./monorail_rack` script connects to this network.
+|
+.. image: _static/vagrant_setup.jpg 
+ :align: left
+ 
+We have set up `node-foreman`_ to control and run the the node.js applications from a single command:
 
-RackHD can then run DHCP, TFTP, etc on the interface to the private network (to PXE boot the VM).
+    sudo nf start
 
 **Note:** This example RackHD instance does not include complete out-of-band networking control. Running workflows requires
 a "no-op" OBM management setting on discovered nodes and manual restarts of VMs.
