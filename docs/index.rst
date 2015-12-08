@@ -12,6 +12,10 @@
 RackHD™
 ==========
 
+**VIDEO:** `Introduction to RackHD`_
+
+.. _Introduction to RackHD: https://www.youtube.com/embed/cCiXtROSt8U
+
 RackHD is a technology stack up created for enabling hardware
 management and orchestration, to provide cohesive APIs to enabled automated infrastructure.
 In a Converged Infrastructure Platform (CIP) architecture, RackHD software provides hardware
