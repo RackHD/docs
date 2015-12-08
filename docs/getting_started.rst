@@ -53,20 +53,20 @@ How It Works
 ---------------------
 
 The vagrant instance setups a pre-installed RackHD VM to be connected to a VM set to PXE boot to emulate hardware.
-The RackHD VM has two network interfaces, one local to your machine via NAT, and the other a private network (`closednet`) 
+The RackHD VM has two network interfaces, one local to your machine via NAT, and the other a private network (`closednet`)
 connecting the PXE vm to the RackHD instance. We keep this on a private network because RackHD runs DHCP and PXE, and
 we don't want to accidentally expose that to your local network.
 
+.. image:: _static/vagrant_setup.jpg
+ :height: 300
+
 The Vagrant setup also enables port forwarding to access the RackHD instance:
 
- - localhost:9090 redirects to rackhd:8080 for access to the REST API
- - localhost:2222 redirects to rackhd:22 for SSH access - how `vagrant ssh` works
+- localhost:9090 redirects to rackhd:8080 for access to the REST API
+- localhost:2222 redirects to rackhd:22 for SSH access - how `vagrant ssh` works
 
-|
-.. image: _static/vagrant_setup.jpg 
- :align: left
- 
-We have set up `node-foreman`_ to control and run the the node.js applications from a single command:
+
+We have set up `node-foreman`_ to control and run the the node.js applications from a single command::
 
     sudo nf start
 
