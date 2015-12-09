@@ -16,18 +16,18 @@ RackHD™
 
 .. _Introduction to RackHD: https://www.youtube.com/embed/cCiXtROSt8U
 
-RackHD is a technology stack up created for enabling hardware
-management and orchestration, to provide cohesive APIs to enabled automated infrastructure.
-In a Converged Infrastructure Platform (CIP) architecture, RackHD software provides hardware
-management and orchestration (M&O). It serves as an abstraction layer between other M&O layers
-and the underlying physical hardware. Developers can use the RackHD APIs as a component in a
-larger orchestration system or to create a user interface for managing hardware services
-regardless of the underlying hardware in place.
+RackHD is a technology stack created for enabling automated hardware
+management and orchestration through cohesive APIs. It serves as an abstraction layer between other M&O layers
+and the underlying physical hardware.
 
-The project is a collection of libraries and applications housed at https://github.com/RackHD/
-and documentation hosted at http://rackhd.readthedocs.org. The code for RackHD is a combination
-of Javascript/Node.js and C, available under the Apache 2.0 license (or
-compatible sublicences for library dependencies).
+Developers can use the RackHD APIs to incorporate RackHD functionality into a larger orchestration system or to create a
+user interface for managing hardware services regardless of the underlying hardware in place.
+
+The project is a collection of libraries and applications housed at https://github.com/RackHD/ and available
+under the Apache 2.0 license (or compatible sublicenses for library dependencies). The code for RackHD is a combination
+of JavaScript/Node.js and C.
+
+The RackHD documentation is hosted at http://rackhd.readthedocs.org.
 
 
 Contents
