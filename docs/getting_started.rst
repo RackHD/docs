@@ -1,18 +1,12 @@
 RackHD: Quick Setup
 ===================
 
-*----------------------------- Content in Development -----------------------------*
+You can obtain a Vagrant-based demonstration version of RackHD from GitHub and quickly deploy it on a local system.
+The demo runs VirtualBox VMs that allow you to use RackHD to manage one or more simulated target machines.
 
-To make it easy to see and play with a sample RackHD instance, we've
-set up a vagrant-based example deployment and script to help get everything
-up and running on a local system.
+For a detailed description and deployment instructions, read the README.md in the *example* directory of
+the `RackHD repository`_.
 
-The example/ directory in the `RackHD repository`_ contains the script
-creates a VM that simulates a sample machine in a rack and fires up a RackHD
-instance that connects to and manages that machine.
-
-You can follow the instructions at `README`_ to quickly set up RackHD and
-set it up to auto-install CoreOS on a test virtual machine.
 
 .. _RackHD repository: https://github.com/RackHD/RackHD
 .. _README: https://github.com/RackHD/RackHD/blob/master/example/README.md
@@ -20,21 +14,28 @@ set it up to auto-install CoreOS on a test virtual machine.
 How It Works
 ---------------------
 
-The vagrant instance setups a pre-installed RackHD VM to be connected to a VM set to PXE boot to emulate hardware.
-The RackHD VM has two network interfaces, one local to your machine via NAT, and the other a private network (`closednet`)
-connecting the PXE vm to the RackHD instance. We keep this on a private network because RackHD runs DHCP and PXE, and
-we don't want to accidentally expose that to your local network.
+The Vagrant instance sets up a pre-installed RackHD VM that connects to one or more VMs
+that represent managed systems. The target systems are simulated using PXE clients.
+
+
 
 .. image:: _static/vagrant_setup.jpg
- :height: 300
+     :height: 300
+     :align: center
 
-The Vagrant setup also enables port forwarding to access the RackHD instance:
+
+
+The RackHD VM has two network interfaces. One connects to the local machine via NAT (Network Address Translation)
+and the second connects to the PXE VMs in a private network. The private network is used so that RackHD DHCP and
+PXE operations are isolated from your local network.
+
+The Vagrant setup also enables port forwarding that allows your localhost to access the RackHD instance:
 
 - localhost:9090 redirects to rackhd:8080 for access to the REST API
-- localhost:2222 redirects to rackhd:22 for SSH access - how `vagrant ssh` works
+- localhost:2222 redirects to rackhd:22 for SSH access
 
 
-We have set up `node-foreman`_ to control and run the the node.js applications from a single command::
+We have set up `node-foreman`_ to control and run the node.js applications from a single command::
 
     sudo nf start
 
