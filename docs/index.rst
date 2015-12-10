@@ -25,9 +25,7 @@ user interface for managing hardware services regardless of the underlying hardw
 
 The project is a collection of libraries and applications housed at https://github.com/RackHD/ and available
 under the Apache 2.0 license (or compatible sublicenses for library dependencies). The code for RackHD is a combination
-of JavaScript and C.
-
-The RackHD documentation is hosted at http://rackhd.readthedocs.org.
+of JavaScript and C. The RackHD documentation is hosted at http://rackhd.readthedocs.org.
 
 
 Contents
