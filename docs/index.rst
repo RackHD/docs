@@ -16,7 +16,7 @@ RackHD™
 
 .. _Introduction to RackHD: https://www.youtube.com/embed/cCiXtROSt8U
 
-RackHD is a technology stack created for enabling automated hardware
+RackHD is a technology stack for enabling automated hardware
 management and orchestration through cohesive APIs. It serves as an abstraction layer between other M&O layers
 and the underlying physical hardware.
 
@@ -25,7 +25,7 @@ user interface for managing hardware services regardless of the underlying hardw
 
 The project is a collection of libraries and applications housed at https://github.com/RackHD/ and available
 under the Apache 2.0 license (or compatible sublicenses for library dependencies). The code for RackHD is a combination
-of JavaScript/Node.js and C.
+of JavaScript and C.
 
 The RackHD documentation is hosted at http://rackhd.readthedocs.org.
 
