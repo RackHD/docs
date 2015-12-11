@@ -58,7 +58,7 @@ The following are common API commands that can be used when running the *on-http
         curl <server>/api/1.1/nodes/<id>/workflows/active
 
 
-**Cancel or Kill an Active Graph**
+**Cancel or Kill an Active Graph running against a Node**
 
 ::
 
@@ -69,7 +69,7 @@ The following are common API commands that can be used when running the *on-http
         curl -X DELETE <server>/api/1.1/nodes/<id>/workflows/active
 
 
-**All graphs that have run for a node**
+**List all Graphs that have or are running against a Node**
 
 ::
 
