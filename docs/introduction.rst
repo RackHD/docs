@@ -5,7 +5,7 @@ RackHD serves as an abstraction layer between other M&O layers and the underlyin
 hardware. Developers can use the RackHD API to create a user interface that serves as single point of access
 for managing hardware services regardless of the specific hardware in place.
 
-Once RackHD has the ability to discover the existing hardware
+RackHD has the ability to discover the existing hardware
 resources, catalog each component, and retrieve detailed telemetry information from each resource. The retrieved
 information can then be used to perform low-level hardware management tasks, such as BIOS
 configuration, OS installation, and firmware management.
