@@ -1,13 +1,26 @@
 RackHD Overview
 ===================
-In a Converged Infrastructure Platform (CIP) architecture, RackHD software provides hardware management and orchestration (M&O). It serves as an abstraction layer between other M&O layers and the underlying physical hardware. Developers can use the RackHD API to create a user interface that serves as single point of access for managing hardware services regardless of the specific hardware in place.
 
-Once RackHD is installed on the managed CIP platform, it has the ability to discover the existing hardware resources, catalog each component, and retrieve detailed telemetry information from each resource. The retrieved information can then be used to perform low-level hardware management functions for each resource, such as BIOS configuration, OS installation, and firmware management.
+RackHD serves as an abstraction layer between other M&O layers and the underlying physical
+hardware. Developers can use the RackHD API to create a user interface that serves as single point of access
+for managing hardware services regardless of the specific hardware in place.
 
-RackHD sits between the other M&O layers and the underlying physical hardware devices. User interfaces at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting to and managing the hardware devices.
+Once RackHD has the ability to discover the existing hardware
+resources, catalog each component, and retrieve detailed telemetry information from each resource. The retrieved
+information can then be used to perform low-level hardware management tasks, such as BIOS
+configuration, OS installation, and firmware management.
 
-Hardware Management
----------------------------
+RackHD sits between the other M&O layers and the underlying physical hardware devices. User interfaces
+at the higher M&O layers can request hardware services from RackHD. RackHD handles the details of connecting
+to and managing the hardware devices.
+
+The RackHD API allows you to automate a great range of management tasks, including:
+
+* Install, configure, and monitor bare metal hardware (compute servers, PDUs, DAEs, network switches).
+* Provision and erase server OSes.
+* Install and upgrade firmware.
+* Monitor bare metal hardware through out-of-band management interfaces.
+* Provide data feeds for alerts and raw telemetry from hardware.
 
 Vision
 ------------------------
@@ -49,19 +62,10 @@ The combination of these services is intended to provide a REST API based servic
 The RackHD Project
 -----------------------------------------
 
-RackHD is an open source project available under the Apache 2.0 license (or
-compatible sub-licenses for library dependencies). It is housed at https://github.com/RackHD.
-The code for RackHD is a combination of Javascript/Node.js and C. The project is a collection
-of libraries and applications intended to be deployed as a standalone solution or embedded in larger systems.
+The original motive centered on maximizing the automation of firmware and BIOS updates
+in the data center, thereby reducing the extensive manual processes that are still required
+for these operations.
 
-The RackHD documentation is housed in GitHub
-and hosted at http://rackhd.readthedocs.org/en/latest/.
-
-Project History
-~~~~~~~~~~~~~~~~~~~~~
-
-The project started with the goal of providing a consistent and clear mechanism to
-perform hardware inventory and firmware upgrades to commodity white-box servers.
 Existing open source solutions do an admirable job of inventory and bare OS
 provisioning, but the ability to upgrade firmware is beyond the technology
 stacks currently available (i.e. `xCat`_, `Cobbler`_, `Razor`_ or `Hanlon`_).
@@ -69,15 +73,8 @@ By adding an event-based workflow engine that works in conjunction with classica
 booting, RackHD makes it possible to architect different deployment configurations
 as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
 
-Motivation for Starting RackHD
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The original motive centered on maximizing the automation of firmware and BIOS updates
-in the data center, thereby reducing the extensive manual processes that are still required
-for these operations.
-
 RackHD extends automation beyond simple PXE booting. It can perform highly
-customizeable tasks on machines, as is illustrated by the following sequence:
+customizable tasks on machines, as is illustrated by the following sequence:
 
 * PXE boot the server
 * Interrogate the hardware to determine if it has the correct firmware version
@@ -88,7 +85,7 @@ customizeable tasks on machines, as is illustrated by the following sequence:
 * SCORE!
 
 In effect, RackHD combines open source tools with a declarative, event-based workflow engine.
-It is similar to Razor and Hanlon in that it sets up and boots a microkernal that can perform predefined tasks. However, it
+It is similar to Razor and Hanlon in that it sets up and boots a microkernel that can perform predefined tasks. However, it
 extends this model by adding a remote agent that communicates with the workflow engine to
 *dynamically* determine the tasks to perform on the target machine, such as zero out
 disks, interrogate the PCI bus, or reset the IPMI settings through the
@@ -104,7 +101,7 @@ In RackHD these become *pollers* that periodically capture telemetry data from
 the hardware interfaces.
 
 What RackHD Does Well
-^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 RackHD is focused on being the lowest level of automation that interrogates agnostic hardware and
 provisions machines with operating systems. The API can be used to pass in data through variables
@@ -122,19 +119,20 @@ in our code repository to see how different actions can be performed.
 
 
 What RackHD Doesn’t Do
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 RackHD is a comparatively passive system. Workflows do not contain the complex logic for
 functionality that is implemented in the layers above hardware management and orchestration.
-For example, workflows do not provide scheduling functionality to choose which
-machines should be allocated to what services.
+For example, workflows do not provide scheduling functionality or choose which
+machines to allocate to particular services.
 
 We document and expose the events around the workflow
 engine to be utilized, extended, and incorporated into an infrastructure
 management system, but we did not take RacKHD itself directly into the infrastructure layer.
 
-Project Comparison
-~~~~~~~~~~~~~~~~~~~~~
+Comparison with Other Projects
+-----------------------------------------
+
 Comparison to other open source technologies:
 
 **Cobbler comparison**
