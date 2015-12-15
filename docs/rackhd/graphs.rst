@@ -47,7 +47,7 @@ The following are common API commands that can be used when running the *on-http
 
     curl <server>/api/1.1/workflows/library
 
-**Query the State of An Active Graph**
+**Query the State of an Active Graph**
 
 ::
 
@@ -56,6 +56,28 @@ The following are common API commands that can be used when running the *on-http
 ::
 
         curl <server>/api/1.1/nodes/<id>/workflows/active
+
+
+**Cancel or Kill an Active Graph running against a Node**
+
+::
+
+        DELETE /api/1.1/nodes/<id>/workflows/active
+
+::
+
+        curl -X DELETE <server>/api/1.1/nodes/<id>/workflows/active
+
+
+**List all Graphs that have or are running against a Node**
+
+::
+
+        GET /api/1.1/nodes/<id>/workflows
+
+::
+
+        curl <server>/api/1.1/nodes/<id>/workflows
 
 
 **Create a Graph Definition**
