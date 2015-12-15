@@ -227,7 +227,6 @@ To create a basic workflow that runs user-specified shell commands with specifie
 
 1. Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom overlay)::
 
-
        PUT <server>/api/1.1/workflows/tasks
         Content-Type: application/json
         {
@@ -235,14 +234,16 @@ To create a basic workflow that runs user-specified shell commands with specifie
             "injectableName": "Task.Linux.Bootstrap.Custom",
             "implementsTask": "Task.Base.Linux.Bootstrap",
             "options": {
-                "kernelversion": "vmlinuz-3.13.0-32-generic",
-                "kernel": "common/vmlinuz-3.13.0-32-generic",
-                "initrd": "common/initrd.img-3.13.0-32-generic",
-                "basefs": "common/base.trusty.3.13.0-32.squashfs.img",
-                "overlayfs": "common/overlayfs_all_files.cpio.gz",
-                "profile": "linux.ipxe"
-                },
-                "properties": { }
+               "kernelFile": "vmlinuz-3.13.0-32-generic",
+               "initrdFile": "initrd.img-3.13.0-32-generic",
+               "kernelUri": "{{ api.server }}/common/{{ options.kernelFile }}",
+               "initrdUri": "{{ api.server }}/common/{{ options.initrdFile }}",
+               "basefs": "common/base.trusty.3.13.0-32-generic.squashfs.img",
+               "overlayfs": "common/discovery.overlay.cpio.gz",
+               "profile": "linux.ipxe",
+               "comport": "ttyS0"
+            },
+            "properties": {}
         }
 
 2. Define a task that contains the commands to be run, adding or removing command objects below in the options.commands array::
