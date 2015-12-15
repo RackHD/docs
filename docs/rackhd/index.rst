@@ -11,4 +11,4 @@ RackHD Users Guide
 .. include:: pollers.rst
 .. include:: passive_discovery.rst
 .. include:: microkernel.rst
-
+.. include:: web_ui.rst

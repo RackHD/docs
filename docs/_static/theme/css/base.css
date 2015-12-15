@@ -27,6 +27,11 @@ a.navbar-brand:hover {
   background-color: black !important;
 }
 
+a img.align-left {
+  margin-right: 2em;
+  margin-bottom: 1em;
+}
+
 /* First level of nav */
 .bs-sidenav {
   margin-top: 30px;
