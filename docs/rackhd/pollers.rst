@@ -327,7 +327,9 @@ Alerting is currently supported for "sel" and "sdr" command type pollers.
 Alerts are published over AMQP:
 
 - Channel: 'events' (type: topic)
-- Routing Key: 'poller.alert.\*' (\* is a uuid assigned to the poller graph that processed the alert)
+- Routing Key for SEL: 'poller.alert.sel.\*'  
+- Routing Key for SDR: 'poller.alert.sdr.\*'
+  (\* is a uuid assigned to the poller graph that processed the alert)  
 
 Sample data for a "sel" alert:
 
@@ -363,26 +365,41 @@ Sample data for an "sdr" alert:
 .. code-block:: REST
 
     {
-        host: '10.1.1.3',
-        user: 'admin',
-        password: 'admin',
-        workItemId: '54d6cdff8db79442ddf33333',
-        reading: {
-            'Entity Id': '7.18',
-            'Status': 'nr',
-            'Sensor Id': 'VBAT',
-            'Normal Minimum': '8.928',
-            'Lower non-critical': '2.688',
-            'Upper critical': '3.456',
-            'Sensor Reading': '5.168',
-            'Upper non-critical': '3.312',
-            'Lower critical': '2.544',
-            'Sensor Type': 'Voltage',
-            'Normal Maximum': '11.424',
-            'Entry Id Name': 'System Board',
-            'Sensor Reading Units': 'Volts',
-            'Nominal Reading': '9.216'
-        }
+        "value": [
+            {
+                "host": "172.31.128.3",
+                "inCondition": true,
+                "node": "567170a36c43776605cb4ba0",
+                "password": "admin",
+                "pollerName": "sdr",
+                "reading": {
+                    "assertionsEnabled": [
+                        "lcr- ucr+"
+                    ],
+                    "deassertionsEnabled": [
+                        "lcr- ucr+"
+                    ],
+                    "entityId": "7.1 (System Board)",
+                    "eventMessageControl": "Per-threshold",
+                    "lowerCritical": "2.523",
+                    "maximumSensorRange": "Unspecified",
+                    "minimumSensorRange": "Unspecified",
+                    "negativeHysteresis": "Unspecified",
+                    "positiveHysteresis": "Unspecified",
+                    "readableThresholds": "lcr ucr",
+                    "sdrType": "Threshold",
+                    "sensorId": "Volt_P3V_BAT (0xd7)",
+                    "sensorReading": "5.307 (+/- 0) % Volts",
+                    "sensorType": "Voltage",
+                    "settableThresholds": "lcr ucr",
+                    "status": "Upper Critical",
+                    "thresholdReadMask": "lcr ucr",
+                    "upperCritical": "3.596"
+                },
+                "user": "admin",
+                "workItemId": "567170f2c026c76105e598f4"
+            }
+        ]
     }
 
 
