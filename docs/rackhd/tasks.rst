@@ -160,9 +160,10 @@ job constructor) and run that job.
 
 **Defining a Job**
 
-To create a job, define a subclass of
-[Job.Base](https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/jobs/base-job.js)
-that has a method called *_run* and calls *this._done()* somewhere, if the job is
+To create a job, define a subclass of `Job.Base 
+<https://github.com/RackHD/on-tasks/blob/master/lib/jobs/base-job.js>`_
+that has a method called 
+*_run* and calls *this._done()* somewhere, if the job is
 not one that runs indefinitely.
 
 .. code-block:: javascript
