@@ -25,10 +25,14 @@ To submit coding additions or changes for a repository, fork the repository and 
 Keep your pull requests limited to a single issue. Make sure that the description of the pull request is clear and complete.
 
 Run your changes against existing tests or create new ones if needed. Keep tests as simple as possible.  At a minimum, make sure your changes don’t break the existing project.
+For more information about contributing changes to RacKHD, please see :doc:`devguide/contributing`
 
 After receiving the pull request, our core committers will give you feedback on your work and may request that you make further changes and resubmit the request. The core committers will handle all merges.
 
-If you have questions about the disposition of a request, feel free to email one of our core committers:
+If you have questions about the disposition of a request, feel free to email one of our core committers.
+
+Core Committer Team
+~~~~~~~~~~~~~~~~~~~~~
 
 * Ben.BroderickPhillips@emc.com
 * Felix.Yuan@emc.com
