@@ -73,7 +73,7 @@ Setting up and using Logging
 
 Using our dependency injection libraries, it's typical to inject ``Logger`` and
 then use it within appropriate methods. Within factory methods for services or
-modules, ``Logger`` is initialized wiht the module name, which annotates the
+modules, ``Logger`` is initialized with the module name, which annotates the
 logs with information about where the logs were coming from.
 
 An example of this::
