@@ -95,3 +95,15 @@ The definitions for the methods and what the code does can be found in the
 `logger module`_.
 
 .. _logger module: https://github.com/RackHD/on-core/blob/master/lib/common/logger.js
+
+Deprecation
+~~~~~~~~~~~~
+
+There is a special function in our logging common library for including in methods
+you're attempting to deprecate::
+
+    logger.deprecate("This shouldn't be used any longer", 2)
+
+Which will generate log output at the **error** for assistance in identifying
+methods, APIs, or subsystems that are still in use but in the process of being
+depracted for replacement.
