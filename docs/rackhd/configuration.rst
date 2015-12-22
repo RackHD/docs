@@ -25,6 +25,8 @@ The following JSON is an examples of the current defaults:
       "httpEnabled": true,
       "httpFileServiceRoot": "./static/files",
       "httpFileServiceType": "FileSystem",
+      "httpProxies":  [{"localPath": "/localPath_1", "server": "server_1", "remotePath": "/remotePath_1"},...,
+                       {"localPath": "/localPath_N", "server": "server_N", "remotePath": "/remotePath_N"}]
       "httpStaticRoot": "/opt/monorail/static/http",
       "httpsBindAddress": "0.0.0.0",
       "httpsBindPort": 8443,
@@ -69,6 +71,9 @@ httpsBindPort          Local port to use for HTTPS. Typically, port 443.
 httpsCert              Filename of the X.509 certificate to use for TLS. Expected format is PEM.
 httpFileServiceRoot    Directory path for for storing uploaded files on disk.
 httpFileServiceType    Backend storage mechanism for file service. Currently only FileSystem is supported.
+httpProxies            Optional http proxies list. "localPath"/"remotePath" are optional ( defaults to "/").
+                       "server" is a must for proxy, both http and https servers are supported.
+                       http://<RackHD_Server_IP>:8080/localPath folder will be mapped to <server>/remotePath with httpProxies.
 httpFrontendDirectory  Fully-qualified directory to the web GUI content
 httpsKey               Filename of the RSA private key to use for TLS. Expected format is PEM.
 httpsPfx               Pfx file containing the SSL cert and private key (only needed if the key and cert are omitted)
