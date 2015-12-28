@@ -1,4 +1,4 @@
-Configuration
+RackHD Configuration
 ----------------------
 
 The following JSON is an examples of the current defaults:
@@ -97,6 +97,14 @@ minLogLevel            A numerical value for filtering the logging from RackHD
 ==================== ===================================================================================
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
+
+These configurations can also be overridden by setting environment variables in the
+process that's running each application, or on the command line when running node directly.
+For example, to override the value of amqp for the configuration, you could use::
+
+    export amqp=amqp://another_host:5763
+
+prior to running the relevant application.
 
 HTTPS/TLS Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
