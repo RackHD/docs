@@ -6,7 +6,7 @@ Discovery with a Default Workflow
 
 Sequence Diagram for the Discovery Workflow
 
-.. image:: https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgRGVmYXVsdCBEaXNjb3ZlcnkgV29ya2Zsb3cKClNlcnZlci0-UmFja0hEOiBESENQIGZyb20gUFhFKG5pYyBvciBCSU9TKQoAHQYtPgAtBjogSVNDACkGcmVzcG9uc2Ugd2l0aCBJUAAZEURIQ1AtcHJveHkAHQ9ib290ZmlsZQB2EVJlcXVlc3QgdG8gZG93bmxvYWQAJAkgdmlhIFRGVABWElRGVFAgc2VuZHMgcgA7BmVkIAAuBShtb25vcmFpbC5pcHhlKQpub3RlIGxlZnQgb2YgAIFJCACCBgYgbG9hZHMgACQNIGFuZCBpbml0aWF0ZXMgb24AgTUFbG9hZGVyAIIyEUlQWEUgc2NyaXB0AIB_CHMgd2hhAIFHBwCCWAYAgmoGIChodHRwAIEIB3JpZ2gAgQsFAIF8CQAeBmxvb2tzIHVwIElQIGFkZHJlc3Mgb2YgSFRUUACBXwgAgywGAG0MdG8gZmluZCB0aGUgbm9kAIIvBml0J3MgbWFjLQBABy4AYhdJZgAuCmlzIGFscmVhZHkgImtub3duIiwgaXQgd2lsbCBvbmwAg0oIZCBpADAFcmUncyBhbiBhY3RpdmUgdwCEYgcgdGhhdCdzIGJlZW4gaW52b2tlZCByZWxhdGVkIHRvAIEeCQBsJW4ndCAAgQYFAIEACmNyZWF0ZSBhAGcKKGQAhW8HAHsIKQCDQAUAgSYIAIUmBWFuIGkAgiYOAINcCACBKwUAhWERAIQGBQCDUwcoAINNBQCDQAdjYWxscyBhIFByb2ZpbGUpICh2aWEgAINRCwCEWxAAPgwAhjEFZACHEwltaWNyb2tlcm5lbACEbglyZACEIggAhyAQAIUZBQCEXQlzdGF0aWMAhW0GLQCDdwV2bWxpbnV6IABLBgCHMxEAFwgAKzMAgRIGAIISEgCBIg0AhkYidGhlAIEWBwCBYgxhbmQgdHJhbnNmZXJzIGNvbnRyb2wgKGJvb3RzAIRHBQCCGwwAhzgXdGhlAIJAF2lzIHNlAIhYBQCGOAhhbmQgbGF1bmNoIGEgTm9kZUpTIHRhc2sgcnVubm4Ah1ITAIdQCXRoZQCJQgVzdHJhcC5qcyB0ZW1wbGF0ZQCKHxEAGQ1maWxsZWQgb3UAg3kHdmFsdWVzIHNwZWNpZmljAIYIDCBiYXNlZCBvbiBhAIgHBXVwAIkpFnJ1bnMAKgcAgQULAItREQCBJAkgYXNrcyBmb3IAgWUFcwCFSwdzaG91bGQgSSBkbz8Ai2ISZGF0YSBwYWNrZQCKNQUAMgcAhU4fAIxmEiBwYXNzZXMAi1cFAHcHAIZ4BXRlcnJvZ2F0ZSBoYXJkd2FyZQpsb29wAIEgBWVhY2ggVGFzawCKNQwKICAgAIs5BwCNOgpvdXRwdQCBFwkKZW5kAIpKFwCDXQUAJwdzdG9yZWQgYXMgY2F0YWxvZ3MgaW4Aix8IAIkAKmkAizcIIGkAhTMFZmlndXJlAIhpB1NLVSBkZWYAjEQFb25zAIpEBXByb2NlAIIIBXRoZXNlAHQKdG8gZGV0ZXJtaW5lAItCBVNLVQBbGgCKcgkAYAUAhD4JAIp3CQByBWVkLACGQwkAgRkGdGludQCKeghhdCwgb3RoZXJ3aXMAbAYAjDQFAItlBWJlIHRvbACLJgVyZWJvb3QAhAlOTm90aGluZyBtb3JlLCB0aGFua3MgLSBwbGVhc2UAawcAikgMCgo&s=napkin
+.. image:: https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgRGVmYXVsdCBEaXNjb3ZlcnkgV29ya2Zsb3cKICAgIFNlcnZlci0-UmFja0hEOiBESENQIGZyb20gUFhFKG5pYyBvciBCSU9TKQAqBQAhBi0-ADEGOiBJU0MALQZyZXNwb25zZSB3aXRoIElQABkVREhDUC1wcm94eQAhD2Jvb3RmaWxlAIEOBW5vdGUgcmlnaHQgb2YAawc6IElmIHRoZSBub2RlIGlzIGFscmVhZHkgImtub3duIiwgaXQgd2lsbCBvbmwAVghkIGkAMAVyZSdzIGFuIGFjdGl2ZSB3AIF5ByB0aGF0J3MgYmVlbiBpbnZva2VkIHJlbGF0ZWQgdG8AZgkAghMVUmVxdWVzdCB0byBkb3dubG9hZACBPQkgdmlhIFRGVACBbxZURlRQIHNlbmRzIHIAPwZlZCAAMgUobW9ub3JhaWwuaXB4ZQCCawYAgggFbGVmAIIHBQCCbggAgy8GIGxvYWRzIAAoDSBhbmQgaW5pdGlhdGVzIG9uAIJWBWxvYWRlcgCDWxVJUFhFIHNjcmlwdACBBwhzIHdoYQCBUwcAhAUGAIQXBiAoaHR0cACBDAsAgxMRACEHbG9va3MgdXAgSVAgYWRkcmVzcyBvZiBIVFRQAIFrCACEXQYAcQx0byBmaW5kAINbCnZpYSBpdCdzIG1hYy0AQAcuAIMHgRoAhRIkbid0IACFKwUAhSUKY3JlYXRlIGEAhQwKKGQAhysHaXMgYSBkAIcuCQCFLwgpAINfBQCFWggAhmoFYW4gaQCCPQ4Ag3sIAIVfBQCHJRUAhCkFAINyBygAg2wFAINfB2NhbGxzIGEgUHJvZmlsZSkgKHZpYSAAg2wPAIUCEABCDACHfQUAgS4KbWljcm9rZXJuZWwAhRUJcmQAhEEMAIh0EACFRAUAhQQJc3RhdGljAIYcBi0Ah38Fdm1saW51eiAATwYAiQMVABsIAC83AIEeBgCCIhYAgS4RAIcBInRoZQCBJgcAgXYMYW5kIHRyYW5zZmVycyBjb250cm9sIChib290cwCJFwUAgi8MAIITFwCCRgYAiAMGYWRkaXRpb25hbACISAdvdmVybGF5KQCLSgYAiC4HdG8gZXh0ZW5kAIMNDACIURp0aGUAgzUXaXMgc2UAiXwFAIdMCGFuZCBsYXVuY2ggYSBOb2RlSlMgdGFzayBydW5ubgCIahcAiGwJdGhlAIwDBXN0cmFwLmpzIHRlbXBsYXQAjA8GAIxpEAAdDWZpbGxlZCBvdQCEdgd2YWx1ZXMgc3BlY2lmaWMAi0EMIGJhc2VkIG9uIGEAiSMFdXAAik0acnVucwAuBwCBDQsAjiIVAIEwCSBhc2tzIGZvcgCBdQVzAIZUB3Nob3VsZCBJIGRvPwCOMxZkYXRhIHBhY2tlAI1xBQA2BwCGVyMAj0YSIHBhc3NlcwCNEwUAgH8HAIgNBXRlcnJvZ2F0ZSBoYXJkd2FyAI5pBmxvb3AAgSwFZWFjaCBUYXNrAItpDACQIAUAkBUUb3V0cHUAgSMJAJBHBWVuAIYtBgCPKxYAhAUFAC8Hc3RvcmVkIGFzIGNhdGFsb2dzIGluAIxfCACKNC5pAJAbCCBpAIZABWZpZ3VyZQCKEgdTS1UgZGVmAI4MBW9ucwCQIQVwcm9jZQCCHAV0aGVzZQB4CnRvIGRldGVybWluZQCQZwVTS1UAWx4AkFMJAGQFAIRmCQCQWAkAdgVlZCwAh1QJAIEdBnRpbnUAkFsIYXQsIG90aGVyd2lzAHAGAJFdBQCRRgViZSB0b2wAkQcFcmVib28Ai0MGAIQqUU5vdGhpbmcgbW9yZSwgdGhhbmtzIC0gcGxlYXNlAHMHAIt6Cw&s=napkin
 
 The diagram is made with `WebSequenceDiagrams`_.
 
@@ -28,7 +28,7 @@ And immediately thereafter, you should see the server request the file from TFTP
 .. _WebSequenceDiagrams: https://www.websequencediagrams.com
 
 
-WebSequenceDiagram content
+Default discovery workflow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code::
@@ -37,13 +37,14 @@ WebSequenceDiagram content
     Server->RackHD: DHCP from PXE(nic or BIOS)
     RackHD->Server: ISC DHCP response with IP
     RackHD->Server: DHCP-proxy response with bootfile
+    note right of RackHD: If the node is already "known", it will only respond if there's an active workflow that's been invoked related to the node
     Server->RackHD: Request to download bootfile via TFTP
     RackHD->Server: TFTP sends requested file (monorail.ipxe)
     note left of Server: Server loads monorail.ipxe and initiates on bootloader
     Server->RackHD: IPXE script requests what to do from RackHD (http)
     note right of RackHD: RackHD looks up IP address of HTTP request from IPXE script to find the node via it's mac-address.
     note right of RackHD: If the node is already "known", it will only respond if there's an active workflow that's been invoked related to the node
-    note right of RackHD: If the node isn't known, it will create a workflow (default workflow) and respond with an iPXE script to initiate that
+    note right of RackHD: If the node isn't known, it will create a workflow (default is a discovery workflow) and respond with an iPXE script to initiate that
     RackHD->Server: ipxe script (what RackHD calls a Profile) (via http)
     note left of Server: ipxe script with discovery microkernel and initrd (http)
     Server->RackHD: ipxe requests static file - the vmlinuz kernel
@@ -51,6 +52,7 @@ WebSequenceDiagram content
     Server->RackHD: ipxe requests static file - initrd
     RackHD->Server: initrd (http)
     note left of Server: Server loads the kernel and initrd and transfers control (boots that microkernel)
+    Server->RackHD: initrd loads additional file (overlay) from Server to extend microkernel
     note left of Server: the discovery microkernel is set to request and launch a NodeJS task runnner
     Server->RackHD: requests the bootstrap.js template
     RackHD->Server: bootstrap.js filled out with values specific to the node based on a lookup
