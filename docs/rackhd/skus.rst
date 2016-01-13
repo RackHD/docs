@@ -61,6 +61,18 @@ This example makes use of the "contains" and "equals" rules. See the table at
 the bottom of this document for a list of additional validation rules that can
 be applied.
 
+Package Support (skupack)
+^^^^^^^^^^^^^^^^^^^^^^
+
+The SKU package API provides functionality to override the set of files served
+to a node by on-http with SKU specific files.  If a SKU requires additional
+operations during OS provisioning, the SKU package can be used to serve out
+SKU specific installation scripts that override the default scripts and perform 
+those operations.
+
+The SKU package can be upload to a specific SKU id or it can be bundled with a 
+set of rules to register a SKU during the package upload.
+
 API commands
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -175,6 +187,39 @@ can send.
 
     curl -X DELETE <server>/api/1.1/skus/<skuid>
 
+**Register a new SKU with a pack**
+
+
+.. code-block:: REST
+
+    POST /api/1.1/skus/pack
+
+.. code-block:: REST
+
+    curl -X POST --data-binary @pack.tar.gz <server>/api/1.1/skus/pack
+
+**Add a SKU pack**
+
+
+.. code-block:: REST
+
+    PUT /api/1.1/skus/:id/pack
+
+.. code-block:: REST
+
+    curl -T pack.tar.gz <server>/api/1.1/skus/<skuid>/pack
+
+**Delete a SKU pack**
+
+
+.. code-block:: REST
+
+    DELETE /api/1.1/skus/:id/pack
+
+.. code-block:: REST
+
+    curl -X DELETE <server>/api/1.1/skus/<skuid>/pack
+
 SKU JSON format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -215,3 +260,42 @@ SKUs are defined via JSON, with these required fields:
 +------------------------+-----------+--------------------------+----------------------------------------------------------+
 | discoveryGraphOptions  |  Object   | *optional*               | Options to pass to the graph being run on node discovery.|
 +------------------------+-----------+--------------------------+----------------------------------------------------------+
+
+SKU Pack tar.gz format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The SKU pack requires the 'config.json' to be at the root of the tar.gz file.  A typical
+package may have a static and template directory.
+
+.. code-block:: shell
+
+    tar tzf pack.tar.gz:
+    config.json
+    static/
+    static/common/
+    static/common/discovery.overlay.cpio.gz
+    templates/
+    templates/ansible.pub
+    templates/esx-ks
+
+
+SKU Pack config.json format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: javascript
+
+    {
+      "name": "Intel 32GB RAM",
+      "rules": [
+        {
+          "path": "dmi.dmi.base_board.manufacturer",
+          "contains": "Intel"
+        },
+        {
+          "path": "dmi.memory.total",
+          "equals": "32946864kB"
+        }
+      ],
+      "httpStaticRoot": "static",
+      "httpTemplateRoot": "templates"
+    }
+
