@@ -208,7 +208,7 @@ Task Templates
 ^^^^^^^^^^^^^^^^^^^^^^^
 There are some values that may be needed in a task definition which are not known in advance. In some cases, it is also more convenient to use placeholder values in a task definition than literal values. In these cases, a simple template rendering syntax can be used in task definitions. Rendering is also useful in places where two or more tasks need to use the same value (e.g. options.file), but it cannot be hardcoded ahead of time.
 
-Task templates use a mustache-style syntax. To define a value to be rendered, place it within curly braces in a string:
+Task templates use `Mustache syntax <http://mustache.github.io/mustache.5.html>`_, with some additional features detailed below. To define a value to be rendered, place it within curly braces in a string:
 
 .. code-block:: javascript
 
@@ -290,6 +290,10 @@ On creation, the options are rendered as below. The 'file' field is specified in
 Task Rendering Features
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+For a full list of Mustache rendering features, including specifying conditionals and iterators, see the `Mustache man page <http://mustache.github.io/mustache.5.html>`_
+
+Task templates also expand the capabilities of Mustache templating by adding the additional capabilities of *Fallback Rendering* and *Nested Rendering*, as documented below.
+
 **Fallback Rendering**
 
 Multiple values can be specified within the curly braces, separated by one or two '|' characters (newlines are optional as well after the pipe character). In the case that the first value does not exist, the second one will be used, and so on. Values that are not prefixed by a context field (e.g. 'options.', 'context.' will be rendered as a plain string)
@@ -354,6 +358,48 @@ Template rendering can go many levels deep. So if the rendered result of a templ
         }
     }
 
+**More examples**
+
+This task makes use of both template conditionals and iterators to generate a sequence of shell commands based on the options the task is created with.
+
+.. code-block:: js
+
+    {
+        "friendlyName": "Delete RAID via Storcli",
+        "injectableName": "Task.Raid.Delete.MegaRAID",
+        "implementsTask": "Task.Base.Linux.Commands",
+        "options": {
+            "deleteAll": true,
+            "controller": 0,
+            "raidIds": [], //[0,1,2]
+            "path": "/opt/MegaRAID/storcli/storcli64",
+            "commands": [
+                "{{#options.deleteAll}}" +
+                    "sudo {{options.path}} /c{{options.controller}}/vall del force" +
+                "{{/options.deleteAll}}" +
+                "{{^options.deleteAll}}{{#options.raidIds}}" +
+                    "sudo {{options.path}} /c{{options.controller}}/v{{.}} del force;" +
+                "{{/options.raidIds}}{{/options.deleteAll}}"
+            ]
+        },
+        "properties": {}
+    }
+
+If ``options.deleteAll`` is true, ``options.commands`` will be rendered as:
+
+.. code-block:: json
+
+    [
+        "sudo /opt/MegaRAID/storcli/storcli64 /c0/vall del force"
+    ]
+
+If a user overrides ``deleteAll`` to be false, and ``raidIds`` to be ``[0,1,2]``, then ``options.commands`` will become:
+
+.. code-block:: json
+
+    [
+        "sudo /opt/MegaRAID/storcli/storcli64 /c0/v0 del force;sudo /opt/MegaRAID/storcli/storcli64 /c0/v1 del force;sudo /opt/MegaRAID/storcli/storcli64 /c0/v2 del force;"
+    ]
 
 API Commands for Tasks
 ^^^^^^^^^^^^^^^^^^^^^^^
