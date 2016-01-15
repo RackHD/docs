@@ -6,3 +6,4 @@ RackHD Development Guide
 .. include:: api_versioning.rst
 .. include:: amqp_conventions.rst
 .. include:: log_levels.rst
+.. include:: debugging_guide.rst
