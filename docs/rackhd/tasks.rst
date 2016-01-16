@@ -12,6 +12,8 @@ A workflow task is made up of three parts:
 * Base Task Definition
 * Job
 
+.. _task-definition-ref-label:
+
 Task Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^
 
