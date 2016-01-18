@@ -185,5 +185,13 @@ Comparison to other open source technologies:
 Related Projects
 -----------------------------------------
 
-* `Go CLI for RackHD <https://github.com/emccode/gorackhd>`_
-* `Go CLI for RackHD <https://github.com/EMC-CMD/rackhd-cli>`_
+* CLI
+
+  * `Go CLI for RackHD <https://github.com/emccode/gorackhd>`_
+  * `Ruby CLI for RackHD <https://github.com/EMC-CMD/rackhd-cli>`_
+
+* OpenStack
+
+  * `Shovel - RackHD coordinator <https://github.com/keedya/Shovel>`_
+  * `Shovel Horizon Plugin <https://github.com/keedya/shovel-horizon-plugin>`_
+  * `Shovel API python client <https://github.com/keedya/shovel-api-python-client>`_
