@@ -180,3 +180,10 @@ Comparison to other open source technologies:
 .. _Razor: https://github.com/puppetlabs/razor-server
 .. _Hanlon: https://github.com/csc/Hanlon
 .. _xCat: http://xcat.org
+
+
+Related Projects
+-----------------------------------------
+
+* `Go CLI for RackHD <https://github.com/emccode/gorackhd>`_
+* `Go CLI for RackHD <https://github.com/EMC-CMD/rackhd-cli>`_
