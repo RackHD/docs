@@ -111,7 +111,7 @@ In many cases, you may need access to variables in the script that can be render
 Templates are defined using `ejs`_ syntax (variables in <%=variable%> tags). Variables are
 rendered based on the option values of task definition, for example, if a task is defined with these options...
 
-.. _ejs:https://github.com/tj/ejs
+.. _ejs: https://github.com/tj/ejs
 
 .. code-block:: JSON
 
@@ -131,8 +131,8 @@ rendered based on the option values of task definition, for example, if a task i
 
 .. code-block:: JSON
 
- echo <%=foo%>
- echo <%=baz%>
+    echo <%=foo%>
+    echo <%=baz%>
 
 
 ...is rendered as below when it is run by a node:
@@ -140,8 +140,8 @@ rendered based on the option values of task definition, for example, if a task i
 
 .. code-block:: JSON
 
- echo bar
- echo qux
+    echo bar
+    echo qux
 
 
 **Uploading Script Templates**

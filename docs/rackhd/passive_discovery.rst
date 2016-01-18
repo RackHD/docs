@@ -37,7 +37,7 @@ automatially discovered if:
          "snmpSettings": {"host": "10.1.1.3", "community": "public"}}' \
         <server>/api/1.1/nodes
 
-.. literalinclude:: samples/auto-discover-node.json
+.. literalinclude:: samples/auto-discover-switch-node.json
    :language: JSON
 
 Discover an existing switch node

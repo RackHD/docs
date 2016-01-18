@@ -94,7 +94,7 @@ tftpBindPort           Listening port for TFTP server  (defaults to 69).
 tftpBindAddress        File root for TFTP server to serve files (defaults to './static/tftp').
 tftproot               Fully-qualified directory from which static TFTP content is served
 minLogLevel            A numerical value for filtering the logging from RackHD
-==================== ===================================================================================
+===================== ===================================================================================
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
