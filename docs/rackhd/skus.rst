@@ -67,10 +67,10 @@ Package Support (skupack)
 The SKU package API provides functionality to override the set of files served
 to a node by on-http with SKU specific files.  If a SKU requires additional
 operations during OS provisioning, the SKU package can be used to serve out
-SKU specific installation scripts that override the default scripts and perform 
+SKU specific installation scripts that override the default scripts and perform
 those operations.
 
-The SKU package can be upload to a specific SKU id or it can be bundled with a 
+The SKU package can be upload to a specific SKU id or it can be bundled with a
 set of rules to register a SKU during the package upload.
 
 API commands
@@ -298,4 +298,3 @@ SKU Pack config.json format
       "httpStaticRoot": "static",
       "httpTemplateRoot": "templates"
     }
-
