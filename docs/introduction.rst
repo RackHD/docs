@@ -187,9 +187,8 @@ Related Projects
 
 * CLI
 
-
   * `Go CLI for RackHD <https://github.com/emccode/gorackhd>`_
-  * `Go CLI for RackHD <https://github.com/EMC-CMD/rackhd-cli>`_
+  * `Ruby CLI for RackHD <https://github.com/EMC-CMD/rackhd-cli>`_
 
 * OpenStack
 
