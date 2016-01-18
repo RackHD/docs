@@ -62,7 +62,7 @@ the bottom of this document for a list of additional validation rules that can
 be applied.
 
 Package Support (skupack)
-^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The SKU package API provides functionality to override the set of files served
 to a node by on-http with SKU specific files.  If a SKU requires additional
@@ -104,7 +104,7 @@ can send.
       }
     }
 
-.. literalinclude:: monorail/samples/sku.json
+.. literalinclude:: samples/sku.json
    :language: JSON
 
 

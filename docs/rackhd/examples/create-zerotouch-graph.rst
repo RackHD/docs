@@ -122,16 +122,17 @@ The above code renders the following startup config as shown here:
 
 To upload a template, use the templates API:
 
-.. code-block::
+.. code-block:: REST
 
- PUT /api/1.1/templates/library/<filename>
- Content-Type: application/octet-stream
- ---
- curl -X PUT \
-     -H 'Content-Type: application/octet-stream' \
-     -d "<startup config template>" \
-    <server>/api/1.1/templates/library/<filename>
+     PUT /api/1.1/templates/library/<filename>
+     Content-Type: application/octet-stream
 
+.. code-block:: REST
+
+     curl -X PUT \
+         -H 'Content-Type: application/octet-stream' \
+         -d "<startup config template>" \
+         <server>/api/1.1/templates/library/<filename>
 
 
 **Adding EOS Images**
