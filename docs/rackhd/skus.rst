@@ -23,17 +23,15 @@ With a node that has the following catalog fields:
     {
       "source": "dmi",
       "data": {
-        "dmi": {
-          "base_board": {
-            "manufacturer": "Intel Corporation"
+          "Base Board Information": {
+              "Manufacturer": "Intel Corporation"
           }
-        },
-        "memory": {
+      },
+      "memory": {
           "total": "32946864kB"
           "free": "31682528kB"
-        }
-        /* ... */
       }
+      /* ... */
     }
 
 We could match against these fields with this SKU definition:
@@ -44,7 +42,7 @@ We could match against these fields with this SKU definition:
       "name": "Intel 32GB RAM",
       "rules": [
         {
-          "path": "dmi.dmi.base_board.manufacturer",
+          "path": "dmi.Base Board Information.Manufacturer",
           "contains": "Intel"
         },
         {
@@ -88,7 +86,7 @@ can send.
       "name": "Intel 32GB RAM",
       "rules": [
         {
-          "path": "dmi.Base Board Information.manufacturer",
+          "path": "dmi.Base Board Information.Manufacturer",
           "contains": "Intel"
         },
         {
@@ -287,7 +285,7 @@ SKU Pack config.json format
       "name": "Intel 32GB RAM",
       "rules": [
         {
-          "path": "dmi.dmi.base_board.manufacturer",
+          "path": "dmi.Base Board Information.Manufacturer",
           "contains": "Intel"
         },
         {
