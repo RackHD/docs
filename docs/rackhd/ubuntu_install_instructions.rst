@@ -93,7 +93,7 @@ Add Ansible Playbook for Post-OS Install:**
 **Configure the Applications to Start**
 
 All of the monorail programs are set to respect and verify the existence of a
-default configuration file (/opt/onrack/etc/monorail.json). If this file doesn't exist, the services will
+default configuration file (/opt/monorail/config.json). If this file doesn't exist, the services will
 fail to start with a relevant message in the upstart log for that process.
 
 Making the Mirrors
