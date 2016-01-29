@@ -367,38 +367,44 @@ Sample data for an "sdr" alert:
     {
         "value": [
             {
-                "host": "172.31.128.3",
+                "host": "172.31.128.15",
                 "inCondition": true,
-                "node": "567170a36c43776605cb4ba0",
+                "node": "56ab9c002a53c545059db172",
                 "password": "admin",
                 "pollerName": "sdr",
                 "reading": {
                     "assertionsEnabled": [
-                        "lcr- ucr+"
+                        "lcr-"
                     ],
                     "deassertionsEnabled": [
-                        "lcr- ucr+"
+                    "lcr-"
                     ],
-                    "entityId": "7.1 (System Board)",
+                    "entityId": "29.1",
+                    "entryIdName": "Fan Device",
                     "eventMessageControl": "Per-threshold",
-                    "lowerCritical": "2.523",
+                    "lowerCritical": "600.000",
                     "maximumSensorRange": "Unspecified",
                     "minimumSensorRange": "Unspecified",
                     "negativeHysteresis": "Unspecified",
+                    "nominalReading": "",
+                    "normalMaximum": "",
+                    "normalMinimum": "",
                     "positiveHysteresis": "Unspecified",
-                    "readableThresholds": "lcr ucr",
+                    "readableThresholds": "lcr",
                     "sdrType": "Threshold",
-                    "sensorId": "Volt_P3V_BAT (0xd7)",
-                    "sensorReading": "5.307 (+/- 0) % Volts",
-                    "sensorType": "Voltage",
-                    "settableThresholds": "lcr ucr",
-                    "status": "Upper Critical",
-                    "thresholdReadMask": "lcr ucr",
-                    "upperCritical": "3.596"
+                    "sensorId": "Fan_SYS0_1(0xc0)",
+                    "sensorReading": "0",
+                    "sensorReadingUnits": "%RPM",
+                    "sensorType": "Fan",
+                    "settableThresholds": "lcr",
+                    "statesAsserted": [],
+                    "status": "Lower Critical",
+                    "thresholdReadMask": "lcr"
                 },
                 "user": "admin",
-                "workItemId": "567170f2c026c76105e598f4"
+                "workItemId": "56ab9c52a0e5e24005bbf8ea"
             }
+
         ]
     }
 
