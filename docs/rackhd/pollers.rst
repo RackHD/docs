@@ -327,7 +327,9 @@ Alerting is currently supported for "sel" and "sdr" command type pollers.
 Alerts are published over AMQP:
 
 - Channel: 'events' (type: topic)
-- Routing Key: 'poller.alert.\*' (\* is a uuid assigned to the poller graph that processed the alert)
+- Routing Key for SEL: 'poller.alert.sel.\*'  
+- Routing Key for SDR: 'poller.alert.sdr.\*'
+  (\* is a uuid assigned to the poller graph that processed the alert)  
 
 Sample data for a "sel" alert:
 
@@ -363,26 +365,47 @@ Sample data for an "sdr" alert:
 .. code-block:: REST
 
     {
-        host: '10.1.1.3',
-        user: 'admin',
-        password: 'admin',
-        workItemId: '54d6cdff8db79442ddf33333',
-        reading: {
-            'Entity Id': '7.18',
-            'Status': 'nr',
-            'Sensor Id': 'VBAT',
-            'Normal Minimum': '8.928',
-            'Lower non-critical': '2.688',
-            'Upper critical': '3.456',
-            'Sensor Reading': '5.168',
-            'Upper non-critical': '3.312',
-            'Lower critical': '2.544',
-            'Sensor Type': 'Voltage',
-            'Normal Maximum': '11.424',
-            'Entry Id Name': 'System Board',
-            'Sensor Reading Units': 'Volts',
-            'Nominal Reading': '9.216'
-        }
+        "value": [
+            {
+                "host": "172.31.128.15",
+                "inCondition": true,
+                "node": "56ab9c002a53c545059db172",
+                "password": "admin",
+                "pollerName": "sdr",
+                "reading": {
+                    "assertionsEnabled": [
+                        "lcr-"
+                    ],
+                    "deassertionsEnabled": [
+                    "lcr-"
+                    ],
+                    "entityId": "29.1",
+                    "entryIdName": "Fan Device",
+                    "eventMessageControl": "Per-threshold",
+                    "lowerCritical": "600.000",
+                    "maximumSensorRange": "Unspecified",
+                    "minimumSensorRange": "Unspecified",
+                    "negativeHysteresis": "Unspecified",
+                    "nominalReading": "",
+                    "normalMaximum": "",
+                    "normalMinimum": "",
+                    "positiveHysteresis": "Unspecified",
+                    "readableThresholds": "lcr",
+                    "sdrType": "Threshold",
+                    "sensorId": "Fan_SYS0_1(0xc0)",
+                    "sensorReading": "0",
+                    "sensorReadingUnits": "%RPM",
+                    "sensorType": "Fan",
+                    "settableThresholds": "lcr",
+                    "statesAsserted": [],
+                    "status": "Lower Critical",
+                    "thresholdReadMask": "lcr"
+                },
+                "user": "admin",
+                "workItemId": "56ab9c52a0e5e24005bbf8ea"
+            }
+
+        ]
     }
 
 
