@@ -125,14 +125,6 @@ Lookup Model (via On-Http)
         required: [ 'macAddress' ]
     }
 
-Tracing
-~~~~~~~~~
-
-Tracing is provided by default across messenger boundaries using a 'thread local storage' mechanism in Node. A correlation ID is generated if one does not already exist for the current 'thread' of execution and a property bag is associated with that correlation ID.
-The property bag is a simple JavaScript object which can be decorated with contextual data at any point during execution of a request.
-The messenger is aware of this correlation ID & context and will forward them over AMQP using fields in the AMQP protocol as well as the AMQP headers field. Upon receiving a message the messenger will create/update it's local version of the correlation ID & context.
-This allows the messenger to provide full tracing and context across process boundaries.
-
 Additional Information
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
