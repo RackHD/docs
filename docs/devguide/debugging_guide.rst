@@ -82,7 +82,7 @@ Logged warnings FAQ
 
 *Question*:
 
-I'm seeing this warning appear in the logs, but it all seems to be working. What's happening?
+I'm seeing this warning appear in the logs but it all seems to be working. What's happening?
 
 .. code::
 
@@ -99,9 +99,9 @@ I'm seeing this warning appear in the logs, but it all seems to be working. What
 
 *Answer*:
 
-What I learned (so I may be wrong here, but think it’s accurate) is that when NIC’s a doing the bootloading/PXE
-process, they attempt to interact with TFTP in such a way that the first request almost always fails - it’s how
-the C code in those nics are negotiating for talking with TFTP. So you’ll frequently see those errors in the logs,
+What I learned (so I may be wrong here, but think it’s accurate) is that during the boot loading/PXE process the NICs will attempt
+to interact with TFTP in such a way that the first request almost always fails - it’s how
+the C code in those nics is negotiating for talking with TFTP. So you’ll frequently see those errors in the logs,
 and then immediately also see the same file downloading on the second request from the nic (or host) doing the
 bootloading.
 
@@ -115,8 +115,8 @@ can see failures for the node to bootstrap and respond to PXE.
 
 The link down is a pernicious problem for PXE booting in general, and a part of the game that’s buried into how
 switches react and bring up and down ports. We’ve generally encouraged settings like “portfast” which more
-agressively bring up links that are going down and coming back up with a power cycle. In the NUC’s you’re using,
-you’ll see that extensively, but it happens on all networks. It you have spanning-tree enabled, some things
+agressively bring up links that are going down and coming back up with a power cycle. In the NUCs you’re using,
+you’ll see that extensively, but it happens on all networks. If you have spanning-tree enabled, some things
 like that - it’ll expand the time. There’s only so much we can do to work around it, but fundamentally it means
 that while the relevant computer things things are “UP and OK” and has started a TFTP/PXE boot process, the
 switch hasn’t brought the NIC link up. So we added an explicit sleep in there in the monorail.ipxe to extend
