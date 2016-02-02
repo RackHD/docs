@@ -50,51 +50,93 @@ The following JSON is an examples of the current defaults:
 Configuration Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following table describes the configuration parameters in monorail.json.
+The following table describes the configuration parameters in monorail.json:
 
-===================== ===================================================================================
-Parameter              Description
-===================== ===================================================================================
-amqp                   URI for accessing the AMQP interprocess communications channel
-apiServerAddress       External facing IP address of the API server
-apiServerPort          External facing port of the API server
-dhcpGateway            Gateway IP for the network for DHCP
-dhcpProxyBindAddress   IP for DHCP proxy server to bind  (defaults to '0.0.0.0'). **Note:** DHCP binds to 0.0.0.0 to support broadcast request/response within Node.js.
-dhcpProxyBindPort      Port for DHCP proxy server to bind (defaults to 4011).
-dhcpProxyOutPort       Port for DHCP proxy server to respond to legacy boot clients (defaults to 68).
-dhcpProxyEFIOutPort    Port for DHCP proxy server to respond to EFI clients (defaults to 4011).
-httpApiDocsDirectory   Fully-qualified directory containing the API docs.
-httpEnabled            Toggle HTTP.
-httpsEnabled           Toggle HTTPS.
-httpBindAddress        IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
-httpBindPort           Local port to use for HTTP. Typically, port 80
-httpsBindPort          Local port to use for HTTPS. Typically, port 443.
-httpsCert              Filename of the X.509 certificate to use for TLS. Expected format is PEM.
-httpFileServiceRoot    Directory path for for storing uploaded files on disk.
-httpFileServiceType    Backend storage mechanism for file service. Currently only FileSystem is supported.
-httpProxies            Optional http proxies list. There are 3 parameters for each proxy:
-                       "localPath"/"remotePath" are optional and defaults to "/". A legal "localPath"/"remotePath" string must start with slash and ends without slash, like "/mirrors".
-                       If "localPath" is assigned to an existing local path like "/api/common/nodes", proxy won't work. Instead the path will keep its original feature and function.
-                       "server" is a must, both http and https servers are supported. A legal "server" string must ends without slash like "http://centos.eecs.wsu.edu". Instead "http://centos.eecs.wsu.edu/" is illegal.
-                       Example: { "server": "http://centos.eecs.wsu.edu", "localPath": "/centos" } would map http requests to local directory /centos/ to http://centos.eecs.wsu.edu/
-                                { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
-httpFrontendDirectory  Fully-qualified directory to the web GUI content
-httpsKey               Filename of the RSA private key to use for TLS. Expected format is PEM.
-httpsPfx               Pfx file containing the SSL cert and private key (only needed if the key and cert are omitted)
-httpStaticDirectory    Fully-qualified directory to where static HTTP content is served
-maxTaskPayloadSize     Maximum payload size expected through TASK runner API callbacks from microkernel
-obmInitialDelay        Delay before retrying an OBM invocation
-obmRetries             Number of retries to attempt before failing an OBM invocation
-pollerCacheSize        Maximum poller entries to cache in memory
-statsdPrefix           Application-specific *statsd* metrics for debugging
-syslogBindPort         Port for syslog (defaults to 514).
-syslogBindAddress      Address for the syslog server to bind to (defaults to '0.0.0.0').
-tftpBindAddress        Address for TFTP server to bind to (defaults to '0.0.0.0').
-tftpBindPort           Listening port for TFTP server  (defaults to 69).
-tftpBindAddress        File root for TFTP server to serve files (defaults to './static/tftp').
-tftproot               Fully-qualified directory from which static TFTP content is served
-minLogLevel            A numerical value for filtering the logging from RackHD
-===================== ===================================================================================
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - amqp
+      - URI for accessing the AMQP interprocess communications channel
+    * - apiServerAddress
+      - External facing IP address of the API server
+    * - apiServerPort
+      - External facing port of the API server
+    * - dhcpGateway
+      - Gateway IP for the network for DHCP
+    * - dhcpProxyBindAddress
+      - IP for DHCP proxy server to bind  (defaults to '0.0.0.0'). **Note:** DHCP binds to 0.0.0.0 to support broadcast request/response within Node.js.
+    * - dhcpProxyBindPort
+      - Port for DHCP proxy server to bind (defaults to 4011).
+    * - dhcpProxyOutPort
+      - Port for DHCP proxy server to respond to legacy boot clients (defaults to 68).
+    * - dhcpProxyEFIOutPort
+      - Port for DHCP proxy server to respond to EFI clients (defaults to 4011).
+    * - httpApiDocsDirectory
+      - Fully-qualified directory containing the API docs.
+    * - httpEnabled
+      - Toggle HTTP.
+    * - httpsEnabled
+      - Toggle HTTPS.
+    * - httpBindAddress
+      - IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
+    * - httpBindPort
+      - Local port to use for HTTP. Typically, port 80
+    * - httpsBindPort
+      - Local port to use for HTTPS. Typically, port 443.
+    * - httpsCert
+      - Filename of the X.509 certificate to use for TLS. Expected format is PEM.
+    * - httpFileServiceRoot
+      - Directory path for for storing uploaded files on disk.
+    * - httpFileServiceType
+      - Backend storage mechanism for file service. Currently only FileSystem is supported.
+    * - httpProxies
+      - Optional http proxies list. There are 3 parameters for each proxy:
+
+        "localPath"/"remotePath" are optional and defaults to "/". A legal "localPath"/"remotePath" string must start with slash and ends without slash, like "/mirrors".
+        If "localPath" is assigned to an existing local path like "/api/common/nodes", proxy won't work. Instead the path will keep its original feature and function.
+        "server" is a must, both http and https servers are supported. A legal "server" string must ends without slash like "http://centos.eecs.wsu.edu". Instead "http://centos.eecs.wsu.edu/" is illegal.
+
+        Example:
+
+        { "server": "http://centos.eecs.wsu.edu", "localPath": "/centos" } would map http requests to local directory /centos/ to http://centos.eecs.wsu.edu/
+
+        { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
+    * - httpFrontendDirectory
+      - Fully-qualified directory to the web GUI content
+    * - httpsKey
+      - Filename of the RSA private key to use for TLS. Expected format is PEM.
+    * - httpsPfx
+      - Pfx file containing the SSL cert and private key (only needed if the key and cert are omitted)
+    * - httpStaticDirectory
+      - Fully-qualified directory to where static HTTP content is served
+    * - maxTaskPayloadSize
+      - Maximum payload size expected through TASK runner API callbacks from microkernel
+    * - obmInitialDelay
+      - Delay before retrying an OBM invocation
+    * - obmRetries
+      - Number of retries to attempt before failing an OBM invocation
+    * - pollerCacheSize
+      - Maximum poller entries to cache in memory
+    * - statsdPrefix
+      - Application-specific *statsd* metrics for debugging
+    * - syslogBindPort
+      - Port for syslog (defaults to 514).
+    * - syslogBindAddress
+      - Address for the syslog server to bind to (defaults to '0.0.0.0').
+    * - tftpBindAddress
+      - Address for TFTP server to bind to (defaults to '0.0.0.0').
+    * - tftpBindPort
+      - Listening port for TFTP server  (defaults to 69).
+    * - tftpBindAddress
+      - File root for TFTP server to serve files (defaults to './static/tftp').
+    * - tftproot
+      - Fully-qualified directory from which static TFTP content is served
+    * - minLogLevel
+      - A numerical value for filtering the logging from RackHD
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
