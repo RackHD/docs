@@ -96,18 +96,8 @@ The following table describes the configuration parameters in monorail.json:
       - Port for DHCP proxy server to respond to EFI clients (defaults to 4011).
     * - httpApiDocsDirectory
       - Fully-qualified directory containing the API docs.
-    * - httpEnabled
-      - Toggle HTTP.
-    * - httpsEnabled
-      - Toggle HTTPS.
-    * - httpBindAddress
-      - IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
-    * - httpBindPort
-      - Local port to use for HTTP. Typically, port 80
-    * - httpsBindPort
-      - Local port to use for HTTPS. Typically, port 443.
-    * - httpsCert
-      - Filename of the X.509 certificate to use for TLS. Expected format is PEM.
+    * - httpEndpoints
+      - Collection of http/https endpoints. See details in `Setting up HTTP/HTTPS endpoint`_
     * - httpFileServiceRoot
       - Directory path for for storing uploaded files on disk.
     * - httpFileServiceType
@@ -126,10 +116,6 @@ The following table describes the configuration parameters in monorail.json:
         { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
     * - httpFrontendDirectory
       - Fully-qualified directory to the web GUI content
-    * - httpsKey
-      - Filename of the RSA private key to use for TLS. Expected format is PEM.
-    * - httpsPfx
-      - Pfx file containing the SSL cert and private key (only needed if the key and cert are omitted)
     * - httpStaticDirectory
       - Fully-qualified directory to where static HTTP content is served
     * - maxTaskPayloadSize
@@ -248,7 +234,61 @@ There are currently two group of APIs defined in RackHD:
 - the northbound-api-router API group. This is the group of API that is used by users
 - the southbound-api-router API group. This is the group of API that is used by the nodes
 
- *----------------------THIS SECTION IN DEVELOPMENT---------------------*
+.. code-block:: JSON
+
+    [
+        {
+            "address": "0.0.0.0",
+            "port": 8443,
+            "httpsEnabled": true,
+            "httpsCert": "data/dev-cert.pem",
+            "httpsKey": "data/dev-key.pem",
+            "httpsPfx": null,
+            "proxiesEnabled": false,
+            "authEnabled": false,
+            "routers": "northbound-api-router"
+        },
+        {
+            "address": "172.31.128.1",
+            "port": 9080,
+            "httpsEnabled": false,
+            "proxiesEnabled": true,
+            "authEnabled": false,
+            "routers": "southbound-api-router"
+        }
+    ]
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - address
+      - IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
+    * - port
+      - Local port to use for HTTP. Typically, port 80 for HTTP, 443 for HTTPS
+    * - httpsEnabled
+      - Toggle HTTPS
+    * - httpsCert
+      - Filename of the X.509 certificate to use for TLS. Expected format is PEM.
+        This is optional and only take effect when httpsEnabled flag set to true
+    * - httpsKey
+      - Filename of the RSA private key to use for TLS. Expected format is PEM.
+        This is optional and only take effect when httpsEnabled flag set to true
+    * - httpsPfx
+      - Pfx file containing the SSL cert and private key
+        (only needed if the key and cert are omitted)
+        This is optional and only take effect when httpsEnabled flag set to true
+    * - proxiesEnabled
+      - Toggle Proxies
+    * - authEnabled
+      - Toggle API Authentication
+    * - routers
+      - A single router name or a list of router names.
+        This would only take effect for 1.1 APIs.
+        You can now choose from "northbound-api-router","southbound-api-router" or 
+        ["northbound-api-router", "southbound-api-router"].
 
 Authentication
 -------------------------
@@ -270,7 +310,7 @@ that specific endpoint.
         "address": "0.0.0.0",
         "port": 8443,
         "httpsEnabled": true,
-        "proxiesEnabled": true,
+        "proxiesEnabled": false,
         "authEnabled": true,
         "routers": "northbound-api-router"
     }
