@@ -3,48 +3,67 @@ RackHD Configuration
 
 The following JSON is an examples of the current defaults:
 
-**monorail.json**
+monorail.json_
 
+.. _monorail.json: https://github.com/RackHD/RackHD/blob/master/packer%2Fansible%2Froles%2Fmonorail%2Ffiles%2Fmonorail.json
 
 .. code-block:: JSON
 
-  {
-      "CIDRNet": "172.31.128.0/22",
-      "amqp": "amqp://localhost",
-      "apiServerAddress": "172.31.128.1",
-      "apiServerPort": 8080,
-      "broadcastaddr": "172.31.131.255",
-      "dhcpGateway": "172.31.128.1",
-      "dhcpProxyBindAddress": "172.31.128.1",
-      "dhcpProxyBindPort": 4011,
-      "dhcpSubnetMask": "255.255.252.0",
-      "gatewayaddr": "172.31.128.1",
-      "httpBindAddress": "0.0.0.0",
-      "httpBindPort": 8080,
-      "httpDocsRoot": "./build/apidoc",
-      "httpEnabled": true,
-      "httpFileServiceRoot": "./static/files",
-      "httpFileServiceType": "FileSystem",
-      "httpProxies":  [{"localPath": "/localPath_1", "server": "server_1", "remotePath": "/remotePath_1"},
-                       ...,
-                       {"localPath": "/localPath_N", "server": "server_N", "remotePath": "/remotePath_N"}]
-      "httpStaticRoot": "/opt/monorail/static/http",
-      "httpsBindAddress": "0.0.0.0",
-      "httpsBindPort": 8443,
-      "httpsCert": "data/dev-cert.pem",
-      "httpsEnabled": false,
-      "httpsKey": "data/dev-key.pem",
-      "httpsPfx": null,
-      "mongo": "mongodb://localhost/pxe",
-      "sharedKey": "<key>",
-      "statsd": "127.0.0.1:8125",
-      "subnetmask": "255.255.252.0",
-      "syslogBindAddress": "172.31.128.1",
-      "syslogBindPort": 514,
-      "tftpBindAddress": "172.31.128.1",
-      "tftpBindPort": 69,
-      "tftpRoot": "./static/tftp"
-  }
+    {
+        "CIDRNet": "172.31.128.0/22",
+        "amqp": "amqp://localhost",
+        "apiServerAddress": "172.31.128.1",
+        "apiServerPort": 9080,
+        "broadcastaddr": "172.31.131.255",
+        "dhcpGateway": "172.31.128.1",
+        "dhcpProxyBindAddress": "172.31.128.1",
+        "dhcpProxyBindPort": 4011,
+        "dhcpSubnetMask": "255.255.252.0",
+        "gatewayaddr": "172.31.128.1",
+        "httpEndpoints": [
+            {
+                "address": "0.0.0.0",
+                "port": 8080,
+                "httpsEnabled": false,
+                "proxiesEnabled": true,
+                "authEnabled": false,
+                "routers": "northbound-api-router"
+            },
+            {
+                "address": "172.31.128.1",
+                "port": 9080,
+                "httpsEnabled": false,
+                "proxiesEnabled": true,
+                "authEnabled": false,
+                "routers": "southbound-api-router"
+            }
+        ],
+        "httpDocsRoot": "./build/apidoc",
+        "httpFileServiceRoot": "./static/files",
+        "httpFileServiceType": "FileSystem",
+        "httpProxies": [{
+            "localPath": "/coreos",
+            "server": "http://stable.release.core-os.net",
+            "remotePath": "/amd64-usr/current/"
+        }],
+        "httpStaticRoot": "/opt/monorail/static/http",
+        "minLogLevel": 3,
+        "authUsername": "admin",
+        "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
+        "authPasswordSalt": "zlxkgxjvcFwm0M8sWaGojh25qNYO8tuNWUMN4xKPH93PidwkCAvaX2JItLA3p7BSCWIzkw4GwWuezoMvKf3UXg==",
+        "authTokenSecret": "RackHDRocks!",
+        "authTokenExpireIn": 86400,
+        "mongo": "mongodb://localhost/pxe",
+        "sharedKey": "qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M=",
+        "statsd": "127.0.0.1:8125",
+        "subnetmask": "255.255.252.0",
+        "syslogBindAddress": "172.31.128.1",
+        "syslogBindPort": 514,
+        "tftpBindAddress": "172.31.128.1",
+        "tftpBindPort": 69,
+        "tftpRoot": "./static/tftp",
+        "minLogLevel": 2
+    }
 
 
 Configuration Parameters
@@ -215,3 +234,90 @@ choice. Verify the certificate by restarting on-http and visiting
 **Note:** For information about OpenSSL, see the `OpenSSL documentation`_.
 
 .. _OpenSSL documentation: https://www.openssl.org/docs/
+
+
+Setting up HTTP/HTTPS endpoint
+------------------------------
+
+This section describes how to setup HTTP/HTTPS endpoints in RackHD.
+A endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. User can
+choose to enable authentication or enable HTTPs for each endpoint.
+
+There are currently two group of APIs defined in RackHD:
+
+- the northbound-api-router API group. This is the group of API that is used by users
+- the southbound-api-router API group. This is the group of API that is used by the nodes
+
+ *----------------------THIS SECTION IN DEVELOPMENT---------------------*
+
+Authentication
+-------------------------
+
+This section describes how to enable user authentication in RackHD.
+
+Enable Authentication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As mentioned in `Setting up HTTP/HTTPS endpoint`_ section, authentication can be enabled
+or disabled per endpoint basis.
+
+Setting authEnabled flag to true in an endpoint configure will enable authentication for
+that specific endpoint.
+
+.. code-block:: JSON
+
+    {
+        "address": "0.0.0.0",
+        "port": 8443,
+        "httpsEnabled": true,
+        "proxiesEnabled": true,
+        "authEnabled": true,
+        "routers": "northbound-api-router"
+    }
+
+**Note**: although there is no limitation to enable authentication together with insecure HTTP
+(httpsEnabled = false) for an endpoint, it is strongly not recommended to do so. Sending
+user credentials over un-encrypted HTTP expose user to the risk of malicious attacks.
+
+Setting up username and password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Every time a request is send an API that needs authentication, a token needs to be send alongside
+of the request. The token is returned by RackHD by posting a request to /login API with username
+and password in the request body.
+
+The default username and password is setup in the configure file.
+
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - authUsername
+      - The username to login. Defaults to admin
+    * - authPasswordHash
+      - The default password stored in the form of a hashed value, base64 coded. The default
+        password to generate the hash is admin123.
+    * - authPasswordSalt
+      - The salt used to generate the password hash, base64 coded.
+
+Setting up token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are few settings needed for generating the token.
+
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - authTokenSecret
+      - The secret used to generate the token.
+    * - authTokenExpireIn
+      - The time interval in second after which the token will expire, since the time the
+        token is generated.
+
+        Token will never expire if this value is set to 0.
