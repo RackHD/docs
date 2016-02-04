@@ -226,13 +226,14 @@ Setting up HTTP/HTTPS endpoint
 ------------------------------
 
 This section describes how to setup HTTP/HTTPS endpoints in RackHD.
-A endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. User can
-choose to enable authentication or enable HTTPs for each endpoint.
+An endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. Users can
+choose to enable authentication or enable HTTPS for each endpoint.
 
-There are currently two group of APIs defined in RackHD:
+There are currently two API groups defined in RackHD:
 
-- the northbound-api-router API group. This is the group of API that is used by users
-- the southbound-api-router API group. This is the group of API that is used by the nodes
+- the northbound-api-router API group. This is the API group that is used by users
+- the southbound-api-router API group. This is the API group that is used by nodes
+  interacting with the system
 
 .. code-block:: JSON
 
@@ -272,14 +273,14 @@ There are currently two group of APIs defined in RackHD:
       - Toggle HTTPS
     * - httpsCert
       - Filename of the X.509 certificate to use for TLS. Expected format is PEM.
-        This is optional and only take effect when httpsEnabled flag set to true
+        This is optional and only takes effect when the httpsEnabled flag is set to true
     * - httpsKey
       - Filename of the RSA private key to use for TLS. Expected format is PEM.
-        This is optional and only take effect when httpsEnabled flag set to true
+        This is optional and only takes effect when the httpsEnabled flag is set to true
     * - httpsPfx
       - Pfx file containing the SSL cert and private key
         (only needed if the key and cert are omitted)
-        This is optional and only take effect when httpsEnabled flag set to true
+        This is optional and only takes effect when the httpsEnabled flag is set to true
     * - proxiesEnabled
       - Toggle Proxies
     * - authEnabled
@@ -298,10 +299,10 @@ This section describes how to enable user authentication in RackHD.
 Enable Authentication
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As mentioned in `Setting up HTTP/HTTPS endpoint`_ section, authentication can be enabled
+As mentioned in the `Setting up HTTP/HTTPS endpoint`_ section, authentication can be enabled
 or disabled per endpoint basis.
 
-Setting authEnabled flag to true in an endpoint configure will enable authentication for
+Setting the authEnabled flag to true in an endpoint configuration will enable authentication for
 that specific endpoint.
 
 .. code-block:: JSON
@@ -317,15 +318,16 @@ that specific endpoint.
 
 **Note**: although there is no limitation to enable authentication together with insecure HTTP
 (httpsEnabled = false) for an endpoint, it is strongly not recommended to do so. Sending
-user credentials over un-encrypted HTTP expose user to the risk of malicious attacks.
+user credentials over unencrypted HTTP connection exposes users to the risk of malicious attacks.
 
 Setting up username and password
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Every time a request is send an API that needs authentication, a token needs to be send alongside
-of the request. The token is returned by RackHD by posting a request to /login API with username
-and password in the request body.
 
-The default username and password is setup in the configure file.
+Every time a request is sent an API route that needs authentication, a token needs to be send with
+the request. The token is returned by RackHD by posting a request to the /login API with a
+username and password in the request body.
+
+The default username and password is setup in the config file.
 
 
 .. list-table::
