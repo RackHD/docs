@@ -76,3 +76,48 @@ Default discovery workflow
         end note
     Server->RackHD: bootstrap asks for tasks (what should I do?)
     RackHD->Server: Nothing more, thanks - please reboot (via http)
+
+Logged warnings FAQ
+~~~~~~~~~~~~~~~~~~~~
+
+*Question*:
+
+I'm seeing this warning appear in the logs but it all seems to be working. What's happening?
+
+.. code::
+
+    W 2016-01-29T21:06:22.756Z [on-tftp] [Tftp.Server] [Server] Tftp error
+     -> /lib/server.js:57
+    file:          monorail.ipxe
+    remoteAddress: 172.31.128.5
+    remotePort:    2070
+    W 2016-01-29T21:12:43.783Z [on-tftp] [Tftp.Server] [Server] Tftp error
+     -> /lib/server.js:57
+    file:          monorail.ipxe
+    remoteAddress: 172.31.128.5
+    remotePort:    2070
+
+*Answer*:
+
+What I learned (so I may be wrong here, but think it’s accurate) is that during the boot loading/PXE process the NICs will attempt
+to interact with TFTP in such a way that the first request almost always fails - it’s how
+the C code in those nics is negotiating for talking with TFTP. So you’ll frequently see those errors in the logs,
+and then immediately also see the same file downloading on the second request from the nic (or host) doing the
+bootloading.
+
+*Question*:
+
+When we're boostraping a node (or running a workflow against a node in general) with a NUC, we sometimes see these
+extended messages on the server's console reading `Link......  down`, and depending on the network configuration
+can see failures for the node to bootstrap and respond to PXE.
+
+*Answer*:
+
+The link down is a pernicious problem for PXE booting in general, and a part of the game that’s buried into how
+switches react and bring up and down ports. We’ve generally encouraged settings like “portfast” which more
+agressively bring up links that are going down and coming back up with a power cycle. In the NUCs you’re using,
+you’ll see that extensively, but it happens on all networks. If you have spanning-tree enabled, some things
+like that - it’ll expand the time. There’s only so much we can do to work around it, but fundamentally it means
+that while the relevant computer things things are “UP and OK” and has started a TFTP/PXE boot process, the
+switch hasn’t brought the NIC link up. So we added an explicit sleep in there in the monorail.ipxe to extend
+'the time to let networks converge so that the process has a better chance of succeeding.
