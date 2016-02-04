@@ -344,6 +344,42 @@ The default username and password is setup in the config file.
     * - authPasswordSalt
       - The salt used to generate the password hash, base64 coded.
 
+
+Change the default password
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A new password hash is needed if user want to change the default password from 'admin123' to
+something else.
+
+**Step 1**. Copy following javascript code into a file with .js extension, take hash-gen.js for
+example::
+
+    var crypto = require('crypto');
+
+    var password = 'admin123';//replace 'admin123' with the new password
+
+    salt = crypto.randomBytes(64);
+    console.log('salt = ', salt.toString('base64'));
+    crypto.pbkdf2(password, salt, 10000, 64, function(err, hash){
+        console.log('hash = ', hash.toString('base64'));
+    });
+
+Modify the content of password to any other string that the user picks.
+
+**Step 2**. Run this script using nodejs::
+
+    node hash-gen.js
+
+A random salt and a hash will be generated. Following is an example::
+
+    onrack@~/hash-gen> node hash-gen.js
+    salt =  L2Wh7fqR5GDQTIIvKZ5qWGmPeMN/IpGEZOipyS5CDK0I+yUt4kY0X98ZS+HG8dp4K9LXiiGttk91alfJFvqk2g==
+    hash =  b3n1vmbAKmEuLx0Cn/0X0hK2kYgGmcoTZgsn4SyLpjJftrbM0rhTaJ3CB3YZxw2Wopx51PtNG7SuDsw7jmh4IA==
+
+**Step 3**. Replace authPasswordSalt and authPasswordHash with the salt and hash generated above
+in the monorail.json. The new password will take effect after restarting RackHD.
+
+
 Setting up token
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
