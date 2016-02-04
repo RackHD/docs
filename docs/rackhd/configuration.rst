@@ -3,48 +3,67 @@ RackHD Configuration
 
 The following JSON is an examples of the current defaults:
 
-**monorail.json**
+monorail.json_
 
+.. _monorail.json: https://github.com/RackHD/RackHD/blob/master/packer%2Fansible%2Froles%2Fmonorail%2Ffiles%2Fmonorail.json
 
 .. code-block:: JSON
 
-  {
-      "CIDRNet": "172.31.128.0/22",
-      "amqp": "amqp://localhost",
-      "apiServerAddress": "172.31.128.1",
-      "apiServerPort": 8080,
-      "broadcastaddr": "172.31.131.255",
-      "dhcpGateway": "172.31.128.1",
-      "dhcpProxyBindAddress": "172.31.128.1",
-      "dhcpProxyBindPort": 4011,
-      "dhcpSubnetMask": "255.255.252.0",
-      "gatewayaddr": "172.31.128.1",
-      "httpBindAddress": "0.0.0.0",
-      "httpBindPort": 8080,
-      "httpDocsRoot": "./build/apidoc",
-      "httpEnabled": true,
-      "httpFileServiceRoot": "./static/files",
-      "httpFileServiceType": "FileSystem",
-      "httpProxies":  [{"localPath": "/localPath_1", "server": "server_1", "remotePath": "/remotePath_1"},
-                       ...,
-                       {"localPath": "/localPath_N", "server": "server_N", "remotePath": "/remotePath_N"}]
-      "httpStaticRoot": "/opt/monorail/static/http",
-      "httpsBindAddress": "0.0.0.0",
-      "httpsBindPort": 8443,
-      "httpsCert": "data/dev-cert.pem",
-      "httpsEnabled": false,
-      "httpsKey": "data/dev-key.pem",
-      "httpsPfx": null,
-      "mongo": "mongodb://localhost/pxe",
-      "sharedKey": "<key>",
-      "statsd": "127.0.0.1:8125",
-      "subnetmask": "255.255.252.0",
-      "syslogBindAddress": "172.31.128.1",
-      "syslogBindPort": 514,
-      "tftpBindAddress": "172.31.128.1",
-      "tftpBindPort": 69,
-      "tftpRoot": "./static/tftp"
-  }
+    {
+        "CIDRNet": "172.31.128.0/22",
+        "amqp": "amqp://localhost",
+        "apiServerAddress": "172.31.128.1",
+        "apiServerPort": 9080,
+        "broadcastaddr": "172.31.131.255",
+        "dhcpGateway": "172.31.128.1",
+        "dhcpProxyBindAddress": "172.31.128.1",
+        "dhcpProxyBindPort": 4011,
+        "dhcpSubnetMask": "255.255.252.0",
+        "gatewayaddr": "172.31.128.1",
+        "httpEndpoints": [
+            {
+                "address": "0.0.0.0",
+                "port": 8080,
+                "httpsEnabled": false,
+                "proxiesEnabled": true,
+                "authEnabled": false,
+                "routers": "northbound-api-router"
+            },
+            {
+                "address": "172.31.128.1",
+                "port": 9080,
+                "httpsEnabled": false,
+                "proxiesEnabled": true,
+                "authEnabled": false,
+                "routers": "southbound-api-router"
+            }
+        ],
+        "httpDocsRoot": "./build/apidoc",
+        "httpFileServiceRoot": "./static/files",
+        "httpFileServiceType": "FileSystem",
+        "httpProxies": [{
+            "localPath": "/coreos",
+            "server": "http://stable.release.core-os.net",
+            "remotePath": "/amd64-usr/current/"
+        }],
+        "httpStaticRoot": "/opt/monorail/static/http",
+        "minLogLevel": 3,
+        "authUsername": "admin",
+        "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
+        "authPasswordSalt": "zlxkgxjvcFwm0M8sWaGojh25qNYO8tuNWUMN4xKPH93PidwkCAvaX2JItLA3p7BSCWIzkw4GwWuezoMvKf3UXg==",
+        "authTokenSecret": "RackHDRocks!",
+        "authTokenExpireIn": 86400,
+        "mongo": "mongodb://localhost/pxe",
+        "sharedKey": "qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M=",
+        "statsd": "127.0.0.1:8125",
+        "subnetmask": "255.255.252.0",
+        "syslogBindAddress": "172.31.128.1",
+        "syslogBindPort": 514,
+        "tftpBindAddress": "172.31.128.1",
+        "tftpBindPort": 69,
+        "tftpRoot": "./static/tftp",
+        "minLogLevel": 2
+    }
 
 
 Configuration Parameters
@@ -77,18 +96,8 @@ The following table describes the configuration parameters in monorail.json:
       - Port for DHCP proxy server to respond to EFI clients (defaults to 4011).
     * - httpApiDocsDirectory
       - Fully-qualified directory containing the API docs.
-    * - httpEnabled
-      - Toggle HTTP.
-    * - httpsEnabled
-      - Toggle HTTPS.
-    * - httpBindAddress
-      - IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
-    * - httpBindPort
-      - Local port to use for HTTP. Typically, port 80
-    * - httpsBindPort
-      - Local port to use for HTTPS. Typically, port 443.
-    * - httpsCert
-      - Filename of the X.509 certificate to use for TLS. Expected format is PEM.
+    * - httpEndpoints
+      - Collection of http/https endpoints. See details in `Setting up HTTP/HTTPS endpoint`_
     * - httpFileServiceRoot
       - Directory path for for storing uploaded files on disk.
     * - httpFileServiceType
@@ -107,10 +116,6 @@ The following table describes the configuration parameters in monorail.json:
         { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
     * - httpFrontendDirectory
       - Fully-qualified directory to the web GUI content
-    * - httpsKey
-      - Filename of the RSA private key to use for TLS. Expected format is PEM.
-    * - httpsPfx
-      - Pfx file containing the SSL cert and private key (only needed if the key and cert are omitted)
     * - httpStaticDirectory
       - Fully-qualified directory to where static HTTP content is served
     * - maxTaskPayloadSize
@@ -215,3 +220,182 @@ choice. Verify the certificate by restarting on-http and visiting
 **Note:** For information about OpenSSL, see the `OpenSSL documentation`_.
 
 .. _OpenSSL documentation: https://www.openssl.org/docs/
+
+
+Setting up HTTP/HTTPS endpoint
+------------------------------
+
+This section describes how to setup HTTP/HTTPS endpoints in RackHD.
+An endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. Users can
+choose to enable authentication or enable HTTPS for each endpoint.
+
+There are currently two API groups defined in RackHD:
+
+- the northbound-api-router API group. This is the API group that is used by users
+- the southbound-api-router API group. This is the API group that is used by nodes
+  interacting with the system
+
+.. code-block:: JSON
+
+    [
+        {
+            "address": "0.0.0.0",
+            "port": 8443,
+            "httpsEnabled": true,
+            "httpsCert": "data/dev-cert.pem",
+            "httpsKey": "data/dev-key.pem",
+            "httpsPfx": null,
+            "proxiesEnabled": false,
+            "authEnabled": false,
+            "routers": "northbound-api-router"
+        },
+        {
+            "address": "172.31.128.1",
+            "port": 9080,
+            "httpsEnabled": false,
+            "proxiesEnabled": true,
+            "authEnabled": false,
+            "routers": "southbound-api-router"
+        }
+    ]
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - address
+      - IP/Interface to bind to for HTTP. Typically this is '0.0.0.0'
+    * - port
+      - Local port to use for HTTP. Typically, port 80 for HTTP, 443 for HTTPS
+    * - httpsEnabled
+      - Toggle HTTPS
+    * - httpsCert
+      - Filename of the X.509 certificate to use for TLS. Expected format is PEM.
+        This is optional and only takes effect when the httpsEnabled flag is set to true
+    * - httpsKey
+      - Filename of the RSA private key to use for TLS. Expected format is PEM.
+        This is optional and only takes effect when the httpsEnabled flag is set to true
+    * - httpsPfx
+      - Pfx file containing the SSL cert and private key
+        (only needed if the key and cert are omitted)
+        This is optional and only takes effect when the httpsEnabled flag is set to true
+    * - proxiesEnabled
+      - Toggle Proxies
+    * - authEnabled
+      - Toggle API Authentication
+    * - routers
+      - A single router name or a list of router names.
+        This would only take effect for 1.1 APIs.
+        You can now choose from "northbound-api-router","southbound-api-router" or 
+        ["northbound-api-router", "southbound-api-router"].
+
+Authentication
+-------------------------
+
+This section describes how to enable user authentication in RackHD.
+
+Enable Authentication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As mentioned in the `Setting up HTTP/HTTPS endpoint`_ section, authentication can be enabled
+or disabled per endpoint basis.
+
+Setting the authEnabled flag to true in an endpoint configuration will enable authentication for
+that specific endpoint.
+
+.. code-block:: JSON
+
+    {
+        "address": "0.0.0.0",
+        "port": 8443,
+        "httpsEnabled": true,
+        "proxiesEnabled": false,
+        "authEnabled": true,
+        "routers": "northbound-api-router"
+    }
+
+**Note**: although there is no limitation to enable authentication together with insecure HTTP
+(httpsEnabled = false) for an endpoint, it is strongly not recommended to do so. Sending
+user credentials over unencrypted HTTP connection exposes users to the risk of malicious attacks.
+
+Setting up username and password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Every time a request is sent an API route that needs authentication, a token needs to be send with
+the request. The token is returned by RackHD by posting a request to the /login API with a
+username and password in the request body.
+
+The default username and password is setup in the config file.
+
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - authUsername
+      - The username to login. Defaults to admin
+    * - authPasswordHash
+      - The default password stored in the form of a hashed value, base64 coded. The default
+        password to generate the hash is admin123.
+    * - authPasswordSalt
+      - The salt used to generate the password hash, base64 coded.
+
+
+Change the default password
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A new password hash is needed if user want to change the default password from 'admin123' to
+something else.
+
+**Step 1**. Copy following javascript code into a file with .js extension, take hash-gen.js for
+example::
+
+    var crypto = require('crypto');
+
+    var password = 'admin123';//replace 'admin123' with the new password
+
+    salt = crypto.randomBytes(64);
+    console.log('salt = ', salt.toString('base64'));
+    crypto.pbkdf2(password, salt, 10000, 64, function(err, hash){
+        console.log('hash = ', hash.toString('base64'));
+    });
+
+Modify the content of password to any other string that the user picks.
+
+**Step 2**. Run this script using nodejs::
+
+    node hash-gen.js
+
+A random salt and a hash will be generated. Following is an example::
+
+    onrack@~/hash-gen> node hash-gen.js
+    salt =  L2Wh7fqR5GDQTIIvKZ5qWGmPeMN/IpGEZOipyS5CDK0I+yUt4kY0X98ZS+HG8dp4K9LXiiGttk91alfJFvqk2g==
+    hash =  b3n1vmbAKmEuLx0Cn/0X0hK2kYgGmcoTZgsn4SyLpjJftrbM0rhTaJ3CB3YZxw2Wopx51PtNG7SuDsw7jmh4IA==
+
+**Step 3**. Replace authPasswordSalt and authPasswordHash with the salt and hash generated above
+in the monorail.json. The new password will take effect after restarting RackHD.
+
+
+Setting up token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are few settings needed for generating the token.
+
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - authTokenSecret
+      - The secret used to generate the token.
+    * - authTokenExpireIn
+      - The time interval in second after which the token will expire, since the time the
+        token is generated.
+
+        Token will never expire if this value is set to 0.
