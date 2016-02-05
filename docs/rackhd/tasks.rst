@@ -162,9 +162,9 @@ job constructor) and run that job.
 
 **Defining a Job**
 
-To create a job, define a subclass of `Job.Base 
+To create a job, define a subclass of `Job.Base
 <https://github.com/RackHD/on-tasks/blob/master/lib/jobs/base-job.js>`_
-that has a method called 
+that has a method called
 *_run* and calls *this._done()* somewhere, if the job is
 not one that runs indefinitely.
 
@@ -226,7 +226,7 @@ At render time, values are rendered if the exist in the task render context. The
    * - Field
      - Description
    * - server
-     - The server field contains all values found in the configuration for the on-taskgraph process (/opt/onrack/etc/monorail.json)
+     - The server field contains all values found in the configuration for the on-taskgraph process (/opt/monorail/config.json)
        Example Usage: `{{ server.mongo.port }}`
    * - api
      - Values used for constructing API requests in a template:
