@@ -1,7 +1,7 @@
 Accessing RackHD APIs with Authentication
 -----------------------------------------
 
-With authentication is enabled in monorail.json configure file for an endpoint,
+With authentication is enabled in config.json configure file for an endpoint,
 see `Setting up HTTP/HTTPS endpoint`_ and `Authentication`_, authentication is needed for
 accessing the API group associated with the specified endpoint.
 
@@ -44,7 +44,7 @@ Setup credentials and token for authentication
 
 Please refer to `Authentication`_ on how to setup endpoints.
 
-Copy following items to /opt/onrack/etc/monorail.json if they are not there yet.::
+Copy following items to config.json if they are not there yet.::
 
     "authUsername": "admin",
     "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
@@ -101,7 +101,7 @@ There are three ways of using the token in a http/https request:
 
 Example of sending the token as query string:::
 
-    curl -k -H "Con443/api/1.1/config?auth_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE | python -mjson.tool
+    curl -k -H "Content-Type:application/json" https://localhost:8443/api/1.1/config?auth_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE | python -mjson.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                      Dload  Upload   Total   Spent    Left  Speed
     100  1919  100  1919    0     0  81114      0 --:--:-- --:--:-- --:--:-- 83434
