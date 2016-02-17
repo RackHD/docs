@@ -1,9 +1,8 @@
 Accessing RackHD APIs with Authentication
 -----------------------------------------
 
-With authentication is enabled in config.json configure file for an endpoint,
-see `Setting up HTTP/HTTPS endpoint`_ and `Authentication`_, authentication is needed for
-accessing the API group associated with the specified endpoint.
+When 'authEnabled' is set to 'true' in the config.json file for an endpoint, authentication
+will be needed to access the APIs that are defined within that endpoint.
 
 This section describes how to access APIs that need authentication.
 
@@ -173,3 +172,4 @@ For example:::
     {
         "message": "No auth token"
     }
+
