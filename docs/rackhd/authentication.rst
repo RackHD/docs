@@ -32,12 +32,13 @@ the following endpoint configuration will be a good start.::
         }
     ],
 
-The first endpoint represents a HTTPs service listening at port 8443 that serves northbound APIs, which are
-APIs that being called by users. Noticed that authEnabled is set to true means the authentication is needed
-for accessing northbound APIs.
+The first endpoint represents an HTTPS service listening at port 8443 that serves northbound APIs, which are
+APIs being called by users. Note that authEnabled is set to true means that authentication is needed
+to access northbound APIs.
 
-The second endpoint represent a HTTP service listening at port 8080 that serves southbound APIs, which are
-called by nodes. Authentication should NOT be enabled for southbound APIs in order for PXE to work fine.
+The second endpoint represents an HTTP service listening at port 8080 that serves southbound APIs, which are
+called by nodes interacting with the system. Authentication should NOT be enabled for southbound APIs in
+order for PXE to work fine.
 
 Setup credentials and token for authentication
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,10 +53,10 @@ Copy following items to config.json if they are not there yet.::
     "authTokenSecret": "RackHDRocks!",
     "authTokenExpireIn": 86400,
 
-Following above configuration, the default username/password for login are set to be admin/admin123,
+Following the above configuration, the default username/password for login are set to be admin/admin123,
 and the token will expire 24 hours after it's generated.
 
-Please follow the instruction on `Change the default password`_ if there is a need to change the
+Please follow the instruction at `Change the default password`_ if there is a need to change the
 default password.
 
 Login to get a token
@@ -144,7 +145,7 @@ Example of sending the token as query body:::
         "updatedAt": "2016-02-16T09:07:29.995Z"
     }
 
-A 401 unauthorized response with 'invalid signature' message will be returned if:
+A 401 unauthorized response with a 'invalid signature' message will be returned if:
 
 - Invalid token found in query string, header or request body
 
@@ -158,7 +159,7 @@ For example:::
         "message": "invalid signature"
     }
 
-A 401 bad request response with 'No auth token' message will be returned if:
+A 401 bad request response with a 'No auth token' message will be returned if:
 
 - Empty token in request body, ie, auth_token="" or authorization=""
 - No auth_token key in query string or request body, or
