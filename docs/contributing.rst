@@ -100,4 +100,10 @@ When we merge your pull requests, your changes are automatically published to ou
 Community Guidelines
 ------------------------------------------
 
-Be respectful and polite to other community members - and make everyone in our community feel welcome.
+This project adheres to the `Open Code of Conduct`_. By participating, you are expected to honor this code.
+Our community generally follows `Apache voting guidelines`_ and utilizes `lazy consensus`_ for logistical efforts.
+
+.. _Open Code of Conduct: http://todogroup.org/opencodeofconduct/#RackHD/rackhd@emc.com
+.. _Apache voting guidelines: http://www.apache.org/foundation/voting.html
+.. _lazy consensus: http://en.osswiki.info/concepts/lazy_consensus
+
