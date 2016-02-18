@@ -3,9 +3,9 @@ RackHD Configuration
 
 The following JSON is an examples of the current defaults:
 
-monorail.json_
+config.json_
 
-.. _monorail.json: https://github.com/RackHD/RackHD/blob/master/packer%2Fansible%2Froles%2Fmonorail%2Ffiles%2Fmonorail.json
+.. _config.json: https://github.com/RackHD/RackHD/blob/master/packer%2Fansible%2Froles%2Fmonorail%2Ffiles%2Fconfig.json
 
 .. code-block:: JSON
 
@@ -69,7 +69,7 @@ monorail.json_
 Configuration Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following table describes the configuration parameters in monorail.json:
+The following table describes the configuration parameters in config.json:
 
 
 .. list-table::
@@ -211,7 +211,7 @@ find them. It is suggested that you move them into the /opt/monorail/data folder
     mv cacert.pem /opt/monorail/data/mycert.pem
 
 Then configure the paths by editing *httpsCert* and *httpKey* in
-/opt/monorail/etc/monorail.json. (See the `Configuration Parameters`_ section above).
+/opt/monorail/config.json. (See the `Configuration Parameters`_ section above).
 
 If using a self-signed certificate, add a security exception to your client of
 choice. Verify the certificate by restarting on-http and visiting
@@ -377,7 +377,7 @@ A random salt and a hash will be generated. Following is an example::
     hash =  b3n1vmbAKmEuLx0Cn/0X0hK2kYgGmcoTZgsn4SyLpjJftrbM0rhTaJ3CB3YZxw2Wopx51PtNG7SuDsw7jmh4IA==
 
 **Step 3**. Replace authPasswordSalt and authPasswordHash with the salt and hash generated above
-in the monorail.json. The new password will take effect after restarting RackHD.
+in the config.json. The new password will take effect after restarting RackHD.
 
 
 Setting up token
