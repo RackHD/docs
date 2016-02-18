@@ -1,8 +1,6 @@
 Packaging and Deployment
 =======================================
 
- *----------------------CONTENT IN DEVELOPMENT---------------------*
-
 Requirements
 ----------------------------
 
@@ -11,5 +9,6 @@ Requirements
 - IPMI or Redfish - L3 access to OOB network
 
 
-.. include:: rackhd/ubuntu_install_instructions.rst
+.. include:: rackhd/ubuntu_source_installation.rst
+.. include:: rackhd/ubuntu_package_installation.rst
 .. include:: rackhd/configuration.rst
