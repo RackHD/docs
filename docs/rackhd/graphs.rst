@@ -142,7 +142,7 @@ As detailed in the :ref:`task-definition-ref-label` section, each task definitio
 that can be used to customize the task. All values set in the options objects are considered defaults, and can be overridden
 within the Graph definition. Additionally, the options values can be overridden again by the data in the API request made to run the graph.
 
-For exampe, a simple task definition with options looks like this:
+For example, a simple task definition with options looks like this:
 
 ::
 
@@ -200,6 +200,7 @@ that also has that key in its respective options object. In the above example, t
 values for ``option1`` and ``option2``, but not for ``option3``, since ``option3`` does not exist in the options object for that task definition:
 
 :: 
+
     {
         "injectableName": "Graph.Example.Defaults",
         "friendlyName": "Override options with defaults",
@@ -288,6 +289,8 @@ Both tasks will share the "TESTUSER" value for
 the ``username`` option, but only the ``Task.Example.SetUsername`` task will use the value for ``group``, since it
 is the only task definition in this graph with that key in its options object.  
 After processing the graph definition and the default options, the task definitions will be run as:
+
+::
 
     // Task.Example.ValidateUsername definition after Graph defaults applied
     {
