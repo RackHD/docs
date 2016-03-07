@@ -30,3 +30,4 @@ How to Configure API Endpoint Settings
 2. Click the gear icon located at the top right of the page.
 3. Enter the new URL for a running MonoRail API endpoint.
 4. Click Apply.
+

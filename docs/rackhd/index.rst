@@ -13,3 +13,4 @@ RackHD Users Guide
 .. include:: passive_discovery.rst
 .. include:: microkernel.rst
 .. include:: web_ui.rst
+.. include:: dhcp_server.rst
