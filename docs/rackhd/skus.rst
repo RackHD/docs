@@ -263,7 +263,7 @@ SKU Pack tar.gz format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The SKU pack requires the 'config.json' to be at the root of the tar.gz file.  A typical
-package may have a static and template directory.
+package may have static, template, profile, workflow and task directories.
 
 .. code-block:: shell
 
@@ -294,5 +294,34 @@ SKU Pack config.json format
         }
       ],
       "httpStaticRoot": "static",
-      "httpTemplateRoot": "templates"
+      "httpTemplateRoot": "templates",
+      "workflowRoot": "workflows",
+      "taskRoot": "tasks",
+      "httpProfileRoot": "profiles",
+      "skuConfig" : {
+        "key": "value",
+        "key2" : {
+            "key": "value"
+        }
+      }
     }
+
++--------------------+------------------------------------------------------------------------------------+ 
+|      Key           | Description                                                                        | 
++====================+====================================================================================+ 
+| httpStaticRoot     | Contains static files to be served by on-http                                      |
++--------------------+------------------------------------------------------------------------------------+ 
+| httpTemplateRoot   | Contains template files to be loaded into the templates library                    |
++--------------------+------------------------------------------------------------------------------------+ 
+| workflowRoot       | Contains graphs to be loaded into the workflow library                             |
++--------------------+------------------------------------------------------------------------------------+ 
+| taskRoot           | Contains tasks to be loaded into the tasks library                                 |
++--------------------+------------------------------------------------------------------------------------+ 
+| httpProfileRoot    | Contains profile files to be loaded into the profiles library                      |
++--------------------+------------------------------------------------------------------------------------+ 
+| skuConfig          | Contains sku specific configuration to be loaded into the environment collection   |
++--------------------+------------------------------------------------------------------------------------+ 
+| version            | (optional) Contains a version string for display use                               |
++--------------------+------------------------------------------------------------------------------------+ 
+| description        | (optional) Contains a description string for display use                           |
++--------------------+------------------------------------------------------------------------------------+ 
