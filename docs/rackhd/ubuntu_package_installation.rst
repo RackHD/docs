@@ -52,6 +52,11 @@ conveniently.
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
 
+Configuring RackHD
+~~~~~~~~~~~~~~~~~~~~
+
+**DHCP**
+
 Update dhcpd.conf per your network configuration
 
 .. code::
@@ -67,6 +72,9 @@ Update dhcpd.conf per your network configuration
       option vendor-class-identifier "PXEClient";
     }
 
+#######
+
+**UPSTART**
 
 The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
 Touch those files to allow the upstart scripts to start automatically.
@@ -79,10 +87,15 @@ Touch those files to allow the upstart scripts to start automatically.
 
 #######
 
+**RACKHD APPLICATIONS**
+
 Created the required file /opt/onrack/etc/config.json , you can use the demonstration
 configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
 as a reference.
 
+#######
+
+**RACKHD BINARY SUPPORT FILES**
 
 Downloaded binary files from bintray.com/rackhd/binary and placed them using https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/images/tasks/main.yml as a guide.
 
@@ -120,14 +133,22 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
 All the services are upstart and have logs in /var/log/upstart.  Start with 'start on-[something]'
 Verify with 'ps | aux | grep node'
 
+#######
+
+**MIRRORS**
+
+Mirrors may not be something you need to configure if you're utilizing the proxy capabilities
+of RackHD. If you previously configured proxies to support OS installation workflows,
+then those should be configured to provide access to the files needed. If you do not, or can
+not, utilize proxies, then you can host the OS installation files directly on the same
+instance with RackHD. The following instructions show how to create OS installation mirrors
+in support of the existing workflows.
 
 **Set the Links to the Mirrors:**
 
   .. code::
 
-    sudo ln -s /var/mirrors/esxi <on-http directory>/static/http/vmware
-    sudo ln -s /var/mirrors/esxi <on-tftp directory>/static/tftp/vmware
-    sudo ln -s /var/mirrors/ubuntu_trusty <on-http directory>/static/http/ubuntu_trusty
+    sudo ln -s /var/mirrors/ubuntu <on-http directory>/static/http/ubuntu
     sudo ln -s /var/mirrors/ubuntu/14.04/mirror/mirror.pnl.gov/ubuntu/ <on-http directory>/static/http/trusty
     sudo ln -s /var/mirrors/centos <on-http directory>/static/http/centos
     sudo ln -s /var/mirrors/suse <on-http directory>/static/http/suse
