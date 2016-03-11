@@ -76,7 +76,7 @@ Hardware Controls
 
     when running the default RackHD discovery through the microkernel.
 
-Hardware that RackHD is managing is done through some network interface. Network
+RackHD manages hardware generally using at least one network interface. Network
 switches typically have an administrator network interface, and Smart PDUs that
 can be managed by RackHD have a administrative gateway.
 
@@ -106,6 +106,13 @@ If you're working with a server with a network interface shared by the motherboa
 then separating the networks that provide IPMI access and the networks that the server
 will use during operation may be significantly challenging.
 
+The BMC provides a lot of information about the computer, but not everything.
+Frequently devices such as additional NIC cards, RAID array controllers, or
+other devices attached to internal PCI busses aren't accessible or known about
+from the BMC. This is why RackHD's default discovery mechanism operates by
+:ref:`discovery-ref-label`, which loads an OS into RAM on the server and uses that
+OS to interrogate the hardware.
+
 .. _IPMI Basics: https://www.thomas-krenn.com/en/wiki/IPMI_Basics
 .. _AMT: https://en.wikipedia.org/wiki/Intel_Active_Management_Technology
 
@@ -113,14 +120,116 @@ will use during operation may be significantly challenging.
 IP Address Management
 ----------------------
 
+With multiple networks in use with RackHD, how machines are getting IP addresses
+and what systems are repsonsible for providing those IP addresses another
+critical concern. Running DHCP, which RackHD integrates with tightly to enable
+PXE booting of hosts, much be done carefully and there should only ever be a
+single DHCP server running on a given layer-2 network. Many existing systems
+will often already have DHCP servers operational or a part of their environment,
+or may mandate that IP addresses are set statically or provided via a static
+configuration.
+
+RackHD can be configured without a local DHCP instance, although DHCP is a
+required component for PXE booting a host. If DHCP is provided externally,
+then RackHD only needs to provide the `on-dhcp-proxy` process, which will need
+to be on the same network as the DHCP server, and leverages the DHCP protocols
+capability to separate out the service providing the TFTP boot information
+from the service providing IP address (and other) configuration details for
+hosts.
+
+RackHD Network Access Requirements
+------------------------------------
+
+- DHCP-proxy
+    The DHCP proxy service for RackHD needs to be on the same Layer 2 (broadcast)
+    network as DHCP to provide PXE capabilities to machines PXE booting on that
+    network.
+
+- TFTP, HTTP
+    The PXE network also needs to be configured to expose the `south-bound` HTTP
+    API interfaces from on-http and the on-tftp service to support RackHD PXE
+    booting hosts by providing the bootloaders, and responding to requests for
+    files and custom templates or scripts that coordinate with RackHD's workflow
+    engine.
+
+- IPMI, HTTP/Redfish, SNMP
+    Layer 3 (routed IP) access to the out of band network - the network used to
+    communicate with server BMCs, SmartPDU management gateways, or Network switch
+    administrative network interfaces.
 
 
-Requirements
-----------------------------
 
-- DHCP - Layer2 access to PXE network
-- TFTP, HTTP - L3 access to PXE network
-- IPMI or Redfish - L3 access to OOB network
+Possible Configurations
+--------------------------------
+
+In an environment where the hardware you're managing doesn't have additional
+network interfaces, and the BMC shares the motherboard physical network
+interface, the configuration will be fairly limited.
+
+.. image:: _static/shared_everything.png
+   :align: left
+
+In this example, RackHD is providing DHCP to a network which is connected
+through a layer3 switch or router to the rest of the network. RackHD's
+DHCP server can provide IP addresses to the motherboard NICs as the PXE
+boot, and may also provide IP addresses to the BMCs if they are configured
+to use DHCP.
+
+If the compute servers are not configured to use DHCP in this setup, then
+the BMC IP addresses must be statically set/assigned and carefully managed
+so as to not overlap with the DHCP range that RackHD's DHCP services are
+providing.
+
+.. container:: clearer
+
+   .. image :: _static/invisible.png
+
+----------
+
+
+.. image:: _static/lom_shared_net.png
+   :align: right
+
+In this example, the servers have a dedicated "lights out" network interface,
+which is on a separate network and RackHD can access it via one of its interfaces.
+RackHD is still providing DHCP to the servers for PXE booting on the motherboard,
+but the IP addresses of the BMCs can be completely indepdent in how they are
+provided.
+
+This example, or a variation on it, is how you might configure a RackHD deployment
+in a dedicated data center where the same people responsible for running RackHD
+are responsible for the IP addresses and general datacenter infrastructure. In
+general, this kind of configuration is what you might do with shared
+responsibilities and close coordination between network configurations within
+and external to RackHD
+
+.. container:: clearer
+
+   .. image :: _static/invisible.png
+
+----------
+
+.. image:: _static/isolated_net.png
+   :align: left
+
+In this example, all the networks are isolated and separate, and in this case
+isolated to the instance of RackHD as well. RackHD may be multiple network
+interfaces assigned to it with various network configurations. The BMC network
+can be set to use a DHCP or statically assigned IP addresses - as long as the
+network routing is clear and consistent to RackHD. The servers also have
+multiple network interface cards attached to the motherboard, each of which
+can be on separate networks, or they can be used in combined configurations.
+
+This example highlights how RackHD might be configured if it was being used to
+independently manage a rack of gear, as in an "rack of machines as an appliance"
+use case, or in a very large scale environment, where every rack has it's own
+dedicated management network that are functionally identical.
+
+.. container:: clearer
+
+   .. image :: _static/invisible.png
+
+----------
 
 
 .. include:: rackhd/ubuntu_source_installation.rst
