@@ -241,7 +241,7 @@ after the task 'catalog-lldp')
 
 .. code-block:: javascript
 
-module.exports = {
+   module.exports = {
     friendlyName: 'Discovery',
     injectableName: 'Graph.Discovery',
     options: {
@@ -324,7 +324,7 @@ module.exports = {
             }
         }
     ]
-};
+   };
 
 
 Once the above steps are completed (edited and saved) the services need to be restarted:
