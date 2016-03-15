@@ -170,6 +170,176 @@ configuration. Custom certificates can also be used with some configuration.
 See the table in `Configuration Parameters`_ for information about HTTP/HTTPS configuration parameters.
 These parameters beging with *HTTP* and *HTTPS*.
 
+BMC Username and Password Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A node gets discovered and BMC IPMI comes up with default username/password. For a user to add 
+own username/password during discovery certain steps need to be followed:
+First edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
+to include a new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``
+which runs the tasks to create a new user called 'monorail' with a randomly generated password and update obm settings
+accordingly. 
+Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** 
+
+.. code-block:: javascript
+
+    module.exports = {
+    friendlyName: 'SKU Discovery',
+    injectableName: 'Graph.SKU.Discovery',
+    options: {
+        defaults: {
+            graphOptions: {
+                target: null
+            },
+            nodeId: null
+        }
+    },
+    tasks: [
+        {
+            label: 'discovery-graph',
+            taskDefinition: {
+                friendlyName: 'Run Discovery Graph',
+                injectableName: 'Task.Graph.Run.Discovery',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.Discovery',
+                    graphOptions: {}
+                },
+                properties: {}
+            }
+        },
+        {
+            label: 'set-bmc-credentials-graph',
+            taskDefinition: {
+                friendlyName: 'Run BMC Credential Graph',
+                injectableName: 'Task.Graph.Run.Bmc',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.Set.Bmc',
+                    graphOptions: {}
+                },
+                properties: {}
+            },
+            waitOn: {
+                'discovery-graph': 'succeeded'
+            }
+        },
+        {
+            label: 'generate-sku',
+            waitOn: {
+                'set-bmc-credentials-graph': 'succeeded'
+            },
+            taskName: 'Task.Catalog.GenerateSku'
+        },
+    
+  
+- Edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
+to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph** 
+that was added to the **Sku Discovery graph** in the above step
+Below is a snippet of the Discovery graph without the reboot task (the reboot task was originally located
+after the task 'catalog-lldp')
+
+.. code-block:: javascript
+
+module.exports = {
+    friendlyName: 'Discovery',
+    injectableName: 'Graph.Discovery',
+    options: {
+        'bootstrap-ubuntu': {
+            'triggerGroup': 'bootstrap'
+        },
+        'finish-bootstrap-trigger': {
+            'triggerGroup': 'bootstrap'
+        }
+    },
+    tasks: [
+        {
+            label: 'bootstrap-ubuntu',
+            taskName: 'Task.Linux.Bootstrap.Ubuntu'
+        },
+        {
+            label: 'catalog-dmi',
+            taskName: 'Task.Catalog.dmi'
+        },
+        {
+            label: 'catalog-ohai',
+            taskName: 'Task.Catalog.ohai',
+            waitOn: {
+                'catalog-dmi': 'finished'
+            }
+        },
+        {
+            label: 'catalog-bmc',
+            taskName: 'Task.Catalog.bmc',
+            waitOn: {
+                'catalog-ohai': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-lsall',
+            taskName: 'Task.Catalog.lsall',
+            waitOn: {
+                'catalog-bmc': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-megaraid',
+            taskName: 'Task.Catalog.megaraid',
+            waitOn: {
+                'catalog-lsall': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-smart',
+            taskName: 'Task.Catalog.smart',
+            waitOn: {
+                'catalog-megaraid': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-driveid',
+            taskName: 'Task.Catalog.Drive.Id',
+            waitOn: {
+                'catalog-smart': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-lldp',
+            taskName: 'Task.Catalog.LLDP',
+            waitOn: {
+                'catalog-driveid': 'finished'
+            },
+            ignoreFailure: true
+        },
+       {
+            label: 'finish-bootstrap-trigger',
+            taskName: 'Task.Trigger.Send.Finish',
+            waitOn: {
+                'catalog-lldp': 'finished'
+            }
+        }
+    ]
+};
+
+
+Once the above steps are completed (edited and saved) the services need to be restarted:
+
+.. code-block:: shell
+
+    sudo service on-http start
+    sudo service on-dhcp-proxy start
+    sudo service on-syslog start
+    sudo service on-taskgraph start
+    sudo service on-tftp start
+
+Once the services are restarted completely, running an ipmi command for user list should show the new user added.
+"ipmitool user list" if running the command from within the node or 
+" ipmitool -I lanplus -H ipaddress-of-node -U admin -P admin user list"
 
 Certificates
 -------------------------
