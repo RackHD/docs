@@ -173,13 +173,14 @@ These parameters beging with *HTTP* and *HTTPS*.
 BMC Username and Password Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A node gets discovered and BMC IPMI comes up with default username/password. For a user to add 
-own username/password during discovery certain steps need to be followed:
-First edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
-to include a new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``
-which runs the tasks to create a new user called 'monorail' with a randomly generated password and update obm settings
+A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add 
+their own username/password during discovery certain steps need to be followed:
+
+First, edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
+to include the new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``.
+This will run the tasks to create a new user called 'monorail' with a randomly generated password and update obm settings
 accordingly. 
-Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** 
+Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** :
 
 .. code-block:: javascript
 
@@ -233,9 +234,9 @@ Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentia
         },
     
   
-- Edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
+Next, edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
 to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph** 
-that was added to the **Sku Discovery graph** in the above step
+that was added to the **Sku Discovery graph** in the first step.
 Below is a snippet of the Discovery graph without the reboot task (the reboot task was originally located
 after the task 'catalog-lldp')
 
@@ -337,9 +338,9 @@ Once the above steps are completed (edited and saved) the services need to be re
     sudo service on-taskgraph start
     sudo service on-tftp start
 
-Once the services are restarted completely, running an ipmi command for user list should show the new user added.
-"ipmitool user list" if running the command from within the node or 
-" ipmitool -I lanplus -H ipaddress-of-node -U admin -P admin user list"
+Once the services are restarted completely, running an ipmi command for the user list should show the new user added.
+``ipmitool user list`` if running the command from within the node or 
+``ipmitool -I lanplus -H ipaddress-of-node -U admin -P admin user list``
 
 Certificates
 -------------------------
