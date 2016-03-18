@@ -342,6 +342,94 @@ Once the services are restarted completely, running an ipmi command for the user
 ``ipmitool user list`` if running the command from within the node or 
 ``ipmitool -I lanplus -H ipaddress-of-node -U admin -P admin user list``
 
+If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.  
+
+.. code-block:: shell
+
+    POST:        http://server-ip:8080/api/1.1/workflows/
+    
+   add the below content in the json body for payload (example nodeid and username, pswd shown below)
+
+   {
+   "name": "Graph.Bootstrap.With.BMC.Credentials.Setup", 
+   "options": {
+                "defaults": {
+                    "graphOptions": {
+                        "target": "56e967f5b7a4085407da7898",
+                        "generate-pass": {
+                            "user": "7",
+                            "password": "7"
+                        }
+                    },
+                    "nodeId": "56e967f5b7a4085407da7898"
+                    }
+        }
+    
+   }
+
+By running this workflow, a new boot-graph runs the node discovery and set-bmc-credentials-graph runs the required tasks to update the BMC credentials. Below is a snippet of the 'Bootstrap-And-Set-Credentials graph', when the graph is posted the node reboots and starts the discovery process
+
+.. code-block:: javascript
+
+  module.exports = {
+    friendlyName: 'Bootstrap And Set Credentials',
+    injectableName: 'Graph.Bootstrap.With.BMC.Credentials.Setup',
+    options: {
+        defaults: {
+            graphOptions: {
+                target: null
+            },
+            nodeId: null,
+        },
+
+    },
+    tasks: [
+        {
+            label: 'boot-graph',
+            taskDefinition: {
+                friendlyName: 'Boot Graph',
+                injectableName: 'Task.Graph.Run.Boot',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.BootstrapUbuntu',
+                    defaults : {
+                        graphOptions: {   }
+                    }
+                },
+                properties: {}
+            }
+        },
+        {
+            label: 'set-bmc-credentials-graph',
+            taskDefinition: {
+                friendlyName: 'Run BMC Credential Graph',
+                injectableName: 'Task.Graph.Run.Bmc',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.Set.Bmc.Credentials',
+                    defaults : {
+                        graphOptions: {   }
+                    }
+                },
+                properties: {}
+            },
+            waitOn: {
+                'boot-graph': 'finished'
+            }
+        },
+        {
+            label: 'finish-bootstrap-trigger',
+            taskName: 'Task.Trigger.Send.Finish',
+            waitOn: {
+                'set-bmc-credentials-graph': 'finished'
+            }
+        }
+
+    ]
+ };
+
+
+
 Certificates
 -------------------------
 
