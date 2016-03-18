@@ -178,9 +178,10 @@ their own username/password during discovery certain steps need to be followed:
 
 First, edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
 to include the new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``.
-This will run the tasks to create a new user called 'monorail' with a randomly generated password and update obm settings
+This will run the tasks to create a new user called '__rackhd__' with a randomly generated password and update obm settings
 accordingly. 
-Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** :
+Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the 
+**set-bmc-credentials-graph** ) :
 
 .. code-block:: javascript
 
@@ -216,8 +217,10 @@ Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentia
                 injectableName: 'Task.Graph.Run.Bmc',
                 implementsTask: 'Task.Base.Graph.Run',
                 options: {
-                    graphName: 'Graph.Set.Bmc',
-                    graphOptions: {}
+                    graphName: 'Graph.Set.Bmc.Credentials',
+                    defaults : {
+                        graphOptions: {   }
+                    }
                 },
                 properties: {}
             },
@@ -344,11 +347,11 @@ Once the services are restarted completely, running an ipmi command for the user
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.  
 
-.. code-block:: shell
-
     POST:        http://server-ip:8080/api/1.1/workflows/
     
    add the below content in the json body for payload (example nodeid and username, pswd shown below)
+
+.. code-block:: shell
 
    {
    "name": "Graph.Bootstrap.With.BMC.Credentials.Setup", 
@@ -367,7 +370,7 @@ If a user wants to change the BMC credentials later in time, when the node has b
     
    }
 
-By running this workflow, a new boot-graph runs the node discovery and set-bmc-credentials-graph runs the required tasks to update the BMC credentials. Below is a snippet of the 'Bootstrap-And-Set-Credentials graph', when the graph is posted the node reboots and starts the discovery process
+By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the node again and set-bmc-credentials-graph runs the required tasks to update the BMC credentials. Below is a snippet of the 'Bootstrap-And-Set-Credentials graph', when the graph is posted the node reboots and starts the discovery process
 
 .. code-block:: javascript
 
