@@ -49,6 +49,7 @@ not explicitly versioned, but intended as a means to install or update to the la
 conveniently.
 
 .. code::
+    
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
 
