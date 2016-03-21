@@ -8,6 +8,7 @@ RackHD Users Guide
 .. include:: graphs.rst
 .. include:: tasks.rst
 .. include:: skus.rst
+.. include:: tags.rst
 .. include:: workflow_examples.rst
 .. include:: pollers.rst
 .. include:: passive_discovery.rst

@@ -113,3 +113,34 @@ Sample Output:
 ::
 
     curl -X PATCH -H "Content-Type:application/json" localhost/api/current/nodes/5542b78c130198aa216da3ac -d '{ "obmSettings": [ { "service": "noop-obm-service", "config": { } } ] }'
+
+**Add a tag to a node**
+
+::
+
+    PATCH /api/1.1/nodes/<id>/tags
+
+::
+
+    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": [<list of tags>]}' <server>/api/1.1/nodes/<id>/tags
+
+**List tags for a node**
+
+::
+
+    GET /api/1.1/nodes/<id>/tags
+
+::
+
+    curl <server>/api/1.1/nodes/<id>/tags
+
+**Delete a tag from a node**
+
+::
+
+    DELETE /api/1.1/nodes/<id>/tags/<tagname>
+
+::
+
+    curl -X DELETE <server>/api/1.1/nodes/<id>/tags/<tagname>
+
