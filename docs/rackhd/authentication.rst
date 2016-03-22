@@ -2,7 +2,8 @@ Accessing RackHD APIs with Authentication
 -----------------------------------------
 
 When 'authEnabled' is set to 'true' in the config.json file for an endpoint, authentication
-will be needed to access the APIs that are defined within that endpoint.
+will be needed to access the APIs that are defined within that endpoint.  Enabling authentication
+will also enable authorization control when accessing API 2.0 and Redfish APIs.
 
 This section describes how to access APIs that need authentication.
 
@@ -39,24 +40,28 @@ The second endpoint represents an HTTP service listening at port 8080 that serve
 called by nodes interacting with the system. Authentication should NOT be enabled for southbound APIs in
 order for PXE to work fine.
 
-Setup credentials and token for authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _localhost-exception-label:
+
+Setup the first user with Localhost Exception
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Please refer to `Authentication`_ on how to setup endpoints.
 
-Copy following items to config.json if they are not there yet.::
+The localhost exception permits unauthenticated access to create the first user in the system.  With 
+authentication enabled, the first user can be created by issuing a POST to the /users API only if the 
+API is issued from localhost.  The first user must be assigned a role with privileges to create other 
+users, such as an Administrator role.
 
-    "authUsername": "admin",
-    "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
-    "authPasswordSalt": "zlxkgxjvcFwm0M8sWaGojh25qNYO8tuNWUMN4xKPH93PidwkCAvaX2JItLA3p7BSCWIzkw4GwWuezoMvKf3UXg==",
-    "authTokenSecret": "RackHDRocks!",
-    "authTokenExpireIn": 86400,
+Here is an example of creating an initial 'admin' user with a password of 'admin123'.::
 
-Following the above configuration, the default username/password for login are set to be admin/admin123,
-and the token will expire 24 hours after it's generated.
+    curl -ks -X POST -H "Content-Type:application/json" https://localhost:8443/api/2.0/users -d '{"username": "admin", "password": "admin123", "role": "Administrator"}' | python -m json.tool
+    {
+        "role": "Administrator",
+        "username": "admin"
+    }
 
-Please follow the instruction at `Change the default password`_ if there is a need to change the
-default password.
+The localhost exception can be disabled by setting the configuration value "enableLocalHostException" to 
+false.  The default value of "enableLocalHostException" is true.
 
 Login to get a token
 ~~~~~~~~~~~~~~~~~~~~
@@ -172,4 +177,5 @@ For example:::
     {
         "message": "No auth token"
     }
+
 

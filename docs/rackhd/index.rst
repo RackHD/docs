@@ -4,6 +4,7 @@ RackHD Users Guide
 .. include:: rackhd_api.rst
 .. include:: configuration.rst
 .. include:: authentication.rst
+.. include:: authorization.rst
 .. include:: nodes.rst
 .. include:: graphs.rst
 .. include:: tasks.rst
