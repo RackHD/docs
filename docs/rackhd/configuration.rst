@@ -331,25 +331,18 @@ after the task 'catalog-lldp')
    };
 
 
-Once the above steps are completed (edited and saved) the services need to be restarted:
+Once the above steps are completed (edited and saved) the service needs to be restarted:
 
 .. code-block:: shell
 
-    sudo service on-http start
-    sudo service on-dhcp-proxy start
-    sudo service on-syslog start
     sudo service on-taskgraph start
-    sudo service on-tftp start
-
-Once the services are restarted completely, running an ipmi command for the user list should show the new user added.
-``ipmitool user list`` if running the command from within the node or 
-``ipmitool -I lanplus -H ipaddress-of-node -U admin -P admin user list``
+    
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.  
 
     POST:        http://server-ip:8080/api/1.1/workflows/
     
-   add the below content in the json body for payload (example nodeid and username, pswd shown below)
+   add the below content in the json body for payload (example node identifier and username, password shown below)
 
 .. code-block:: shell
 
