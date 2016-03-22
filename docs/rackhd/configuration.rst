@@ -170,6 +170,261 @@ configuration. Custom certificates can also be used with some configuration.
 See the table in `Configuration Parameters`_ for information about HTTP/HTTPS configuration parameters.
 These parameters beging with *HTTP* and *HTTPS*.
 
+BMC Username and Password Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add 
+their own username/password during discovery certain steps need to be followed:
+
+First, edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
+to include the new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``.
+This will run the tasks to create a new user called '__rackhd__' with a randomly generated password and update obm settings
+accordingly. 
+Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the 
+**set-bmc-credentials-graph** ) :
+
+.. code-block:: javascript
+
+    module.exports = {
+    friendlyName: 'SKU Discovery',
+    injectableName: 'Graph.SKU.Discovery',
+    options: {
+        defaults: {
+            graphOptions: {
+                target: null
+            },
+            nodeId: null
+        }
+    },
+    tasks: [
+        {
+            label: 'discovery-graph',
+            taskDefinition: {
+                friendlyName: 'Run Discovery Graph',
+                injectableName: 'Task.Graph.Run.Discovery',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.Discovery',
+                    graphOptions: {}
+                },
+                properties: {}
+            }
+        },
+        {
+            label: 'set-bmc-credentials-graph',
+            taskDefinition: {
+                friendlyName: 'Run BMC Credential Graph',
+                injectableName: 'Task.Graph.Run.Bmc',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.Set.Bmc.Credentials',
+                    defaults : {
+                        graphOptions: {   }
+                    }
+                },
+                properties: {}
+            },
+            waitOn: {
+                'discovery-graph': 'succeeded'
+            }
+        },
+        {
+            label: 'generate-sku',
+            waitOn: {
+                'set-bmc-credentials-graph': 'succeeded'
+            },
+            taskName: 'Task.Catalog.GenerateSku'
+        },
+    
+  
+Next, edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
+to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph** 
+that was added to the **Sku Discovery graph** in the first step.
+Below is a snippet of the Discovery graph without the reboot task (the reboot task was originally located
+after the task 'catalog-lldp')
+
+.. code-block:: javascript
+
+   module.exports = {
+    friendlyName: 'Discovery',
+    injectableName: 'Graph.Discovery',
+    options: {
+        'bootstrap-ubuntu': {
+            'triggerGroup': 'bootstrap'
+        },
+        'finish-bootstrap-trigger': {
+            'triggerGroup': 'bootstrap'
+        }
+    },
+    tasks: [
+        {
+            label: 'bootstrap-ubuntu',
+            taskName: 'Task.Linux.Bootstrap.Ubuntu'
+        },
+        {
+            label: 'catalog-dmi',
+            taskName: 'Task.Catalog.dmi'
+        },
+        {
+            label: 'catalog-ohai',
+            taskName: 'Task.Catalog.ohai',
+            waitOn: {
+                'catalog-dmi': 'finished'
+            }
+        },
+        {
+            label: 'catalog-bmc',
+            taskName: 'Task.Catalog.bmc',
+            waitOn: {
+                'catalog-ohai': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-lsall',
+            taskName: 'Task.Catalog.lsall',
+            waitOn: {
+                'catalog-bmc': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-megaraid',
+            taskName: 'Task.Catalog.megaraid',
+            waitOn: {
+                'catalog-lsall': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-smart',
+            taskName: 'Task.Catalog.smart',
+            waitOn: {
+                'catalog-megaraid': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-driveid',
+            taskName: 'Task.Catalog.Drive.Id',
+            waitOn: {
+                'catalog-smart': 'finished'
+            },
+            ignoreFailure: true
+        },
+        {
+            label: 'catalog-lldp',
+            taskName: 'Task.Catalog.LLDP',
+            waitOn: {
+                'catalog-driveid': 'finished'
+            },
+            ignoreFailure: true
+        },
+       {
+            label: 'finish-bootstrap-trigger',
+            taskName: 'Task.Trigger.Send.Finish',
+            waitOn: {
+                'catalog-lldp': 'finished'
+            }
+        }
+    ]
+   };
+
+
+Once the above steps are completed (edited and saved) the service needs to be restarted:
+
+.. code-block:: shell
+
+    sudo service on-taskgraph start
+    
+
+If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.  
+
+    POST:        http://server-ip:8080/api/1.1/workflows/
+    
+   add the below content in the json body for payload (example node identifier and username, password shown below)
+
+.. code-block:: shell
+
+   {
+   "name": "Graph.Bootstrap.With.BMC.Credentials.Setup", 
+   "options": {
+                "defaults": {
+                    "graphOptions": {
+                        "target": "56e967f5b7a4085407da7898",
+                        "generate-pass": {
+                            "user": "7",
+                            "password": "7"
+                        }
+                    },
+                    "nodeId": "56e967f5b7a4085407da7898"
+                    }
+        }
+    
+   }
+
+By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the node again and set-bmc-credentials-graph runs the required tasks to update the BMC credentials. Below is a snippet of the 'Bootstrap-And-Set-Credentials graph', when the graph is posted the node reboots and starts the discovery process
+
+.. code-block:: javascript
+
+  module.exports = {
+    friendlyName: 'Bootstrap And Set Credentials',
+    injectableName: 'Graph.Bootstrap.With.BMC.Credentials.Setup',
+    options: {
+        defaults: {
+            graphOptions: {
+                target: null
+            },
+            nodeId: null,
+        },
+
+    },
+    tasks: [
+        {
+            label: 'boot-graph',
+            taskDefinition: {
+                friendlyName: 'Boot Graph',
+                injectableName: 'Task.Graph.Run.Boot',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.BootstrapUbuntu',
+                    defaults : {
+                        graphOptions: {   }
+                    }
+                },
+                properties: {}
+            }
+        },
+        {
+            label: 'set-bmc-credentials-graph',
+            taskDefinition: {
+                friendlyName: 'Run BMC Credential Graph',
+                injectableName: 'Task.Graph.Run.Bmc',
+                implementsTask: 'Task.Base.Graph.Run',
+                options: {
+                    graphName: 'Graph.Set.Bmc.Credentials',
+                    defaults : {
+                        graphOptions: {   }
+                    }
+                },
+                properties: {}
+            },
+            waitOn: {
+                'boot-graph': 'finished'
+            }
+        },
+        {
+            label: 'finish-bootstrap-trigger',
+            taskName: 'Task.Trigger.Send.Finish',
+            waitOn: {
+                'set-bmc-credentials-graph': 'finished'
+            }
+        }
+
+    ]
+ };
+
+
 
 Certificates
 -------------------------
