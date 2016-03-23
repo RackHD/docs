@@ -37,7 +37,7 @@ How to update to the latest code
 .. code::
 
     cd ~/src
-    ./scripts/clean_all.bash && ./scripts/reset_submodules.bash && ./link_install_locally.bash
+    ./scripts/clean_all.bash && ./scripts/reset_submodules.bash && ./scripts/link_install_locally.bash
 
 To reset the database of nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
