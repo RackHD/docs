@@ -48,9 +48,6 @@ config.json_
         }],
         "httpStaticRoot": "/opt/monorail/static/http",
         "minLogLevel": 3,
-        "authUsername": "admin",
-        "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
-        "authPasswordSalt": "zlxkgxjvcFwm0M8sWaGojh25qNYO8tuNWUMN4xKPH93PidwkCAvaX2JItLA3p7BSCWIzkw4GwWuezoMvKf3UXg==",
         "authTokenSecret": "RackHDRocks!",
         "authTokenExpireIn": 86400,
         "mongo": "mongodb://localhost/pxe",
@@ -142,6 +139,9 @@ The following table describes the configuration parameters in config.json:
       - Fully-qualified directory from which static TFTP content is served
     * - minLogLevel
       - A numerical value for filtering the logging from RackHD
+    * - enableLocalHostException
+      - Set to true to enable the localhost exception, see :ref:`localhost-exception-label`.
+      
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
@@ -578,62 +578,12 @@ user credentials over unencrypted HTTP connection exposes users to the risk of m
 Setting up username and password
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Every time a request is sent an API route that needs authentication, a token needs to be send with
-the request. The token is returned by RackHD by posting a request to the /login API with a
+Every time a request is sent an API route that needs authentication, a token needs to be sent with
+the request. The token is returned from RackHD by posting a request to the /login API with a
 username and password in the request body.
 
-The default username and password is setup in the config file.
-
-
-.. list-table::
-    :widths: 20 100
-    :header-rows: 1
-
-    * - Parameter
-      - Description
-    * - authUsername
-      - The username to login. Defaults to admin
-    * - authPasswordHash
-      - The default password stored in the form of a hashed value, base64 coded. The default
-        password to generate the hash is admin123.
-    * - authPasswordSalt
-      - The salt used to generate the password hash, base64 coded.
-
-
-Change the default password
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-A new password hash is needed if user want to change the default password from 'admin123' to
-something else.
-
-**Step 1**. Copy following javascript code into a file with .js extension, take hash-gen.js for
-example::
-
-    var crypto = require('crypto');
-
-    var password = 'admin123';//replace 'admin123' with the new password
-
-    salt = crypto.randomBytes(64);
-    console.log('salt = ', salt.toString('base64'));
-    crypto.pbkdf2(password, salt, 10000, 64, function(err, hash){
-        console.log('hash = ', hash.toString('base64'));
-    });
-
-Modify the content of password to any other string that the user picks.
-
-**Step 2**. Run this script using nodejs::
-
-    node hash-gen.js
-
-A random salt and a hash will be generated. Following is an example::
-
-    onrack@~/hash-gen> node hash-gen.js
-    salt =  L2Wh7fqR5GDQTIIvKZ5qWGmPeMN/IpGEZOipyS5CDK0I+yUt4kY0X98ZS+HG8dp4K9LXiiGttk91alfJFvqk2g==
-    hash =  b3n1vmbAKmEuLx0Cn/0X0hK2kYgGmcoTZgsn4SyLpjJftrbM0rhTaJ3CB3YZxw2Wopx51PtNG7SuDsw7jmh4IA==
-
-**Step 3**. Replace authPasswordSalt and authPasswordHash with the salt and hash generated above
-in the config.json. The new password will take effect after restarting RackHD.
-
+The default username and password is setup using the localhost exception mechanism described in 
+:ref:`localhost-exception-label`.
 
 Setting up token
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
