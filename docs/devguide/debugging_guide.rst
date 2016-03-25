@@ -121,3 +121,33 @@ like that - it’ll expand the time. There’s only so much we can do to work ar
 that while the relevant computer things things are “UP and OK” and has started a TFTP/PXE boot process, the
 switch hasn’t brought the NIC link up. So we added an explicit sleep in there in the monorail.ipxe to extend
 'the time to let networks converge so that the process has a better chance of succeeding.
+
+
+*Question*:
+
+what is this error indicate?
+
+.. code::
+
+    E 2016-03-24T23:04:00.548Z [on-dhcp-proxy] [Services.ErrorPublisher] [Server] Event Loop Blocked
+     -> /node_modules/on-core/lib/services/error-publisher.js:93
+    host:     rackhd-demo
+    name:     on-dhcp-proxy
+    severity: error
+
+
+*Answer*:
+
+NodeJS is asynchronous, and at its core has a `run-loop`_ that’s manages all the asynchronous processes.
+
+We can (and do) monitoring how often that run-loop gets blocked by synchronous
+processes (which can stall out “parallel” async processes). When that value is above a
+`certain threshold`_, we report it - and we report at different levels based on the threshold.
+
+This will typically happen when a CPU is significantly constrained or overloaded
+(a contributing factor why you’ll often see this in VM’s on developer environments).
+The specific things blocking aren’t detailed, and typically require utilizing a
+profiler for the relevant code to track down.
+
+.. _run-loop: https://nodesource.com/blog/understanding-the-nodejs-event-loop/
+.. _certain threshold: https://github.com/RackHD/on-core/blob/master/lib/services/error-publisher.js#L27
