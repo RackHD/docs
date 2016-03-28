@@ -129,7 +129,7 @@ what is this error indicate?
 
 .. code::
 
-    E 2016-03-24T23:04:00.548Z [on-dhcp-proxy] [Services.ErrorPublisher] [Server] Event Loop Blocked
+    Error 2016-03-24T23:04:00.548Z [on-dhcp-proxy] [Services.ErrorPublisher] [Server] Event Loop Blocked
      -> /node_modules/on-core/lib/services/error-publisher.js:93
     host:     rackhd-demo
     name:     on-dhcp-proxy
