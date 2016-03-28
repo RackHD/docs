@@ -36,6 +36,7 @@ our full system automation.
 .. _Razor: https://github.com/puppetlabs/razor-server
 .. _Hanlon: https://github.com/csc/Hanlon
 
+.. _discovery-ref-label:
 
 RackHD Discovery
 ----------------
