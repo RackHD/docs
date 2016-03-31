@@ -114,6 +114,17 @@ Sample Output:
 
     curl -X PATCH -H "Content-Type:application/json" localhost/api/current/nodes/5542b78c130198aa216da3ac -d '{ "obmSettings": [ { "service": "noop-obm-service", "config": { } } ] }'
 
+
+**To set a IPMI OBM setting on a node**
+
+.. code-block:: REST
+
+    curl -X PATCH \
+        -H 'Content-Type: application/json' \
+        -d '{ "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } ] }' \
+        {server}/api/1.1/nodes/{nodeID}
+
+
 **Add a tag to a node**
 
 ::
@@ -143,4 +154,3 @@ Sample Output:
 ::
 
     curl -X DELETE <server>/api/1.1/nodes/<id>/tags/<tagname>
-

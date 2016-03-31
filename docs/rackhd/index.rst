@@ -11,8 +11,8 @@ RackHD Users Guide
 .. include:: skus.rst
 .. include:: tags.rst
 .. include:: workflow_examples.rst
-.. include:: pollers.rst
 .. include:: passive_discovery.rst
+.. include:: pollers.rst
 .. include:: microkernel.rst
 .. include:: web_ui.rst
 .. include:: dhcp_server.rst
