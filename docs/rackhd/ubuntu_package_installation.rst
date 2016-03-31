@@ -90,7 +90,7 @@ Touch those files to allow the upstart scripts to start automatically.
 
 **RACKHD APPLICATIONS**
 
-Created the required file /opt/monorail/config.json , you can use the demonstration
+Create the required file /opt/monorail/config.json , you can use the demonstration
 configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
 as a reference.
 
