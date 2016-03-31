@@ -242,7 +242,10 @@ At render time, values are rendered if the exist in the task render context. The
      - This refers to the shared context object that all tasks in a graph have R/W access to. Enables one task to use values produced by another at runtime.
 
        For example, the [ami catalog provider task](`https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js`) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
-
+   * - sku
+     - This refers to the SKU configure data fetched from SKU pack. This field is added automatically if SKU configure exists in SKU pack, not specified by the user.
+   * - env
+     - This refers to the environment configure data got from environment collection. Similar to sku, this field is added automatically, not specified by the user.
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
 .. code-block:: JSON
