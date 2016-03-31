@@ -49,7 +49,7 @@ not explicitly versioned, but intended as a means to install or update to the la
 conveniently.
 
 .. code::
-    
+
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
 
@@ -90,7 +90,7 @@ Touch those files to allow the upstart scripts to start automatically.
 
 **RACKHD APPLICATIONS**
 
-Created the required file /opt/onrack/etc/config.json , you can use the demonstration
+Created the required file /opt/monorail/config.json , you can use the demonstration
 configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
 as a reference.
 
