@@ -242,10 +242,14 @@ At render time, values are rendered if the exist in the task render context. The
      - This refers to the shared context object that all tasks in a graph have R/W access to. Enables one task to use values produced by another at runtime.
 
        For example, the [ami catalog provider task](`https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js`) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
-
+   * - sku
+     - This refers to the SKU configuration data fetched from a `SKU pack`_. This field is added automatically if a SKU configuration exists in the the `SKU pack`_, rather than being specified by a user.
+   * - env
+     - This refers to the environment configuration data retrieved from the environment database collection.Similar to sku, this field is added automatically, rather than specified by a user.
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
 .. code-block:: JSON
+.. _SKU pack: http://rackhd.readthedocs.org/en/latest/rackhd/skus.html?highlight=Workflow%20SKU%20Support
 
     {
         friendlyName: 'Flash MegaRAID Controller',
