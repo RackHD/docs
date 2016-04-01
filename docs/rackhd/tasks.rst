@@ -243,9 +243,9 @@ At render time, values are rendered if the exist in the task render context. The
 
        For example, the [ami catalog provider task](`https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js`) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
    * - sku
-     - This refers to the SKU configure data fetched from SKU pack. This field is added automatically if SKU configure exists in SKU pack, not specified by the user.
+     - This refers to the SKU configuration data fetched from a SKU pack. This field is added automatically if a SKU configuration exists in the the SKU pack, rather than being specified by a user. The link to SKU pack is: http://rackhd.readthedocs.org/en/latest/rackhd/skus.html?highlight=Workflow%20SKU%20Support
    * - env
-     - This refers to the environment configure data got from environment collection. Similar to sku, this field is added automatically, not specified by the user.
+     - This refers to the environment configuration data retrieved from the environment database collection.Similar to sku, this field is added automatically, rather than specified by a user.
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
 .. code-block:: JSON
