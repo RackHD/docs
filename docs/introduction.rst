@@ -195,3 +195,15 @@ Related Projects
   * `Shovel - RackHD coordinator <https://github.com/keedya/Shovel>`_
   * `Shovel Horizon Plugin <https://github.com/keedya/shovel-horizon-plugin>`_
   * `Shovel API python client <https://github.com/keedya/shovel-api-python-client>`_
+
+* CloudFoundry/BOSH
+
+  * `Bosh RackHD CPI <https://github.com/cloudfoundry-incubator/bosh-rackhd-cpi-release>`_
+
+* Docker
+
+  * `Docker Machine driver for RackHD <https://github.com/emccode/docker-machine-rackhd>`_
+
+* Libraries
+
+  * `Golang client library to RackHD 1.1 API <https://github.com/emccode/gorackhd>`_
