@@ -1,3 +1,5 @@
+.. _sku-ref-label:
+
 Workflow SKU Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

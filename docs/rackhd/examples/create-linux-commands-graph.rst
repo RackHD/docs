@@ -1,3 +1,8 @@
+.. _linux-commands-ref-label:
+
+Linux Commands Task
+~~~~~~~~~~~~~~~~~~~
+
 The Linux Commands task is a generic task that enables running of any shell commands against a node booted into
 a microkernel. These commands are specified in JSON objects within the options.commands array of the task definition.
 Optional parameters can be specified to enable cataloging of command output.

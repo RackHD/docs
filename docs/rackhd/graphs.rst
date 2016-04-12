@@ -1,3 +1,5 @@
+.. _workflows-ref-label:
+
 Workflows
 ---------------------------
 
