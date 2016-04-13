@@ -12,6 +12,7 @@ RackHD Users Guide
 .. include:: tags.rst
 .. include:: workflow_examples.rst
 .. include:: passive_discovery.rst
+.. include:: switch_active_discovery.rst
 .. include:: pollers.rst
 .. include:: microkernel.rst
 .. include:: web_ui.rst
