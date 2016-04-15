@@ -121,11 +121,15 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
     for file in $(echo "\
     base.trusty.3.13.0-32-generic.squashfs.img \
     base.trusty.3.16.0-25-generic.squashfs.img \
+    base.trusty.3.19.0-56-generic.squashfs.img \
     discovery.overlay.cpio.gz \
+    discovery.3.19.0-56-generic.overlay.cpio.gz \
     initrd.img-3.13.0-32-generic \
     initrd.img-3.16.0-25-generic \
+    initrd.img-3.19.0-56-generic \
     vmlinuz-3.13.0-32-generic \
-    vmlinuz-3.16.0-25-generic");do
+    vmlinuz-3.16.0-25-generic \
+    vmlinuz-3.19.0-56-generic");do
     wget "https://dl.bintray.com/rackhd/binary/builds/$file"
     done
 
