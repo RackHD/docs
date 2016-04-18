@@ -121,7 +121,7 @@ Sample Output:
 
     curl -X PATCH \
         -H 'Content-Type: application/json' \
-        -d '{ "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } ] }' \
+        -d '{ "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } } ] }' \
         {server}/api/1.1/nodes/{nodeID}
 
 
