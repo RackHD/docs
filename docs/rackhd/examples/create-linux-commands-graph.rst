@@ -148,6 +148,44 @@ rendered based on the option values of task definition, for example, if a task i
     echo bar
     echo qux
 
+**Predefined template variables**
+
+The following variables are predefined and available for use by all templates:
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Field
+     - Description
+   * - server
+     - This refers to the base IP of the RackHD server
+   * - port
+     - This refers to the base port of the RackHD server
+   * - ipaddress
+     - This refers to the ipaddress of the requestor
+   * - macaddress
+     - This refers to the macaddress, as derived from an IP to MAC lookup, of the requestor
+   * - netmask
+     - This refers to the netmask configured for the RackHD DHCP server
+   * - gateway
+     - This refers to the gateway configured for the RackHD DHCP server
+   * - api
+     - Values used for constructing API requests in a template:
+           - **server** -- the base URI for the RackHD http server (e.g. `http://<server>:<port>` )
+           - **base[Https]** -- the base http/https URIs for the RackHD api (e.g. `http://<server>:<port>/api/current` )
+           - **files[Https]** -- the base http/https URIs for the RackHD api files routes (e.g. `http://<server>:<port>/api/current/files`)
+           - **nodes[Https]** -- the base http/https URIs for the RackHD api nodes routes (e.g. `http://<server>:<port>/api/current/nodes`)
+   * - context
+     - This refers to the shared context object that all tasks in a graph have R/W access to. Templates receive a readonly snapshot of this context when they are rendered.
+   * - task
+     - Values used by the currently running task:
+           - **nodeId** -- The node identifier that the graph is bound to via the graph context.
+   * - sku
+     - This refers to the SKU configuration data fetched from a `SKU pack`_. This field is added automatically if a SKU configuration exists in the the `SKU pack`_, rather than being specified by a user.
+   * - env
+     - This refers to the environment configuration data retrieved from the environment database collection.Similar to sku, this field is added automatically, rather than specified by a user.
+
 
 **Uploading Script Templates**
 
