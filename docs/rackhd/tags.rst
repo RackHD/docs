@@ -1,12 +1,12 @@
 Workflow Tag Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Tag API provides functionality to automatically categorize nodes into 
-groups based on data present in a node's catalogs or by manually assigning 
+The Tag API provides functionality to automatically categorize nodes into
+groups based on data present in a node's catalogs or by manually assigning
 a tag to a node. When done automatically, tag matching is done using a
-series of rules. If all rules of a given tag match the latest version of 
+series of rules. If all rules of a given tag match the latest version of
 a node's catalog set, then that tag will be assigned to the node.  A node
-may be assigned many tags, both automatically through rules matching or 
+may be assigned many tags, both automatically through rules matching or
 manually by the user.
 
 Upon discovering a node, the tag will be assigned based on all existing tag
@@ -109,6 +109,21 @@ can send.
 
     curl <server>/api/1.1/tags/<tagname>
 
+
+**Manually set an arbitrary tag value on a node**
+
+
+.. code-block:: REST
+
+    PATCH /api/1.1/nodes/:nodeid/tags
+
+    {
+        "tags": ["arbitrary-external-tag"]
+    }
+
+.. code-block:: REST
+
+    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": ["newest-tag"]}' http://localhost:8080/api/1.1/nodes/:nodeid/tags
 
 
 **Delete a Single tag**
