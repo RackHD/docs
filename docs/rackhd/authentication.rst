@@ -30,7 +30,7 @@ the following endpoint configuration will be a good start.::
             "authEnabled": false,
             "routers": "southbound-api-router"
         }
-    ],
+    ]
 
 The first endpoint represents an HTTPS service listening at port 8443 that serves northbound APIs, which are
 APIs being called by users. Note that authEnabled is set to true means that authentication is needed

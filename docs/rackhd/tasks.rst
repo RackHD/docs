@@ -248,8 +248,9 @@ At render time, values are rendered if the exist in the task render context. The
      - This refers to the environment configuration data retrieved from the environment database collection.Similar to sku, this field is added automatically, rather than specified by a user.
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
-.. code-block:: JSON
 .. _SKU pack: http://rackhd.readthedocs.org/en/latest/rackhd/skus.html?highlight=Workflow%20SKU%20Support
+
+.. code-block:: JSON
 
     {
         friendlyName: 'Flash MegaRAID Controller',
