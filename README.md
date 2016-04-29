@@ -1,5 +1,5 @@
 # docs
-RackHD documentation source for http://rackhd.readthedocs.org
+RackHD documentation source for http://rackhd.readthedocs.io
 
 [![Documentation Build Status](https://readthedocs.org/projects/rackhd/badge/?version=latest)](https://readthedocs.org/projects/rackhd/?badge=latest)
 
