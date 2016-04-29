@@ -15,9 +15,9 @@ We will leverage the ansible roles created for the RackHD demonstration environm
     git clone https://github.com/rackhd/rackhd
     sudo apt-get install ansible
     cd ~/rackhd/packer/ansible
-    ansible-playbook -i "local," -c local rackhd_local.yml
+    ansible-playbook -i "local," -c -K local rackhd_local.yml
 
-This created the default configuration file at /opt/onrack/etc/config.json
+This created the default configuration file at /opt/monorail/etc/config.json
 from https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json.
 You may need to update this and /etc/dhcpd.conf to match your local network
 configuration.
