@@ -17,3 +17,4 @@ RackHD Users Guide
 .. include:: microkernel.rst
 .. include:: web_ui.rst
 .. include:: dhcp_server.rst
+.. include:: boot_settings.rst
