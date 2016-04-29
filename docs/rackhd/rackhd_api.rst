@@ -54,7 +54,8 @@ repository and running the following command.
 
 The default and example quick start build that we describe in :doc:`../getting_started`
 has the API docs rendered and embedded within that instance for easy use, available
-at http://[IP ADDRESS OF VM]:8080/docs/
+at http://[IP ADDRESS OF VM]:8080/docs/ for the 1.1 API documentation, and
+http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the 2.0 and Redfish API documentation.
 
 RackHD Client Libraries
 -------------------------

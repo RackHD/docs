@@ -67,6 +67,9 @@ API commands
 When running the on-http process, these are some common API commands you
 can send.
 
+If you want to view or manipulate tags directly on nodes, please see the API notes
+at :ref:`node-api-tags-ref-label`.
+
 **Create a New tag**
 
 .. code-block:: REST
@@ -108,22 +111,6 @@ can send.
 .. code-block:: REST
 
     curl <server>/api/1.1/tags/<tagname>
-
-
-**Manually set an arbitrary tag value on a node**
-
-
-.. code-block:: REST
-
-    PATCH /api/1.1/nodes/:nodeid/tags
-
-    {
-        "tags": ["arbitrary-external-tag"]
-    }
-
-.. code-block:: REST
-
-    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": ["newest-tag"]}' http://localhost:8080/api/1.1/nodes/:nodeid/tags
 
 
 **Delete a Single tag**

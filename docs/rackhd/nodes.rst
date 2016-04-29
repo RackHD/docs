@@ -124,6 +124,10 @@ Sample Output:
         -d '{ "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } } ] }' \
         {server}/api/1.1/nodes/{nodeID}
 
+.. _node-api-tags-ref-label:
+
+Node Tags
+^^^^^^^^^^
 
 **Add a tag to a node**
 
