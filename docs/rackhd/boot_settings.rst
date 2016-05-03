@@ -1,12 +1,12 @@
 Customize Default iPXE Boot Setting
 ---------------------------
 
-When a node's NIC's PXE boot is set to the first boot order in BIOS, default boot settings could be customized by iPXE in RackHD, node will boot with default boot settings after node is discovered by RackHD.
+A compute server's BIOS can be set to always PXE network boot using the BIOS boot order. The default RackHD response when no workflow is operating is to do nothing - normally falling through to the next item in the BIOS boot order. RackHD can also be configured with a default iPXE script to provide boot instructions when no workflow is operational against the node.
 
-Default iPXE Boot To Customized OS in RAM
+Default iPXE Boot Customized OS Into RAM
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In some use cases, node wants to boot customized kernel and initrd to OS in RAM, not boot into a installed distribution OS in disk. This functionality could be provided by `PATCH` **bootSettings** to a node by API command:
+To configure RackHD to provide a custom iPXE response to a node outside of a workflow running, such as booting a customized kernel and initrd, you can do so by providing configuration to the Node resource in RackHD. This functionality can be enabled by using a PATCH REST API call adding **bootSettings** to a node.
 
 .. code-block:: REST
 
