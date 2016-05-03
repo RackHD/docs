@@ -41,13 +41,14 @@ config.json_
         "httpDocsRoot": "./build/apidoc",
         "httpFileServiceRoot": "./static/files",
         "httpFileServiceType": "FileSystem",
-        "httpProxies": [{
-            "localPath": "/coreos",
-            "server": "http://stable.release.core-os.net",
-            "remotePath": "/amd64-usr/current/"
-        }],
+        "httpProxies": [
+            {
+                "localPath": "/coreos",
+                "server": "http://stable.release.core-os.net",
+                "remotePath": "/amd64-usr/current/"
+            }
+        ],
         "httpStaticRoot": "/opt/monorail/static/http",
-        "minLogLevel": 3,
         "authTokenSecret": "RackHDRocks!",
         "authTokenExpireIn": 86400,
         "mongo": "mongodb://localhost/pxe",
@@ -59,7 +60,8 @@ config.json_
         "tftpBindAddress": "172.31.128.1",
         "tftpBindPort": 69,
         "tftpRoot": "./static/tftp",
-        "minLogLevel": 2
+        "minLogLevel": 2,
+        "logColorEnable": false
     }
 
 
@@ -100,7 +102,7 @@ The following table describes the configuration parameters in config.json:
     * - httpFileServiceType
       - Backend storage mechanism for file service. Currently only FileSystem is supported.
     * - httpProxies
-      - Optional http proxies list. There are 3 parameters for each proxy:
+      - Optional HTTP/HTTPS proxies list. There are 3 parameters for each proxy:
 
         "localPath"/"remotePath" are optional and defaults to "/". A legal "localPath"/"remotePath" string must start with slash and ends without slash, like "/mirrors".
         If "localPath" is assigned to an existing local path like "/api/common/nodes", proxy won't work. Instead the path will keep its original feature and function.
@@ -111,6 +113,8 @@ The following table describes the configuration parameters in config.json:
         { "server": "http://centos.eecs.wsu.edu", "localPath": "/centos" } would map http requests to local directory /centos/ to http://centos.eecs.wsu.edu/
 
         { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
+
+        Note: To ensure this feature works, the httpProxies need be separately enabled for specified HTTP/HTTPS endpoint. See details in `Setting up HTTP/HTTPS endpoint`_
     * - httpFrontendDirectory
       - Fully-qualified directory to the web GUI content
     * - httpStaticDirectory
@@ -139,9 +143,11 @@ The following table describes the configuration parameters in config.json:
       - Fully-qualified directory from which static TFTP content is served
     * - minLogLevel
       - A numerical value for filtering the logging from RackHD
+    * - logColorEnable
+      - A boolean value to toggle the colorful log output (defaults to false)
     * - enableLocalHostException
       - Set to true to enable the localhost exception, see :ref:`localhost-exception-label`.
-      
+
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
@@ -173,72 +179,74 @@ These parameters beging with *HTTP* and *HTTPS*.
 BMC Username and Password Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add 
+A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add
 their own username/password during discovery certain steps need to be followed:
 
 First, edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
 to include the new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``.
 This will run the tasks to create a new user called '__rackhd__' with a randomly generated password and update obm settings
-accordingly. 
-Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the 
+accordingly.
+Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the
 **set-bmc-credentials-graph** ) :
 
 .. code-block:: javascript
 
     module.exports = {
-    friendlyName: 'SKU Discovery',
-    injectableName: 'Graph.SKU.Discovery',
-    options: {
-        defaults: {
-            graphOptions: {
-                target: null
-            },
-            nodeId: null
-        }
-    },
-    tasks: [
-        {
-            label: 'discovery-graph',
-            taskDefinition: {
-                friendlyName: 'Run Discovery Graph',
-                injectableName: 'Task.Graph.Run.Discovery',
-                implementsTask: 'Task.Base.Graph.Run',
-                options: {
-                    graphName: 'Graph.Discovery',
-                    graphOptions: {}
+        friendlyName: 'SKU Discovery',
+        injectableName: 'Graph.SKU.Discovery',
+        options: {
+            defaults: {
+                graphOptions: {
+                    target: null
                 },
-                properties: {}
+                nodeId: null
             }
         },
-        {
-            label: 'set-bmc-credentials-graph',
-            taskDefinition: {
-                friendlyName: 'Run BMC Credential Graph',
-                injectableName: 'Task.Graph.Run.Bmc',
-                implementsTask: 'Task.Base.Graph.Run',
-                options: {
-                    graphName: 'Graph.Set.Bmc.Credentials',
-                    defaults : {
-                        graphOptions: {   }
-                    }
+        tasks: [
+            {
+                label: 'discovery-graph',
+                taskDefinition: {
+                    friendlyName: 'Run Discovery Graph',
+                    injectableName: 'Task.Graph.Run.Discovery',
+                    implementsTask: 'Task.Base.Graph.Run',
+                    options: {
+                        graphName: 'Graph.Discovery',
+                        graphOptions: {}
+                    },
+                    properties: {}
+                }
+            },
+            {
+                label: 'set-bmc-credentials-graph',
+                taskDefinition: {
+                    friendlyName: 'Run BMC Credential Graph',
+                    injectableName: 'Task.Graph.Run.Bmc',
+                    implementsTask: 'Task.Base.Graph.Run',
+                    options: {
+                        graphName: 'Graph.Set.Bmc.Credentials',
+                        defaults : {
+                            graphOptions: {   }
+                        }
+                    },
+                    properties: {}
                 },
-                properties: {}
+                waitOn: {
+                    'discovery-graph': 'succeeded'
+                }
             },
-            waitOn: {
-                'discovery-graph': 'succeeded'
+            {
+                label: 'generate-sku',
+                waitOn: {
+                    'set-bmc-credentials-graph': 'succeeded'
+                },
+                taskName: 'Task.Catalog.GenerateSku'
             }
-        },
-        {
-            label: 'generate-sku',
-            waitOn: {
-                'set-bmc-credentials-graph': 'succeeded'
-            },
-            taskName: 'Task.Catalog.GenerateSku'
-        },
-    
-  
+        ]
+    };
+
+
 Next, edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
-to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph** 
+to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph**
 that was added to the **Sku Discovery graph** in the first step.
 Below is a snippet of the Discovery graph without the reboot task (the reboot task was originally located
 after the task 'catalog-lldp')
@@ -336,31 +344,30 @@ Once the above steps are completed (edited and saved) the service needs to be re
 .. code-block:: shell
 
     sudo service on-taskgraph start
-    
 
-If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.  
+
+If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
     POST:        http://server-ip:8080/api/1.1/workflows/
-    
+
    add the below content in the json body for payload (example node identifier and username, password shown below)
 
 .. code-block:: shell
 
    {
-   "name": "Graph.Bootstrap.With.BMC.Credentials.Setup", 
-   "options": {
-                "defaults": {
-                    "graphOptions": {
-                        "target": "56e967f5b7a4085407da7898",
-                        "generate-pass": {
-                            "user": "7",
-                            "password": "7"
-                        }
-                    },
-                    "nodeId": "56e967f5b7a4085407da7898"
+       "name": "Graph.Bootstrap.With.BMC.Credentials.Setup",
+       "options": {
+            "defaults": {
+                "graphOptions": {
+                    "target": "56e967f5b7a4085407da7898",
+                    "generate-pass": {
+                        "user": "7",
+                        "password": "7"
                     }
+                },
+                "nodeId": "56e967f5b7a4085407da7898"
+            }
         }
-    
    }
 
 By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the node again and set-bmc-credentials-graph runs the required tasks to update the BMC credentials. Below is a snippet of the 'Bootstrap-And-Set-Credentials graph', when the graph is posted the node reboots and starts the discovery process
@@ -375,9 +382,8 @@ By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the 
             graphOptions: {
                 target: null
             },
-            nodeId: null,
-        },
-
+            nodeId: null
+        }
     },
     tasks: [
         {
@@ -420,7 +426,6 @@ By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the 
                 'set-bmc-credentials-graph': 'finished'
             }
         }
-
     ]
  };
 
@@ -537,13 +542,13 @@ There are currently two API groups defined in RackHD:
         (only needed if the key and cert are omitted)
         This is optional and only takes effect when the httpsEnabled flag is set to true
     * - proxiesEnabled
-      - Toggle Proxies
+      - A boolean value to toggle httpProxies (defaults to false)
     * - authEnabled
       - Toggle API Authentication
     * - routers
       - A single router name or a list of router names.
         This would only take effect for 1.1 APIs.
-        You can now choose from "northbound-api-router","southbound-api-router" or 
+        You can now choose from "northbound-api-router","southbound-api-router" or
         ["northbound-api-router", "southbound-api-router"].
 
 Authentication
@@ -582,7 +587,7 @@ Every time a request is sent an API route that needs authentication, a token nee
 the request. The token is returned from RackHD by posting a request to the /login API with a
 username and password in the request body.
 
-The default username and password is setup using the localhost exception mechanism described in 
+The default username and password is setup using the localhost exception mechanism described in
 :ref:`localhost-exception-label`.
 
 Setting up token
