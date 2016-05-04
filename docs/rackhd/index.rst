@@ -10,6 +10,7 @@ RackHD Users Guide
 .. include:: tasks.rst
 .. include:: skus.rst
 .. include:: tags.rst
+.. include:: install_os.rst
 .. include:: workflow_examples.rst
 .. include:: passive_discovery.rst
 .. include:: switch_active_discovery.rst
