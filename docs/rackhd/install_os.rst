@@ -1,12 +1,12 @@
 OS Installation Workflow Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-RackHD workflow support installing Operating System automatically from remote repository that node could access by HTTP protocol.
+RackHD workflow support installing Operating System automatically from remote http repository.
 
 Supported OS Installation Workflows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Supported OSes and their workflows are listed in table, and the listed versions have been verified by RackHD, but not limited to these, when more versions are verified, this table will be updated.
+Supported OSes and their workflows are listed in table, and the listed versions have been verified by RackHD, but not limited to these, this table will be updated when more versions are verified.
 
 ============= ==================== ==================================================
 OS            Workflow             Version
@@ -33,12 +33,12 @@ Start an OS installation workflow:
          <server>/api/1.1/nodes/<identifier>/workflows?name=Graph.InstallCentOS
 
 
-A example of params.json with minimal parameters for installing CentOS workflow:
+An example of params.json with minimal parameters for installing CentOS workflow:
 
 .. literalinclude:: samples/install-os-minimal-parameters.json
    :language: JSON
 
-A example of params.json with full set of parameters for installing CentOS workflow:
+An example of params.json with full set of parameters for installing CentOS workflow:
 
 .. literalinclude:: samples/install-os-maximal-parameters.json
    :language: JSON
@@ -50,7 +50,7 @@ Check the OS installation workflow is active or inactive:
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
 
 
-Delete the active OS installation workflow:
+Stop the active OS installation workflow:
 
 .. code-block:: REST
 
@@ -60,24 +60,24 @@ Delete the active OS installation workflow:
 OS Installation Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All parameters descriptions of OS installation workflow payload are listed below , they are fit to all supported OS installations:
+All parameters descriptions of OS installation workflow payload are listed below , they are fit to all supported OSes:
 
 =================== ================ ============ ============================================
-Parameters          Type              Flags        Description
+Parameters          Type              Flags       Description
 =================== ================ ============ ============================================
-version             String           **required** The version number of target OS that needs to install. **NOTE**: For Ubuntu, the version should be 'trusty' not '14.04'.
+version             String           **required** The version number of target OS that needs to install. **NOTE**: For Ubuntu, the version should be 'trusty' not '14.04'
 repo                String           **required** The OS repository address, currently only supports HTTP
-rootPassword        String           **required** The password for the OS root account
-hostname            String           **required** The hostname for target OS
-domain              String           **required** The domain for target OS
-users               Array            *optional*   If specified, this contains an array of objects, each object contains the user account information that will be created after OS installation. 0, 1, or multiple users could be specified. If *users* is omitted, null or 0 length, no user will be created.
-dnsServers          Array            *optional*   If specified, this contains an array of objects, each object contains the Domain Name Servers, multiple DNS servers could be specified, the first one will be primary, others are alternative.
-networkDevices      Array            *optional*   The static IP setting for network devices after OS installation. If it is omitted, null or 0 length, RackHD will not touch any network devices setting, so all network devices remain at the default state (usually default is DHCP).If there is multiple setting for same device, RackHD will choose the last one as the final setting, both ipv4 and ipv6 are supported here.
-rootSshKey          String           *optional*   The SSH key that will be appended into the file /root/.ssh/authorized_keys in target OS.
-installDisk         String/Number    *optional*   The value could be string or integer number. For string, it could be the value like '/dev/sda' or the value of 'esxiWwid'(for ESXi), 'linuxWwid'(for Linux) , For number, it's the value of 'identifier' index. If *installDisk* not specified, OS will be installed into default SATADOM disk, and if there's no SATADOM disk, OS will be installed into 'identifier' 0 disk. **NOTE:** the value of 'esxiWwid', 'linuxWwid', 'identifier' could be got from node catalog's 'driveId' source.
-kvm                 Boolean          *optional*   The value is true/false, If *kvm* is omitted, null or 0 length, kvm will not be installed.  indicates to install kvm or not, default is false.
-switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters.  If *uplinks* is omitted, null or 0 length, the vswitch will be created with no uplinks.
-postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration
+rootPassword        String           *optional*   The password for the OS root account, default *rootPassword* is  **"RackHDRocks!"**
+hostname            String           *optional*   The hostname for target OS, default *hostname* is **"localhost"**
+domain              String           *optional*   The domain for target OS, default *domain* is **"rackhd"**
+users               Array            *optional*   If specified, this contains an array of objects, each object contains the user account information that will be created after OS installation. 0, 1, or multiple users could be specified.  If *users* is omitted, null or empty, no user will be created.
+dnsServers          Array            *optional*   If specified, this contains an array of string, each elements is the Domain Name Server, the first one will be primary, others are alternative.
+networkDevices      Array            *optional*   The static IP setting for network devices after OS installation. If it is omitted, null or empty, RackHD will not touch any network devices setting, so all network devices remain at the default state (usually default is DHCP).If there is multiple setting for same device, RackHD will choose the last one as the final setting, both ipv4 and ipv6 are supported here.
+rootSshKey          String           *optional*   The SSH key that will be appended to target OS.
+installDisk         String/Number    *optional*   *installDisk* is to specify the target disk which the OS will be installed on. It can be a string or a number. **For string**, it is a disk path that the OS can recongize, its format varies with OS. For example, "/dev/sda" or "/dev/disk/by-id/scsi-36001636121940cc01df404d80c1e761e" for CentOS/RHEL, "t10.ATA_____SATADOM2DSV_3SE__________________________20130522AA0990120088" or "naa.6001636101840bb01df404d80c2d76fe" or "mpx.vmhba1:C0:T1:L0" or "vml.0000000000766d686261313a313a30" for ESXi. **For number**, it is a RackHD generated disk identifier (it could be obtained from "driveId" catalog). If *installDisk* is omitted, RackHD will assign the default disk by order: SATADOM -> first disk in "driveId" catalog -> "sda" for Linux OS or "firstdisk" for ESXi.
+kvm                 Boolean          *optional*   The value is *true* or *false* to indicates to install kvm or not, default is **false**.
+switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters.  If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks.
+postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration.
 
 =================== ================ ============ ============================================
 
@@ -88,11 +88,24 @@ Parameters  Type     Flags        Description
 =========== ======== ============ ============================================
 name        String   **required** The name of user
 password    String   **required** The password of user, it could be clear text, RackHD will do encryption before store it into kickstart file.
-uid         Number   **required** The unique identifier of user.
-sshKey      String   *optional*   The SSH key that will be appended into the file ~/.ssh/authorized_keys in target OS.
+uid         Number   **required** The unique identifier of user. **required** for non-ESXi OS, Not support for ESXi OS
+sshKey      String   *optional*   The SSH key that will be appended into target OS.
 =========== ======== ============ ============================================
 
-For **networkDevices** in payload, both ipv4 and ipv6 are supported:
+
+For **networkDevices** in payload, both ipv4 and ipv6 are supported
+
+============== ======== ============ ============================================
+Parameters     Type     Flags        Description
+============== ======== ============ ============================================
+device         String   **required**  Network device name (ex. "eth0")
+ipv4           Object   **required**  The object contains ipv4 configurations
+ipv6           Object   **required**  The object contains ipv6 configurations
+esxSwitchName  String   *optional*    **(ESXi only)** The vswitch to attach the vmk device to. vSwitch0 is used by default if no esxSwitchName is specified.
+============== ======== ============ ============================================
+
+
+For **ipv4** or **ipv6** configurations:
 
 =========== ======== ============ ============================================
 Parameters  Type     Flags        Description
@@ -100,7 +113,7 @@ Parameters  Type     Flags        Description
 ipAddr      String   **required** The assigned static IP address
 gateway     String   **required** The gateway.
 netmask     String   **required** The subnet mask.
-vlanId      String   *optional*   The VLAN ID. This is an array of integers (0-4095)
+vlanId      Number   *optional*   The VLAN ID. This is an array of integers (0-4095)
 =========== ======== ============ ============================================
 
 
@@ -113,4 +126,3 @@ switchName  String   **required** The name of the vswitch
 uplinks     String   *optional*   The array of vmnic# devices to set as the uplinks.(Ex: uplinks: ["vmnic0", "vmnic1"])
 
 =========== ======== ============ ============================================
-
