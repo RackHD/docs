@@ -43,7 +43,7 @@ An example of params.json with full set of parameters for installing CentOS work
 .. literalinclude:: samples/install-os-maximal-parameters.json
    :language: JSON
 
-Check the OS installation workflow is active or inactive:
+Check the workflow is active or inactive:
 
 .. code-block:: REST
 
@@ -74,9 +74,9 @@ users               Array            *optional*   If specified, this contains an
 dnsServers          Array            *optional*   If specified, this contains an array of string, each elements is the Domain Name Server, the first one will be primary, others are alternative.
 networkDevices      Array            *optional*   The static IP setting for network devices after OS installation. If it is omitted, null or empty, RackHD will not touch any network devices setting, so all network devices remain at the default state (usually default is DHCP).If there is multiple setting for same device, RackHD will choose the last one as the final setting, both ipv4 and ipv6 are supported here.
 rootSshKey          String           *optional*   The SSH key that will be appended to target OS.
-installDisk         String/Number    *optional*   *installDisk* is to specify the target disk which the OS will be installed on. It can be a string or a number. **For string**, it is a disk path that the OS can recongize, its format varies with OS. For example, "/dev/sda" or "/dev/disk/by-id/scsi-36001636121940cc01df404d80c1e761e" for CentOS/RHEL, "t10.ATA_____SATADOM2DSV_3SE__________________________20130522AA0990120088" or "naa.6001636101840bb01df404d80c2d76fe" or "mpx.vmhba1:C0:T1:L0" or "vml.0000000000766d686261313a313a30" for ESXi. **For number**, it is a RackHD generated disk identifier (it could be obtained from "driveId" catalog). If *installDisk* is omitted, RackHD will assign the default disk by order: SATADOM -> first disk in "driveId" catalog -> "sda" for Linux OS or "firstdisk" for ESXi.
+installDisk         String/Number    *optional*   *installDisk* is to specify the target disk which the OS will be installed on. It can be a string or a number. **For string**, it is a disk path that the OS can recongize, its format varies with OS. For example, "/dev/sda" or "/dev/disk/by-id/scsi-36001636121940cc01df404d80c1e761e" for CentOS/RHEL, "t10.ATA_____SATADOM2DSV_3SE__________________________20130522AA0990120088" or "naa.6001636101840bb01df404d80c2d76fe" or "mpx.vmhba1:C0:T1:L0" or "vml.0000000000766d686261313a313a30" for ESXi. **For number**, it is a RackHD generated disk identifier (it could be obtained from "driveId" catalog). If *installDisk* is omitted, RackHD will assign the default disk by order: SATADOM -> first disk in "driveId" catalog -> "sda" for Linux OS.
 kvm                 Boolean          *optional*   The value is *true* or *false* to indicates to install kvm or not, default is **false**.
-switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters.  If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks.
+switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters. If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks. 
 postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration.
 
 =================== ================ ============ ============================================
@@ -98,9 +98,9 @@ For **networkDevices** in payload, both ipv4 and ipv6 are supported
 ============== ======== ============ ============================================
 Parameters     Type     Flags        Description
 ============== ======== ============ ============================================
-device         String   **required**  Network device name (ex. "eth0")
-ipv4           Object   **required**  The object contains ipv4 configurations
-ipv6           Object   **required**  The object contains ipv6 configurations
+device         String   **required**  Network device name in target OS (ex. "eth0", "enp0s1")
+ipv4           Object   *optional*    The object contains ipv4 configurations
+ipv6           Object   *optional*    The object contains ipv6 configurations
 esxSwitchName  String   *optional*    **(ESXi only)** The vswitch to attach the vmk device to. vSwitch0 is used by default if no esxSwitchName is specified.
 ============== ======== ============ ============================================
 
@@ -123,6 +123,5 @@ For **switchDevices** **(ESXi only)** in payload:
 Parameters  Type     Flags        Description
 =========== ======== ============ ============================================
 switchName  String   **required** The name of the vswitch
-uplinks     String   *optional*   The array of vmnic# devices to set as the uplinks.(Ex: uplinks: ["vmnic0", "vmnic1"])
-
+uplinks     String   *optional*   The array of vmnic# devices to set as the uplinks.(Ex: uplinks: ["vmnic0", "vmnic1"]). If an uplink is attached to a vSwitch, it will be removed from the old vSwitch before being added to the vSwitch named by 'switchName'.
 =========== ======== ============ ============================================
