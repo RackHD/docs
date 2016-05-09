@@ -203,9 +203,6 @@ assigning callbacks to a myriad of AMQP events published by RackHD services, suc
 as DHCP requests from a specific mac address, HTTP downloads from a specific IP, template
 rendering requests, etc.
 
-
-
-
 Task Templates
 ^^^^^^^^^^^^^^^^^^^^^^^
 There are some values that may be needed in a task definition which are not known in advance. In some cases, it is also more convenient to use placeholder values in a task definition than literal values. In these cases, a simple template rendering syntax can be used in task definitions. Rendering is also useful in places where two or more tasks need to use the same value (e.g. options.file), but it cannot be hardcoded ahead of time.
@@ -407,6 +404,46 @@ If a user overrides ``deleteAll`` to be false, and ``raidIds`` to be ``[0,1,2]``
     [
         "sudo /opt/MegaRAID/storcli/storcli64 /c0/v0 del force;sudo /opt/MegaRAID/storcli/storcli64 /c0/v1 del force;sudo /opt/MegaRAID/storcli/storcli64 /c0/v2 del force;"
     ]
+
+Task Timeouts
+^^^^^^^^^^^^^^^^^^^^^^^
+
+In the task options object, a magic value `$taskTimeout` can be used to specify a maximum
+amount of time a task may be run, in milliseconds. By default, this value is equal to 24 hours.
+To specify an infinite timeout, a value of 0 or -1 may be used.
+
+.. code-block:: js
+
+    {
+        "options": {
+            "$taskTimeout": 3600000  // 1 hour timeout (in ms)
+        }
+    }
+
+.. code-block:: js
+
+    {
+        "options": {
+            "$taskTimeout": -1  // no timeout
+        }
+    }
+
+For backwards compatibility reasons, task timeouts can also be specified via the `schedulerOverriddes` option:
+
+.. code-block:: js
+
+    {
+        "options": {
+            "schedulerOverrides": {
+                "timeout": 3600000
+            }
+        }
+    }
+
+If a task times out, it will cancel itself with a timeout error, and the task state
+in the database will equal "timeout". The workflow engine will treat a task timeout as a failure
+and handle graph execution according to whether any other tasks handle a timeout exit value.
+
 
 API Commands for Tasks
 ^^^^^^^^^^^^^^^^^^^^^^^
