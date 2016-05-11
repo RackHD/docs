@@ -40,13 +40,9 @@ by setting **ignore-client-uids true**.
 Static DHCP Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-One of the requirements of on-dhcp-proxy and automatic lookup updates is the DHCP process 
-must run natively to the on-taskgraph service. This is done so on-taskgraph can poll the 
-DHCP servers' lease cache.  However, this requirement may not be practical in some environments 
-so the option to deploy the DHCP server seperately from the RackHD services is also supported. 
 When bypassing on-dhcp-proxy step, the DHCP server can also define static host definitions.
 
-First we must disable the DHCP leased cache poller in on-taskgraph. This can be done by setting
+First ensure that the DHCP leased cache service poller is disabled in on-taskgraph. This can be done by setting
 **serviceGraph** to **false** in ``on-taskgraph/lib/graphs/isc-dhcp-poller-service-graph.js``.
 
 .. code-block:: javascript
