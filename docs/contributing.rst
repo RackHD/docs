@@ -36,7 +36,6 @@ Core Committer Team
 
 * Ben.BroderickPhillips@emc.com
 * Felix.Yuan@emc.com
-* Joseph.Longever@emc.com
 * Andrew.Hou@emc.com
 * Brian.Parry@emc.com
 
