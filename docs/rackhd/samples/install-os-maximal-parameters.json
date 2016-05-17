@@ -55,7 +55,24 @@
                 }
             ],
             "kvm": true,
-            "installDisk": "/dev/sda"
+            "installDisk": "/dev/sda",
+            "installPartitions": [
+                {
+                    "mountPoint": "/boot",
+                    "size": "500",
+                    "fsType": "ext3"
+                },
+                {
+                    "mountPoint": "swap",
+                    "size": "500",
+                    "fsType": "swap"
+                },
+                {
+                    "mountPoint": "/",
+                    "size": "auto",
+                    "fsType": "ext3"
+                }
+            ]
         }
     }
 }
