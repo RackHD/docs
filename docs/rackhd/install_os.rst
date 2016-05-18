@@ -88,9 +88,9 @@ For **users** in payload:
 =========== ======== ============ ============================================
 Parameters  Type     Flags        Description
 =========== ======== ============ ============================================
-name        String   **required** The name of user
-password    String   **required** The password of user, it could be clear text, RackHD will do encryption before store it into OS installer's config file. Some OS distributions' password requirements *must* be satisfied. For **ESXi 5.5**, `ESXi 5 Password Requirements <https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc_50%2FGUID-DC96FFDB-F5F2-43EC-8C73-05ACDAE6BE43.html&resultof=%22password%22%20>`_. For **ESXi 6.0**, `ESXi 6 Password Requirements <http://pubs.vmware.com/vsphere-60/index.jsp#com.vmware.vsphere.security.doc/GUID-4BDBF79A-6C16-43B0-B0B1-637BF5516112.html?resultof=%2522%2550%2561%2573%2573%2577%256f%2572%2564%2522%2520%2522%2570%2561%2573%2573%2577%256f%2572%2564%2522%2520%2522%2552%2565%2571%2575%2569%2572%2565%256d%2565%256e%2574%2573%2522%2520%2522%2572%2565%2571%2575%2569%2572%2522%2520>`_.
-uid         Number   **required** The unique identifier of user. **required** for non-ESXi OS, Not support for ESXi OS
+name        String   **required** The name of user. it should start with a letter or digit or underline and the length of it should larger than 1(>=1).
+password    String   **required** The password of user, it could be clear text, RackHD will do encryption before store it into OS installer's config file. The length of password should larger than **4(>=5)**. Some OS distributions' password requirements *must* be satisfied. For **ESXi 5.5**, `ESXi 5 Password Requirements <https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc_50%2FGUID-DC96FFDB-F5F2-43EC-8C73-05ACDAE6BE43.html&resultof=%22password%22%20>`_. For **ESXi 6.0**, `ESXi 6 Password Requirements <http://pubs.vmware.com/vsphere-60/index.jsp#com.vmware.vsphere.security.doc/GUID-4BDBF79A-6C16-43B0-B0B1-637BF5516112.html?resultof=%2522%2550%2561%2573%2573%2577%256f%2572%2564%2522%2520%2522%2570%2561%2573%2573%2577%256f%2572%2564%2522%2520%2522%2552%2565%2571%2575%2569%2572%2565%256d%2565%256e%2574%2573%2522%2520%2522%2572%2565%2571%2575%2569%2572%2522%2520>`_.
+uid         Number   *optional*   The unique identifier of user. It should be between **500** and **65535**.(Not support for ESXi OS)
 sshKey      String   *optional*   The public SSH key that will be appended into target OS.
 =========== ======== ============ ============================================
 
@@ -101,7 +101,7 @@ For **networkDevices** in payload, both ipv4 and ipv6 are supported
 ============== ======== ============ ============================================
 Parameters     Type     Flags        Description
 ============== ======== ============ ============================================
-device         String   **required**  Network device name in target OS (ex. "eth0", "enp0s1")
+device         String   **required**  Network device name in target OS (ex. "eth0", "enp0s1" for Linux, "vmnic0" for ESXi)
 ipv4           Object   *optional*    See `ipv4 or ipv6`_ more details.
 ipv6           Object   *optional*    See `ipv4 or ipv6`_ more details.
 esxSwitchName  String   *optional*    **(ESXi only)** The vswitch to attach the vmk device to. vSwitch0 is used by default if no esxSwitchName is specified.
