@@ -23,7 +23,7 @@ CoreOS        Graph.InstallCoreOS  899.17.0
 OS Installation Workflow APIs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Start an OS installation workflow for CentOS:
+An example of starting an OS installation workflow for CentOS:
 
 .. code-block:: REST
 
