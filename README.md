@@ -26,7 +26,7 @@ the default is http://127.0.0.1:8000
 
 ## Setting up for editing and building the docs (Windows)
 
-* download and install python: https://www.python.org/ftp/python/2.7.0/python-2.7.10.msi
+* download and install python: https://www.python.org/ftp/python/2.7.10/python-2.7.10.amd64.msi
   * install for all users
   * default location (c:\python27)
   * all default components
