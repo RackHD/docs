@@ -117,7 +117,7 @@ Parameters  Type     Flags        Description
 ipAddr      String   **required** The assigned static IP address
 gateway     String   **required** The gateway.
 netmask     String   **required** The subnet mask.
-vlanId      Number   *optional*   The VLAN ID. This is an array of integers (0-4095)
+vlanIds     Array    *optional*   The VLAN ID. This is an array of integers (0-4095)
 =========== ======== ============ ============================================
 
 

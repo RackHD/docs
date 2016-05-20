@@ -29,13 +29,13 @@
                         "ipAddr": "192.168.1.29",
                         "gateway": "192.168.1.1",
                         "netmask": "255.255.255.0",
-                        "vlanId": [104, 105]
+                        "vlanIds": [104, 105]
                     },
                     "ipv6": {
                         "ipAddr": "fec0::6ab4:0:5efe:157.60.14.21",
                         "gateway": "fe80::5efe:131.107.25.1",
                         "netmask": "ffff.ffff.ffff.ffff.0.0.0.0",
-                        "vlanId": [101, 106]
+                        "vlanIds": [101, 106]
                     }
                 },
                 {
@@ -44,13 +44,13 @@
                         "ipAddr": "192.168.11.89",
                         "gateway": "192.168.11.1",
                         "netmask": "255.255.255.0",
-                        "vlanId": [105, 109]
+                        "vlanIds": [105, 109]
                     },
                     "ipv6": {
                         "ipAddr": "fec0::6ab4:0:5efe:159.45.14.11",
                         "gateway": "fe80::5efe:131.107.25.100",
                         "netmask": "ffff.ffff.ffff.ffff.0.0.0.0",
-                        "vlanId": [106, 108]
+                        "vlanIds": [106, 108]
                     }
                 }
             ],
