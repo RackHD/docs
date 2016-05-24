@@ -173,9 +173,12 @@ The following variables are predefined and available for use by all templates:
    * - api
      - Values used for constructing API requests in a template:
            - **server** -- the base URI for the RackHD http server (e.g. `http://<server>:<port>` )
-           - **base[Https]** -- the base http/https URIs for the RackHD api (e.g. `http://<server>:<port>/api/current` )
-           - **files[Https]** -- the base http/https URIs for the RackHD api files routes (e.g. `http://<server>:<port>/api/current/files`)
-           - **nodes[Https]** -- the base http/https URIs for the RackHD api nodes routes (e.g. `http://<server>:<port>/api/current/nodes`)
+           - **base** -- the base http URI for the RackHD api (e.g. `http://<server>:<port>/api/current` )
+           - **templates** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/templates`)
+           - **profiles** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/profiles`)
+           - **lookups** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/lookups`)
+           - **files** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/files`)
+           - **nodes** -- the base http URI for the RackHD api nodes route (e.g. `http://<server>:<port>/api/current/nodes`)
    * - context
      - This refers to the shared context object that all tasks in a graph have R/W access to. Templates receive a readonly snapshot of this context when they are rendered.
    * - task
