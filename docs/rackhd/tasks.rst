@@ -228,9 +228,12 @@ At render time, values are rendered if the exist in the task render context. The
    * - api
      - Values used for constructing API requests in a template:
            - **server** -- the base URI for the RackHD http server (e.g. `http://<server>:<port>` )
-           - **httpsServer** -- the base https URI for the RackHD https server (e.g. `https://<server>:<port>` )
-           - **base[Https]** -- the base http/https URIs for the RackHD api (e.g. `http://<server>:<port>/api/current` )
-           - **files[Https]** -- the base http/https URIs for the RackHD api files routes (e.g. `http://<server>:<port>/api/current/files`)
+           - **base** -- the base http URI for the RackHD api (e.g. `http://<server>:<port>/api/current` )
+           - **templates** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/templates`)
+           - **profiles** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/profiles`)
+           - **lookups** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/lookups`)
+           - **files** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/files`)
+           - **nodes** -- the base http URI for the RackHD api nodes route (e.g. `http://<server>:<port>/api/current/nodes`)
    * - tasks
      - Allows access to instance variables of the task class instance created from the task definition. This is mainly used to access task.nodeId
    * - options
