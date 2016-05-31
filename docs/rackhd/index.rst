@@ -20,3 +20,4 @@ RackHD Users Guide
 .. include:: dhcp_server.rst
 .. include:: arp_poller.rst
 .. include:: boot_settings.rst
+.. include:: ssdp.rst
