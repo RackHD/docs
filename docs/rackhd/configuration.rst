@@ -61,7 +61,9 @@ config.json_
         "tftpBindPort": 69,
         "tftpRoot": "./static/tftp",
         "minLogLevel": 2,
-        "logColorEnable": false
+        "logColorEnable": false,
+        "enableUPnP": true,
+        "ssdpBindAddress": "0.0.0.0"
     }
 
 
@@ -147,6 +149,10 @@ The following table describes the configuration parameters in config.json:
       - A boolean value to toggle the colorful log output (defaults to false)
     * - enableLocalHostException
       - Set to true to enable the localhost exception, see :ref:`localhost-exception-label`.
+    * - enableUPnP
+      - Set to true to advertise RackHD Restful API services using SSDP (Simple Service Discovery Protocol).
+    * - ssdpBindAddress
+      - The bind address to send the SSDP advertisements on (defaults to 0.0.0.0).
 
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
