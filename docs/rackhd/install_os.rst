@@ -60,7 +60,7 @@ Stop the active workflow to cancel OS installation:
 OS Installation Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All parameters descriptions of OS installation workflow payload are listed below , they are fit to all supported OSes except CoreOS, **NOTE:** CoreOS only supports parameters *version* and *repo*.
+All parameters descriptions of OS installation workflow payload are listed below , they are fit to all supported OSes except CoreOS, **NOTE:** CoreOS only supports parameters *version*, *repo* and *installScriptUri*.
 
 =================== ================ ============ ============================================
 Parameters          Type              Flags       Description
@@ -79,6 +79,10 @@ installPartitions   Array            *optional*   *installPartitions* is to spec
 kvm                 Boolean          *optional*   The value is *true* or *false* to indicates to install kvm or not, default is **false**.
 switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters. If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks. See switchDevices_ for more details.
 postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration.
+installScriptUri    String           *optional*   The download URI for a custom kickstart/preseed/autoyast/cloud-config template to be used for automatic installation/configuration. 
+
+                                                  NOTE: There are RackHD specific commands within all default install templates that should be copied into any custom install templates. The built-in templates support the above options, and any additional install logic is best added by copying the default templates and modifying from there. The default install scripts can be found in https://github.com/RackHD/on-http/tree/master/data/templates, and the filename is specified by the `installScript` field in the various OS installer task definitions (e.g. https://github.com/RackHD/on-tasks/blob/master/lib/task-data/tasks/install-centos.js)
+
 
 =================== ================ ============ ============================================
 
