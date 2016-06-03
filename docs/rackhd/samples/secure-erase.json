@@ -1,0 +1,20 @@
+{
+    "options": {
+        "drive-secure-erase":{
+    	    "eraseSettings": [
+                {
+                    "disks":["sdb"],
+                    "tool":"sg_format",
+                    “arg”: “0”
+        	},
+        	{
+            	    "disks":["sda"],
+            	    "tool":"scrub",
+            	    “arg”: “nnsa”
+        	}
+
+    	    ]
+	}
+    }
+}
+
