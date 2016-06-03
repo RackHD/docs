@@ -43,6 +43,8 @@ An example of params.json with full set of parameters for installing CentOS work
 .. literalinclude:: samples/install-os-maximal-parameters.json
    :language: JSON
 
+There are few more payload examples at https://github.com/RackHD/RackHD/tree/master/example/samples.
+
 Check the workflow is active or inactive:
 
 .. code-block:: REST
