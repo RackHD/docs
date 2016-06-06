@@ -1,7 +1,7 @@
 Disk Secure Erase Workflow Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Secure Erase (SE) also known as a wipe is to destory data on a disk so that data can't or is difficult to be retrived. RackHD implements solution to do disk Secure Erase.
+Secure Erase (SE) also known as a wipe is to destroy data on a disk so that data can't or is difficult to be retrieved. RackHD implements solution to do disk Secure Erase.
 
 Disk Secure Erase Workflow API
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -37,15 +37,15 @@ Use below command to stop the active workflow to cancel secure erase workflow:
 Disk Secure Erase Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Parameters descriptions of secure workflow payload are listed below.
+Parameters descriptions of secure erase workflow payload are listed below.
 
 =================== ================ ============ ============================================
 Parameters          Type              Flags       Description
 =================== ================ ============ ============================================
-eraseSettings       Array            **required** Contains secure erase option list, each list element is made up of "disks" and optinal "tool" and "arg" parameters
+eraseSettings       Array            **required** Contains secure erase option list, each list element is made up of "disks" and optional "tool" and "arg" parameters
 disks               Array            **required** Contains disks to be erased, both devName or identifier from driveId catalog are eligible
-tool                String           optional     Specify tool to be used for secure erase. Default it would be scurb.
-arg                 String           optional     Specify secure erase arguments with sepcified tools
+tool                String           optional     Specify tool to be used for secure erase. Default it would be scrub.
+arg                 String           optional     Specify secure erase arguments with specified tools
 =================== ================ ============ ============================================
 
 Supported Disk Secure Erase Tools
@@ -67,7 +67,7 @@ Supported Disk Secure Erase Arguments
 
 .. _scrub:
 
-Default argument for scrub is "nnsa", below table shows supported arugments for **scrub** tool:
+Default argument for scrub is "nnsa", below table shows supported arguments for **scrub** tool:
 
 ======================= ============================================
 Supported args          Description
@@ -91,18 +91,18 @@ usarmy                  US Army AR380-19 method: 0x00, 0xff, random. The same wi
 
 .. _hdparm:
 
-Default argument for hdparm is "security-erase", below table shows supported arugments for **hdparm** tool:
+Default argument for hdparm is "security-erase", below table shows supported arguments for **hdparm** tool:
 
 ======================= ============================================
 Supported args          Description
 ======================= ============================================
 security-erase          Issue ATA Secure Erase (SE) command. hdparm default arg="security-erase"
-security-erase-enhanced Enhanced SE is more aggressive in that it ought to wipt every sector: normal, HPA, DCO, and G-list. Not all drives support this command
+security-erase-enhanced Enhanced SE is more aggressive in that it ought to wipe every sector: normal, HPA, DCO, and G-list. Not all drives support this command
 ======================= ============================================
 
 .. _sg_sanitize:
 
-Default argument for sg_sanitize is "block", below table shows supported arugments for **sg_sanitize** tool:
+Default argument for sg_sanitize is "block", below table shows supported arguments for **sg_sanitize** tool:
 
 ======================= ============================================
 Supported args          Description
@@ -114,7 +114,7 @@ crypto                  Perform a "cryptographic erase" sanitize operation.
 
 .. _sg_format:
 
-Default argument for sg_format is "1", below table shows supported arugments for **sg_format** tool:
+Default argument for sg_format is "1", below table shows supported arguments for **sg_format** tool:
 
 ======================= ============================================
 Supported args          Description
@@ -128,6 +128,6 @@ Disk Secure Erase Workflow Notes
 Please pay attention to below items if you are using RackHD secure erase function:
 
 * **Use RackHD to manage RAID operation**. RackHD relies on its catalog data for secure erase. If RAID operation is not done via RackHD, RackHD secure erase workflow is not able to recognize drive names given. A suggestion is to re-run discovery for the compute node if you did changed RAID configure not using RackHD
-* **Secure Erase is time-consuming**. Hdparm, sg_format and sg_sanitize will leverage drive firmware to do secure erase, even so it might take hours for a 1T drive. Srcub is overwriting data to disks and its speed is depends on argument you chose. For a "gutmann" argument, it will take days to erase a 1T drive.
+* **Secure Erase is time-consuming**. Hdparm, sg_format and sg_sanitize will leverage drive firmware to do secure erase, even so it might take hours for a 1T drive. Scrub is overwriting data to disks and its speed is depends on argument you chose. For a "gutmann" argument, it will take days to erase a 1T drive.
 * **Cancel Secure Erase workflow can't cancel secure erase operation**. Hdparm, sg_sanitize and sg_format are leverage drive firmware to do secure erase, once started there is no proper way to ask drive firmware to stop it till now.
-* **Power cycle is risky**. Except for scrub tool, other tools are actually issue a command to drive and drive itself will control secure erase. That means once you started secure erase workflow, you can't stop it until it is completed. If you power cycled compute node under this case, drive might be frozen, locked or in worst case bricked. All data will not be accessbile. If this happens, you need extra effort to bring your disks back to normal status.
+* **Power cycle is risky**. Except for scrub tool, other tools are actually issue a command to drive and drive itself will control secure erase. That means once you started secure erase workflow, you can't stop it until it is completed. If you power cycled compute node under this case, drive might be frozen, locked or in worst case bricked. All data will not be accessible. If this happens, you need extra effort to bring your disks back to normal status.
