@@ -411,7 +411,7 @@ If a user overrides ``deleteAll`` to be false, and ``raidIds`` to be ``[0,1,2]``
 Task Timeouts
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-In the task options object, a magic value `$taskTimeout` can be used to specify a maximum
+In the task options object, a magic value `_taskTimeout` can be used to specify a maximum
 amount of time a task may be run, in milliseconds. By default, this value is equal to 24 hours.
 To specify an infinite timeout, a value of 0 or -1 may be used.
 
@@ -419,7 +419,7 @@ To specify an infinite timeout, a value of 0 or -1 may be used.
 
     {
         "options": {
-            "$taskTimeout": 3600000  // 1 hour timeout (in ms)
+            "_taskTimeout": 3600000  // 1 hour timeout (in ms)
         }
     }
 
@@ -427,7 +427,7 @@ To specify an infinite timeout, a value of 0 or -1 may be used.
 
     {
         "options": {
-            "$taskTimeout": -1  // no timeout
+            "_taskTimeout": -1  // no timeout
         }
     }
 

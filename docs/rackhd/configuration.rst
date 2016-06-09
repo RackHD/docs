@@ -85,6 +85,8 @@ The following table describes the configuration parameters in config.json:
       - External facing IP address of the API server
     * - apiServerPort
       - External facing port of the API server
+    * - dhcpLeasesPath
+      - Path to dhcpd.leases file.
     * - dhcpGateway
       - Gateway IP for the network for DHCP
     * - dhcpProxyBindAddress
