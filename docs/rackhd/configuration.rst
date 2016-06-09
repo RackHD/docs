@@ -435,6 +435,28 @@ By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the 
     ]
  };
 
+To remove the BMC credentials, User can run the following workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-remove-graph.js`` and can be posted using Postman or Curl command.
+
+    POST:        http://server-ip:8080/api/1.1/workflows/
+
+   add the below content in the json body for payload (example node identifier and username, password shown below)
+
+.. code-block:: shell
+
+   {
+       "name": "Graph.Bootstrap.With.BMC.Credentials.Remove",
+       "options": {
+            "defaults": {
+                "graphOptions": {
+                    "target": "56e967f5b7a4085407da7898",
+                    "remove-bmc-credentials": {
+                        "users": ["7","8"]
+                    }
+                },
+                "nodeId": "56e967f5b7a4085407da7898"
+            }
+        }
+   }
 
 
 Certificates
