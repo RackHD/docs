@@ -124,7 +124,7 @@ The following table describes the configuration parameters in config.json:
     * - maxTaskPayloadSize
       - Maximum payload size expected through TASK runner API callbacks from microkernel
     * - mongo
-      - URI set to MongoDB. To support Mongo Replica Set to have a distributed cluster, URI format will be  mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+      - URI for accessing MongoDB. To support Mongo Replica Set feature, URI format is, mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
     * - obmInitialDelay
       - Delay before retrying an OBM invocation
     * - obmRetries
