@@ -123,6 +123,8 @@ The following table describes the configuration parameters in config.json:
       - Fully-qualified directory to where static HTTP content is served
     * - maxTaskPayloadSize
       - Maximum payload size expected through TASK runner API callbacks from microkernel
+    * - mongo
+      - URI for accessing MongoDB. To support Mongo Replica Set feature, URI format is, mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
     * - obmInitialDelay
       - Delay before retrying an OBM invocation
     * - obmRetries
