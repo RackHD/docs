@@ -20,6 +20,35 @@ edit the network:
 
   this is the 'default'. it can be changed, but more than one file needs to be changed.)
 
+
+**If Node.js is not installed**
+
+*If Node.js is installed via apt, but is older than version 4.x, do this first* (apt-get installs v0.10 by default)
+
+.. code::
+
+    sudo apt-get remove nodejs nodejs-legacy
+
+Add the NodeSource key and repository (*instructions copied from* https://github.com/nodesource/distributions#manual-installation):
+
+.. code::
+
+    curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+    VERSION=node_4.x
+    DISTRO="$(lsb_release -s -c)"
+    echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+
+    sudo apt-get update
+    sudo apt-get install nodejs
+
+Ensure Node.js is at version 4.x:
+
+.. code::
+
+    $ node -v
+    v4.4.5
+
 Install the prerequisite packages:
 
 .. code::
@@ -28,7 +57,6 @@ Install the prerequisite packages:
     sudo apt-get install mongodb
     sudo apt-get install snmp
     sudo apt-get install ipmitool
-    sudo apt-get install nodejs nodejs-legacy npm
 
     sudo apt-get install ansible
     sudo apt-get install apt-mirror
