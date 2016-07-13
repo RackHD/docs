@@ -1,10 +1,12 @@
 RackHD Development Guide
 ========================
 
-.. include:: contributing.rst
-.. include:: naming_conventions.rst
-.. include:: api_versioning.rst
-.. include:: amqp_conventions.rst
-.. include:: messenger_overview.rst
-.. include:: log_levels.rst
-.. include:: debugging_guide.rst
+.. toctree::
+
+   contributing.rst
+   naming_conventions.rst
+   api_versioning.rst
+   amqp_conventions.rst
+   messenger_overview
+   log_levels.rst
+   debugging_guide.rst
