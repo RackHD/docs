@@ -24,3 +24,4 @@ RackHD Users Guide
    arp_poller
    boot_settings
    ssdp
+   heartbeat
