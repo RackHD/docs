@@ -63,7 +63,8 @@ config.json_
         "minLogLevel": 2,
         "logColorEnable": false,
         "enableUPnP": true,
-        "ssdpBindAddress": "0.0.0.0"
+        "ssdpBindAddress": "0.0.0.0",
+        "heartbeatIntervalSec": 10
     }
 
 
@@ -157,6 +158,8 @@ The following table describes the configuration parameters in config.json:
       - Set to true to advertise RackHD Restful API services using SSDP (Simple Service Discovery Protocol).
     * - ssdpBindAddress
       - The bind address to send the SSDP advertisements on (defaults to 0.0.0.0).
+    * - heartbeatIntervalSec
+      - Integer value setting the heartbeat send interval in seconds. Setting this value to 0 will disable the heartbeat service (defaults to 10)
 
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
