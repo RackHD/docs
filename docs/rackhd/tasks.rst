@@ -475,3 +475,8 @@ API Commands for Tasks
         -H 'Content-Type: application/json' \
         -d <task definition>
         <server>/api/1.1/workflows/tasks
+
+
+Task Annotation
+^^^^^^^^^^^^^^^^^^^^^^^
+.. include:: task_annotation.rst
