@@ -64,39 +64,16 @@ with the base image built by the existing ansible roles in this repository.
 Building Images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To build images, define an imagebuilding playbook (see example.yml for an example) or
-use the default one (all.yml)::
+Instructions for building images, can be found `here`_.
 
-    sudo ansible-playbook -i hosts <playbook.yml>
-
+.. _on-imagebuilderReadme: https://github.com/RackHD/on-imagebuilder/blob/master/README.md
 
 Adding Provisioner Roles and Configuration Files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The provisioner role specifies how the filesystem of an initrd, base image, or overlay should be customized.
+Instructions for adding Provisioner Roles and Configuration Files, can be found `here`_.
 
-To add a new provisioner, do the following:
-
-1. Make a new directory in `roles/<initrd|basefs|overlay>/tasks`, depending on the image type.
-2. Create and edit a main.yml file in the above directory to do the tasks you want (see `ansible modules`_).
-3. Add a new config_file into the vars directory. This will be included in the Ansible run as a set of top-level variables (via vars_files) to be included/used by tasks in the role.
-
-   **NOTE:** The config_file must have as a bare minimum a provisioner variable that points to the role::
-
-                      provisioner: roles/overlay/provision_discovery_overlay
-
-
-4. Configure a new playbook (see example.yml) to run the appropriate wrapper playbook with the config_file, for example::
-
-              - include: common/overlay_wrapper.yml
-                 vars:
-                   - config_file: vars/my_overlay.yml
-
-
-The wrapper playbooks handle all the setup and cleanup required to run a provisioner, such as filesystem mounting and creation, and build file creation.
-
-.. _ansible modules: http://docs.ansible.com/ansible/modules_intro.html
-
+.. _on-imagebuilderReadme: https://github.com/RackHD/on-imagebuilder/blob/master/README.md
 
 Changing the Global Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
