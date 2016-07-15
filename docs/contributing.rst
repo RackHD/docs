@@ -77,7 +77,7 @@ Submitting Design Proposals
 ----------------------------------------
 
 Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at groups.google.com/forum/#!forum/rackhd)
-for discussion. The Core Committer team reviews the proposals to make architectural details are aligned, with an floating agenda updated on the
+for discussion. The Core Committer team reviews the proposals to make sure architectural details are aligned, with a floating agenda updated on the
 RackHD github wiki at https://github.com/RackHD/RackHD/wiki/Core-Committer-Meeting. The meeting notes are posted to the google groups mailing list.
 
 Work by dedicated teams is scheduled within a broader `RackHD Roadmap`_. External contributions are absolutely welcome outside of planning exposed in the
