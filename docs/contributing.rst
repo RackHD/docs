@@ -76,7 +76,16 @@ at :doc:`repositories`.
 Submitting Design Proposals
 ----------------------------------------
 
-To submit a new design proposal, please follow the procedure described in the RackHD specs repository https://github.com/RackHD/specs.
+Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at groups.google.com/forum/#!forum/rackhd)
+for discussion. The Core Committer team reviews the proposals to make architectural details are aligned, with an floating agenda updated on the
+RackHD github wiki at https://github.com/RackHD/RackHD/wiki/Core-Committer-Meeting. The meeting notes are posted to the google groups mailing list.
+
+Work by dedicated teams is scheduled within a broader `RackHD Roadmap`_. External contributions are absolutely welcome outside of planning exposed in the
+roadmap.
+
+.. _RackHD Roadmap: https://github.com/RackHD/RackHD/wiki/roadmap
+
+
 
 
 Coding Guidelines
@@ -105,4 +114,3 @@ Our community generally follows `Apache voting guidelines`_ and utilizes `lazy c
 .. _Open Code of Conduct: http://todogroup.org/opencodeofconduct/#RackHD/rackhd@emc.com
 .. _Apache voting guidelines: http://www.apache.org/foundation/voting.html
 .. _lazy consensus: http://en.osswiki.info/concepts/lazy_consensus
-
