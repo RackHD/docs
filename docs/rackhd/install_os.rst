@@ -62,7 +62,7 @@ Stop the active workflow to cancel OS installation:
 
 
 Non-Windows OS Installation Workflow Payload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All parameters descriptions of OS installation workflow payload are listed below , they are fit to all supported OSes except CoreOS, **NOTE:** CoreOS only supports parameters *version*, *repo* and *installScriptUri*.
 
@@ -155,7 +155,7 @@ uplinks     String   *optional*   The array of vmnic# devices to set as the upli
 =========== ======== ============ ============================================
 
 Windows OS Installation Workflow Payload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ============= ======== ============ ============================================
 Parameters    Type     Flags        Description
@@ -178,6 +178,7 @@ https://github.com/RackHD/RackHD/blob/master/example/samples/install_windows_pay
 Setting up a Windows OS repo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 * **Mounting the OS Image**:
+
 Windows' installation requires that Windows OS' ISO image must be mounted to a directory accessable to the node.
 In the example below a windows server 2012 ISO image is being mounted to a directory name **Licensedwin2012**
 
@@ -186,6 +187,7 @@ In the example below a windows server 2012 ISO image is being mounted to a direc
     sudo mount -o loop /var/renasar/on-http/static/http/W2K2012_2015-06-08_1040.iso /var/renasar/on-http/static/http/Licensedwin2012
 
 * **Export the directory**
+
 Edit the samba config file in order to export the shared directory
 
 .. code-block:: REST
@@ -208,4 +210,3 @@ sudo nano /etc/samba/smb.conf
 .. code-block:: REST
 
     sudo service samba restart
-

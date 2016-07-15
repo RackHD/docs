@@ -517,6 +517,8 @@ choice. Verify the certificate by restarting on-http and visiting
 .. _OpenSSL documentation: https://www.openssl.org/docs/
 
 
+.. _http-endpoint-config-ref-label:
+
 Setting up HTTP/HTTPS endpoint
 ------------------------------
 
@@ -585,6 +587,8 @@ There are currently two API groups defined in RackHD:
         This would only take effect for 1.1 APIs.
         You can now choose from "northbound-api-router","southbound-api-router" or
         ["northbound-api-router", "southbound-api-router"].
+
+.. _authentication-config-ref-label:
 
 Authentication
 -------------------------

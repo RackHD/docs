@@ -1,7 +1,7 @@
 Discovering/Configuring Network Switches
----------------------------
+-----------------------------------------
 
-Utilizing network switch installation environments like POAP (Cisco), ZTP (Arista) and ONIE (Cumulus, etc.), 
+Utilizing network switch installation environments like POAP (Cisco), ZTP (Arista) and ONIE (Cumulus, etc.),
 RackHD offers the capability to discover, inventory, and configure network switches during bootup.
 
 Active Discovery
@@ -13,11 +13,11 @@ persistent changes to the switch operating system (active discovery), versus dis
 that queries out of band endpoints against an already-configured switch without making
 any persistent changes to it (e.g. SNMP polling).
 
-During active discovery, by default the RackHD system will do light cataloging as part 
+During active discovery, by default the RackHD system will do light cataloging as part
 of the discovery process, generating enough data to identify the SKU/model of a switch in order
 to dynamically generate workflows and templates specific to it.
 
-For example, active discovery of a Cisco switch booting with POAP (Power On Auto-Provisioning) 
+For example, active discovery of a Cisco switch booting with POAP (Power On Auto-Provisioning)
 will create a catalog document with source "version" that SKU definitions can be built against:
 
 .. code-block:: JSON
@@ -78,7 +78,7 @@ SKU documentation: :ref:`sku-ref-label`
 
 Workflow documentation: :ref:`workflows-ref-label`
 
-In order to extend the discovery process, a SKU definition must be created and 
+In order to extend the discovery process, a SKU definition must be created and
 added to the system (see :ref:`sku-ref-label` ). An example SKU definition that matches the above
 Cisco catalog might look like this:
 
@@ -120,7 +120,7 @@ workflow:
 
 To collect custom catalog data from the switch, a Python script must be created for each
 catalog entry that can return either JSON or XML formatted data, and that is able to run on
-the target switch (all imported modules must exist, and the syntax must be compatible 
+the target switch (all imported modules must exist, and the syntax must be compatible
 with the switch OS' version of Python).
 
 Custom Python scripts must execute their logic within a single :code:`main` function, that returns
@@ -139,7 +139,7 @@ Cisco Nexus switch:
          except:
              from cisco import clid
          data = {}
-     
+
          try:
              data['group'] = json.loads(clid('show snmp group'))
          except:
@@ -162,7 +162,7 @@ Next, the script must be uploaded as a template to the RackHD server:
 **3. Add script to a workflow**
 
 Scripts are sent to the switch to be run via the Linux Commands task, utilizing the
-:code:`downloadUrl` option. More information on this task can be found in the 
+:code:`downloadUrl` option. More information on this task can be found in the
 documentation for the :ref:`linux-commands-ref-label`
 
 After adding the cataloging script as a template, add a task definition to the custom workflow, so now it becomes:
@@ -236,7 +236,7 @@ The deploy script and startup config file should be uploaded via the templates A
     # via curl:
     curl -X PUT -H "Content-type: text/raw" -d @<startup config path> https://<server>:<port>/api/1.1/templates/library/cisco-example-startup-config
 
-*Note the ejs template variable used in the above python script* (:code:`<%=startupConfigUri%>`). 
+*Note the ejs template variable used in the above python script* (:code:`<%=startupConfigUri%>`).
 *This is used by the RackHD server to render its own API address dynamically, and must be specified within the workflow options.*
 
 Now the custom workflow can be updated again with a task to deploy the startup config:
@@ -290,7 +290,7 @@ Now the custom workflow can be updated again with a task to deploy the startup c
 Note that the :code:`startupConfigUri` template variable is set in the options for the task definition, so that
 the deploy script can download the startup config from the right location.
 
-In order to make this workflow more re-usable for a variety of switches, 
+In order to make this workflow more re-usable for a variety of switches,
 the startupConfig option can be specified as an override
 in the SKU definition using the :code:`discoveryGraphOptions` field, for example:
 

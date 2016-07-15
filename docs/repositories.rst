@@ -81,7 +81,7 @@ Documentation
 
 
 Repositories Status
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
 The following badges in the tables may take a while to load.
 

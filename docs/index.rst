@@ -1,13 +1,9 @@
 .. RackHD documentation master file, created by
    sphinx-quickstart on Sat Aug 29 13:07:25 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
-
-|
 .. image:: _static/theme/img/logo.png
- :height: 300
- :align: left
+   :height: 300
+   :align: left
 
 RackHD™
 ==========

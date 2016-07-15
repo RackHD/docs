@@ -23,7 +23,7 @@ At a minimum, RackHD expects a "southbound" network, where it is interacting wit
 the machines it is PXE booting a network provided with DHCP, TFTP, and HTTP and
 a "northbound" network where RackHD exposes the APIs for automation and interaction.
 This basic setup was created to allow and encourage separation of traffic for
-PXE booting nodes and API controls. The example setup in :doc:`getting_started`
+PXE booting nodes and API controls. The example setup in :doc:`../getting_started`
 shows a minimal configuration.
 
 Security Constraints

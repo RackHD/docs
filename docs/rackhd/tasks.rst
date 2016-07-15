@@ -26,7 +26,6 @@ friendlyName    String  Required    A human-readable name for the task
 injectableName  String  Required    A unique name used by the system and the API to refer to the task.
 implementsTask  String  Required    The injectableName of the base task.
 options         Object  Required    Key value pairs that are passed in as options to the job.
-
                                     Values required by a job may be defined in the task definition or overriden by options in a a graph definition.
 properties      Object  Required    JSON defining any relevant metadata or tagging for the task.
 =============== ======= =========== =======================================================
@@ -243,12 +242,11 @@ At render time, values are rendered if the exist in the task render context. The
 
        For example, the [ami catalog provider task](`https://<server>:<port>/projects/RackHD/repos/on-tasks/browse/lib/task-data/tasks/provide-catalog-ami-bios-version.js`) gets the most recent catalog entry for the AMI bios, whose value can be referenced by other tasks via `{{ context.ami.systemRomId }}`
    * - sku
-     - This refers to the SKU configuration data fetched from a `SKU pack`_. This field is added automatically if a SKU configuration exists in the the `SKU pack`_, rather than being specified by a user.
+     - This refers to the SKU configuration data fetched from a :doc:`skus`. This field is added automatically if a SKU configuration exists in the the :doc:`skus`, rather than being specified by a user.
    * - env
      - This refers to the environment configuration data retrieved from the environment database collection.Similar to sku, this field is added automatically, rather than specified by a user.
-The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
-.. _SKU pack: http://rackhd.readthedocs.org/en/latest/rackhd/skus.html?highlight=Workflow%20SKU%20Support
+The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
 .. code-block:: JSON
 

@@ -1,5 +1,5 @@
 Disk Secure Erase Workflow Support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~!~~~~~~~
 
 Secure Erase (SE) also known as a wipe is to destroy data on a disk so that data can't or is difficult to be retrieved. RackHD implements solution to do disk Secure Erase.
 
@@ -35,7 +35,7 @@ Use below command to stop the active workflow to cancel secure erase workflow:
     curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
 
 Disk Secure Erase Workflow Payload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Parameters descriptions of secure erase workflow payload are listed below.
 
@@ -63,7 +63,7 @@ sg_format     Sg_format (from sg3-utils package) formats, resizes or modifies pr
 ============= ===============================================================================================================
 
 Supported Disk Secure Erase Arguments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. _scrub:
 
@@ -86,7 +86,7 @@ pfitzner7               Roy Pfitzner's 7-random-pass method: random(x7).
 pfitzner33              Roy Pfitzner's 33-random-pass method: random(x33).
 old                     6-pass pre-version 1.7 scrub method: 0x00, 0xff, 0xaa, 0x00, 0x55, verify.
 fastold                 5-pass pattern: 0x00, 0xff, 0xaa, 0x55, verify.
-usarmy                  US Army AR380-19 method: 0x00, 0xff, random. The same with dod option 
+usarmy                  US Army AR380-19 method: 0x00, 0xff, random. The same with dod option
 ======================= ============================================
 
 .. _hdparm:
