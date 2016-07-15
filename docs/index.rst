@@ -41,7 +41,6 @@ Contents
    repositories
    getting_started
    contributing
-   packaging_and_deployment
    devguide/index
    rackhd/index
 
