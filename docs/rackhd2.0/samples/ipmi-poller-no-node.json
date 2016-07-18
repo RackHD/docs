@@ -1,0 +1,17 @@
+{
+  "node": null,
+  "config": {
+    "command": "power",
+    "host": "10.1.1.2",
+    "user": "admin",
+    "password": "admin"
+  },
+  "pollInterval": 10000,
+  "lastStarted": null,
+  "lastFinished": null,
+  "failureCount": 0,
+  "createdAt": "2015-02-11T20:50:41.663Z",
+  "updatedAt": "2015-02-11T20:50:41.663Z",
+  "id": "54dbc0a11eaecfc22a30d59b",
+  "type": "ipmi"
+}

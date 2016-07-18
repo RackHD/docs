@@ -39,6 +39,7 @@ Contents
    contributing
    devguide/index
    rackhd/index
+   rackhd2.0/index
 
 
 RackHD is a Trademark of EMC Corporation.

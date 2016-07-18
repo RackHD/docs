@@ -1,0 +1,239 @@
+[
+  {
+    "host": "10.1.1.3",
+    "communityString": "public",
+    "extensionMibs": [
+      "PDU-MIB::outletVoltage",
+      "PDU-MIB::outletCurrent"
+    ],
+    "mibs": [
+      [
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-1"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-2"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-3"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-4"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-5"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-6"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-7"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-8"
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-1"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-2"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-3"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-4"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-5"
+        },
+        {
+          "value": 737,
+          "name": "PDU-MIB::outletCurrent-6"
+        },
+        {
+          "value": 1538,
+          "name": "PDU-MIB::outletCurrent-7"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-8"
+        }
+      ]
+    ],
+    "timestamp": "Wed Feb 11 2015 13:08:19 GMT-0800 (PST)"
+  },
+  {
+    "host": "10.1.1.3",
+    "communityString": "public",
+    "extensionMibs": [
+      "PDU-MIB::outletVoltage",
+      "PDU-MIB::outletCurrent"
+    ],
+    "mibs": [
+      [
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-1"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-2"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-3"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-4"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-5"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-6"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-7"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-8"
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-1"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-2"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-3"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-4"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-5"
+        },
+        {
+          "value": 737,
+          "name": "PDU-MIB::outletCurrent-6"
+        },
+        {
+          "value": 1577,
+          "name": "PDU-MIB::outletCurrent-7"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-8"
+        }
+      ]
+    ],
+    "timestamp": "Wed Feb 11 2015 13:08:25 GMT-0800 (PST)"
+  },
+  {
+    "host": "10.1.1.3",
+    "communityString": "public",
+    "extensionMibs": [
+      "PDU-MIB::outletVoltage",
+      "PDU-MIB::outletCurrent"
+    ],
+    "mibs": [
+      [
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-1"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-2"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-3"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-4"
+        },
+        {
+          "value": 116000,
+          "name": "PDU-MIB::outletVoltage-5"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-6"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-7"
+        },
+        {
+          "value": 117000,
+          "name": "PDU-MIB::outletVoltage-8"
+        }
+      ],
+      [
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-1"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-2"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-3"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-4"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-5"
+        },
+        {
+          "value": 756,
+          "name": "PDU-MIB::outletCurrent-6"
+        },
+        {
+          "value": 1538,
+          "name": "PDU-MIB::outletCurrent-7"
+        },
+        {
+          "value": 0,
+          "name": "PDU-MIB::outletCurrent-8"
+        }
+      ]
+    ],
+    "timestamp": "Wed Feb 11 2015 13:08:30 GMT-0800 (PST)"
+  }
+]
