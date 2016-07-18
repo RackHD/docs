@@ -28,3 +28,4 @@ RackHD Users Guide
    boot_settings
    ssdp
    heartbeat
+   notification.rst
