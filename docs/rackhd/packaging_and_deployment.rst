@@ -15,7 +15,7 @@ installation are:
 - understanding where and how `IP address management`_ is to be handled in each of the networks
   that the first two items mandate.
 
-.. image:: _static/vagrant_setup.jpg
+.. image:: ../_static/vagrant_setup.jpg
    :height: 200
    :align: right
 
@@ -23,7 +23,7 @@ At a minimum, RackHD expects a "southbound" network, where it is interacting wit
 the machines it is PXE booting a network provided with DHCP, TFTP, and HTTP and
 a "northbound" network where RackHD exposes the APIs for automation and interaction.
 This basic setup was created to allow and encourage separation of traffic for
-PXE booting nodes and API controls. The example setup in :doc:`getting_started`
+PXE booting nodes and API controls. The example setup in :doc:`../getting_started`
 shows a minimal configuration.
 
 Security Constraints
@@ -166,7 +166,7 @@ In an environment where the hardware you're managing doesn't have additional
 network interfaces, and the BMC shares the motherboard physical network
 interface, the configuration will be fairly limited.
 
-.. image:: _static/shared_everything.png
+.. image:: ../_static/shared_everything.png
    :align: left
 
 In this example, RackHD is providing DHCP to a network which is connected
@@ -182,12 +182,12 @@ providing.
 
 .. container:: clearer
 
-   .. image :: _static/invisible.png
+   .. image :: ../_static/invisible.png
 
 ----------
 
 
-.. image:: _static/lom_shared_net.png
+.. image:: ../_static/lom_shared_net.png
    :align: right
 
 In this example, the servers have a dedicated "lights out" network interface,
@@ -205,11 +205,11 @@ and external to RackHD
 
 .. container:: clearer
 
-   .. image :: _static/invisible.png
+   .. image :: ../_static/invisible.png
 
 ----------
 
-.. image:: _static/isolated_net.png
+.. image:: ../_static/isolated_net.png
    :align: left
 
 In this example, all the networks are isolated and separate, and in this case
@@ -227,11 +227,4 @@ dedicated management network that are functionally identical.
 
 .. container:: clearer
 
-   .. image :: _static/invisible.png
-
-----------
-
-
-.. include:: rackhd/ubuntu_source_installation.rst
-.. include:: rackhd/ubuntu_package_installation.rst
-.. include:: rackhd/configuration.rst
+   .. image :: ../_static/invisible.png

@@ -91,8 +91,7 @@ Monorail Engine
 ISC DHCP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This DHCP server provides IP addresses dynamically using the DHCP protocol. It is a critical component of a standard `Preboot Execution Environment (PXE)`_ process,
-.
+This DHCP server provides IP addresses dynamically using the DHCP protocol. It is a critical component of a standard `Preboot Execution Environment (PXE)`_ process.
 
 .. _Preboot Execution Environment (PXE): https://en.wikipedia.org/wiki/Preboot_Execution_Environment
 

@@ -10,7 +10,7 @@ This section describes how to access APIs that need authentication.
 Setup endpoints to enable authentication
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Please refer to `Setting up HTTP/HTTPS endpoint`_ on how to setup endpoints. Simply put,
+Please refer to :ref:`http-endpoint-config-ref-label` on how to setup endpoints. Simply put,
 the following endpoint configuration will be a good start.::
 
     "httpEndpoints": [
@@ -43,13 +43,13 @@ order for PXE to work fine.
 .. _localhost-exception-label:
 
 Setup the first user with Localhost Exception
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Please refer to `Authentication`_ on how to setup endpoints.
+Please refer to :ref:`authentication-config-ref-label` on how to setup endpoints.
 
-The localhost exception permits unauthenticated access to create the first user in the system.  With 
-authentication enabled, the first user can be created by issuing a POST to the /users API only if the 
-API is issued from localhost.  The first user must be assigned a role with privileges to create other 
+The localhost exception permits unauthenticated access to create the first user in the system.  With
+authentication enabled, the first user can be created by issuing a POST to the /users API only if the
+API is issued from localhost.  The first user must be assigned a role with privileges to create other
 users, such as an Administrator role.
 
 Here is an example of creating an initial 'admin' user with a password of 'admin123'.::
@@ -60,7 +60,7 @@ Here is an example of creating an initial 'admin' user with a password of 'admin
         "username": "admin"
     }
 
-The localhost exception can be disabled by setting the configuration value "enableLocalHostException" to 
+The localhost exception can be disabled by setting the configuration value "enableLocalHostException" to
 false.  The default value of "enableLocalHostException" is true.
 
 Login to get a token
@@ -177,5 +177,3 @@ For example:::
     {
         "message": "No auth token"
     }
-
-

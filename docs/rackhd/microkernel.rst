@@ -64,16 +64,15 @@ with the base image built by the existing ansible roles in this repository.
 Building Images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Instructions for building images, can be found `here`_.
+Instructions for building images, can be found in the `on-imagebuilder README`_.
 
-.. _on-imagebuilderReadme: https://github.com/RackHD/on-imagebuilder/blob/master/README.md
 
 Adding Provisioner Roles and Configuration Files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Instructions for adding Provisioner Roles and Configuration Files, can be found `here`_.
+Instructions for adding Provisioner Roles and Configuration Files, can be found `on-imagebuilder README`_.
 
-.. _on-imagebuilderReadme: https://github.com/RackHD/on-imagebuilder/blob/master/README.md
+.. _on-imagebuilder README: https://github.com/RackHD/on-imagebuilder/blob/master/README.md
 
 Changing the Global Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

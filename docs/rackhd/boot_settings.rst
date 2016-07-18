@@ -1,5 +1,5 @@
 Customize Default iPXE Boot Setting
----------------------------
+------------------------------------
 
 A compute server's BIOS can be set to always PXE network boot using the BIOS boot order. The default RackHD response when no workflow is operating is to do nothing - normally falling through to the next item in the BIOS boot order. RackHD can also be configured with a default iPXE script to provide boot instructions when no workflow is operational against the node.
 
@@ -56,4 +56,3 @@ Customize iPXE Boot Profile
     initrd <%=url%>/<%=initrd%>
     imgargs <%=kernel%> <%=bootargs%>
     boot || prompt --key 0x197e --timeout 2000 Press F12 to investigate || exit shell
-
