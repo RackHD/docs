@@ -1,0 +1,13 @@
+{
+    "type":"switch",
+    "name":"nodeName",
+    "autoDiscover":true,
+    "snmpSettings":{
+        "host":"10.1.1.3",
+        "community":"HZTvBPqhg4ccDop5mfyziw==.wIeqRE9y0s0/o5cDWa4OLw==",
+        "nodeId":"55b6aac1024fd1b349afc145"
+    },
+    "createdAt":"2015-07-27T22:03:45.353Z",
+    "updatedAt":"2015-07-27T22:03:45.353Z",
+    "id":"55b6aac1024fd1b349afc145"
+}

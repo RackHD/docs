@@ -1,0 +1,236 @@
+{
+    "_events": {},
+    "_status": "valid",
+    "cancelled": false,
+    "completeEventString": "complete",
+    "context": {
+        "b9b29b18-309f-439d-8de7-a1042c400d9a": {
+            "cancelled": false,
+            "local": {
+                "stats": {}
+            },
+            "parent": {}
+        },
+        "graphId": "c2d48e40-7beb-4d64-9d59-a475c6732780",
+        "target": "54daab331ee7cb79d888cba5"
+    },
+    "createdAt": "2015-02-11T18:35:25.277Z",
+    "definition": {
+        "friendlyName": "Zerotouch vEOS Graph",
+        "injectableName": "Graph.Arista.Zerotouch.vEOS",
+        "options": {},
+        "tasks": [
+            {
+                "label": "zerotouch-veos",
+                "taskDefinition": {
+                    "friendlyName": "Arista Zerotouch vEOS",
+                    "implementsTask": "Task.Base.Arista.Zerotouch",
+                    "injectableName": "Task.Inline.Arista.Zerotouch.vEOS",
+                    "options": {
+                        "bootConfig": "arista-boot-config",
+                        "bootfile": "zerotouch-vEOS.swi",
+                        "eosImage": "zerotouch-vEOS.swi",
+                        "hostname": "MonorailVEOS",
+                        "profile": "zerotouch-configure.zt",
+                        "startupConfig": "arista-startup-config"
+                    },
+                    "properties": {
+                        "os": {
+                            "switch": {
+                                "type": "eos",
+                                "virtual": true
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "failedStates": [
+        "failed",
+        "timeout",
+        "cancelled"
+    ],
+    "finishedStates": [
+        "failed",
+        "succeeded",
+        "timeout",
+        "cancelled"
+    ],
+    "finishedTasks": [],
+    "id": "54dba0edc44e16c9164110a3",
+    "injectableName": "Graph.Arista.Zerotouch.vEOS",
+    "instanceId": "c2d48e40-7beb-4d64-9d59-a475c6732780",
+    "name": "Zerotouch vEOS Graph",
+    "pendingTasks": [
+        {
+            "cancelled": false,
+            "context": {
+                "cancelled": false,
+                "local": {
+                    "stats": {}
+                },
+                "parent": {}
+            },
+            "definition": {
+                "friendlyName": "Arista Zerotouch vEOS",
+                "implementsTask": "Task.Base.Arista.Zerotouch",
+                "injectableName": "Task.Inline.Arista.Zerotouch.vEOS",
+                "options": {
+                    "bootConfig": "arista-boot-config",
+                    "bootfile": "zerotouch-vEOS.swi",
+                    "eosImage": "zerotouch-vEOS.swi",
+                    "hostname": "MonorailVEOS",
+                    "profile": "zerotouch-configure.zt",
+                    "startupConfig": "arista-startup-config"
+                },
+                "properties": {
+                    "os": {
+                        "switch": {
+                            "type": "eos",
+                            "virtual": true
+                        }
+                    }
+                },
+                "runJob": "Job.Arista.Zerotouch"
+            },
+            "dependents": [],
+            "failedStates": [
+                "failed",
+                "timeout",
+                "cancelled"
+            ],
+            "friendlyName": "Arista Zerotouch vEOS",
+            "ignoreFailure": false,
+            "instanceId": "b9b29b18-309f-439d-8de7-a1042c400d9a",
+            "name": "Task.Inline.Arista.Zerotouch.vEOS",
+            "options": {
+                "bootConfig": "arista-boot-config",
+                "bootfile": "zerotouch-vEOS.swi",
+                "eosImage": "zerotouch-vEOS.swi",
+                "hostname": "MonorailVEOS",
+                "profile": "zerotouch-configure.zt",
+                "startupConfig": "arista-startup-config"
+            },
+            "parentContext": {
+                "b9b29b18-309f-439d-8de7-a1042c400d9a": {
+                    "cancelled": false,
+                    "local": {
+                        "stats": {}
+                    },
+                    "parent": {}
+                },
+                "graphId": "c2d48e40-7beb-4d64-9d59-a475c6732780",
+                "target": "54daab331ee7cb79d888cba5"
+            },
+            "properties": {
+                "os": {
+                    "switch": {
+                        "type": "eos",
+                        "virtual": true
+                    }
+                }
+            },
+            "retriesAllowed": 5,
+            "retriesAttempted": 0,
+            "state": "pending",
+            "stats": {
+                "completed": null,
+                "created": "2015-02-11T18:35:25.269Z",
+                "started": null
+            },
+            "successStates": [
+                "succeeded"
+            ],
+            "tags": [],
+            "waitingOn": []
+        }
+    ],
+    "ready": [],
+    "serviceGraph": null,
+    "tasks": {
+        "b9b29b18-309f-439d-8de7-a1042c400d9a": {
+            "cancelled": false,
+            "context": {
+                "cancelled": false,
+                "local": {
+                    "stats": {}
+                },
+                "parent": {}
+            },
+            "definition": {
+                "friendlyName": "Arista Zerotouch vEOS",
+                "implementsTask": "Task.Base.Arista.Zerotouch",
+                "injectableName": "Task.Inline.Arista.Zerotouch.vEOS",
+                "options": {
+                    "bootConfig": "arista-boot-config",
+                    "bootfile": "zerotouch-vEOS.swi",
+                    "eosImage": "zerotouch-vEOS.swi",
+                    "hostname": "MonorailVEOS",
+                    "profile": "zerotouch-configure.zt",
+                    "startupConfig": "arista-startup-config"
+                },
+                "properties": {
+                    "os": {
+                        "switch": {
+                            "type": "eos",
+                            "virtual": true
+                        }
+                    }
+                },
+                "runJob": "Job.Arista.Zerotouch"
+            },
+            "dependents": [],
+            "failedStates": [
+                "failed",
+                "timeout",
+                "cancelled"
+            ],
+            "friendlyName": "Arista Zerotouch vEOS",
+            "ignoreFailure": false,
+            "instanceId": "b9b29b18-309f-439d-8de7-a1042c400d9a",
+            "name": "Task.Inline.Arista.Zerotouch.vEOS",
+            "options": {
+                "bootConfig": "arista-boot-config",
+                "bootfile": "zerotouch-vEOS.swi",
+                "eosImage": "zerotouch-vEOS.swi",
+                "hostname": "MonorailVEOS",
+                "profile": "zerotouch-configure.zt",
+                "startupConfig": "arista-startup-config"
+            },
+            "parentContext": {
+                "b9b29b18-309f-439d-8de7-a1042c400d9a": {
+                    "cancelled": false,
+                    "local": {
+                        "stats": {}
+                    },
+                    "parent": {}
+                },
+                "graphId": "c2d48e40-7beb-4d64-9d59-a475c6732780",
+                "target": "54daab331ee7cb79d888cba5"
+            },
+            "properties": {
+                "os": {
+                    "switch": {
+                        "type": "eos",
+                        "virtual": true
+                    }
+                }
+            },
+            "retriesAllowed": 5,
+            "retriesAttempted": 0,
+            "state": "pending",
+            "stats": {
+                "completed": null,
+                "created": "2015-02-11T18:35:25.269Z",
+                "started": null
+            },
+            "successStates": [
+                "succeeded"
+            ],
+            "tags": [],
+            "waitingOn": []
+        }
+    },
+    "updatedAt": "2015-02-11T18:35:25.277Z"
+}

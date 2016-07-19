@@ -1,0 +1,19 @@
+{
+  "node": null,
+  "config": {
+    "host": "10.1.1.3",
+    "communityString": "public",
+    "extensionMibs": [
+      "PDU-MIB::outletVoltage",
+      "PDU-MIB::outletCurrent"
+    ]
+  },
+  "pollInterval": 10000,
+  "lastStarted": null,
+  "lastFinished": null,
+  "failureCount": 0,
+  "createdAt": "2015-02-11T20:50:41.663Z",
+  "updatedAt": "2015-02-11T20:50:41.663Z",
+  "id": "54dbc0a11eaecfc22a30d59b",
+  "type": "snmp"
+}
