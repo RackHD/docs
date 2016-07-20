@@ -64,7 +64,9 @@ config.json_
         "logColorEnable": false,
         "enableUPnP": true,
         "ssdpBindAddress": "0.0.0.0",
-        "heartbeatIntervalSec": 10
+        "heartbeatIntervalSec": 10,
+        "wssBindAddress": "0.0.0.0",
+        "wssBindPort": 9100
     }
 
 
@@ -160,6 +162,10 @@ The following table describes the configuration parameters in config.json:
       - The bind address to send the SSDP advertisements on (defaults to 0.0.0.0).
     * - heartbeatIntervalSec
       - Integer value setting the heartbeat send interval in seconds. Setting this value to 0 will disable the heartbeat service (defaults to 10)
+    * - wssBindAddress
+      - Address for RackHD WebSocket Service to bind to (defaults to '0.0.0.0').
+    * - wssBindPort
+      - Listening port for RackHD WebSocket Service (defaults to 9100).
 
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
