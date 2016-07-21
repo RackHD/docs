@@ -32,7 +32,7 @@ An example of starting an OS installation workflow for CentOS:
     curl -X POST \
          -H 'Content-Type: application/json' \
          -d @params.json \
-         <server>/api/1.1/nodes/<identifier>/workflows?name=Graph.InstallCentOS
+         <server>/api/current/nodes/<identifier>/workflows?name=Graph.InstallCentOS
 
 
 An example of params.json with minimal parameters for installing CentOS workflow:
@@ -51,14 +51,14 @@ Check the workflow is active or inactive:
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/nodes/<identifier>/workflows/active
+    curl <server>/api/current/nodes/<identifier>/workflows/active
 
 
 Stop the active workflow to cancel OS installation:
 
 .. code-block:: REST
 
-    curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
+    curl -X DELETE <server>/api/current/nodes/<identifier>/workflows/active
 
 
 Non-Windows OS Installation Workflow Payload

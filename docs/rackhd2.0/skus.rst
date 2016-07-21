@@ -85,7 +85,7 @@ can send.
 
 .. code-block:: REST
 
-    POST /api/1.1/skus
+    POST /api/current/skus
     {
       "name": "Intel 32GB RAM",
       "rules": [
@@ -115,7 +115,7 @@ can send.
 
 .. code-block:: REST
 
-    POST /api/1.1/skus
+    POST /api/current/skus
     {
         "name": "Default IPMI settings for Quanta servers",
         "discoveryGraphName": "Graph.Obm.Ipmi.CreateSettings",
@@ -141,11 +141,11 @@ can send.
 
 .. code-block:: REST
 
-    GET /api/1.1/skus
+    GET /api/current/skus
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/skus
+    curl <server>/api/current/skus
 
 
 **Get Definition for a Single SKU**
@@ -153,11 +153,11 @@ can send.
 
 .. code-block:: REST
 
-    GET /api/1.1/skus/:id
+    GET /api/current/skus/:id
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/skus/<skuid>
+    curl <server>/api/current/skus/<skuid>
 
 
 **Update a Single SKU**
@@ -165,7 +165,7 @@ can send.
 
 .. code-block:: REST
 
-    PATCH /api/1.1/skus/:id
+    PATCH /api/current/skus/:id
     {
         "name": "Custom SKU Name"
     }
@@ -175,7 +175,7 @@ can send.
     curl -X PATCH \
         -H 'Content-Type: application/json' \
         -d '{"name":"Custom SKU Name"}' \
-        <server>/api/1.1/skus/<skuid>
+        <server>/api/current/skus/<skuid>
 
 
 **Delete a Single SKU**
@@ -183,44 +183,44 @@ can send.
 
 .. code-block:: REST
 
-    DELETE /api/1.1/skus/:id
+    DELETE /api/current/skus/:id
 
 .. code-block:: REST
 
-    curl -X DELETE <server>/api/1.1/skus/<skuid>
+    curl -X DELETE <server>/api/current/skus/<skuid>
 
 **Register a new SKU with a pack**
 
 
 .. code-block:: REST
 
-    POST /api/1.1/skus/pack
+    POST /api/current/skus/pack
 
 .. code-block:: REST
 
-    curl -X POST --data-binary @pack.tar.gz <server>/api/1.1/skus/pack
+    curl -X POST --data-binary @pack.tar.gz <server>/api/current/skus/pack
 
 **Add a SKU pack**
 
 
 .. code-block:: REST
 
-    PUT /api/1.1/skus/:id/pack
+    PUT /api/current/skus/:id/pack
 
 .. code-block:: REST
 
-    curl -T pack.tar.gz <server>/api/1.1/skus/<skuid>/pack
+    curl -T pack.tar.gz <server>/api/current/skus/<skuid>/pack
 
 **Delete a SKU pack**
 
 
 .. code-block:: REST
 
-    DELETE /api/1.1/skus/:id/pack
+    DELETE /api/current/skus/:id/pack
 
 .. code-block:: REST
 
-    curl -X DELETE <server>/api/1.1/skus/<skuid>/pack
+    curl -X DELETE <server>/api/current/skus/<skuid>/pack
 
 SKU JSON format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -51,22 +51,22 @@ The following are common API commands that can be used when running the *on-http
 
 ::
 
-    GET /api/1.1/nodes
+    GET /api/current/nodes
 
 ::
 
-    curl <server>/api/1.1/nodes
+    curl <server>/api/current/nodes
 
 
 **Get Specific Node**
 
 ::
 
-    GET /api/1.1/nodes/<id>
+    GET /api/current/nodes/<id>
 
 ::
 
-    curl <server>/api/1.1/nodes/<id>
+    curl <server>/api/current/nodes/<id>
 
 
 Sample switch node after Discovery
@@ -84,11 +84,11 @@ Sample compute node after Discovery
 
 ::
 
-    GET /api/1.1/nodes/<id>/catalogs
+    GET /api/current/nodes/<id>/catalogs
 
 ::
 
-    curl <server>/api/1.1/nodes<id>/catalogs
+    curl <server>/api/current/nodes<id>/catalogs
 
 
 
@@ -96,11 +96,11 @@ Sample compute node after Discovery
 
 ::
 
-    GET /api/1.1/nodes/<id>/catalogs/<source>
+    GET /api/current/nodes/<id>/catalogs/<source>
 
 ::
 
-    curl <server>/api/1.1/nodes<id>/catalogs/<source>
+    curl <server>/api/current/nodes<id>/catalogs/<source>
 
 
 Sample Output:
@@ -119,10 +119,10 @@ Sample Output:
 
 .. code-block:: REST
 
-    curl -X PATCH \
+    curl -X PUT \
         -H 'Content-Type: application/json' \
         -d '{ "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } } ] }' \
-        {server}/api/1.1/nodes/{nodeID}
+        {server}/api/current/nodes/{nodeID}
 
 .. _node-api-tags-ref-label:
 
@@ -133,28 +133,28 @@ Node Tags
 
 ::
 
-    PATCH /api/1.1/nodes/<id>/tags
+    PATCH /api/current/nodes/<id>/tags
 
 ::
 
-    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": [<list of tags>]}' <server>/api/1.1/nodes/<id>/tags
+    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": [<list of tags>]}' <server>/api/current/nodes/<id>/tags
 
 **List tags for a node**
 
 ::
 
-    GET /api/1.1/nodes/<id>/tags
+    GET /api/current/nodes/<id>/tags
 
 ::
 
-    curl <server>/api/1.1/nodes/<id>/tags
+    curl <server>/api/current/nodes/<id>/tags
 
 **Delete a tag from a node**
 
 ::
 
-    DELETE /api/1.1/nodes/<id>/tags/<tagname>
+    DELETE /api/current/nodes/<id>/tags/<tagname>
 
 ::
 
-    curl -X DELETE <server>/api/1.1/nodes/<id>/tags/<tagname>
+    curl -X DELETE <server>/api/current/nodes/<id>/tags/<tagname>

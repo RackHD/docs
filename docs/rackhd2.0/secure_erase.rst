@@ -13,7 +13,7 @@ An example of starting secure erase for disks:
     curl -X POST \
          -H 'Content-Type: application/json' \
          -d @params.json \
-         <server>/api/1.1/nodes/<identifier>/workflows?name=Graph.Drive.SecureErase
+         <server>/api/current/nodes/<identifier>/workflows?name=Graph.Drive.SecureErase
 
 
 An example of params.json for disk secure erase:
@@ -25,14 +25,14 @@ Use below command to check the workflow is active or inactive:
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/nodes/<identifier>/workflows/active
+    curl <server>/api/current/nodes/<identifier>/workflows/active
 
 
 Use below command to stop the active workflow to cancel secure erase workflow:
 
 .. code-block:: REST
 
-    curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
+    curl -X DELETE <server>/api/current/nodes/<identifier>/workflows/active
 
 Disk Secure Erase Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -54,19 +54,14 @@ repository and running the following command.
 
 The default and example quick start build that we describe in :doc:`../getting_started`
 has the API docs rendered and embedded within that instance for easy use, available
-at http://[IP ADDRESS OF VM]:8080/docs/ for the 1.1 API documentation, and
-http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the 2.0 and Redfish API documentation.
+at http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the 2.0 and Redfish API documentation.
 
 RackHD Client Libraries
 -------------------------
 
-The 1.1 API for RackHD includes annotations in code that are used to generate
-API documentation (the `npm run apidoc` command above) that is hosted directly
-within RackHD.
-
-A similiar process generates a swagger API definition file that can be used to
-create client libraries with `swagger`_. To create this file locally, you can
-check out the on-http library and run the commands::
+RackHD includes annotations in code that are used to generate
+a swagger API definition file that can be used to create client libraries with `swagger`_.
+To create this file locally, you can check out the on-http library and run the commands::
 
     npm install
     npm run apidoc-swagger
@@ -99,7 +94,7 @@ Getting a list of nodes::
 
     client = ApiClient(host='http://localhost:9090',header_name='Content-Type',header_value='application/json')
     nodes = NodesApi(api_client=client)
-    nodes.api1_1_nodes_get()
+    nodes.api2_0_nodes_get()
     print client.last_response.data
 
 Or the same asynchronously (with a callback)::
@@ -107,4 +102,4 @@ Or the same asynchronously (with a callback)::
     def cb_func(resp):
     print 'GET /nodes callback!', resp
 
-    thread = nodes.api1_1_nodes_get(callback=cb_func)
+    thread = nodes.api2_0_nodes_get(callback=cb_func)
