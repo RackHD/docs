@@ -361,7 +361,7 @@ Once the above steps are completed (edited and saved) the service needs to be re
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
-    POST:        http://server-ip:8080/api/1.1/workflows/
+    POST:        http://server-ip:8080/api/current/workflows/
 
    add the below content in the json body for payload (example node identifier and username, password shown below)
 

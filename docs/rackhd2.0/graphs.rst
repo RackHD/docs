@@ -328,50 +328,50 @@ The following are common API commands that can be used when running the *on-http
 
 ::
 
-    GET /api/1.1/workflows/library
+    GET /api/current/workflows/graphs
 
 ::
 
-    curl <server>/api/1.1/workflows/library
+    curl <server>/api/current/workflows/graphs
 
 **Query the State of an Active Graph**
 
 ::
 
-        GET /api/1.1/nodes/<id>/workflows/active
+        GET /api/current/nodes/<id>/workflows
 
 ::
 
-        curl <server>/api/1.1/nodes/<id>/workflows/active
+        curl <server>/api/current/nodes/<id>/workflows?active=true
 
 
 **Cancel or Kill an Active Graph running against a Node**
 
 ::
 
-        DELETE /api/1.1/nodes/<id>/workflows/active
+        PUT /api/current/nodes/<id>/workflows/action
 
 ::
 
-        curl -X DELETE <server>/api/1.1/nodes/<id>/workflows/active
+        curl -X PUT <server>/api/current/nodes/<id>/workflows/action
 
 
 **List all Graphs that have or are running against a Node**
 
 ::
 
-        GET /api/1.1/nodes/<id>/workflows
+        GET /api/current/nodes/<id>/workflows
 
 ::
 
-        curl <server>/api/1.1/nodes/<id>/workflows
+        curl <server>/api/current/nodes/<id>/workflows
 
 
 **Create a Graph Definition**
 
 ::
 
-        PUT /api/1.1/workflows
+        PUT /api/current/workflows/graph
         {
             <json definition of graph>
         }
@@ -383,7 +383,7 @@ Find the graph definition you would like to use and copy the top-level *injectab
 
 ::
 
-    POST /api/1.1/nodes/<id>/workflows
+    POST /api/current/nodes/<id>/workflows
     {
         "name": <graph name>
     }
@@ -391,18 +391,18 @@ Find the graph definition you would like to use and copy the top-level *injectab
 
 ::
 
-    curl -X POST <server>/api/1.1/nodes/<id>/workflows?name=<graphname>
+    curl -X POST <server>/api/current/nodes/<id>/workflows?name=<graphname>
     OR
     curl -X POST \
         -H 'Content-Type: application/json' \
         -d '{"name": "<graphname>"}' \
-        <server>/api/1.1/nodes/<id>/workflows
+        <server>/api/current/nodes/<id>/workflows
 
 To override option values, add an options object to the POST data as detailed in the `Graph Options`_ section.
 
 ::
 
-    POST /api/1.1/nodes/<id>/workflows
+    POST /api/current/nodes/<id>/workflows
     {
         "name": <graph name>
         "options": { <graph options here> }
@@ -412,7 +412,7 @@ For example, to override an option "username" for all tasks in a graph that util
 
 ::
 
-    POST /api/1.1/nodes/<id>/workflows
+    POST /api/current/nodes/<id>/workflows
     {
         "name": <graph name>
         "options": {
