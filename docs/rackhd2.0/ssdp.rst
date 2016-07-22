@@ -10,7 +10,6 @@ Northbound M-SEARCH Queries
 - Request all: **ssdp:all**
 - Request Root device description: **upnp:rootdevice**
 - Request on-http device description: **urn:schemas-upnp-org:device:on-http:1**
-- Request API v1.1 service: **urn:schemas-upnp-org:service:api:1.1**
 - Request API v2.0 service: **urn:schemas-upnp-org:service:api:2.0**
 - Request Redfish v1.0 service: **urn:dmtf-org:service:redfish-rest:1.0**
 
@@ -32,7 +31,6 @@ Northbound M-SEARCH Queries
 Southbound M-SEARCH Queries:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - Request all: **ssdp:all**
-- Request API v1.1 service: **urn:schemas-upnp-org:service:api:1.1:southbound**
 - Request API v2.0 service: **urn:schemas-upnp-org:service:api:2.0:southbound**
 - Request Redfish v1.0 service: **urn:dmtf-org:service:redfish-rest:1.0:southbound**
 

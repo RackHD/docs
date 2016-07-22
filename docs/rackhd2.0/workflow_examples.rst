@@ -131,15 +131,15 @@ To upload a template, use the templates API:
 
 .. code-block:: REST
 
-     PUT /api/1.1/templates/library/<filename>
-     Content-Type: application/octet-stream
+     PUT /api/current/templates/library/<filename>
+     Content-Type: text/plain
 
 .. code-block:: REST
 
      curl -X PUT \
-         -H 'Content-Type: application/octet-stream' \
+         -H 'Content-Type: text/plain' \
          -d "<startup config template>" \
-         <server>/api/1.1/templates/library/<filename>
+         <server>/api/current/templates/library/<filename>
 
 
 **Adding EOS Images**
@@ -159,8 +159,8 @@ A basic profile looks like the following:
 
  #!/usr/bin/Cli -p2
  enable
- copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=startupConfig%> flash:startup-config
- copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=bootConfig%> flash:boot-config
+ copy http://<%=server%>:<%=port%>/api/current/templates/<%=startupConfig%> flash:startup-config
+ copy http://<%=server%>:<%=port%>/api/current/templates/<%=bootConfig%> flash:boot-config
  copy http://<%=server%>:<%=port%>/common/<%=eosImage%> flash:
  exit
 
@@ -280,7 +280,7 @@ addition to the "command" field.
     "commands" : [
         {
             "command": "bash myscript.sh",
-            "downloadUrl": "/api/1.1/templates/myscript.sh"
+            "downloadUrl": "/api/current/templates/myscript.sh"
         }
     ]
  }
@@ -291,8 +291,8 @@ route (server:port will be prepended) to the working directory, and execute it a
 command (e.g. `bash myscript.sh`). You must specify how to run the script correctly in the command
 field (e.g. `node myscript.js arg1 arg2`, `./myExecutable`).
 
-A note on convention: binary files should be uploaded via the /api/1.1/files route, and script templates should
-be uploaded/downloaded via the /api/1.1/templates route.
+A note on convention: binary files should be uploaded via the /api/current/files route, and script templates should
+be uploaded/downloaded via the /api/current/templates route.
 
 **Defining Script Templates**
 
@@ -312,7 +312,7 @@ rendered based on the option values of task definition, for example, if a task i
     "commands" : [
         {
             "command": "bash myscript.sh",
-            "downloadUrl": "/api/1.1/templates/myscript.sh"
+            "downloadUrl": "/api/current/templates/myscript.sh"
         }
     ]
  }
@@ -380,10 +380,10 @@ The following variables are predefined and available for use by all templates:
 
 Script templates can be uploaded using the Monorail templates API::
 
- PUT /api/1.1/templates/<filename>
- Content-type: application/octet-stream
+ PUT /api/current/templates/library/<filename>
+ Content-type: text/plain
  ---
- curl -X PUT -H "Content-Type: application/octet-stream" --data-binary @<script> <server>/api/1.1/templates/library/<scriptname>
+ curl -X PUT -H "Content-Type: text/plain" --data-binary @<script> <server>/api/current/templates/library/<scriptname>
 
 
 **Uploading Binary Files**
@@ -394,9 +394,9 @@ Binary executables can be uploaded using the Monorail files API:
 
 .. code-block:: JSON
 
- PUT /api/1.1/files/<filename>
+ PUT /api/current/files/<filename>
  ---
- curl -T <binary> <server>/api/1.1/templates/library/<filename>
+ curl -T <binary> <server>/api/current/templates/library/<filename>
 
 
 **Available Options for Command JSON Objects**
@@ -459,7 +459,7 @@ To create a basic workflow that runs user-specified shell commands with specifie
 
 1. Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom overlay)::
 
-       PUT <server>/api/1.1/workflows/tasks
+       PUT <server>/api/current/workflows/tasks
         Content-Type: application/json
         {
             "friendlyName": "Bootstrap Linux Custom",
@@ -480,7 +480,7 @@ To create a basic workflow that runs user-specified shell commands with specifie
 
 2. Define a task that contains the commands to be run, adding or removing command objects below in the options.commands array::
 
-    PUT <server>/api/1.1/workflows/tasks
+    PUT <server>/api/current/workflows/tasks
     Content-Type: application/json
     {
         "friendlyName": "Shell commands user",
@@ -501,7 +501,7 @@ Now define a custom workflow that combines these tasks and runs them in a sequen
 
 .. code-block:: JSON
 
-    PUT <server>/api/1.1/workflows/
+    PUT <server>/api/current/workflows/
     Content-Type: application/json
     {
         "friendlyName": "Shell Commands User",
@@ -545,11 +545,11 @@ Now define a custom workflow that combines these tasks and runs them in a sequen
 
 With all of these data, the injectableName and friendlyName can be any string value, as long the references to injectableName are consistent across the three JSON documents.
 
-After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the JSON posted to /api/1.1/workflows/:
+After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the JSON posted to /api/current/workflows/:
 
 .. code-block:: JSON
 
-    curl -X POST localhost/api/1.1/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
+    curl -X POST localhost/api/current/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
 
 
 Output from these commands will be logged by the taskgraph runner in /var/log/upstart/on-taskgraph.log.

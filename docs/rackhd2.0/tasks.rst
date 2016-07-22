@@ -295,7 +295,7 @@ On creation, the options are rendered as below. The 'file' field is specified in
 Task Rendering Features
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For a full list of Mustache rendering features, including specifying conditionals and iterators, see the `Mustache man page <http://mustache.github.io/mustache.5.html>`_
+For a full list of Mustache rendering features, including specifying conditionals and iterators, see the `Mustache manual page. <http://mustache.github.io/mustache.5.html>`_
 
 Task templates also expand the capabilities of Mustache templating by adding the additional capabilities of *Fallback Rendering* and *Nested Rendering*, as documented below.
 
@@ -453,17 +453,17 @@ API Commands for Tasks
 
 .. code-block:: rest
 
-        GET /api/1.1/workflows/tasks/library
+        GET /api/current/workflows/tasks/
 
 .. code-block:: rest
 
-        curl <server>/api/1.1/workflows/tasks/library
+        curl <server>/api/current/workflows/tasks/
 
 **Create a Task Definition or a Base Task Definition**
 
 .. code-block:: rest
 
-        PUT /api/1.1/workflows/tasks
+        PUT /api/current/workflows/tasks
         Content-Type: application/json
 
 
@@ -472,7 +472,7 @@ API Commands for Tasks
         curl -X PUT \
         -H 'Content-Type: application/json' \
         -d <task definition>
-        <server>/api/1.1/workflows/tasks
+        <server>/api/current/workflows/tasks
 
 
 Task Annotation
