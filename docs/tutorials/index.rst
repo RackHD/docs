@@ -3,4 +3,4 @@ Tutorials
 
 .. toctree::
 
-   getting_started
+   vagrant
