@@ -1,5 +1,5 @@
-Software Architecture
-=====================================
+System Architecture
+========================
 
 RackHD enables much of its functionality by providing PXE boot services
 to machines that will be managed, and integrating the services providing
@@ -143,7 +143,7 @@ on-taskgraph
 
 on-taskgraph is the workflow engine, driving actions on remote systems and processing
 workflows for machines being managed. Additionally, the workflow engine provides the
-engine for polling and monitoring. 
+engine for polling and monitoring.
 
 Features
 =========

@@ -70,7 +70,7 @@ Understanding the Repositories
 The https://github.com/rackhd/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
 
 A thorough understanding of the individual repositories is essential for contributing to the project. The repositories are described in our documentation
-at :doc:`repositories`.
+at :doc:`devguide/repositories`.
 
 
 Submitting Design Proposals

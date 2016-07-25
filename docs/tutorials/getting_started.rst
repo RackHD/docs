@@ -19,7 +19,7 @@ that represent managed systems. The target systems are simulated using PXE clien
 
 
 
-.. image:: _static/vagrant_setup.jpg
+.. image:: ../_static/vagrant_setup.jpg
      :height: 300
      :align: center
 
