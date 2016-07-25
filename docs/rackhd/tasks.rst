@@ -477,4 +477,31 @@ API Commands for Tasks
 
 Task Annotation
 ^^^^^^^^^^^^^^^^^^^^^^^
-.. include:: task_annotation.rst
+
+The RackHD Task Annotation is a schema for validating running tasks in the
+RackHD workflow engine, and is also used to provide self-hosted task documentation.
+Our build processes generate the files for this documentation.
+
+Tasks that have been annotated have schema defined for them in the `on-tasks repository`_
+under the directory `lib/task-data/schemas`_ using  `JSON Schema`_
+
+.. _on-tasks repository: https://github.com/RackHD/on-tasks
+.. _lib/task-data/schemas: https://github.com/RackHD/on-tasks/tree/master/lib/task-data/schemas
+.. _JSON Schema: http://json-schema.org/
+
+**How to Build Task Annotation Manually**
+
+.. code-block:: shell
+
+    git clone https://github.com/RackHD/on-http
+    cd on-http
+    npm install
+    npm run taskdoc
+
+
+You can access it via **http(s)://<server>:<port>/taskdoc**, when on-http service is running.
+
+For example:
+
+.. image:: /_static/task_annotation.png
+  :align: center
