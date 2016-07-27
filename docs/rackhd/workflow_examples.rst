@@ -141,6 +141,19 @@ To upload a template, use the templates API:
          -d "<startup config template>" \
          <server>/api/1.1/templates/library/<filename>
 
+2.0 API - To upload a template, use the templates API:
+
+.. code-block:: REST
+
+     PUT /api/2.0/templates/library/<filename>
+     Content-Type: text/plain
+
+.. code-block:: REST
+
+     curl -X PUT \
+         -H 'Content-Type: text/plain' \
+         -d "<startup config template>" \
+         <server>/api/2.0/templates/library/<filename>
 
 **Adding EOS Images**
 
@@ -380,16 +393,24 @@ The following variables are predefined and available for use by all templates:
 
 Script templates can be uploaded using the Monorail templates API::
 
- PUT /api/1.1/templates/<filename>
+ PUT /api/1.1/templates/library/<filename>
  Content-type: application/octet-stream
  ---
  curl -X PUT -H "Content-Type: application/octet-stream" --data-binary @<script> <server>/api/1.1/templates/library/<scriptname>
+
+**2.0 API - Uploading Script Templates**
+
+Script templates can be uploaded using the Monorail templates API::
+
+ PUT /api/2.0/templates/library/<filename>
+ Content-type: text/plain
+ ---
+ curl -X PUT -H "Content-Type: text/plain" --data-binary @<script> <server>/api/2.0/templates/library/<scriptname>
 
 
 **Uploading Binary Files**
 
 Binary executables can be uploaded using the Monorail files API:
-
 
 
 .. code-block:: JSON

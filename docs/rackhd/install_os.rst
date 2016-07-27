@@ -53,12 +53,25 @@ Check the workflow is active or inactive:
 
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
 
+2.0 API Check the workflow is active or inactive:
+
+::
+
+    curl <server>/api/2.0/nodes/<identifier>/workflows?active=true
 
 Stop the active workflow to cancel OS installation:
 
 .. code-block:: REST
 
     curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
+
+2.0 API Stop the active workflow to cancel OS installation:
+
+::
+    curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"command": "cancel"}' \
+    <server>/api/2.0/nodes/<id>/workflows/action
 
 
 Non-Windows OS Installation Workflow Payload

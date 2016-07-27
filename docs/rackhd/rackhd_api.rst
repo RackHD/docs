@@ -102,9 +102,29 @@ Getting a list of nodes::
     nodes.api1_1_nodes_get()
     print client.last_response.data
 
+2.0 API - Getting a list of nodes ::
+
+    from on_http import NodesApi, ApiClient, Configuration
+
+        config = Configuration()
+        config.debug = True
+        config.verify_ssl = False
+
+        client = ApiClient(host='http://localhost:9090',header_name='Content-Type',header_value='application/json')
+        nodes = NodesApi(api_client=client)
+        nodes.api2_0_nodes_get()
+        print client.last_response.data
+
 Or the same asynchronously (with a callback)::
 
     def cb_func(resp):
     print 'GET /nodes callback!', resp
 
     thread = nodes.api1_1_nodes_get(callback=cb_func)
+
+2.0 API - Or the same asynchronously (with a callback)::
+
+    def cb_func(resp):
+    print 'GET /nodes callback!', resp
+
+    thread = nodes.api2_0_nodes_get(callback=cb_func)

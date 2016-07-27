@@ -27,12 +27,24 @@ Use below command to check the workflow is active or inactive:
 
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
 
+2.0 API - Use below command to check the workflow is active or inactive:
+
+::
+    curl <server>/api/2.0/nodes/<identifier>/workflows?active=true
 
 Use below command to stop the active workflow to cancel secure erase workflow:
 
 .. code-block:: REST
 
     curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
+
+2.0 API - Use below command to stop the active workflow to cancel secure erase workflow:
+
+::
+    curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"command": "cancel"}' \
+    <server>/api/2.0/nodes/<id>/workflows/action
 
 Disk Secure Erase Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

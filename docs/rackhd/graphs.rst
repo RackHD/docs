@@ -321,7 +321,7 @@ After processing the graph definition and the default options, the task definiti
 API Commands for Graphs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following are common API commands that can be used when running the *on-http* process.
+The following are  API commands that can be used when running the *on-http* process.
 
 
 **Get Available Graphs in the Library**
@@ -334,6 +334,16 @@ The following are common API commands that can be used when running the *on-http
 
     curl <server>/api/1.1/workflows/library
 
+**2.0 API Get Available Graphs in the Library**
+
+::
+
+    GET /api/2.0/workflows/graphs
+
+::
+
+    curl <server>/api/2.0/workflows/graphs
+
 **Query the State of an Active Graph**
 
 ::
@@ -344,6 +354,15 @@ The following are common API commands that can be used when running the *on-http
 
         curl <server>/api/1.1/nodes/<id>/workflows/active
 
+**2.0 API Query State of an Active Graph**
+
+::
+
+        GET /api/2.0/nodes/<id>/workflows?active=true
+
+::
+
+        curl <server>/api/2.0/workflows?active=true
 
 **Cancel or Kill an Active Graph running against a Node**
 
@@ -355,6 +374,20 @@ The following are common API commands that can be used when running the *on-http
 
         curl -X DELETE <server>/api/1.1/nodes/<id>/workflows/active
 
+**2.0 API Cancel or Kill an Active Graph running against a Node**
+
+::
+        PUT /api/2.0/nodes/<id>/workflows/action
+                {
+                    "command": "cancel"
+                }
+
+::
+
+        curl -X PUT \
+                -H 'Content-Type: application/json' \
+                -d '{"command": "cancel"}' \
+                <server>/api/2.0/nodes/<id>/workflows/action
 
 **List all Graphs that have or are running against a Node**
 
@@ -372,6 +405,15 @@ The following are common API commands that can be used when running the *on-http
 ::
 
         PUT /api/1.1/workflows
+        {
+            <json definition of graph>
+        }
+
+**2.0 API Create a Graph Definition**
+
+::
+
+        PUT /api/2.0/workflows/graph
         {
             <json definition of graph>
         }
