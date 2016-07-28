@@ -321,7 +321,7 @@ After processing the graph definition and the default options, the task definiti
 API Commands for Graphs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following are  API commands that can be used when running the *on-http* process.
+The following are API commands that can be used when running the *on-http* process.
 
 
 **Get Available Graphs in the Library**

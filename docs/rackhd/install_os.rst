@@ -53,7 +53,7 @@ Check the workflow is active or inactive:
 
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
 
-2.0 API Check the workflow is active or inactive:
+2.0 API to list active workflows running against the node
 
 ::
 
@@ -65,7 +65,7 @@ Stop the active workflow to cancel OS installation:
 
     curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
 
-2.0 API Stop the active workflow to cancel OS installation:
+2.0 API Stop the currently active workflow for a node:
 
 ::
     curl -X PUT \
