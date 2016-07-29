@@ -1,4 +1,4 @@
-RackHD 1.1 Users Guide
+RackHD Users Guide
 ==================
 
 .. toctree::
