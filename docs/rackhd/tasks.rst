@@ -25,13 +25,14 @@ Name            Type    Flags       Description
 friendlyName    String  Required    A human-readable name for the task
 injectableName  String  Required    A unique name used by the system and the API to refer to the task.
 implementsTask  String  Required    The injectableName of the base task.
+schemaRef       String  Optional    The task schema for the *options*, see `Task Schema`_ for detail.
 options         Object  Required    Key value pairs that are passed in as options to the job.
-                                    Values required by a job may be defined in the task definition or overriden by options in a a graph definition.
+                                    Values required by a job may be defined in the task definition or overridden by options in a graph definition.
 properties      Object  Required    JSON defining any relevant metadata or tagging for the task.
 =============== ======= =========== =======================================================
 
 
-Below is a sample task definition in JSON for an ubuntu installer.
+Below is a sample task definition in JSON for an Ubuntu installer.
 
 .. code-block:: JSON
 
@@ -80,7 +81,7 @@ The following table describes the fields of a Base Task Definition.
 Name                Type    Flags     Description
 =================== ======= ========= =========================================================
 friendlyName        String  Required  A human-readable name for the task.
-injectableName      String  Required  A unique name used by the system and the the API to refer to the task.
+injectableName      String  Required  A unique name used by the system and the API to refer to the task.
 requiredOptions     Object  Required  Required option values to be set in a task definition implementing the base task.
 requiredProperties  Object  Required  JSON defining required properties that need to exist in other tasks in a graph in
                                       order for this task to be able to be run successfully.
@@ -149,6 +150,169 @@ Another task definition that utilizes the above base task looks like:
 The primary difference between the *Install CoreOS* task and the *Install Ubuntu* task
 is the profile value, which is the ipxe template that specifies the installer
 images that an installation target should download.
+
+.. _`Task Schema`:
+
+Task Schema
+^^^^^^^^^^^^^^^^^^^^^^
+A Task Schema is a JSON-Schema_ file that outlines the attributes and validation requirement for all options of a task. It provides standardized and declarative way to annotate task options. It offloads job's validation work and brings benefit to the upfront validation for graph input options.
+
+.. _JSON-Schema: http://json-schema.org/
+
+**Relation between Job & Schema & Task**
+
+- A Task Definition conforms to only one Task Schema, but different Task Definition can conform to the same Task Schema; For example, all obm-control tasks share the same obm-control schema.
+- A Task Schema only describes one Job, but a Job may be described by multiple Task Schemas. For example, all of install-centos, install-ubuntu, install-esxi schemas are to describe the same install-os job.
+- A Task Schema can include other schemas for the sake of schema reuse and minimizing duplication. For example, all task schemas include a common options schema.
+
+Below is a diagram shows the relation:
+
+.. image:: /_static/task_schema_job_relation.png
+  :align: center
+
+**Task Meta Schema**
+
+The Task Meta Schema is the schema of Task Schema, it restricts the syntax of Task Schema.
+
+The name of Task Meta Schema is rackhd-task-schema.json_, any Task Schema should write against it by set the *$schema*:
+
+.. _rackhd-task-schema.json: https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/rackhd-task-schema.json
+
+.. code-block:: JSON
+
+    "$schema": "rackhd-task-schema.json"
+
+The meta schema is bases on the JSON-Schema_ draft-04 standard (http://json-schema.org/draft-04/schema), and it extends following keywords:
+
+============== ======= ========= =========================================================
+Keyword        Format  Flags     Description
+============== ======= ========= =========================================================
+describeJob    String  Required  The property is required to point to a job’s di injectable name
+copyright      String  Optional  This attribute shall contain the copyright notice for the schema
+readonly       Boolean Optional  This property shall designate a property to be readonly for user when set to true
+============== ======= ========= =========================================================
+
+**Define a Task Schema**
+
+You can follow below 3 steps to define a Task Schema:
+
+- Step 1: Create a JSON File
+
+The Task Schema has to be written in JSON. The filename is critical and should be unique as it will be used as reference identifier between tasks and schemas.
+
+- Step 2: Define Basic Properties
+
+At least specify following properties:
+
+============== ======= =========================================================
+Property       Format  Description
+============== ======= =========================================================
+$schema        String  Specify the version of this schema file, it has to be `rackhd-task-schema.json`
+title          String  Specify a short description for this schema
+description    String  Specify a long & verbose description for this schema
+describeJob    String  Specify the job which this schema is to describe, via job's injectableName
+============== ======= =========================================================
+
+- Step 3: Define Options
+
+The task options are divided into task common options and task specific options.
+
+The common task options are the options that same for all tasks, such as `Task Timeout`_.
+The schema for common task options has been defined in common-task-options.json_, so you don't need to write a duplicated one, you can just reference it by:
+
+.. _common-task-options.json: https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/common-task-options.json
+
+.. code-block:: JSON
+
+    { "$ref": "common-task-options.json#/definitions/Options" }
+
+The task specific options vary by task. This is usually the section you mostly work on while defining your schema.
+
+To combine the common and specific options, use the keyword allOf_.
+
+.. _allOf: http://json-schema.org/latest/json-schema-validation.html#anchor82
+
+The following example shows the schema for the *Analyze-OS-Repo* task:
+
+.. code-block:: JSON
+
+    {
+        "$schema": "rackhd-task-schema.json",
+        "copyright": "Copyright 2016, EMC, Inc.",
+        "title": "Analyze OS Repository",
+        "description": "The schema for analyzing os repository job",
+        "describeJob": "Job.Os.Analyze.Repo",
+        "allOf": [
+            { "$ref": "common-task-options.json#/definitions/Options" },
+            {
+                "type": "object",
+                "properties": {
+                    "version": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "repo": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "osType": {
+                        "readoly": true
+                    }
+                },
+                "required": ["osType", "repo", "version"]
+            }
+        ]
+    }
+
+Above schema example shows its task specific options are *"version"*, *"repo"* and *"osType"*, it describes the job *Job.Os.Analyze.Repo*.
+
+**Link Schema and Task**
+
+The property *schemaRef* is used to specify its schema via the filename.
+
+Below is the example about how the *Analyze-OS-Repo* task references the schema (Assume the corresponding schema filename is `analyze-os-repo.json`)
+
+.. code-block:: javascript
+
+    module.exports = {
+        friendlyName: 'Analyze Esx Repository',
+        injectableName: 'Task.Os.Esx.Analyze.Repo',
+        implementsTask: 'Task.Base.Os.Analyze.Repo',
+        schemaRef: 'analyze-os-repo.json',
+        options: {
+            osName: 'esx',
+        },
+        properties: {}
+    };
+
+You can define the default value in the *options* property. These default values will be used as complement if user doesn't pass any value for that option while trigger the task, so all default value should conform to the schema as well.
+
+**Upfront Schema Validation**
+
+The Task Schema validation will be firstly executed when user triggers a workflow. Only if all options (Combine user input and the default value) conform to schema for every task, the workflow then can be successfully triggered.
+If any option violates the schema, The API request will report `400 Bad Request`_ and append detail error message in response body. For example:
+
+.. _`400 Bad Request`: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+
+Below is the message if user forgets the required option *version* while installing CentOS:
+
+.. code-block:: JSON
+
+    "message": "Task.Os.Install.CentOS: JSON schema validation failed - data should have required property 'version'"
+
+Below is the message if the input *uid* beyond the allowed range.
+
+.. code-block:: JSON
+
+    "message": "Task.Os.Install.CentOS: JSON schema validation failed - data.users[0].uid should be >= 500"
+
+Below is the message if the format of option *rootPassword* is not correct:
+
+.. code-block:: JSON
+
+    "message": "Task.Os.Install.CentOS: JSON schema validation failed - data.rootPassword should be string"
+
+
 
 Task Jobs
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -405,6 +569,9 @@ If a user overrides ``deleteAll`` to be false, and ``raidIds`` to be ``[0,1,2]``
     [
         "sudo /opt/MegaRAID/storcli/storcli64 /c0/v0 del force;sudo /opt/MegaRAID/storcli/storcli64 /c0/v1 del force;sudo /opt/MegaRAID/storcli/storcli64 /c0/v2 del force;"
     ]
+
+
+.. _`Task Timeout`:
 
 Task Timeouts
 ^^^^^^^^^^^^^^^^^^^^^^^
