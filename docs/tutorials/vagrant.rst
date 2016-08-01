@@ -584,7 +584,7 @@ all existing SKU definitions. If the SKU definition maps, it is applied. Only on
 SKU will be assigned to a node at a time - there's a similiar feature called **tag**
 that can be used to group multiple nodes with the same characteristics.
 
-You can get more details on SKUs at :doc:`../rackhd2.0/skus`, and tags at :doc:`../rackhd2.0/tags`.
+You can get more details on SKUs at :doc:`../rackhd/skus`, and tags at :doc:`../rackhd/tags`.
 
 One of the specific benefits of a SKU is that you can define an additional workflow
 to be invoked as soon as the node is discovered, providing RackHD with an explicit
