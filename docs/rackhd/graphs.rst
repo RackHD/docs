@@ -377,6 +377,7 @@ The following are API commands that can be used when running the *on-http* proce
 **2.0 API Cancel or Kill an Active Graph running against a Node**
 
 ::
+
         PUT /api/2.0/nodes/<id>/workflows/action
                 {
                     "command": "cancel"
