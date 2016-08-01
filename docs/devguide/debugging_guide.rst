@@ -77,6 +77,83 @@ Default discovery workflow
     Server->RackHD: bootstrap asks for tasks (what should I do?)
     RackHD->Server: Nothing more, thanks - please reboot (via http)
 
+Footprint Benchmark Test
+~~~~~~~~~~~~~~~~~~~~
+
+Footprint benchmark test collects system data when running poller (15min), node discovery and CentOS bootstrap test cases.
+The data includes CPU, memory, disk and network consumption of every process in RackHD, as well as RabbitMQ and MongoDB processes.
+The result is presented as HTML files.
+For more details, please check the wiki page `proposal-footprint-benchmarks`_.
+
+.. _proposal-footprint-benchmarks: https://github.com/RackHD/RackHD/wiki/proposal-footprint-benchmarks
+
+How It Works
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Footprint benchmark test is integrated into RackHD test framework.
+It can be executed as long as the machine running the test can access the RackHD API and manipulate the RackHD machine via SSH.
+
+.. image:: ../_static/benchmark_structure.png
+     :height: 350
+     :align: center
+
+Prerequisites
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- In RackHD, compute nodes have been discovered, and pollers are running.
+- No external AMQP queue with the name "graph.finished" is subscribed to RackHD, since the benchmark test uses this queue.
+- Make sure the AMQP port in RackHD machine can be accessed by the test machine.
+  If RackHD is not running in Vagrant, user can tunnel the port using the following command in RackHD machine.
+
+.. code::
+
+    sudo socat -d -d TCP4-LISTEN:55672,reuseaddr,fork TCP4:localhost:5672
+
+How to Run
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Clone the test repo from GitHub
+
+.. code::
+
+    git clone https://github.com/RackHD/RackHD.git
+
+Enter test directory and install required modules in virtual env
+
+.. code::
+
+    cd RackHD/test
+    virtualenv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+
+Configure RackHD related parameters in config.ini
+
+.. code::
+
+    vim config/config.ini
+
+Run the test.
+The first time user kicks off the test, he/she will be asked to input sudoer's username and password of localhost.
+
+.. code::
+
+    python benchmark.py
+
+If user would like to run only one of the three benchmark cases, the following command can be used
+
+.. code::
+
+    python benchmark.py --group=poller|discovery|bootstrap
+
+After the test finishes, the result is in ~/benchmark, and arranged by the timestamp and case name.
+Please use the command below to open Chrome
+
+.. code::
+
+    chrome.exe --user-data-dir="C:/Chrome dev session" --allow-file-access-from-files
+
+In the "report" directory of the case, drag the summary.html into Chrome.
+The footprint data and graph will be shown in the page,
+and user can also compare it with previous runs by selecting another case from the drop-down menu in the page.
+
 Logged warnings FAQ
 ~~~~~~~~~~~~~~~~~~~~
 
