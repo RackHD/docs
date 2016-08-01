@@ -132,6 +132,13 @@ The following table describes the configuration parameters in config.json:
       - URI for accessing MongoDB. To support Mongo Replica Set feature, URI format is, mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
     * - sharedKey
       - A 32 bit base64 key encoded string relevant for aes-256-cbc, defaults to 'qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M='. The default can be replaced by a 256 byte randomly generated base64 key encoded string.
+
+        Example generating a key with OpenSSL:
+
+        .. code-block:: shell
+
+            openssl enc -aes-256-cbc -k secret -P -md sha1
+
     * - obmInitialDelay
       - Delay before retrying an OBM invocation
     * - obmRetries
