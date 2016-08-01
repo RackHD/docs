@@ -27,12 +27,12 @@ injectableName  String  Required    A unique name used by the system and the API
 implementsTask  String  Required    The injectableName of the base task.
 schemaRef       String  Optional    The task schema for the *options*, see `Task Schema`_ for detail.
 options         Object  Required    Key value pairs that are passed in as options to the job.
-                                    Values required by a job may be defined in the task definition or overriden by options in a a graph definition.
+                                    Values required by a job may be defined in the task definition or overridden by options in a graph definition.
 properties      Object  Required    JSON defining any relevant metadata or tagging for the task.
 =============== ======= =========== =======================================================
 
 
-Below is a sample task definition in JSON for an ubuntu installer.
+Below is a sample task definition in JSON for an Ubuntu installer.
 
 .. code-block:: JSON
 
@@ -81,7 +81,7 @@ The following table describes the fields of a Base Task Definition.
 Name                Type    Flags     Description
 =================== ======= ========= =========================================================
 friendlyName        String  Required  A human-readable name for the task.
-injectableName      String  Required  A unique name used by the system and the the API to refer to the task.
+injectableName      String  Required  A unique name used by the system and the API to refer to the task.
 requiredOptions     Object  Required  Required option values to be set in a task definition implementing the base task.
 requiredProperties  Object  Required  JSON defining required properties that need to exist in other tasks in a graph in
                                       order for this task to be able to be run successfully.
@@ -155,14 +155,14 @@ images that an installation target should download.
 
 Task Schema
 ^^^^^^^^^^^^^^^^^^^^^^
-A Task Schema is a JSON-Schema_ file that outlines the attributes and validation requirement for all options of a task. It provides standardlized and declarative way to annotate task options. It offloads job's validation work and brings benefit to the upfront validation for graph input options.
+A Task Schema is a JSON-Schema_ file that outlines the attributes and validation requirement for all options of a task. It provides standardized and declarative way to annotate task options. It offloads job's validation work and brings benefit to the upfront validation for graph input options.
 
 .. _JSON-Schema: http://json-schema.org/
 
-**Relation Between Job & Schema & Task**
+**Relation between Job & Schema & Task**
 
 - A Task Definition conforms to only one Task Schema, but different Task Definition can conform to the same Task Schema; For example, all obm-control tasks share the same obm-control schema.
-- A Task Schema only describes one Job, but a Job may be described by multiple Task Schemas. For example, All of install-centos, install-ubuntu, install-esxi schemas are to describe the same install-os job.
+- A Task Schema only describes one Job, but a Job may be described by multiple Task Schemas. For example, all of install-centos, install-ubuntu, install-esxi schemas are to describe the same install-os job.
 - A Task Schema can include other schemas for the sake of schema reuse and minimizing duplication. For example, all task schemas include a common options schema.
 
 Below is a diagram shows the relation:
@@ -218,7 +218,7 @@ describeJob    String  Specify the job which this schema is to describe, via job
 The task options are divided into task common options and task specific options.
 
 The common task options are the options that same for all tasks, such as `Task Timeout`_.
-The schema for common task options have been defined in common-task-options.json_, so you don't need to write a duplicated one, you can just reference it by:
+The schema for common task options has been defined in common-task-options.json_, so you don't need to write a duplicated one, you can just reference it by:
 
 .. _common-task-options.json: https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/common-task-options.json
 
@@ -226,7 +226,7 @@ The schema for common task options have been defined in common-task-options.json
 
     { "$ref": "common-task-options.json#/definitions/Options" }
 
-The task specific options varies by task. This is usually the section you mostly work on while defining your schema.
+The task specific options vary by task. This is usually the section you mostly work on while defining your schema.
 
 To combine the common and specific options, use the keyword allOf_.
 
@@ -243,7 +243,7 @@ The following example shows the schema for the *Analyze-OS-Repo* task:
         "description": "The schema for analyzing os repository job",
         "describeJob": "Job.Os.Analyze.Repo",
         "allOf": [
-            { "$ref": "common-task-options#/definitions/Options" },
+            { "$ref": "common-task-options.json#/definitions/Options" },
             {
                 "type": "object",
                 "properties": {
@@ -264,7 +264,7 @@ The following example shows the schema for the *Analyze-OS-Repo* task:
         ]
     }
 
-Above schema example shows its task specific options are *"verion"*, *"repo"* and *"osType"*, it describes the job *Job.Os.Analyze.Repo*.
+Above schema example shows its task specific options are *"version"*, *"repo"* and *"osType"*, it describes the job *Job.Os.Analyze.Repo*.
 
 **Link Schema and Task**
 
@@ -285,7 +285,7 @@ Below is the example about how the *Analyze-OS-Repo* task references the schema 
         properties: {}
     };
 
-You can define the default value in the *options* property. These default value will be used as complement if user doesn't pass any value for that option while trigger the task, so all default value should conform to the schema as well.
+You can define the default value in the *options* property. These default values will be used as complement if user doesn't pass any value for that option while trigger the task, so all default value should conform to the schema as well.
 
 **Upfront Schema Validation**
 
