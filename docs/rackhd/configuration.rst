@@ -20,6 +20,7 @@ config.json_
         "dhcpProxyBindPort": 4011,
         "dhcpSubnetMask": "255.255.252.0",
         "gatewayaddr": "172.31.128.1",
+        "trustedProxy": false,
         "httpEndpoints": [
             {
                 "address": "0.0.0.0",
@@ -166,6 +167,10 @@ The following table describes the configuration parameters in config.json:
       - Address for RackHD WebSocket Service to bind to (defaults to '0.0.0.0').
     * - wssBindPort
       - Listening port for RackHD WebSocket Service (defaults to 9100).
+    * - trustedProxy
+      - Enable trust proxy in express. Populate req.ip with most left in XforwardFor list.
+
+        See documentation at https://expressjs.com/en/guide/behind-proxies.html
 
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
