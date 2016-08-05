@@ -46,7 +46,7 @@ Add the NodeSource key and repository (*instructions copied from* https://github
     sudo apt-get update
     sudo apt-get install nodejs
 
-Ensure Node.js is at version 4.x:
+Ensure Node.js is at version 4.x, example:
 
 .. code::
 
@@ -54,8 +54,8 @@ Ensure Node.js is at version 4.x:
     v4.4.5
 
 
-Install & Basically Configure RackHD
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install & Configure RackHD
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  **after Prerequisites installation, there're two options to install and configure RackHD from package**
  Either (a) or (b) can lead the way to install RackHD from debian packages.
@@ -78,20 +78,24 @@ a.2. clone RackHD code
 
   git clone https://github.com/RackHD/RackHD.git
 
-a.3. Run the ansible playbooks, it will install the prerequisites packages, install RackHD debian packages, copy default config files..
+a.3. Run the ansible playbooks
+
+These will install the prerequisite packages, install the RackHD debian packages, and copy default configuration files
 
 .. code::
 
   cd RackHD/packer/ansible
   ansible-playbook -c local -i "local," rackhd_package.yml
 
-a.4. All the services are upstart and have logs in /var/log/upstart.  Start with 'start on-[something]'  Verify with 'ps | aux | grep node'
+a.4.Starting RackHD services
+
+All the services are upstart and have logs in /var/log/upstart.  Start with 'start on-[something]'  Verify with 'ps | aux | grep node'
 
 
 (b) Install/Configure with Step by Step Guide
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**b.1** Install the prerequisite packages:
+b.1. Install the prerequisite packages:
 
 .. code::
 
@@ -106,7 +110,7 @@ a.4. All the services are upstart and have logs in /var/log/upstart.  Start with
 
     sudo apt-get install isc-dhcp-server
 
-**b.2** Set up the RackHD bintray repository for use within this instance of Ubuntu
+b.2. Set up the RackHD bintray repository for use within this instance of Ubuntu
 
 .. code::
 
@@ -114,7 +118,7 @@ a.4. All the services are upstart and have logs in /var/log/upstart.  Start with
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
     sudo apt-get update
 
-**b.3** Install RackHD debian package
+b.3. Install RackHD debian package
 
 Install the RackHD Packages. Note: these packages are rebuilt on every commit to master and are
 not explicitly versioned, but intended as a means to install or update to the latest code most
@@ -125,7 +129,7 @@ conveniently.
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
 
-**b.4** Configuring RackHD basically
+b.4. Basic RackHD Configuration
 
 
 **DHCP**
@@ -191,12 +195,9 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
     cd /var/renasar/on-http/static/http/common
 
     for file in $(echo "\
-    base.trusty.3.13.0-32-generic.squashfs.img \
     base.trusty.3.16.0-25-generic.squashfs.img \
     discovery.overlay.cpio.gz \
-    initrd.img-3.13.0-32-generic \
     initrd.img-3.16.0-25-generic \
-    vmlinuz-3.13.0-32-generic \
     vmlinuz-3.16.0-25-generic");do
     wget "https://dl.bintray.com/rackhd/binary/builds/$file"
     done
