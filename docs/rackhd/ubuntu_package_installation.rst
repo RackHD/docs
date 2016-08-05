@@ -1,11 +1,13 @@
+
 Ubuntu Package Based Installation
 ---------------------------------
 
 
 Prerequisites
-~~~~~~~~~~~~~~~
-
-Start with an Ubuntu trusty instance with 2 nics:
+~~~~~~~~~~~~~
+NICs
+^^^^
+Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
 * eth0 for the 'public' network - providing access to RackHD APIs, and providing
   routed (layer3) access to out of band network for machines under management
@@ -20,6 +22,8 @@ edit the network:
 
   this is the 'default'. it can be changed, but more than one file needs to be changed.)
 
+NodeJS 4.x
+^^^^^^^^^^
 
 **If Node.js is not installed**
 
@@ -42,14 +46,56 @@ Add the NodeSource key and repository (*instructions copied from* https://github
     sudo apt-get update
     sudo apt-get install nodejs
 
-Ensure Node.js is at version 4.x:
+Ensure Node.js is at version 4.x, example:
 
 .. code::
 
     $ node -v
     v4.4.5
 
-Install the prerequisite packages:
+
+Install & Configure RackHD
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ **after Prerequisites installation, there're two options to install and configure RackHD from package**
+ Either (a) or (b) can lead the way to install RackHD from debian packages.
+
+   (a) Install/Configure with Ansible Playbook
+   (b) Install/Configure with Step by Step Guide
+
+
+(a) Install/Configure with Ansible Playbook
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+a.1. install git and ansible
+.. code::
+
+  sudo apt-get install  git
+  sudo apt-get install  ansible
+
+a.2. clone RackHD code
+
+.. code::
+
+  git clone https://github.com/RackHD/RackHD.git
+
+a.3. Run the ansible playbooks
+
+These will install the prerequisite packages, install the RackHD debian packages, and copy default configuration files
+
+.. code::
+
+  cd RackHD/packer/ansible
+  ansible-playbook -c local -i "local," rackhd_package.yml
+
+a.4.Starting RackHD services
+
+All the services are upstart and have logs in /var/log/upstart.  Start with 'start on-[something]'  Verify with 'ps | aux | grep node'
+
+
+(b) Install/Configure with Step by Step Guide
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+b.1. Install the prerequisite packages:
 
 .. code::
 
@@ -64,13 +110,15 @@ Install the prerequisite packages:
 
     sudo apt-get install isc-dhcp-server
 
-Set up the RackHD bintray repository for use within this instance of Ubuntu
+b.2. Set up the RackHD bintray repository for use within this instance of Ubuntu
 
 .. code::
 
     echo "deb https://dl.bintray.com/rackhd/debian trusty main" | sudo tee -a /etc/apt/sources.list
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
     sudo apt-get update
+
+b.3. Install RackHD debian package
 
 Install the RackHD Packages. Note: these packages are rebuilt on every commit to master and are
 not explicitly versioned, but intended as a means to install or update to the latest code most
@@ -81,8 +129,8 @@ conveniently.
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
 
-Configuring RackHD
-~~~~~~~~~~~~~~~~~~~~
+b.4. Basic RackHD Configuration
+
 
 **DHCP**
 
@@ -147,12 +195,9 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
     cd /var/renasar/on-http/static/http/common
 
     for file in $(echo "\
-    base.trusty.3.13.0-32-generic.squashfs.img \
     base.trusty.3.16.0-25-generic.squashfs.img \
     discovery.overlay.cpio.gz \
-    initrd.img-3.13.0-32-generic \
     initrd.img-3.16.0-25-generic \
-    vmlinuz-3.13.0-32-generic \
     vmlinuz-3.16.0-25-generic");do
     wget "https://dl.bintray.com/rackhd/binary/builds/$file"
     done
@@ -163,6 +208,9 @@ All the services are upstart and have logs in /var/log/upstart.  Start with 'sta
 Verify with 'ps | aux | grep node'
 
 #######
+
+Configuring RackHD OS Mirrors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **MIRRORS**
 
@@ -183,7 +231,7 @@ in support of the existing workflows.
     sudo ln -s /var/mirrors/suse <on-http directory>/static/http/suse
 
 Making the Mirrors
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 **Centos 6.5**
 
@@ -261,7 +309,7 @@ For the Ubuntu repo, you need some additional installation. The mirrors are easi
     ###################
 
 How to Erase the Database to Restart Everything
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   .. code::
 
