@@ -15,6 +15,7 @@ config.json_
         "apiServerAddress": "172.31.128.1",
         "apiServerPort": 9080,
         "broadcastaddr": "172.31.131.255",
+        "dhcpPollerActive": false,
         "dhcpGateway": "172.31.128.1",
         "dhcpProxyBindAddress": "172.31.128.1",
         "dhcpProxyBindPort": 4011,
@@ -88,6 +89,8 @@ The following table describes the configuration parameters in config.json:
       - External facing IP address of the API server
     * - apiServerPort
       - External facing port of the API server
+    * - dhcpPollerActive
+      - Set to true to enable the dhcp isc lease poller (defaults to false)
     * - dhcpLeasesPath
       - Path to dhcpd.leases file.
     * - dhcpGateway
