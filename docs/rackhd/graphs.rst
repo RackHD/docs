@@ -71,7 +71,7 @@ For example, this graph will run three tasks one after the other:
         ]
     }
 
-The ordering is specified by the ``waitOn`` key in each task object, which specifies conditions that must be met before each task can be run. 
+The ordering is specified by the ``waitOn`` key in each task object, which specifies conditions that must be met before each task can be run.
 In the above graph definition, ``task-1`` has no dependencies, so it will be run immediately, ``task-2`` has a dependency on ``task-1`` succeeding,
 and ``task-3`` has a dependency on ``task-2`` succeeding.
 
@@ -140,7 +140,7 @@ In the above example, ``task-1`` and ``task-2`` will be started in parallel, and
 
 **Graph Options**
 
-As detailed in the :ref:`task-definition-ref-label` section, each task definition has an options object 
+As detailed in the :ref:`task-definition-ref-label` section, each task definition has an options object
 that can be used to customize the task. All values set in the options objects are considered defaults, and can be overridden
 within the Graph definition. Additionally, the options values can be overridden again by the data in the API request made to run the graph.
 
@@ -159,7 +159,7 @@ For example, a simple task definition with options looks like this:
         "properties": {}
     }
 
-As is, this task definition specifies default values of "value 1" and "value 2" for its respective options. 
+As is, this task definition specifies default values of "value 1" and "value 2" for its respective options.
 In the graph definition, these values can be changed to have new defaults by adding a key to the ``Graph.options`` object
 that matches the ``label`` string given to the task object ("example-options-task" in this case):
 
@@ -201,7 +201,7 @@ When ``defaults`` is set, the graph will iterate through each key in the object 
 that also has that key in its respective options object. In the above example, the ``Task.Example.Options`` definition will be changed with new
 values for ``option1`` and ``option2``, but not for ``option3``, since ``option3`` does not exist in the options object for that task definition:
 
-:: 
+::
 
     {
         "injectableName": "Graph.Example.Defaults",
@@ -235,7 +235,7 @@ values for ``option1`` and ``option2``, but not for ``option3``, since ``option3
 
 .. _Graph Username Example:
 
-The ``defaults`` object can be used to share values across every task definition that includes them, 
+The ``defaults`` object can be used to share values across every task definition that includes them,
 as in this example workflow that validates and sets a username.
 
 ::
@@ -289,7 +289,7 @@ as in this example workflow that validates and sets a username.
 
 Both tasks will share the "TESTUSER" value for
 the ``username`` option, but only the ``Task.Example.SetUsername`` task will use the value for ``group``, since it
-is the only task definition in this graph with that key in its options object.  
+is the only task definition in this graph with that key in its options object.
 After processing the graph definition and the default options, the task definitions will be run as:
 
 ::
@@ -328,11 +328,11 @@ The following are API commands that can be used when running the *on-http* proce
 
 ::
 
-    GET /api/1.1/workflows/library
+    GET /api/1.1/workflows/library/*
 
 ::
 
-    curl <server>/api/1.1/workflows/library
+    curl <server>/api/1.1/workflows/library/*
 
 **2.0 API Get Available Graphs in the Library**
 
