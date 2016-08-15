@@ -180,7 +180,7 @@ The following table describes the configuration parameters in config.json:
     * - wssBindPort
       - Listening port for RackHD WebSocket Service (defaults to 9100).
     * - trustedProxy
-      - Enable trust proxy in express. Populate req.ip with most left in XforwardFor list.
+      - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
 
         See documentation at https://expressjs.com/en/guide/behind-proxies.html
 
