@@ -21,6 +21,7 @@ RackHD Users Guide
    passive_discovery
    switch_active_discovery
    pollers
+   notification_api.rst
    microkernel
    web_ui
    dhcp_server
@@ -28,4 +29,4 @@ RackHD Users Guide
    boot_settings
    ssdp
    heartbeat
-   notification.rst
+   event_notification.rst
