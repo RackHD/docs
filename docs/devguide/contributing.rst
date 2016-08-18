@@ -59,17 +59,22 @@ jshint to find out style violations beforehand.
 
 **Travis CI**
 
-Travis CI integrates with unit test. The unit test scripts ``HWIMO-TEST`` have been 
-created in each repository, so before creating a pull request, you can run unit test 
-locally to find out basic errors beforehand.
+Travis CI runs the unit tests, and then does some potentially ancillary actions.
+The build specifics are detailed in the ``.travis.yml`` file within each repository.
+For finding out basic errors before creating a pull request, you can run unit test
+locally using scripts ``HWIMO-TEST`` within each repository.
 
 **Jenkins**
 
-Jenkins performs the re-unit-test and functional test then comments on the details of 
-test case failure. Jenkins is also able to take command to deal with complex test 
-scenarios. Commands can be written in pull request description or comments.
+Jenkins uses the Github Pull Request Builder plugin to monitoring all pull requests
+to perform quality gate tests prior to merge. The gates include running all the unit
+tests, running all dependent project unit tests with the code proposed from the pull 
+request, running an integration "smoke test" to verify basic end to end functionality
+and commenting on the details of test case failure. Jenkins is also able to takes 
+instructions from pull request comments to deal with complex test scenarios. 
+Instructions can be written in pull request description or comments.
 
-The following table show all the Jenkins commands and usage:
+The following table show all the Jenkins Instructions and usage:
 
 .. list-table::
     :widths: 30 50 100 
