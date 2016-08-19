@@ -80,9 +80,8 @@ to the disk on the target node. The second one notifies that the OS has been suc
 on the target node.
 
 The first notificatioin is typically sent in the 'postinstall' section of the kickstart file. 
-For example (**Todo**: replace this link after on-http PR #410 merges):
+For example:
 https://github.com/RackHD/on-http/blob/master/data/templates/install-photon/photon-os-ks#L76
 
-the second notification is typically sent in the RackHD callback script. For example 
-(**Todo**: replace this link after on-http PR #410 merges):
+the second notification is typically sent in the RackHD callback script. For example:
 https://github.com/RackHD/on-http/blob/master/data/templates/install-photon/photon-os.rackhdcallback#L38
