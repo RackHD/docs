@@ -81,6 +81,7 @@ Footprint Benchmark Test
 ~~~~~~~~~~~~~~~~~~~~
 
 Footprint benchmark test collects system data when running poller (15min), node discovery and CentOS bootstrap test cases.
+It can also run independently from any test cases, allowing users to measure footprint about any operations they carry out.
 The data includes CPU, memory, disk and network consumption of every process in RackHD, as well as RabbitMQ and MongoDB processes.
 The result is presented as HTML files.
 For more details, please check the wiki page `proposal-footprint-benchmarks`_.
@@ -98,6 +99,7 @@ It can be executed as long as the machine running the test can access the RackHD
 
 Prerequisites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- The machine running RackHD can use apt-get to install packages, which means it must have accessible sources.list.
 - In RackHD, compute nodes have been discovered, and pollers are running.
 - No external AMQP queue with the name "graph.finished" is subscribed to RackHD, since the benchmark test uses this queue.
 - Make sure the AMQP port in RackHD machine can be accessed by the test machine.
@@ -142,6 +144,18 @@ If user would like to run only one of the three benchmark cases, the following c
 .. code::
 
     python benchmark.py --group=poller|discovery|bootstrap
+
+Run footprint data collection independently
+
+.. code::
+
+    python benchmark.py --start|stop
+
+To get the directory of the latest log file
+
+.. code::
+
+    python benchmark.py --getdir
 
 After the test finishes, the result is in ~/benchmark, and arranged by the timestamp and case name.
 Please use the command below to open Chrome
