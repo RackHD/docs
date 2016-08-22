@@ -97,8 +97,8 @@ to interrogate)
     curl -X POST \
         -H 'Content-Type: application/json' \
         -d '{"name":"nodeName", "type": "compute", \
-         "ipmi-obm-service": {"host": "10.1.1.3", "user": "admin",  \
-         "password": "admin"}}' \
+        "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3",  \
+        "user": "admin", "password": "admin" } } ] }' \
         <server>/api/1.1/nodes
 
 .. code-block:: REST
