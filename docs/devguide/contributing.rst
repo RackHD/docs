@@ -41,9 +41,10 @@ Quality gates for the pull requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are three quality gates to ensure the pull requests quality, `Hound`_ for
-code style check, `Travis CI`_ for unit-test, `Jenkins`_ for re-unit-test and
-functional test. When a pull request created, all tests will run automatically, test 
-results can be found in the merge status field of each pull request page.
+code style check, `Travis CI`_ for unit-test and coveralls, `Jenkins`_ for the combination 
+test including unit-test and smoke test.. When a pull request created, all tests 
+will run automatically, test results can be found in the merge status field of
+each pull request page.
 
 .. _Hound: https://houndci.com/
 .. _Travis CI: https://travis-ci.org/
@@ -62,11 +63,11 @@ jshint to find out style violations beforehand.
 Travis CI runs the unit tests, and then does some potentially ancillary actions.
 The build specifics are detailed in the ``.travis.yml`` file within each repository.
 For finding out basic errors before creating a pull request, you can run unit test
-locally using scripts ``HWIMO-TEST`` within each repository.
+locally using ``npm test`` within each repository.
 
 **Jenkins**
 
-Jenkins uses the Github Pull Request Builder plugin to monitoring all pull requests
+Jenkins uses the Github Pull Request Builder plugin to monitor all pull requests
 to perform quality gate tests prior to merge. The gates include running all the unit
 tests, running all dependent project unit tests with the code proposed from the pull 
 request, running an integration "smoke test" to verify basic end to end functionality
@@ -80,12 +81,12 @@ The following table show all the Jenkins Instructions and usage:
     :widths: 30 50 100 
     :header-rows: 1
 
-    * - Command
+    * - Instruction
       - Description
       - Detailed Usage
     * - Jenkins: test this please
       - Trigger one Jenkins test on current pull request.
-      - This command will trigger one Jenkins test whether the pull request has been
+      - This command will trigger one Jenkins test no matter whether the pull request has been
         tested or not, the new test result will cover the previous one. 
     * - Jenkins: ignore
       - Avoid running any test in the next Jenkins test.
@@ -96,9 +97,14 @@ The following table show all the Jenkins Instructions and usage:
         unexpected test, it's strongly advised to write this command in pull request description.
         Otherwise if write in comments, an unexpected test may be triggered in the time slot
         between pull request creation and writing up comments. 
+
+        Remove this instruction and then "test this please" can recovery Jenkins test on this pull request 
+        and the commit status "pending" will be replaced by new result. If one pull request is depended on 
+        by another, the result of the combination test will replace "pending" too.
+        
     * - Jenkins: depends on pr1_url, pr2_url ...
       - Trigger one Jenkins test that using the commits of all interdependent pull requests.
-      - RackHD is a multi repositories project, so there are times one new feature leads to 
+      - RackHD is a multi repositories project, so there are times one new feature needs 
         changes on two or more repositories. In such situation neither Jenkins test for single
         pull request can pass. This command is order to solve this problem. 
 
@@ -107,4 +113,8 @@ The following table show all the Jenkins Instructions and usage:
         create the last pull request write "jenkins: depends on pr1_url, pr2_url ..." in its description.
 
         Under this usage duplicated or unexpected Jenkins test can be avoided.
+
+        The interdependent test result will be wrote back to all interdependent pull requests. The unit test
+        error log will be commented on each related pull request, the functional test error log will only be 
+        commented on the main pull request, the one wrote "Jenkins: depends on".
 
