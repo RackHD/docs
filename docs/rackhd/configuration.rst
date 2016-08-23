@@ -10,16 +10,14 @@ config.json_
 .. code-block:: JSON
 
     {
-        "CIDRNet": "172.31.128.0/22",
         "amqp": "amqp://localhost",
         "apiServerAddress": "172.31.128.1",
         "apiServerPort": 9080,
-        "broadcastaddr": "172.31.131.255",
         "dhcpPollerActive": false,
         "dhcpGateway": "172.31.128.1",
         "dhcpProxyBindAddress": "172.31.128.1",
         "dhcpProxyBindPort": 4011,
-        "dhcpSubnetMask": "255.255.252.0",
+        "dhcpSubnetMask": "255.255.240.0",
         "gatewayaddr": "172.31.128.1",
         "trustedProxy": false,
         "httpEndpoints": [
@@ -56,7 +54,6 @@ config.json_
         "mongo": "mongodb://localhost/pxe",
         "sharedKey": "qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M=",
         "statsd": "127.0.0.1:8125",
-        "subnetmask": "255.255.252.0",
         "syslogBindAddress": "172.31.128.1",
         "syslogBindPort": 514,
         "tftpBindAddress": "172.31.128.1",

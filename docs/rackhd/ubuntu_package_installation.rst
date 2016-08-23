@@ -143,8 +143,8 @@ Update dhcpd.conf per your network configuration
 
     ignore-client-uids true;
 
-    subnet 172.31.128.0 netmask 255.255.252.0 {
-      range 172.31.128.2 172.31.131.254;
+    subnet 172.31.128.0 netmask 255.255.240.0 {
+      range 172.31.128.2 172.31.143.254;
       # Use this option to signal to the PXE client that we are doing proxy DHCP
       option vendor-class-identifier "PXEClient";
     }
