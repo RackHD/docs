@@ -3,23 +3,23 @@ DHCP Server Setup
 .. _dhcpd.conf: http://linux.die.net/man/5/dhcpd.conf
 .. _ISC DHCP Server: https://www.isc.org/downloads/dhcp
 
-The DHCP protocol is a critical component to the PXE boot process and for 
+The DHCP protocol is a critical component to the PXE boot process and for
 executing various profiles and :doc:`graphs` within RackHD.
 
-By default RackHD deploys a DHCP configuration that forwards DHCP clients to the 
-on-dhcp-proxy service, see :doc:`../software_architecture` for more information. 
-However conventional DHCP configurations that require static (and/or dynamic) 
+By default RackHD deploys a DHCP configuration that forwards DHCP clients to the
+on-dhcp-proxy service, see :doc:`../architecture` for more information. 
+However conventional DHCP configurations that require static (and/or dynamic)
 IP lease reservations is also supported, bypassing the on-dhcp-proxy service
 all together.
 
 There are various Linux DHCP Server versions out there, RackHD has been primarily
-validated against `ISC DHCP Server`_. As long as the DHCP server supports the required 
+validated against `ISC DHCP Server`_. As long as the DHCP server supports the required
 DHCP configuration options then those versions should be compatible as well.
 
 DHCP-Proxy Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The advantage to using the on-dhcp-proxy service is to make the DHCP requests visible to 
+The advantage to using the on-dhcp-proxy service is to make the DHCP requests visible to
 RackHD's MAC/IP lookup subsystem. Therefore IP leases that expire/renew with different IP
 addresses will be seen by RackHD seamlessly updating OBM service host lookups.
 
@@ -40,13 +40,9 @@ by setting **ignore-client-uids true**.
 Static DHCP Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-One of the requirements of on-dhcp-proxy and automatic lookup updates is the DHCP process 
-must run natively to the on-taskgraph service. This is done so on-taskgraph can poll the 
-DHCP servers' lease cache.  However, this requirement may not be practical in some environments 
-so the option to deploy the DHCP server seperately from the RackHD services is also supported. 
 When bypassing on-dhcp-proxy step, the DHCP server can also define static host definitions.
 
-First we must disable the DHCP leased cache poller in on-taskgraph. This can be done by setting
+First ensure that the DHCP leased cache service poller is disabled in on-taskgraph. This can be done by setting
 **serviceGraph** to **false** in ``on-taskgraph/lib/graphs/isc-dhcp-poller-service-graph.js``.
 
 .. code-block:: javascript
@@ -76,7 +72,7 @@ Once the DHCP lease poller graph is edited and saved, restart the on-taskgraph s
 
     service on-taskgraph restart
 
-Using `ISC DHCP Server`_, the `dhcpd.conf`_ for invoking RackHD lookup directly 
+Using `ISC DHCP Server`_, the `dhcpd.conf`_ for invoking RackHD lookup directly
 and handling of static host definitions would look like the following:
 
 .. literalinclude:: samples/dhcpd.conf.noproxy
@@ -92,7 +88,7 @@ client requests.
         ...
     }
 
-If the request is made from a BIOS/UEFI PXE client, the DHCP server will hand out the 
+If the request is made from a BIOS/UEFI PXE client, the DHCP server will hand out the
 iPXE bootloader image that corresponds to the system's architecture type.
 
 .. code-block:: shell
@@ -107,7 +103,7 @@ iPXE bootloader image that corresponds to the system's architecture type.
         } elsif option arch-type = 00:06 {
           filename "monorail-efi32-snponly.efi";
         } else {
-          filename "monorail.ipxe"; 
+          filename "monorail.ipxe";
         }
     }
 

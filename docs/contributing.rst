@@ -36,7 +36,6 @@ Core Committer Team
 
 * Ben.BroderickPhillips@emc.com
 * Felix.Yuan@emc.com
-* Joseph.Longever@emc.com
 * Andrew.Hou@emc.com
 * Brian.Parry@emc.com
 
@@ -71,13 +70,22 @@ Understanding the Repositories
 The https://github.com/rackhd/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
 
 A thorough understanding of the individual repositories is essential for contributing to the project. The repositories are described in our documentation
-at :doc:`repositories`.
+at :doc:`devguide/repositories`.
 
 
 Submitting Design Proposals
 ----------------------------------------
 
-To submit a new design proposal, please follow the procedure described in the RackHD specs repository https://github.com/RackHD/specs.
+Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at groups.google.com/forum/#!forum/rackhd)
+for discussion. The Core Committer team reviews the proposals to make sure architectural details are aligned, with a floating agenda updated on the
+RackHD github wiki at https://github.com/RackHD/RackHD/wiki/Core-Committer-Meeting. The meeting notes are posted to the google groups mailing list.
+
+Work by dedicated teams is scheduled within a broader `RackHD Roadmap`_. External contributions are absolutely welcome outside of planning exposed in the
+roadmap.
+
+.. _RackHD Roadmap: https://github.com/RackHD/RackHD/wiki/roadmap
+
+
 
 
 Coding Guidelines
@@ -106,4 +114,3 @@ Our community generally follows `Apache voting guidelines`_ and utilizes `lazy c
 .. _Open Code of Conduct: http://todogroup.org/opencodeofconduct/#RackHD/rackhd@emc.com
 .. _Apache voting guidelines: http://www.apache.org/foundation/voting.html
 .. _lazy consensus: http://en.osswiki.info/concepts/lazy_consensus
-

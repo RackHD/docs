@@ -18,6 +18,11 @@ request should be merged.
 
 .. _lazy consensus: http://www.apache.org/foundation/glossary.html#LazyConsensus
 
+**For those with commit privileges**
+
+See https://github.com/RackHD/RackHD/wiki/Merge-Guidelines for more informal guidelines
+and rules of thumb to follow when making merge decisions.
+
 
 Getting commit privileges
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

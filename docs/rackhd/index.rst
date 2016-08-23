@@ -1,16 +1,32 @@
 RackHD Users Guide
 ==================
 
-.. include:: rackhd_api.rst
-.. include:: configuration.rst
-.. include:: authentication.rst
-.. include:: nodes.rst
-.. include:: graphs.rst
-.. include:: tasks.rst
-.. include:: skus.rst
-.. include:: workflow_examples.rst
-.. include:: pollers.rst
-.. include:: passive_discovery.rst
-.. include:: microkernel.rst
-.. include:: web_ui.rst
-.. include:: dhcp_server.rst
+.. toctree::
+
+   rackhd_api
+   packaging_and_deployment
+   ubuntu_source_installation
+   ubuntu_package_installation
+   configuration
+   authentication
+   authorization
+   nodes
+   graphs
+   tasks
+   skus
+   tags
+   install_os
+   secure_erase
+   workflow_examples
+   passive_discovery
+   switch_active_discovery
+   pollers
+   notification_api.rst
+   microkernel
+   web_ui
+   dhcp_server
+   arp_poller
+   boot_settings
+   ssdp
+   heartbeat
+   event_notification.rst

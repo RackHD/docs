@@ -3,7 +3,7 @@ RackHD API
 
 Our REST based API is the abstraction layer for the low-level management tasks
 that are performed on hardware devices, and information about those devices.
-For example, when a compute server is "discovered" (see :doc:`../how_it_works`
+For example, when a compute server is "discovered" (see :doc:`../architecture`
 for more details on this process), the information about that server is expressed
 as `nodes` and `catalogs` in the RackHD API. When you want to re-image that
 compute node, the RackHD API is used to activate a workflow containing the tasks
@@ -52,9 +52,10 @@ repository and running the following command.
   $ npm install
   $ npm run apidoc
 
-The default and example quick start build that we describe in :doc:`../getting_started`
+The default and example quick start build that we describe in :doc:`../tutorials/vagrant`
 has the API docs rendered and embedded within that instance for easy use, available
-at http://[IP ADDRESS OF VM]:8080/docs/
+at http://[IP ADDRESS OF VM]:8080/docs/ for the 1.1 API documentation, and
+http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the 2.0 and Redfish API documentation.
 
 RackHD Client Libraries
 -------------------------
@@ -101,9 +102,29 @@ Getting a list of nodes::
     nodes.api1_1_nodes_get()
     print client.last_response.data
 
+2.0 API - Getting a list of nodes ::
+
+    from on_http import NodesApi, ApiClient, Configuration
+
+        config = Configuration()
+        config.debug = True
+        config.verify_ssl = False
+
+        client = ApiClient(host='http://localhost:9090',header_name='Content-Type',header_value='application/json')
+        nodes = NodesApi(api_client=client)
+        nodes.api2_0_nodes_get()
+        print client.last_response.data
+
 Or the same asynchronously (with a callback)::
 
     def cb_func(resp):
     print 'GET /nodes callback!', resp
 
     thread = nodes.api1_1_nodes_get(callback=cb_func)
+
+2.0 API - Or the same asynchronously (with a callback)::
+
+    def cb_func(resp):
+    print 'GET /nodes callback!', resp
+
+    thread = nodes.api2_0_nodes_get(callback=cb_func)

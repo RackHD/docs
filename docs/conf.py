@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'RackHD'
-copyright = u'2015, EMC'
+copyright = u'2015-2016, EMC'
 author = u'EMC'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -150,7 +150,7 @@ html_theme_options = {
 
     # Global TOC depth for "site" navbar tab. (Default: 1)
     # Switching to -1 shows all levels.
-    # 'globaltoc_depth': 2,
+    'globaltoc_depth': -1,
 
     # Include hidden TOCs in Site navbar?
     # Note: If this is "false", you cannot have mixed ``:hidden:`` and
@@ -219,11 +219,7 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-html_sidebars = {
-  '*': ['searchbox.html', 'localtoc.html'],
-  'devguide/*': ['searchbox.html', 'localtoc.html'],
-  'rackhd/*': ['searchbox.html', 'localtoc.html'],
-}
+#html_sidebars = {}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

@@ -71,7 +71,7 @@ provisioning, but the ability to upgrade firmware is beyond the technology
 stacks currently available (i.e. `xCat`_, `Cobbler`_, `Razor`_ or `Hanlon`_).
 By adding an event-based workflow engine that works in conjunction with classical PXE
 booting, RackHD makes it possible to architect different deployment configurations
-as described in :doc:`how_it_works` and :doc:`packaging_and_deployment`.
+as described in :doc:`how_it_works` and :doc:`rackhd/packaging_and_deployment`.
 
 RackHD extends automation beyond simple PXE booting. It can perform highly
 customizable tasks on machines, as is illustrated by the following sequence:
@@ -187,7 +187,6 @@ Related Projects
 
 * CLI
 
-  * `Go CLI for RackHD <https://github.com/emccode/gorackhd>`_
   * `Ruby CLI for RackHD <https://github.com/EMC-CMD/rackhd-cli>`_
 
 * OpenStack
@@ -195,3 +194,15 @@ Related Projects
   * `Shovel - RackHD coordinator <https://github.com/keedya/Shovel>`_
   * `Shovel Horizon Plugin <https://github.com/keedya/shovel-horizon-plugin>`_
   * `Shovel API python client <https://github.com/keedya/shovel-api-python-client>`_
+
+* CloudFoundry/BOSH
+
+  * `Bosh RackHD CPI <https://github.com/cloudfoundry-incubator/bosh-rackhd-cpi-release>`_
+
+* Docker
+
+  * `Docker Machine driver for RackHD <https://github.com/emccode/docker-machine-rackhd>`_
+
+* Libraries
+
+  * `Golang client library to RackHD 1.1 API <https://github.com/emccode/gorackhd>`_

@@ -510,6 +510,45 @@ to check against the given string/regex:
         }
     }
 
+
+
+Chassis Power State Alert 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The IPMI chassis poller will publish an alert message when the power state of the node transitions. The AMQP message 
+payload will contain both the current and last power state, a reference location to the node resource and a reference 
+location to the pollers current data cache.
+
+- Example message:
+
+.. code-block:: JSON
+
+    {
+        "delivery_info": {
+            "consumer_tag": "None1",
+            "delivery_tag": 1,
+            "exchange": "on.events",
+            "redelivered": false,
+            "routing_key": "poller.alert.chassis.power.f40c2981-7329-40b7-8b04-27f187aecfb5"
+        },
+        "message": {
+            "value": {
+                "states": {
+                    "last": "OFF",
+                    "current": "ON"
+                },
+                "nodeRef": "/nodes/57966eb83ab822453d73300a",
+                "dataRef": "/pollers/59945eb33a7827473d732010/data/current"
+            }
+        },
+        "properties": {
+            "content_type": "application/json",
+            "type": "Result"
+        }
+    }
+
+
+
 Poller JSON Format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -15,11 +15,13 @@ config.json_
         "apiServerAddress": "172.31.128.1",
         "apiServerPort": 9080,
         "broadcastaddr": "172.31.131.255",
+        "dhcpPollerActive": false,
         "dhcpGateway": "172.31.128.1",
         "dhcpProxyBindAddress": "172.31.128.1",
         "dhcpProxyBindPort": 4011,
         "dhcpSubnetMask": "255.255.252.0",
         "gatewayaddr": "172.31.128.1",
+        "trustedProxy": false,
         "httpEndpoints": [
             {
                 "address": "0.0.0.0",
@@ -41,16 +43,14 @@ config.json_
         "httpDocsRoot": "./build/apidoc",
         "httpFileServiceRoot": "./static/files",
         "httpFileServiceType": "FileSystem",
-        "httpProxies": [{
-            "localPath": "/coreos",
-            "server": "http://stable.release.core-os.net",
-            "remotePath": "/amd64-usr/current/"
-        }],
+        "httpProxies": [
+            {
+                "localPath": "/coreos",
+                "server": "http://stable.release.core-os.net",
+                "remotePath": "/amd64-usr/current/"
+            }
+        ],
         "httpStaticRoot": "/opt/monorail/static/http",
-        "minLogLevel": 3,
-        "authUsername": "admin",
-        "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
-        "authPasswordSalt": "zlxkgxjvcFwm0M8sWaGojh25qNYO8tuNWUMN4xKPH93PidwkCAvaX2JItLA3p7BSCWIzkw4GwWuezoMvKf3UXg==",
         "authTokenSecret": "RackHDRocks!",
         "authTokenExpireIn": 86400,
         "mongo": "mongodb://localhost/pxe",
@@ -62,7 +62,13 @@ config.json_
         "tftpBindAddress": "172.31.128.1",
         "tftpBindPort": 69,
         "tftpRoot": "./static/tftp",
-        "minLogLevel": 2
+        "minLogLevel": 2,
+        "logColorEnable": false,
+        "enableUPnP": true,
+        "ssdpBindAddress": "0.0.0.0",
+        "heartbeatIntervalSec": 10,
+        "wssBindAddress": "0.0.0.0",
+        "wssBindPort": 9100
     }
 
 
@@ -84,6 +90,10 @@ The following table describes the configuration parameters in config.json:
       - External facing IP address of the API server
     * - apiServerPort
       - External facing port of the API server
+    * - dhcpPollerActive
+      - Set to true to enable the dhcp isc lease poller (defaults to false)
+    * - dhcpLeasesPath
+      - Path to dhcpd.leases file.
     * - dhcpGateway
       - Gateway IP for the network for DHCP
     * - dhcpProxyBindAddress
@@ -103,7 +113,7 @@ The following table describes the configuration parameters in config.json:
     * - httpFileServiceType
       - Backend storage mechanism for file service. Currently only FileSystem is supported.
     * - httpProxies
-      - Optional http proxies list. There are 3 parameters for each proxy:
+      - Optional HTTP/HTTPS proxies list. There are 3 parameters for each proxy:
 
         "localPath"/"remotePath" are optional and defaults to "/". A legal "localPath"/"remotePath" string must start with slash and ends without slash, like "/mirrors".
         If "localPath" is assigned to an existing local path like "/api/common/nodes", proxy won't work. Instead the path will keep its original feature and function.
@@ -114,12 +124,25 @@ The following table describes the configuration parameters in config.json:
         { "server": "http://centos.eecs.wsu.edu", "localPath": "/centos" } would map http requests to local directory /centos/ to http://centos.eecs.wsu.edu/
 
         { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
+
+        Note: To ensure this feature works, the httpProxies need be separately enabled for specified HTTP/HTTPS endpoint. See details in `Setting up HTTP/HTTPS endpoint`_
     * - httpFrontendDirectory
       - Fully-qualified directory to the web GUI content
     * - httpStaticDirectory
       - Fully-qualified directory to where static HTTP content is served
     * - maxTaskPayloadSize
       - Maximum payload size expected through TASK runner API callbacks from microkernel
+    * - mongo
+      - URI for accessing MongoDB. To support Mongo Replica Set feature, URI format is, mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+    * - sharedKey
+      - A 32 bit base64 key encoded string relevant for aes-256-cbc, defaults to 'qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M='. The default can be replaced by a 256 byte randomly generated base64 key encoded string.
+
+        Example generating a key with OpenSSL:
+
+        .. code-block:: shell
+
+            openssl enc -aes-256-cbc -k secret -P -md sha1
+
     * - obmInitialDelay
       - Delay before retrying an OBM invocation
     * - obmRetries
@@ -142,6 +165,25 @@ The following table describes the configuration parameters in config.json:
       - Fully-qualified directory from which static TFTP content is served
     * - minLogLevel
       - A numerical value for filtering the logging from RackHD
+    * - logColorEnable
+      - A boolean value to toggle the colorful log output (defaults to false)
+    * - enableLocalHostException
+      - Set to true to enable the localhost exception, see :ref:`localhost-exception-label`.
+    * - enableUPnP
+      - Set to true to advertise RackHD Restful API services using SSDP (Simple Service Discovery Protocol).
+    * - ssdpBindAddress
+      - The bind address to send the SSDP advertisements on (defaults to 0.0.0.0).
+    * - heartbeatIntervalSec
+      - Integer value setting the heartbeat send interval in seconds. Setting this value to 0 will disable the heartbeat service (defaults to 10)
+    * - wssBindAddress
+      - Address for RackHD WebSocket Service to bind to (defaults to '0.0.0.0').
+    * - wssBindPort
+      - Listening port for RackHD WebSocket Service (defaults to 9100).
+    * - trustedProxy
+      - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
+
+        See documentation at https://expressjs.com/en/guide/behind-proxies.html
+
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
@@ -173,72 +215,74 @@ These parameters beging with *HTTP* and *HTTPS*.
 BMC Username and Password Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add 
+A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add
 their own username/password during discovery certain steps need to be followed:
 
 First, edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
 to include the new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``.
 This will run the tasks to create a new user called '__rackhd__' with a randomly generated password and update obm settings
-accordingly. 
-Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the 
+accordingly.
+Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the
 **set-bmc-credentials-graph** ) :
 
 .. code-block:: javascript
 
     module.exports = {
-    friendlyName: 'SKU Discovery',
-    injectableName: 'Graph.SKU.Discovery',
-    options: {
-        defaults: {
-            graphOptions: {
-                target: null
-            },
-            nodeId: null
-        }
-    },
-    tasks: [
-        {
-            label: 'discovery-graph',
-            taskDefinition: {
-                friendlyName: 'Run Discovery Graph',
-                injectableName: 'Task.Graph.Run.Discovery',
-                implementsTask: 'Task.Base.Graph.Run',
-                options: {
-                    graphName: 'Graph.Discovery',
-                    graphOptions: {}
+        friendlyName: 'SKU Discovery',
+        injectableName: 'Graph.SKU.Discovery',
+        options: {
+            defaults: {
+                graphOptions: {
+                    target: null
                 },
-                properties: {}
+                nodeId: null
             }
         },
-        {
-            label: 'set-bmc-credentials-graph',
-            taskDefinition: {
-                friendlyName: 'Run BMC Credential Graph',
-                injectableName: 'Task.Graph.Run.Bmc',
-                implementsTask: 'Task.Base.Graph.Run',
-                options: {
-                    graphName: 'Graph.Set.Bmc.Credentials',
-                    defaults : {
-                        graphOptions: {   }
-                    }
+        tasks: [
+            {
+                label: 'discovery-graph',
+                taskDefinition: {
+                    friendlyName: 'Run Discovery Graph',
+                    injectableName: 'Task.Graph.Run.Discovery',
+                    implementsTask: 'Task.Base.Graph.Run',
+                    options: {
+                        graphName: 'Graph.Discovery',
+                        graphOptions: {}
+                    },
+                    properties: {}
+                }
+            },
+            {
+                label: 'set-bmc-credentials-graph',
+                taskDefinition: {
+                    friendlyName: 'Run BMC Credential Graph',
+                    injectableName: 'Task.Graph.Run.Bmc',
+                    implementsTask: 'Task.Base.Graph.Run',
+                    options: {
+                        graphName: 'Graph.Set.Bmc.Credentials',
+                        defaults : {
+                            graphOptions: {   }
+                        }
+                    },
+                    properties: {}
                 },
-                properties: {}
+                waitOn: {
+                    'discovery-graph': 'succeeded'
+                }
             },
-            waitOn: {
-                'discovery-graph': 'succeeded'
+            {
+                label: 'generate-sku',
+                waitOn: {
+                    'set-bmc-credentials-graph': 'succeeded'
+                },
+                taskName: 'Task.Catalog.GenerateSku'
             }
-        },
-        {
-            label: 'generate-sku',
-            waitOn: {
-                'set-bmc-credentials-graph': 'succeeded'
-            },
-            taskName: 'Task.Catalog.GenerateSku'
-        },
-    
-  
+        ]
+    };
+
+
 Next, edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
-to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph** 
+to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph**
 that was added to the **Sku Discovery graph** in the first step.
 Below is a snippet of the Discovery graph without the reboot task (the reboot task was originally located
 after the task 'catalog-lldp')
@@ -336,31 +380,30 @@ Once the above steps are completed (edited and saved) the service needs to be re
 .. code-block:: shell
 
     sudo service on-taskgraph start
-    
 
-If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.  
+
+If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
     POST:        http://server-ip:8080/api/1.1/workflows/
-    
+
    add the below content in the json body for payload (example node identifier and username, password shown below)
 
 .. code-block:: shell
 
    {
-   "name": "Graph.Bootstrap.With.BMC.Credentials.Setup", 
-   "options": {
-                "defaults": {
-                    "graphOptions": {
-                        "target": "56e967f5b7a4085407da7898",
-                        "generate-pass": {
-                            "user": "7",
-                            "password": "7"
-                        }
-                    },
-                    "nodeId": "56e967f5b7a4085407da7898"
+       "name": "Graph.Bootstrap.With.BMC.Credentials.Setup",
+       "options": {
+            "defaults": {
+                "graphOptions": {
+                    "target": "56e967f5b7a4085407da7898",
+                    "generate-pass": {
+                        "user": "7",
+                        "password": "7"
                     }
+                },
+                "nodeId": "56e967f5b7a4085407da7898"
+            }
         }
-    
    }
 
 By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the node again and set-bmc-credentials-graph runs the required tasks to update the BMC credentials. Below is a snippet of the 'Bootstrap-And-Set-Credentials graph', when the graph is posted the node reboots and starts the discovery process
@@ -375,9 +418,8 @@ By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the 
             graphOptions: {
                 target: null
             },
-            nodeId: null,
-        },
-
+            nodeId: null
+        }
     },
     tasks: [
         {
@@ -420,10 +462,31 @@ By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the 
                 'set-bmc-credentials-graph': 'finished'
             }
         }
-
     ]
  };
 
+To remove the BMC credentials, User can run the following workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-remove-graph.js`` and can be posted using Postman or Curl command.
+
+    POST:        http://server-ip:8080/api/1.1/workflows/
+
+   add the below content in the json body for payload (example node identifier and username, password shown below)
+
+.. code-block:: shell
+
+   {
+       "name": "Graph.Bootstrap.With.BMC.Credentials.Remove",
+       "options": {
+            "defaults": {
+                "graphOptions": {
+                    "target": "56e967f5b7a4085407da7898",
+                    "remove-bmc-credentials": {
+                        "users": ["7","8"]
+                    }
+                },
+                "nodeId": "56e967f5b7a4085407da7898"
+            }
+        }
+   }
 
 
 Certificates
@@ -476,6 +539,8 @@ choice. Verify the certificate by restarting on-http and visiting
 
 .. _OpenSSL documentation: https://www.openssl.org/docs/
 
+
+.. _http-endpoint-config-ref-label:
 
 Setting up HTTP/HTTPS endpoint
 ------------------------------
@@ -537,14 +602,16 @@ There are currently two API groups defined in RackHD:
         (only needed if the key and cert are omitted)
         This is optional and only takes effect when the httpsEnabled flag is set to true
     * - proxiesEnabled
-      - Toggle Proxies
+      - A boolean value to toggle httpProxies (defaults to false)
     * - authEnabled
       - Toggle API Authentication
     * - routers
       - A single router name or a list of router names.
         This would only take effect for 1.1 APIs.
-        You can now choose from "northbound-api-router","southbound-api-router" or 
+        You can now choose from "northbound-api-router","southbound-api-router" or
         ["northbound-api-router", "southbound-api-router"].
+
+.. _authentication-config-ref-label:
 
 Authentication
 -------------------------
@@ -578,62 +645,12 @@ user credentials over unencrypted HTTP connection exposes users to the risk of m
 Setting up username and password
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Every time a request is sent an API route that needs authentication, a token needs to be send with
-the request. The token is returned by RackHD by posting a request to the /login API with a
+Every time a request is sent an API route that needs authentication, a token needs to be sent with
+the request. The token is returned from RackHD by posting a request to the /login API with a
 username and password in the request body.
 
-The default username and password is setup in the config file.
-
-
-.. list-table::
-    :widths: 20 100
-    :header-rows: 1
-
-    * - Parameter
-      - Description
-    * - authUsername
-      - The username to login. Defaults to admin
-    * - authPasswordHash
-      - The default password stored in the form of a hashed value, base64 coded. The default
-        password to generate the hash is admin123.
-    * - authPasswordSalt
-      - The salt used to generate the password hash, base64 coded.
-
-
-Change the default password
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-A new password hash is needed if user want to change the default password from 'admin123' to
-something else.
-
-**Step 1**. Copy following javascript code into a file with .js extension, take hash-gen.js for
-example::
-
-    var crypto = require('crypto');
-
-    var password = 'admin123';//replace 'admin123' with the new password
-
-    salt = crypto.randomBytes(64);
-    console.log('salt = ', salt.toString('base64'));
-    crypto.pbkdf2(password, salt, 10000, 64, function(err, hash){
-        console.log('hash = ', hash.toString('base64'));
-    });
-
-Modify the content of password to any other string that the user picks.
-
-**Step 2**. Run this script using nodejs::
-
-    node hash-gen.js
-
-A random salt and a hash will be generated. Following is an example::
-
-    onrack@~/hash-gen> node hash-gen.js
-    salt =  L2Wh7fqR5GDQTIIvKZ5qWGmPeMN/IpGEZOipyS5CDK0I+yUt4kY0X98ZS+HG8dp4K9LXiiGttk91alfJFvqk2g==
-    hash =  b3n1vmbAKmEuLx0Cn/0X0hK2kYgGmcoTZgsn4SyLpjJftrbM0rhTaJ3CB3YZxw2Wopx51PtNG7SuDsw7jmh4IA==
-
-**Step 3**. Replace authPasswordSalt and authPasswordHash with the salt and hash generated above
-in the config.json. The new password will take effect after restarting RackHD.
-
+The default username and password is setup using the localhost exception mechanism described in
+:ref:`localhost-exception-label`.
 
 Setting up token
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
