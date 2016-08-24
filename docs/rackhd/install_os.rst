@@ -1,10 +1,46 @@
-OS Installation Workflow Support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OS Installation Support
+~~~~~~~~~~~~~~~~~~~~~~~
 
 RackHD workflow support installing Operating System automatically from remote http repository.
 
 Configuring RackHD OS Mirrors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Setting up a Windows OS repo**
+
+* **Mounting the OS Image**:
+
+Windows' installation requires that Windows OS' ISO image must be mounted to a directory accessable to the node.
+In the example below a windows server 2012 ISO image is being mounted to a directory name **Licensedwin2012**
+
+.. code-block:: REST
+
+    sudo mount -o loop /var/renasar/on-http/static/http/W2K2012_2015-06-08_1040.iso /var/renasar/on-http/static/http/Licensedwin2012
+
+* **Export the directory**
+
+Edit the samba config file in order to export the shared directory
+
+.. code-block:: REST
+
+sudo nano /etc/samba/smb.conf
+
+.. code-block:: REST
+
+    [windowsServer2012]
+        comment = not windows server 201
+        path = /var/renasar/on-http/static/http/Licensedwin2012
+        browseable = yes
+        guest ok = yes
+        writable = no
+        printable = no
+
+
+* **Restart the samba share**
+
+.. code-block:: REST
+
+    sudo service samba restart
 
 **MIRRORS**
 
@@ -289,38 +325,3 @@ https://github.com/RackHD/RackHD/blob/master/example/samples/install_windows_pay
 **Example of full payload**
 https://github.com/RackHD/RackHD/blob/master/example/samples/install_windows_payload_full.json
 
-Setting up a Windows OS repo
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* **Mounting the OS Image**:
-
-Windows' installation requires that Windows OS' ISO image must be mounted to a directory accessable to the node.
-In the example below a windows server 2012 ISO image is being mounted to a directory name **Licensedwin2012**
-
-.. code-block:: REST
-
-    sudo mount -o loop /var/renasar/on-http/static/http/W2K2012_2015-06-08_1040.iso /var/renasar/on-http/static/http/Licensedwin2012
-
-* **Export the directory**
-
-Edit the samba config file in order to export the shared directory
-
-.. code-block:: REST
-
-sudo nano /etc/samba/smb.conf
-
-.. code-block:: REST
-
-    [windowsServer2012]
-        comment = not windows server 201
-        path = /var/renasar/on-http/static/http/Licensedwin2012
-        browseable = yes
-        guest ok = yes
-        writable = no
-        printable = no
-
-
-* **Restart the samba share**
-
-.. code-block:: REST
-
-    sudo service samba restart
