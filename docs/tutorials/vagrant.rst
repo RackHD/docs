@@ -36,6 +36,21 @@ oriented tool for pretty printing and filtering JSON structured data.
 what we're setting up
 ----------------------
 
+.. sidebar:: VirtualBox
+
+    In some high-load cases, you may run into some issues with VirtualBox where it
+    locks the fileystem, with the console returning the error message:
+    ``rejecting i/o input from offline devices``.
+
+    This is a known issue with VirtualBox, documented in Puppet's `LearningVM bug tracker`_
+    and with some additional detail on the `timekeeping`_ that's related.
+
+    The workaround suggested there that seems to resolve the issue is to set Virtualbox CPUs to 1
+    and disable the I/O APIC feature when running the virtual machine.
+
+.. _LearningVM bug tracker: https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt
+.. _timekeeping: https://www.kernel.org/doc/Documentation/virtual/kvm/timekeeping.txt
+
 .. image:: ../_static/vagrant_setup.jpg
      :height: 300
      :align: left
