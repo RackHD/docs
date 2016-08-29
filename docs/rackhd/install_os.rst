@@ -1,7 +1,142 @@
-OS Installation Workflow Support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OS Installation Support
+~~~~~~~~~~~~~~~~~~~~~~~
 
 RackHD workflow support installing Operating System automatically from remote http repository.
+
+Configuring RackHD OS Mirrors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Setting up a Windows OS repo**
+
+* **Mounting the OS Image**:
+
+Windows' installation requires that Windows OS' ISO image must be mounted to a directory accessable to the node.
+In the example below a windows server 2012 ISO image is being mounted to a directory name **Licensedwin2012**
+
+.. code-block:: REST
+
+    sudo mount -o loop /var/renasar/on-http/static/http/W2K2012_2015-06-08_1040.iso /var/renasar/on-http/static/http/Licensedwin2012
+
+* **Export the directory**
+
+Edit the samba config file in order to export the shared directory
+
+.. code-block:: REST
+
+sudo nano /etc/samba/smb.conf
+
+.. code-block:: REST
+
+    [windowsServer2012]
+        comment = not windows server 201
+        path = /var/renasar/on-http/static/http/Licensedwin2012
+        browseable = yes
+        guest ok = yes
+        writable = no
+        printable = no
+
+
+* **Restart the samba share**
+
+.. code-block:: REST
+
+    sudo service samba restart
+
+**MIRRORS**
+
+Mirrors may not be something you need to configure if you're utilizing the proxy capabilities
+of RackHD. If you previously configured proxies to support OS installation workflows,
+then those should be configured to provide access to the files needed. If you do not, or can
+not, utilize proxies, then you can host the OS installation files directly on the same
+instance with RackHD. The following instructions show how to create OS installation mirrors
+in support of the existing workflows.
+
+**Set the Links to the Mirrors:**
+
+  .. code::
+
+    sudo ln -s /var/mirrors/ubuntu <on-http directory>/static/http/ubuntu
+    sudo ln -s /var/mirrors/ubuntu/14.04/mirror/mirror.pnl.gov/ubuntu/ <on-http directory>/static/http/trusty
+    sudo ln -s /var/mirrors/centos <on-http directory>/static/http/centos
+    sudo ln -s /var/mirrors/suse <on-http directory>/static/http/suse
+
+Making the Mirrors
+^^^^^^^^^^^^^^^^^^
+
+**Centos 6.5**
+
+  .. code::
+
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
+    --exclude "i386" rsync://centos.eecs.wsu.edu/centos/6.5/ /var/mirrors/centos/6.5
+
+**Centos 7.0**
+
+  .. code::
+
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
+    --exclude "i386" rsync://centos.eecs.wsu.edu/centos/7/ /var/mirrors/centos/7
+
+**OpenSuse 12.3**
+
+  .. code::
+
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/12.3/ /var/mirrors/suse/distribution/12.3
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/12.3 /var/mirrors/suse/update
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/12.3-non-oss /var/mirrors/suse/update
+
+**OpenSuse 13.1**
+
+  .. code::
+
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/13.1/ /var/mirrors/suse/distribution/13.1
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.1 /var/mirrors/suse/update
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.1-non-oss /var/mirrors/suse/update
+
+**OpenSuse 13.2**
+
+  .. code::
+
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/13.2/ /var/mirrors/suse/distribution/13.2
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.2 /var/mirrors/suse/update
+    sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.2-non-oss /var/mirrors/suse/update
+
+
+For the Ubuntu repo, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
+
+  .. code::
+
+	# make the mirror directory (can sometimes hit a permissions issue)
+	sudo mkdir -p /var/mirrors/ubuntu/14.04/mirror
+	# create a file in /etc/apt/mirror.list (config below)
+	sudo vi /etc/apt/mirror.list
+	# run the mirror
+	sudo apt-mirror
+
+
+    ############# config ##################
+    #
+    set base_path    /var/mirrors/ubuntu/14.04
+    #
+    # set mirror_path  $base_path/mirror
+    # set skel_path    $base_path/skel
+    # set var_path     $base_path/var
+    # set cleanscript $var_path/clean.sh
+    # set defaultarch  <running host architecture>
+    # set postmirror_script $var_path/postmirror.sh
+    # set run_postmirror 0
+    set nthreads     20
+    set _tilde 0
+    #
+    ############# end config ##############
+
+    deb-amd64 http://mirror.pnl.gov/ubuntu trusty main
+    deb-amd64 http://mirror.pnl.gov/ubuntu trusty-updates main
+    deb-amd64 http://mirror.pnl.gov/ubuntu trusty-security main
+    clean http://mirror.pnl.gov/ubuntu
+
+    #end of file
+    ###################
 
 Supported OS Installation Workflows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -190,38 +325,3 @@ https://github.com/RackHD/RackHD/blob/master/example/samples/install_windows_pay
 **Example of full payload**
 https://github.com/RackHD/RackHD/blob/master/example/samples/install_windows_payload_full.json
 
-Setting up a Windows OS repo
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* **Mounting the OS Image**:
-
-Windows' installation requires that Windows OS' ISO image must be mounted to a directory accessable to the node.
-In the example below a windows server 2012 ISO image is being mounted to a directory name **Licensedwin2012**
-
-.. code-block:: REST
-
-    sudo mount -o loop /var/renasar/on-http/static/http/W2K2012_2015-06-08_1040.iso /var/renasar/on-http/static/http/Licensedwin2012
-
-* **Export the directory**
-
-Edit the samba config file in order to export the shared directory
-
-.. code-block:: REST
-
-sudo nano /etc/samba/smb.conf
-
-.. code-block:: REST
-
-    [windowsServer2012]
-        comment = not windows server 201
-        path = /var/renasar/on-http/static/http/Licensedwin2012
-        browseable = yes
-        guest ok = yes
-        writable = no
-        printable = no
-
-
-* **Restart the samba share**
-
-.. code-block:: REST
-
-    sudo service samba restart
