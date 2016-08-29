@@ -112,7 +112,6 @@ Example of sending the token as query string:::
     100  1919  100  1919    0     0  81114      0 --:--:-- --:--:-- --:--:-- 83434
     {
         "$0": "index.js",
-        "CIDRNet": "172.31.128.0/22",
         ...
         "tftpRoot": "./static/tftp"
     }
@@ -128,7 +127,6 @@ should start will 'JWT' followed by a whitespace and then the token itself.::
     100  1919  100  1919    0     0    99k      0 --:--:-- --:--:-- --:--:--  104k
     {
         "$0": "index.js",
-        "CIDRNet": "172.31.128.0/22",
         ...
         "tftpRoot": "./static/tftp"
     }

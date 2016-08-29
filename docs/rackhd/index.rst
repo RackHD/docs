@@ -24,7 +24,7 @@ RackHD Users Guide
    notification_api.rst
    microkernel
    web_ui
-   dhcp_server
+   tftp_dhcp_server
    arp_poller
    boot_settings
    ssdp
