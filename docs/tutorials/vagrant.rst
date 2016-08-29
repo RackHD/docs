@@ -112,8 +112,7 @@ Accessing your local instance of RackHD
         vagrant ssh dev -c "sudo nf start"
 
 
-    Resetting and updating the code to the latest master branch
-    ------------------------------------------------------------
+    **Resetting and updating the code to the latest master branch**
 
     The demonstration instance of RackHD is installed from source, so it can also be
     updated the latest version::
