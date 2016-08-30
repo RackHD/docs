@@ -1,0 +1,62 @@
+[
+  {
+      "autoDiscover": false,
+      "createdAt": "2016-08-30T18:39:57.819Z",
+      "name": "demoRack",
+      "relations": [
+            {
+                "relationType": "contains",
+                "targets": [
+                    "57c0d980851053795fdc7bcf",
+                    "57c0d6bd851053795fdc7bc4"
+                ]
+            }
+          ],
+      "tags": [],
+      "type": "rack",
+      "updatedAt": "2016-08-30T21:07:11.717Z",
+      "id": "57c5d2fd64bda4e679146530"
+    },
+  {
+      "autoDiscover": false,
+      "createdAt": "2016-08-27T00:06:24.784Z",
+      "identifiers": [
+            "08:00:27:10:1f:25"
+          ],
+      "name": "08:00:27:10:1f:25",
+      "relations": [
+            {
+                "relationType": "containedBy",
+                "targets": [
+                    "57c5d2fd64bda4e679146530"
+                ]
+            }
+          ],
+      "sku": null,
+      "tags": [],
+      "type": "compute",
+      "updatedAt": "2016-08-30T21:07:11.729Z",
+      "id": "57c0d980851053795fdc7bcf"
+    },
+  {
+      "autoDiscover": false,
+      "createdAt": "2016-08-26T23:54:37.249Z",
+      "identifiers": [
+            "08:00:27:44:97:79"
+          ],
+      "name": "08:00:27:44:97:79",
+      "relations": [
+            {
+                "relationType": "containedBy",
+                "targets": [
+                    "57c5d2fd64bda4e679146530"
+                ]
+            }
+          ],
+      "sku": null,
+      "tags": [],
+      "type": "compute",
+      "updatedAt": "2016-08-30T21:07:11.724Z",
+      "id": "57c0d6bd851053795fdc7bc4"
+    }
+]
