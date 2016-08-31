@@ -66,6 +66,7 @@ The Vagrant setup also enables port forwarding that allows your localhost to acc
 
 - localhost:9090 redirects to rackhd:8080 for access to the REST API
 - localhost:2222 redirects to rackhd:22 for SSH access
+- localhost:9093 redirects to rackhd:8443 for secure access to the REST API
 
 .. container:: clearer
 
@@ -97,7 +98,6 @@ this instance with ``vagrant destroy dev``. For more information on Vagrant,
 please see the `Vagrant CLI documentation`_.
 
 .. _Vagrant CLI documentation: https://www.vagrantup.com/docs/cli/
-
 
 Accessing your local instance of RackHD
 ----------------------------------------
@@ -151,10 +151,24 @@ such as `Postman`_ in the browser.
 
 .. _Postman: https://www.getpostman.com
 
-With a brand new instance, you should be able to access the ``nodes/`` API endpoint
-and see an empty list of nodes.
+Getting a token
+---------------
+Get a token for authentication. The token will be included in the header of each REST API call::
 
-- ``curl http://localhost/api/2.0/nodes | jq``
+    curl -k -X POST -H "Content-Type:application/json" https://localhost:9093/login \
+    -d '{"username":"admin", "password":"admin123" }' | python -m json.tool
+
+.. code-block:: JSON
+
+    {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE"
+    }
+
+With a brand new instance, you should be able to access the ``nodes/`` API endpoint
+and see an empty list of nodes. In the following curl command, <token> is the token
+obtained previously in the tutorial.
+
+- ``curl -k https://localhost:9093/api/2.0/nodes -H 'Authorization: JWT <token>'| jq``
 
 .. code-block:: JSON
 
@@ -162,7 +176,7 @@ and see an empty list of nodes.
 
 You can also view a list of all the built-in workflows
 
-- ``curl http://localhost/api/2.0/workflows/graphs | jq``
+- ``curl -k https://localhost:9093/api/2.0/workflows/graphs -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -197,7 +211,7 @@ You can also view a list of all the built-in workflows
 
 If you want to just see the names of the workflows:
 
-- ``curl http://localhost:9090/api/2.0/workflows/graphs | jq '.[]["injectableName"]'``
+- ``curl -k https://localhost:9093/api/2.0/workflows/graphs -H 'Authorization: JWT <token>' | jq '.[]["injectableName"]'``
 
 .. code-block:: JSON
 
@@ -276,7 +290,7 @@ If you want to just see the names of the workflows:
 
 Or review the list of all the built-in tasks available to be used in workflows
 
-- ``curl http://localhost/api/2.0/workflows/tasks | jq``
+- ``curl -k https://localhost:9093/api/2.0/workflows/tasks -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -329,7 +343,7 @@ and password ``admin``.
 
 Once the node has been discovered by RackHD, you can see it through the API.
 
-- ``curl http://localhost:9090/api/2.0/nodes | jq``
+- ``curl -k https://localhost:9093/api/2.0/nodes -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -363,7 +377,7 @@ Viewing the geneaology
 You can view all of the information collected about a specific node through the
 ``catalogs`` URI. For the example above, using the node with the ID **579680825d434579084ff910**:
 
-- ``curl http://localhost:9090/api/2.0/nodes/579680825d434579084ff910/catalogs | jq``
+- ``curl -k https://localhost:9093/api/2.0/nodes/579680825d434579084ff910/catalogs -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -391,7 +405,7 @@ There are a large number of sources provided by default, and these can be extend
 additional cataloging tasks. A quick way to see all the catalogs for a node:
 
 
-- ``curl http://localhost:9090/api/2.0/nodes/579680825d434579084ff910/catalogs | jq '.[]["source"]'``
+- ``curl -k https://localhost:9093/api/2.0/nodes/579680825d434579084ff910/catalogs -H 'Authorization: JWT <token>' | jq '.[]["source"]'``
 
 .. code-block:: JSON
 
@@ -441,7 +455,7 @@ additional cataloging tasks. A quick way to see all the catalogs for a node:
 You can request a specific catalog by appending its source identifier onto the
 catalogs URI:
 
-- ``curl http://localhost:9090/api/2.0/nodes/579680825d434579084ff910/catalogs/bmc | jq``
+- ``curl -k https://localhost:9093/api/2.0/nodes/579680825d434579084ff910/catalogs/bmc -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -488,7 +502,7 @@ catalogs URI:
 
 And one of the most commonly used catalogs to identify hardware is the source `dmi`:
 
-- ``curl http://localhost:9090/api/2.0/nodes/579680825d434579084ff910/catalogs/dmi | jq``
+- ``curl -k https://localhost:9093/api/2.0/nodes/579680825d434579084ff910/catalogs/dmi -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -633,9 +647,9 @@ SKU definition which will use the simulated hardware to trigger that workflow.
     cd ~/src/rackhd/example
     # make sure you're in the example directory to reference the sample JSON correctly
 
-    curl -H "Content-Type: application/json" \
+    curl -k -H "Content-Type: application/json" -H 'Authorization: JWT <token>' \
     -X PUT --data @samples/vQuanta_default_workflow.json \
-    http://localhost:9090/api/2.0/workflows/graphs
+    https://localhost:9093/api/2.0/workflows/graphs
 
 
 - add the `vQuanta SKU definition`_ for our simulated hardware::
@@ -643,9 +657,9 @@ SKU definition which will use the simulated hardware to trigger that workflow.
     cd ~/src/rackhd/example
     # make sure you're in the example directory to reference the sample JSON correctly
 
-    curl -H "Content-Type: application/json" \
+    curl -k -H "Content-Type: application/json" -H 'Authorization: JWT <token>' \
     -X POST --data @samples/vQuanta_d51_sku.json \
-    http://localhost:9090/api/2.0/skus
+    https://localhost:9093/api/2.0/skus
 
 .. _default vQuanta workflow:  https://github.com/RackHD/RackHD/blob/master/example/samples/vQuanta_default_workflow.json
 .. _vQuanta SKU definition:  https://github.com/RackHD/RackHD/blob/master/example/samples/vQuanta_d51_sku.json
@@ -685,7 +699,7 @@ Checking and setting the OBM settings for a node
 You can check to see if any OBM settings are defined on the node using the nodes
 API:
 
-``curl http://localhost:9090/api/2.0/nodes/57990efa0d76e7c207cdfc3f | jq``
+``curl -k https://localhost:9093/api/2.0/nodes/57990efa0d76e7c207cdfc3f -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -731,30 +745,30 @@ For the node in the examples above, that could be:
 
 .. code-block:: REST
 
-    curl -X PUT \
-        -H 'Content-Type: application/json' \
+    curl -k -X PUT \
+        -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         -d '{ "nodeId": "5799151faa0559c007dab5e3", "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "52:54:be:ef:9d:3d" } }' \
-        localhost:9090/api/2.0/obms
+        https://localhost:9093/api/2.0/obms
 
 Power Off
 ^^^^^^^^^^^
 
 .. code-block:: REST
 
-    curl -X POST \
-        -H 'Content-Type: application/json' \
+    curl -k -X POST \
+        -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         -d '{"name": "Graph.PowerOff.Node"}' \
-        localhost:9090/api/2.0/nodes/5799151faa0559c007dab5e3/workflows
+        https://localhost:9093/api/2.0/nodes/5799151faa0559c007dab5e3/workflows
 
 Power On
 ^^^^^^^^^^^
 
 .. code-block:: REST
 
-    curl -X POST \
-        -H 'Content-Type: application/json' \
+    curl -k -X POST \
+        -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         -d '{"name": "Graph.PowerOn.Node"}' \
-        localhost:9090/api/2.0/nodes/5799151faa0559c007dab5e3/workflows
+        https://localhost:9093/api/2.0/nodes/5799151faa0559c007dab5e3/workflows
 
 Install OS
 ^^^^^^^^^^^
@@ -762,7 +776,7 @@ Install OS
 .. code-block:: REST
 
     cd ~/src/rackhd/examples
-    curl -X POST \
-        -H 'Content-Type: application/json' \
+    curl -k -X POST \
+        -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         --data @samples/centos_iso_boot.json \
-        localhost:9090/api/2.0/nodes/579680825d434579084ff910/workflows
+        https://localhost:9093/api/2.0/nodes/579680825d434579084ff910/workflows
