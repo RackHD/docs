@@ -158,3 +158,60 @@ Node Tags
 ::
 
     curl -X DELETE <server>/api/1.1/nodes/<id>/tags/<tagname>
+
+Node Relations
+^^^^^^^^^^
+
+**List relations for a node** 
+
+::
+
+    GET <server>/api/2.0/nodes/<id>/relations
+::
+
+    curl <server>/api/2.0/nodes/<id>/relations
+
+Sample response:
+
+.. literalinclude:: samples/relations.json
+   :language: JSON
+
+**Add relations to a node** 
+
+::
+
+    PUT <server>/api/2.0/nodes/<id>/relations
+
+::
+    
+    curl -H "Content-Type: application/json" -X PUT -d '{ <relationType>: [<list of targets>]}' <server>/api/2.0/nodes/<id>/relations
+
+Sample request body:
+
+.. literalinclude:: samples/edit-relations-req.json
+   :language: JSON
+
+Sample response body:
+
+.. literalinclude:: samples/relations-added.json
+   :language: JSON
+
+**Remove Relations from a node**
+
+::
+
+    DELETE <server>/api/2.0/nodes/<id>/relations
+
+::
+
+    curl -H "Content-Type: application/json" -X DELETE -d '{ <relationType>: [<list of targets>]}' <server>/api/2.0/nodes/<id>/relations
+
+Sample request body:
+
+.. literalinclude:: samples/edit-relations-req.json
+   :language: JSON
+
+Sample response body:
+
+.. literalinclude:: samples/relations-deleted.json
+   :language: JSON
