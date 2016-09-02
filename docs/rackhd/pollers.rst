@@ -35,7 +35,7 @@ to communicate via SNMP. Otherwise, the poller must be manually configured with
 that node's SNMP settings.
 
 If a node with "type": "switch" is created via the /nodes API with autoDiscover
-set to true, then four SNMP-based metric pollers will be created automatically
+set to true, then six SNMP-based metric pollers will be created automatically
 for that node (see the Metric pollers section below for a list of these).
 
 Example request to create and auto-discover a switch::
@@ -61,12 +61,14 @@ In some cases, the data desired from a poller may require more complex processin
 than simply running an IPMI or SNMP command and parsing it. To address this,
 there is a poller type called a metric. A metric uses SNMP or IPMI, but can
 make multiples of these calls in aggregate and add post-processing logic to the
-results. There are currently four metrics available in the RackHD system:
+results. There are currently six metrics available in the RackHD system:
 
 - snmp-interface-state
 - snmp-interface-bandwidth-utilization
 - snmp-memory-usage
 - snmp-processor-load
+- snmp-txrx-counters
+- snmp-switch-sensor-status
 
 These metrics use SNMP to query multiple sources of information in order to
 calculate result data. For example, the bandwidth utilization metric calculates
@@ -414,24 +416,32 @@ Sample data for an "snmp" alert:
 .. code-block:: REST
 
     {
-        host: '10.1.1.3',
-        community: 'public',
-        workItemId: '561c2b3e94e9d7c6057be676',
-        pollInterval: 10000,
-        node: '561c2b1894e9d7c6057be675',
-        alerts: [
-            {
-                matches: {
-                    '.1.3.6.1.2.1.1.5': '/Mounted/',
-                    '.1.3.6.1.2.1.1.1': '/Manage/',
-                    inCondition: true
-                },
-                data: {
-                    '.1.3.6.1.2.1.1.5.0': 'APC Rack Mounted UPS',
-                    '.1.3.6.1.2.1.1.1.0': 'APC Web/SNMP Management Card
-                }
-            }
-        ]
+        value: {
+            host: '10.1.1.3',
+            oid: '.1.3.6.1.2.1.1.5.0',
+            value: 'APC Rack Mounted UPS'
+            nodeRef: '/nodes/561c2b1894e9d7c6057be675',
+            dataRef: '/pollers/561c2b3e94e9d7c6057be676/data/current',
+            matched: '/Mounted/'
+        }
+    }
+
+Sample data for an "snmp" metric alert:
+
+.. code-block:: REST
+
+    { 
+        value: {
+            host: '127.0.0.1',
+            oid: '.1.3.6.1.4.1.9.9.117.1.1.2.1.2.470',
+            value: 'No Such Instance currently exists at this OID',
+            nodeRef: '/nodes/57c07bb9cc6ecf1555fe48b8',
+            dataRef: '/pollers/57c07c23c0b6ffbc71d6fd21/data/current',
+            matched: { contains: 'No Such Instance' },
+            severity: 'warning',
+            description: 'PSU element is not present',
+            metric: 'snmp-switch-sensor-status'
+        } 
     }
 
 **Creating Alerts**
@@ -487,8 +497,8 @@ under config.alerts:
 
 
 Snmp poller alerts can be defined just like sel alerts via string or regex matching.
-However, the keys for an snmp alert must be a numeric oid whose value you wish
-to check against the given string/regex:
+However, the keys for an snmp alert must be a string or regex whose value you wish
+to check against the given OID numeric or string representation:
 
 .. code-block:: REST
 
@@ -510,6 +520,30 @@ to check against the given string/regex:
         }
     }
 
+Complex alerts are done by replacing the string/regex value with a validation
+object.  The following example will match all OIDs with 'InErrors' in the 
+name and generate an alert when the value is greater than 0.
+
+.. code-block:: REST
+
+    {
+        "type":"snmp",
+        "pollInterval":10000,
+        "node": "560ac7f33ab91d99448fb945",
+        "config": {
+            "alerts": [
+                {
+                    "/\\S*InErrors/": {
+                        "greaterThan": 0,
+                        "integer": true,
+                        "severity": "ignore"
+                    }
+                }
+             ],
+            "metric": "snmp-txrx-counters"
+        }
+    }
+          
 
 
 Chassis Power State Alert 
