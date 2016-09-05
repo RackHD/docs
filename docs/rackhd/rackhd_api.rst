@@ -128,3 +128,39 @@ Or the same asynchronously (with a callback)::
     print 'GET /nodes callback!', resp
 
     thread = nodes.api2_0_nodes_get(callback=cb_func)
+
+Using Pagination
+-----------------
+
+The RackHD 2.0 ``/nodes``, ``/pollers``, and ``/workflows`` APIs support pagination
+using ``$skip`` and ``$top`` query parameters.
+
+=========== =================================================================================================================
+ Parameter   Description
+=========== =================================================================================================================
+``$skip``        An integer indicating the number of items that should be skipped starting with the first item in the collection.
+``$top``         An integeter indicating the number of items that should be included in the response.
+=========== =================================================================================================================
+
+These parameters can be used individually or combined to display any subset of consecutive
+resources in the collection.
+
+Here is an example request using $skip and $top to get get the second page of nodes with
+four items per page.::
+
+    curl http://localhost:8080/api/2.0/nodes?$skip=4&$top=4
+
+RackHD will add a link header to assist in traversing a large collection.  Links will be added
+if either ``$skip`` or ``$top`` is used and the size of the collection is greater than the
+number of resources displayed (i.e. the collection cannot fit on one page).  If applicable,
+links to first, last, next, and previous pages will be included in the header.  The next and
+previous links will be ommitted for the last and first pages respectively.
+
+Here is an example link header from a collection containing 1000 nodes.::
+
+    </api/2.0/nodes?$skip=0&$top=4>; rel="first",
+    </api/2.0/nodes?$skip=1004&$top=4>; rel="last",
+    </api/2.0/nodes?$skip=0&$top=4>; rel="prev",
+    </api/2.0/nodes?$skip=8&$top=4>; rel="next"
+
+
