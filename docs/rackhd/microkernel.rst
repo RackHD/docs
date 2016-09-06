@@ -130,3 +130,21 @@ changes to this script should only have to be done in one place.
 Please send us a note if you think this is incorrect! So long as our design
 constraints are preserved, we are more than open to leveraging existing container
 technology.
+
+How To Login Microkernel
+~~~~~~~~~~~~~~~~~~~~~~~~
+By default, RackHD has a workflow to let users login Ubuntu based microkernel to debug.
+The workflow name is `Graph.BootstrapUbuntu`.
+
+.. code-block:: REST
+
+    curl -X POST -H 'Content-Type: application/json' <server>/api/2.0/nodes/<identifier>/workflows?name=Graph.BootstrapUbuntu
+
+When this workflow is running, it will set node to PXE boot, then reboot the node.
+The node will boot into Ubuntu microkernel, finally you could SSH login node's microkernel from the RackHD server.
+The node's IP address could be retrieved from 'GET /lookups' API like below,
+the SSH username:password is `monorail:monorail`.
+
+.. code-block:: REST
+
+    curl <server>/api/2.0/lookups?q=<identifier>
