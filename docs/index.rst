@@ -40,4 +40,4 @@ Contents
    tutorials/index
 
 
-RackHD is a Trademark of EMC Corporation.
+RackHD is a Trademark of Dell EMC Corporation.
