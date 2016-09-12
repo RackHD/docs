@@ -301,7 +301,6 @@ Or review the list of all the built-in tasks available to be used in workflows
         "implementsTask": "Task.Base.Os.Install",
         "options": {
           "profile": "boot-livecd.ipxe",
-          "completionUri": "renasar-ansible.pub",
           "version": "livecd",
           "repo": "{{api.server}}/LiveCD/{{options.version}}"
         },

@@ -46,8 +46,7 @@ Below is a sample task definition in JSON for an Ubuntu installer.
             "profile": "install-trusty.ipxe",
             "hostname": "monorail",
             "uid": 1010,
-            "domain": "",
-            "completionUri": "renasar-ansible.pub"
+            "domain": ""
         },
         "properties": {
             "os": {
@@ -98,8 +97,7 @@ The following example shows the base task *Install Ubuntu* task definition:
             "injectableName": "Task.Base.Os.Install",
             "runJob": "Job.Os.Install",
             "requiredOptions": [
-                "profile",
-                "completionUri"
+                "profile"
             ],
             "requiredProperties": {
                 "power.state": "reboot"
@@ -113,7 +111,7 @@ The following example shows the base task *Install Ubuntu* task definition:
 
 
 This base task is a generic Install OS task. It runs the job named *Job.Os.Install* and
-specifies that this job requires the options 'profile' and 'completionUri'. As a result, any
+specifies that this job requires the option 'profile'. As a result, any
 task definition using the *Install OS* base task must provide at least these options to
 the OS installer job. These options are utilized by logic in the job.
 
@@ -135,8 +133,7 @@ Another task definition that utilizes the above base task looks like:
                 "username": "root",
                 "password": "root",
                 "profile": "install-coreos.ipxe",
-                "hostname": "coreos-node",
-                "completionUri": "pxe-cloud-config.yml"
+                "hostname": "coreos-node"
             },
             "properties": {
                 "os": {

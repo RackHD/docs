@@ -316,7 +316,6 @@ hostname      String   **optional** Windows hostname to be giving to the node af
 smbUser       String   **required** Smb user for the share to which Windows' iso is mounted
 smbPassword   String   **required** Smb password
 repo          String   **required** The share to to which Windows' iso is mounted
-completionUri String   **required** The value for this parameter is always "winpe-kickstart.ps1"
 ============= ======== ============ ============================================
 
 **Example of minimum payload**
