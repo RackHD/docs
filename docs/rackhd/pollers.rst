@@ -281,7 +281,7 @@ Sample Output: SNMP
 
     curl <server>/api/1.1/pollers/<pollerid>
 
-**Update a Single Poller**
+**Update a Single Poller to change the interval**
 
 .. code-block:: REST
 
@@ -295,6 +295,22 @@ Sample Output: SNMP
     curl -X PATCH \
         -H 'Content-Type: application/json' \
         -d '{"pollInterval":15000}' \
+        <server>/api/1.1/pollers/<pollerid>
+
+**Update a Single Poller to pause the poller**
+
+.. code-block:: REST
+
+    PATCH /api/1.1/pollers/:id
+    {
+        "paused": true
+    }
+
+.. code-block:: REST
+
+    curl -X PATCH \
+        -H 'Content-Type: application/json' \
+        -d '{"paused":true}' \
         <server>/api/1.1/pollers/<pollerid>
 
 **Delete a Single Poller**
@@ -622,3 +638,15 @@ config.metric         String     *optional*   Run a metric poller instead of a s
                                               Use instead of **config.oids**.
 node                  String     *optional*   Node ID to associate this poller with dynamically look up SNMP settings.
 ==================== =========== ============ ============================================
+
+The following fields can be PATCH'ed to change poller behavior:
+
+==================== =========== ============================================
+Name                  Type       Description
+==================== =========== ============================================
+pollInterval         Number      Time in milliseconds to wait between polls.
+paused               Boolean     Determines if the poller can be scheduled. Setting 'paused' to true
+                                 will cause the poller to no longer be run when pollInterval expires
+==================== =========== ============================================
+
+
