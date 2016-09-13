@@ -175,3 +175,110 @@ For example:::
     {
         "message": "No auth token"
     }
+
+Creating a Redfish Session
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Posting a request to the Redfish Session Service with UserName and Password in the request body will get a token returned from
+the Redfish service which can be used to access any other Redfish APIs.  The token is returned in the 'X-Auth-Token' header in
+the response object.
+
+Here is an example of getting a token using curl.::
+
+    curl -vk -X POST -H "Content-Type:application/json" https://localhost:8443/redfish/v1/SessionService/Sessions -d '{"UserName":"admin", "Password":"admin123" }' | python -m json.tool
+    < HTTP/1.1 200 OK
+    < X-Powered-By: Express
+    < Access-Control-Allow-Origin: *
+    < X-Auth-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k
+    < Content-Type: application/json; charset=utf-8
+    < Content-Length: 294
+    < ETag: W/"126-K9SNCTT10D9033EnNBAPcQ"
+    < Date: Mon, 12 Sep 2016 19:09:58 GMT
+    < Connection: keep-alive
+    <
+    { [data not shown]
+    100   338  100   294  100    44   4785    716 --:--:-- --:--:-- --:--:--  4819
+    * Connection #0 to host localhost left intact
+    {
+        "@odata.context": "/redfish/v1/$metadata#SessionService/Sessions/Members/$entity",
+        "@odata.id": "/redfish/v1/SessionService/Sessions",
+        "@odata.type": "#Session.1.0.0.Session",
+        "Description": "User Session",
+        "Id": "ceb94323-42d6-4c70-9d21-105f2a8e5cc8",
+        "Name": "User Session",
+        "Oem": {},
+        "UserName": "admin"
+    }
+
+A 401 unauthorized response will be returned if:
+
+- Username or password is wrong in the http request body
+
+For example:::
+
+    curl -vk -X POST -H "Content-Type:application/json" https://localhost:8443/redfish/v1/SessionService/Sessions -d '{"UserName":"admin", "Password":"bad" }' | python -m json.tool
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    < HTTP/1.1 401 Unauthorized
+    < X-Powered-By: Express
+    < Access-Control-Allow-Origin: *
+    < Content-Type: text/html; charset=utf-8
+    < Content-Length: 12
+    < ETag: W/"c-4G0bpw8TMen5oRPML4h9Pw"
+    < Date: Mon, 12 Sep 2016 19:11:33 GMT
+    < Connection: keep-alive
+    <
+    { [data not shown]
+    100    56  100    12  100    44    195    716 --:--:-- --:--:-- --:--:--   721
+    * Connection #0 to host localhost left intact
+    No JSON object could be decoded
+
+Once the X-Auth-Token is acquired, it can be included in all future Redfish requests by adding a X-Auth-Token
+header to the request object:::
+
+    curl -k -H "Content-Type:application/json" -H 'X-Auth-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k' https://localhost:8443/redfish/v1/SessionService/Sessions | python -m json.tool
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100   784  100   784    0     0  27303      0 --:--:-- --:--:-- --:--:-- 28000
+    {
+        "@odata.context": "/redfish/v1/$metadata#SessionService/Sessions/$entity",
+        "@odata.id": "/redfish/v1/SessionService/Sessions",
+        "@odata.type": "#SessionCollection.SessionCollection",
+        "Members": [
+            {
+                "@odata.id": "/redfish/v1/SessionService/Sessions/ceb94323-42d6-4c70-9d21-105f2a8e5cc8"
+            }
+        ],
+        "Members@odata.count": 1,
+        "Name": "Session Collection",
+        "Oem": {}
+    }
+
+Deleting a Redfish Session
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To invalidate a Redfish session token, the respective session instance should be deleted:::
+
+    curl -k -X DELETE -H "Content-Type:application/json" -H 'X-Auth-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k' https://localhost:8443/redfish/v1/SessionService/Sessions/ceb94323-42d6-4c70-9d21-105f2a8e5cc8 | python -m json.tool
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+      0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+    No JSON object could be decoded
+
+Once the session has been deleted, the session token will no longer be valid:::
+
+    curl -vk -H "Content-Type:application/json" -H 'X-Auth-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k' https://localhost:8443/redfish/v1/SessionService/Sessions | python -m json.tool
+    < HTTP/1.1 401 Unauthorized
+    < X-Powered-By: Express
+    < Access-Control-Allow-Origin: *
+    < Content-Type: application/json; charset=utf-8
+    < Content-Length: 2
+    < ETag: W/"2-mZFLkyvTelC5g8XnyQrpOw"
+    < Date: Mon, 12 Sep 2016 20:04:32 GMT
+    < Connection: keep-alive
+    <
+    { [data not shown]
+    100     2  100     2    0     0     64      0 --:--:-- --:--:-- --:--:--    66
+    * Connection #0 to host localhost left intact
+    {}
+
