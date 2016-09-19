@@ -13,7 +13,7 @@ Communicating with Other Users
 
 We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group through the web page or subscribe directly by sending email to rackhd+subscribe@googlegroups.com.
 
-We also have a #RackHD slack channel at https://codecommunity.slack.com/messages/rackhd/. You can receive an invite by requesting one at http://community.emccode.com.
+We also have a #RackHD slack channel at https://codecommunity.slack.com/messages/rackhd/. You can receive an invite by requesting one at http://community.codedellemc.com/.
 
 
 Submitting Contributions
