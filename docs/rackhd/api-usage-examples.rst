@@ -40,7 +40,7 @@ This example provides instructions on how to flash a BMC image on a Quanta (node
      **POST the tarball**
      ::
      
-        curl -X POST --data-binary @tarballs/sku_pack_directory_subname.tar.gz localhost:8080/api/common/skus/pack
+        curl -X POST --data-binary @tarballs/sku_pack_directory_subname.tar.gz localhost:8080/api/current/skus/pack
    
    The above command will return a SKU ID which will be used to post the Workflow against the node. If an error like "Duplicate entry
    exists" is returned in place of the the SKU ID, check the database and delete a prexisting SKU package.
