@@ -78,6 +78,17 @@ a.2. clone RackHD code
 
   git clone https://github.com/RackHD/RackHD.git
 
+
+The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
+Touch those files to allow the upstart scripts to start automatically.
+
+.. code::
+
+  for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
+  do sudo touch /etc/default/$service;
+  done
+
+
 a.3. Run the ansible playbooks
 
 These will install the prerequisite packages, install the RackHD debian packages, and copy default configuration files
@@ -87,9 +98,9 @@ These will install the prerequisite packages, install the RackHD debian packages
   cd RackHD/packer/ansible
   ansible-playbook -c local -i "local," rackhd_package.yml
 
-a.4.Starting RackHD services
+a.4. Starting RackHD services
 
-All the services are upstart and have logs in /var/log/upstart.  Start with 'start on-[something]'  Verify with 'ps | aux | grep node'
+All the services are upstart and have logs in /var/log/upstart.  Start with ``start on-[something]``.  Verify with ``ps | aux | grep node``
 
 
 (b) Install/Configure with Step by Step Guide
