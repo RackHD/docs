@@ -21,7 +21,7 @@ to auto-rebuild docs while you're editing
     cd docs
     sphinx-autobuild -H 0.0.0.0 -p 8000 . _build/html
 
-and the docs will be visible at the url http://&lt;server ip>:8000  
+and the docs will be visible at the url http://&lt;server ip>:8000
 the default is http://127.0.0.1:8000
 
 ## Setting up for editing and building the docs (Windows)
@@ -64,5 +64,9 @@ start .\_build\html\index.html
 sphinx-autobuild -H 0.0.0.0 -p 8000 . _build/html
 ```
 
-and navigate to http://&lt;server ip>:8000 to see the docs  
+and navigate to http://&lt;server ip>:8000 to see the docs
 the default url is http://127.0.0.1:8000
+
+
+
+JOE WAS HERE
