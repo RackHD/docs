@@ -41,6 +41,9 @@ config.json_
         "httpDocsRoot": "./build/apidoc",
         "httpFileServiceRoot": "./static/files",
         "httpFileServiceType": "FileSystem",
+        "fileServerAddress": "172.31.128.2",
+        "fileServerPort": 3000,
+        "fileServerPath": '/',
         "httpProxies": [
             {
                 "localPath": "/coreos",
@@ -109,6 +112,12 @@ The following table describes the configuration parameters in config.json:
       - Directory path for for storing uploaded files on disk.
     * - httpFileServiceType
       - Backend storage mechanism for file service. Currently only FileSystem is supported.
+    * - fileServerAddress
+      - Optional. Node facing IP address of the static file server. See :ref:`static-file-server-label`.
+    * - fileServerPort
+      - Optional. Port of the static file server. See :ref:`static-file-server-label`.
+    * - fileServerPath
+      - Optional. Access path of the static file server. See :ref:`static-file-server-label`.
     * - httpProxies
       - Optional HTTP/HTTPS proxies list. There are 3 parameters for each proxy:
 

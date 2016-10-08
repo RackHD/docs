@@ -25,6 +25,7 @@ RackHD Users Guide
    microkernel
    web_ui
    tftp_dhcp_server
+   static_file_server
    arp_poller
    boot_settings
    ssdp
