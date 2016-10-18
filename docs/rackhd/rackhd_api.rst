@@ -11,7 +11,8 @@ that are appropriate to doing that function.
 
 The RackHD API can be used to manage nodes, catalogs, workflows, tasks, templates,
 pollers, and other entities. For the complete list of functions, generate the RackHD
-API documentation as described below.
+API documentation as described below or download the latest from
+`https://bintray.com/rackhd/docs/apidoc#files <https://bintray.com/rackhd/docs/apidoc#files>`_.
 
 **List All Nodes**
 
