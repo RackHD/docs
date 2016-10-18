@@ -489,10 +489,12 @@ To create a basic workflow that runs user-specified shell commands with specifie
             "options": {
                "kernelFile": "vmlinuz-3.13.0-32-generic",
                "initrdFile": "initrd.img-3.13.0-32-generic",
+               "basefsFile": "base.trusty.3.13.0-32-generic.squashfs.img",
+               "overlayfsFile": "discovery.overlay.cpio.gz",
                "kernelUri": "{{ api.server }}/common/{{ options.kernelFile }}",
                "initrdUri": "{{ api.server }}/common/{{ options.initrdFile }}",
-               "basefs": "common/base.trusty.3.13.0-32-generic.squashfs.img",
-               "overlayfs": "common/discovery.overlay.cpio.gz",
+               "basefsUri": "{{ api.server }}/common/{{ options.basefsFile }}",
+               "overlayfsUri": "{{ api.server }}/common/{{ options.overlayfsFile }}",
                "profile": "linux.ipxe",
                "comport": "ttyS0"
             },
