@@ -31,3 +31,4 @@ RackHD Users Guide
    ssdp
    heartbeat
    event_notification.rst
+   api-usage-examples
