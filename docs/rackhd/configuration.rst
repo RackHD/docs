@@ -43,7 +43,7 @@ config.json_
         "httpFileServiceType": "FileSystem",
         "fileServerAddress": "172.31.128.2",
         "fileServerPort": 3000,
-        "fileServerPath": '/',
+        "fileServerPath": "/",
         "httpProxies": [
             {
                 "localPath": "/coreos",

@@ -394,6 +394,9 @@ At render time, values are rendered if the exist in the task render context. The
            - **lookups** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/lookups`)
            - **files** -- the base http URI for the RackHD api files route (e.g. `http://<server>:<port>/api/current/files`)
            - **nodes** -- the base http URI for the RackHD api nodes route (e.g. `http://<server>:<port>/api/current/nodes`)
+   * - file
+     - Values used for constructing `static file server <https://rackhd.readthedocs.io/en/latest/rackhd/static_file_server.html>`_ information in a template:
+           - **server** -- the address of static file server (e.g. `http://<static-file-server>:<port>` )
    * - tasks
      - Allows access to instance variables of the task class instance created from the task definition. This is mainly used to access task.nodeId
    * - options
