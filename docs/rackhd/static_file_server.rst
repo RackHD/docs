@@ -81,7 +81,7 @@ In `config.json`_, add the following fields:
     ...
     "fileServerAddress": "172.31.128.3",
     "fileServerPort": 3000,
-    "fileServerPath": '/',
+    "fileServerPath": "/",
     ...
 
 The following table describes the configurations above.
