@@ -89,7 +89,7 @@ The Vagrant setup also enables port forwarding that allows your localhost to acc
 
 .. code::
 
-    vagrant ssh dev -c "sudo pm2 start rackhd.yml"
+    vagrant ssh dev -c "sudo pm2 start rackhd-pm2-config.yml"
 
 The logs from RackHD will show in the console window where you invoked this last
 command. You can use control-c (^C) to stop the processes. Additionally you can
@@ -109,7 +109,7 @@ Accessing your local instance of RackHD
 
         vagrant destroy -f
         vagrant up dev
-        vagrant ssh dev -c "sudo pm2 start rackhd.yml"
+        vagrant ssh dev -c "sudo pm2 start rackhd-pm2-config.yml"
 
 
     **Resetting and updating the code to the latest master branch**
@@ -133,7 +133,7 @@ Accessing your local instance of RackHD
 
     Once that is complete, you can exit your SSH sessions with the VM and start all the services::
 
-        vagrant ssh dev -c "sudo pm2 start rackhd.yml"
+        vagrant ssh dev -c "sudo pm2 start rackhd-pm2-config.yml"
 
 When RackHD is operational, the self-hosted API documentation should immediately
 be available:
