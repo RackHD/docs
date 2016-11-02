@@ -7,6 +7,10 @@ Prerequisites
 ~~~~~~~~~~~~~
 NICs
 ^^^^
+
+
+**UBUNTU 14.04**
+
 Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
 * eth0 for the 'public' network - providing access to RackHD APIs, and providing
@@ -19,6 +23,26 @@ edit the network:
 * eth0 - assign IP address as appropriate for the environment, or you can use DHCP
 
 * eth1 static ( 172.31.128.0/22 )
+
+  this is the 'default'. it can be changed, but more than one file needs to be changed.)
+
+
+#######
+
+**UBUNTU 16.04**
+
+Start with an Ubuntu xenial(16.04) instance with 2 nics:
+
+* ens160 for the 'public' network - providing access to RackHD APIs, and providing
+  routed (layer3) access to out of band network for machines under management
+
+* ens192 for dhcp/pxe to boot/configure the machines
+
+edit the network:
+
+* ens160 - assign IP address as appropriate for the environment, or you can use DHCP
+
+* ens192 static ( 172.31.128.0/22 )
 
   this is the 'default'. it can be changed, but more than one file needs to be changed.)
 
@@ -98,9 +122,9 @@ These will install the prerequisite packages, install the RackHD debian packages
   cd RackHD/packer/ansible
   ansible-playbook -c local -i "local," rackhd_package.yml
 
-a.4. Starting RackHD services
+a.4. Verify RackHD services
 
-All the services are upstart and have logs in /var/log/upstart.  Start with ``start on-[something]``.  Verify with ``ps | aux | grep node``
+All the services are started and have logs in /var/log/rackhd.  Verify with ``ps aux | grep node``
 
 
 (b) Install/Configure with Step by Step Guide
@@ -131,6 +155,15 @@ b.2. Set up the RackHD bintray repository for use within this instance of Ubuntu
 
 b.3. Install RackHD debian package
 
+The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
+Touch those files to allow the upstart scripts to start automatically.
+
+.. code::
+
+  for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
+  do sudo touch /etc/default/$service;
+  done
+
 Install the RackHD Packages. Note: these packages are rebuilt on every commit to master and are
 not explicitly versioned, but intended as a means to install or update to the latest code most
 conveniently.
@@ -160,18 +193,6 @@ Update dhcpd.conf per your network configuration
       option vendor-class-identifier "PXEClient";
     }
 
-#######
-
-**UPSTART**
-
-The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
-Touch those files to allow the upstart scripts to start automatically.
-
-.. code::
-
-    for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
-    do touch /etc/default/$service;
-    done
 
 #######
 
@@ -215,8 +236,7 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
 
 
 
-All the services are upstart and have logs in /var/log/upstart.  Start with 'start on-[something]'
-Verify with 'ps | aux | grep node'
+All the services are started and have logs in /var/log/rackhd.  Verify with 'ps aux | grep node'
 
 #######
 
