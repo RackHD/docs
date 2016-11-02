@@ -81,22 +81,24 @@ Ensure Node.js is at version 4.x, example:
 Install & Configure RackHD
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- **after Prerequisites installation, there're two options to install and configure RackHD from package**
- Either (a) or (b) can lead the way to install RackHD from debian packages.
+**After Prerequisites installation, there're two options to install and configure RackHD from package**
 
-   (a) Install/Configure with Ansible Playbook
-   (b) Install/Configure with Step by Step Guide
+Either (a) or (b) can lead the way to install RackHD from debian packages.
+
+(a) `Install/Configure with Ansible Playbook`_
+(b) `Install/Configure with Step by Step Guide`_
 
 
-(a) Install/Configure with Ansible Playbook
+_`Install/Configure with Ansible Playbook`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-a.1. install git and ansible
+(1). install git and ansible
+
 .. code::
 
   sudo apt-get install  git
   sudo apt-get install  ansible
 
-a.2. clone RackHD code
+(2). clone RackHD code
 
 .. code::
 
@@ -113,7 +115,7 @@ Touch those files to allow the upstart scripts to start automatically.
   done
 
 
-a.3. Run the ansible playbooks
+(3). Run the ansible playbooks
 
 These will install the prerequisite packages, install the RackHD debian packages, and copy default configuration files
 
@@ -122,15 +124,16 @@ These will install the prerequisite packages, install the RackHD debian packages
   cd RackHD/packer/ansible
   ansible-playbook -c local -i "local," rackhd_package.yml
 
-a.4. Verify RackHD services
+(4). Verify RackHD services
 
-All the services are started and have logs in /var/log/rackhd.  Verify with ``ps aux | grep node``
+All the services are started and have logs in /var/log/rackhd.
+Verify with ``service on-[something] status``
 
 
-(b) Install/Configure with Step by Step Guide
+_`Install/Configure with Step by Step Guide`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-b.1. Install the prerequisite packages:
+(1). Install the prerequisite packages:
 
 .. code::
 
@@ -145,7 +148,7 @@ b.1. Install the prerequisite packages:
 
     sudo apt-get install isc-dhcp-server
 
-b.2. Set up the RackHD bintray repository for use within this instance of Ubuntu
+(2). Set up the RackHD bintray repository for use within this instance of Ubuntu
 
 .. code::
 
@@ -153,7 +156,7 @@ b.2. Set up the RackHD bintray repository for use within this instance of Ubuntu
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
     sudo apt-get update
 
-b.3. Install RackHD debian package
+(3). Install RackHD debian package
 
 The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
 Touch those files to allow the upstart scripts to start automatically.
@@ -173,7 +176,7 @@ conveniently.
     sudo apt-get install on-dhcp-proxy on-http on-taskgraph
     sudo apt-get install on-tftp on-syslog
 
-b.4. Basic RackHD Configuration
+(4). Basic RackHD Configuration
 
 
 **DHCP**
@@ -236,7 +239,8 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
 
 
 
-All the services are started and have logs in /var/log/rackhd.  Verify with 'ps aux | grep node'
+All the services are started and have logs in /var/log/rackhd.  
+Verify with ``service on-[something] status``
 
 #######
 
