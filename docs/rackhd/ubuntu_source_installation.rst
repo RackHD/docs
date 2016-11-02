@@ -23,12 +23,14 @@ You may need to update this and /etc/dhcpd.conf to match your local network
 configuration.
 
 This will install all the relevant dependencies and code into ~/src, expecting
-that it will be run with node-foreman.
+that it will be run with `pm2`_.
+
+.. _pm2: http://pm2.keymetrics.io/
 
 .. code::
 
     cd ~
-    sudo nf start
+    sudo pm2 start rackhd.yml
 
 
 How to update to the latest code
