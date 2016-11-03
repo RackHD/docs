@@ -42,10 +42,11 @@ This example provides instructions on how to flash a BMC image on a Quanta (node
      ::
      
         curl -X POST --data-binary @tarballs/sku_pack_directory_subname.tar.gz localhost:8080/api/current/skus/pack
-   
+
    The above command will return a SKU ID. If an error like "Duplicate name found" is returned in place of the SKU ID, check the database and delete the preexisting SKU package.
 
-6. The pollers associated with the node need to be paused before POST'ing the Workflow to flash a new BMC image. This is needed to avoid seeing any poller errors in the log while BMC is offline. Further information on IPMI poller properties can be found at http://rackhd.readthedocs.io/en/latest/rackhd/pollers.html?highlight=ipmi%20pollers
+.. _Pollers: http://rackhd.readthedocs.io/en/latest/rackhd/pollers.html?highlight=ipmi%20pollers
+6. The pollers associated with the node need to be paused before POST'ing the Workflow to flash a new BMC image. This is needed to avoid seeing any poller errors in the log while BMC is offline. Further information on IPMI poller properties can be found at `Pollers`_
 
     **Get List of Active Pollers Associated With a Node**
 
