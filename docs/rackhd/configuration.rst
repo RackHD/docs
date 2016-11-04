@@ -140,6 +140,13 @@ The following table describes the configuration parameters in config.json:
       - Maximum payload size expected through TASK runner API callbacks from microkernel
     * - mongo
       - URI for accessing MongoDB. To support Mongo Replica Set feature, URI format is, mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+    * - migrate
+      - The `migrate` setting controls the auto-migration strategy that every time RackHD loads, the strategy should be one of `safe`, `alter` and `drop`.
+
+        **NOTE**: It's extremely important to set the `migrate` to `safe` when working with existing databases, otherwise, you will very likely lose data! The `alter` and `drop` strategies are only recommended in development environment.
+        You could see detail description for each migration strategy from this link https://github.com/balderdashy/sails-docs/blob/master/concepts/ORM/model-settings.md#migrate
+
+        The RackHD default migration strategy is `safe`.
     * - sharedKey
       - A 32 bit base64 key encoded string relevant for aes-256-cbc, defaults to 'qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M='. The default can be replaced by a 256 byte randomly generated base64 key encoded string.
 
