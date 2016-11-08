@@ -16,9 +16,8 @@ build the docs
     cd docs
     make html
 
-to auto-rebuild docs while you're editing
+to auto-rebuild docs while you're editing, also at the same directory (directory named docs), execute
 
-    cd docs
     sphinx-autobuild -H 0.0.0.0 -p 8000 . _build/html
 
 and the docs will be visible at the url http://&lt;server ip>:8000  
