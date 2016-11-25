@@ -65,6 +65,8 @@ Making the Mirrors
 
 **Centos 6.5**
 
+Notes: Because CentOS 6.5 was deprecated by provider, the following rsync source is not available to 
+make mirror. Just leave it for an example.
   .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
