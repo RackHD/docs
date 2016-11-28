@@ -140,6 +140,10 @@ For the Ubuntu repo, you need some additional installation. The mirrors are easi
     #end of file
     ###################
 
+**Reference: Here are some useful links to vendor's official website about Mirros setup.**
+
+* **CentOS**: `Creating Local Mirrors for Updates or Installs <https://wiki.centos.org/HowTos/CreateLocalMirror>`_
+
 Supported OS Installation Workflows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
