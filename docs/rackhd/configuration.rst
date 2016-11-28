@@ -85,7 +85,20 @@ The following table describes the configuration parameters in config.json:
     * - Parameter
       - Description
     * - amqp
-      - URI for accessing the AMQP interprocess communications channel
+      - URI for accessing the AMQP interprocess communications channel. RackHD can be configured to use a single AMQP server or multiple AMQP servers.
+
+        For a single AMQP server use the following formats:
+        
+        .. code-block:: json
+
+            "amqp": "amqp://localhost",
+            "amqp": "amqp://<host>:<port>",
+
+        For multiple AMQP servers use an array with the following format:
+
+        .. code-block:: json
+
+            "amqp": ["amqp://<host_1>:<port_1>","amqp://<host_2>:<port_2>",..., "amqp://<host_n:<port_n>"],
     * - apiServerAddress
       - External facing IP address of the API server
     * - apiServerPort
