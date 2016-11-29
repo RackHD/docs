@@ -65,6 +65,8 @@ Making the Mirrors
 
 **Centos 6.5**
 
+Notes: Because CentOS 6.5 was deprecated by provider, the following rsync source is not available to 
+make mirror. Just leave it for an example.
   .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
@@ -137,6 +139,10 @@ For the Ubuntu repo, you need some additional installation. The mirrors are easi
 
     #end of file
     ###################
+
+**Reference: Here are some useful links to vendor's official website about Mirros setup.**
+
+* **CentOS**: `Creating Local Mirrors for Updates or Installs <https://wiki.centos.org/HowTos/CreateLocalMirror>`_
 
 Supported OS Installation Workflows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
