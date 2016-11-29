@@ -85,7 +85,7 @@ The following table describes the configuration parameters in config.json:
     * - Parameter
       - Description
     * - amqp
-      - URI for accessing the AMQP interprocess communications channel. RackHD can be configured to use a single AMQP server or multiple AMQP servers.
+      - URI for accessing the AMQP interprocess communications channel. RackHD can be configured to use a single AMQP server or a AMQP cluster consisting of multiple AMQP servers.
 
         For a single AMQP server use the following formats:
         
