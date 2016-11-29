@@ -172,8 +172,8 @@ A basic profile looks like the following:
 
  #!/usr/bin/Cli -p2
  enable
- copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=startupConfig%> flash:startup-config
- copy http://<%=server%>:<%=port%>/api/1.1/templates/<%=bootConfig%> flash:boot-config
+ copy {{ api.templates }}/<%=startupConfig%>?nodeId={{ task.nodeId }} flash:startup-config
+ copy {{ api.templates }}/<%=bootConfig%>?nodeId={{ task.nodeId }} flash:boot-config
  copy http://<%=server%>:<%=port%>/common/<%=eosImage%> flash:
  exit
 
@@ -293,7 +293,7 @@ addition to the "command" field.
     "commands" : [
         {
             "command": "bash myscript.sh",
-            "downloadUrl": "/api/1.1/templates/myscript.sh"
+            "downloadUrl": "{{ api.templates }}/myscript.sh?nodeId={{ task.nodeId }}"
         }
     ]
  }
@@ -325,7 +325,7 @@ rendered based on the option values of task definition, for example, if a task i
     "commands" : [
         {
             "command": "bash myscript.sh",
-            "downloadUrl": "/api/1.1/templates/myscript.sh"
+            "downloadUrl": "{{ api.templates }}/myscript.sh?nodeId={{ task.nodeId }}"
         }
     ]
  }

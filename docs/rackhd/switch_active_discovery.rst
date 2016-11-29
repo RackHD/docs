@@ -184,7 +184,7 @@ After adding the cataloging script as a template, add a task definition to the c
                     "options": {
                         "commands": [
                             {
-                                "downloadUrl": "/api/1.1/templates/cisco-catalog-snmp-example.py",
+                                "downloadUrl": "{{ api.templates }}/cisco-catalog-snmp-example.py?nodeId={{ task.nodeId }}",
                                 "catalog": { "format": "json", "source": "snmp-group" }
                             }
                         ]
@@ -257,10 +257,10 @@ Now the custom workflow can be updated again with a task to deploy the startup c
                     "implementsTask": "Task.Base.Linux.Commands",
                     "options": {
                         "startupConfig": "cisco-example-startup-config",
-                        "startupConfigUri": "{{ api.base }}/templates/{{ options.startupConfig }}",
+                        "startupConfigUri": "{{ api.templates }}/{{ options.startupConfig }}?nodeId={{ task.nodeId }}",
                         "commands": [
                             {
-                                "downloadUrl": "/api/1.1/templates/deploy-cisco-startup-config.py
+                                "downloadUrl": "{{ api.templates }}/deploy-cisco-startup-config.py?nodeId={{ task.nodeId }}
                             }
                         ]
                     },
@@ -276,7 +276,7 @@ Now the custom workflow can be updated again with a task to deploy the startup c
                     "options": {
                         "commands": [
                             {
-                                "downloadUrl": "/api/1.1/templates/cisco-catalog-snmp-example.py",
+                                "downloadUrl": "{{ api.templates }}/cisco-catalog-snmp-example.py?nodeId={{ task.nodeId }}",
                                 "catalog": { "format": "json", "source": "snmp-group" }
                             }
                         ]

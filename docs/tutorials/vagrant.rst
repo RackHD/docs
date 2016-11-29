@@ -198,7 +198,7 @@ You can also view a list of all the built-in workflows
                                         "format": "json",
                                         "source": "version"
                                     },
-                                    "downloadUrl": "/api/1.1/templates/arista-catalog-version.py"
+                                    "downloadUrl": "{{ api.templates }}/arista-catalog-version.py?nodeId={{ task.nodeId }}"
                                 }
                             ]
                         },
