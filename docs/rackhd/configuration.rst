@@ -209,6 +209,11 @@ The following table describes the configuration parameters in config.json:
       - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
 
         See documentation at https://expressjs.com/en/guide/behind-proxies.html
+    * - consulUrl
+      - URI for accessing consul (defaults to 'consul://127.0.0.1:8500')
+    * - taskgraphConfig
+      - URI to bind taskgraph scheduler's gRPC interface to (defaults to 'scheduler://127.0.0.1:31000').  Binding to 'scheduler://a.b.c.d' without specifying a port will result in an ephemereal port being chosen.
+
 
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
