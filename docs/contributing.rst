@@ -45,7 +45,7 @@ Please direct general conversation about how to use RackHD or discussion about i
 Issues and Bugs
 -----------------------------------
 
-Please use https://github.com/rackhd/rackhd/issues to raise issues, ask questions, and report bugs.
+Please use https://rackhd.atlassian.net/secure/RapidBoard.jspa?rapidView=5 to raise issues, ask questions, and report bugs.
 
 Search existing issues to ensure that you do report a topic that has already been covered. If you have new information to share about an existing issue, add your information to the existing discussion.
 
