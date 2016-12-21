@@ -207,6 +207,8 @@ The following table describes the configuration parameters in config.json:
       - Listening port for RackHD WebSocket Service (defaults to 9100).
     * - trustedProxy
       - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
+    * - discoveryGraph 
+      - Injectable name for the discovery graph that should be run against new nodes 
 
         See documentation at https://expressjs.com/en/guide/behind-proxies.html
 
