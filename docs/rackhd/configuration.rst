@@ -209,6 +209,8 @@ The following table describes the configuration parameters in config.json:
       - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
 
         See documentation at https://expressjs.com/en/guide/behind-proxies.html
+    * - autoCreateObm
+      - Allow rackHD to setup IPMI OBM settings on active dicovery by creating a new BMC user on the compute node.
 
 
 The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
@@ -241,172 +243,13 @@ These parameters beging with *HTTP* and *HTTPS*.
 BMC Username and Password Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A node gets discovered and the BMC IPMI comes up with a default username/password. For a user to add
-their own username/password during discovery certain steps need to be followed:
-
-First, edit Sku Discovery graph located at ``on-taskgraph/lib/graphs/discovery-sku-graph.js``
-to include the new graph **set-bmc-credentials-graph** located at ``on-taskgraph/lib/graphs/set-bmc-credentials-graph.js``.
-This will run the tasks to create a new user called '__rackhd__' with a randomly generated password and update obm settings
-accordingly.
-Below is a snippet of the Sku Discovery graph which includes **set-bmc-credentials-graph** (please note that this is not the complete graph, refer to the link above to get the entire discovery-sku-graph, this snippet only shows where to add the
-**set-bmc-credentials-graph** ) :
-
-.. code-block:: javascript
-
-    module.exports = {
-        friendlyName: 'SKU Discovery',
-        injectableName: 'Graph.SKU.Discovery',
-        options: {
-            defaults: {
-                graphOptions: {
-                    target: null
-                },
-                nodeId: null
-            }
-        },
-        tasks: [
-            {
-                label: 'discovery-graph',
-                taskDefinition: {
-                    friendlyName: 'Run Discovery Graph',
-                    injectableName: 'Task.Graph.Run.Discovery',
-                    implementsTask: 'Task.Base.Graph.Run',
-                    options: {
-                        graphName: 'Graph.Discovery',
-                        graphOptions: {}
-                    },
-                    properties: {}
-                }
-            },
-            {
-                label: 'set-bmc-credentials-graph',
-                taskDefinition: {
-                    friendlyName: 'Run BMC Credential Graph',
-                    injectableName: 'Task.Graph.Run.Bmc',
-                    implementsTask: 'Task.Base.Graph.Run',
-                    options: {
-                        graphName: 'Graph.Set.Bmc.Credentials',
-                        defaults : {
-                            graphOptions: {   }
-                        }
-                    },
-                    properties: {}
-                },
-                waitOn: {
-                    'discovery-graph': 'succeeded'
-                }
-            },
-            {
-                label: 'generate-sku',
-                waitOn: {
-                    'set-bmc-credentials-graph': 'succeeded'
-                },
-                taskName: 'Task.Catalog.GenerateSku'
-            }
-        ]
-    };
-
-
-Next, edit **Discovery workflow graph** located at ``on-taskgraph/lib/graphs/discovery-graph.js``
-to remove the reboot task. The reboot task is already included in the **set-bmc-credentials-graph**
-that was added to the **Sku Discovery graph** in the first step.
-Below is a snippet of the Discovery graph without the reboot task (the reboot task was originally located
-after the task 'catalog-lldp')
-
-.. code-block:: javascript
-
-   module.exports = {
-    friendlyName: 'Discovery',
-    injectableName: 'Graph.Discovery',
-    options: {
-        'bootstrap-ubuntu': {
-            'triggerGroup': 'bootstrap'
-        },
-        'finish-bootstrap-trigger': {
-            'triggerGroup': 'bootstrap'
-        }
-    },
-    tasks: [
-        {
-            label: 'bootstrap-ubuntu',
-            taskName: 'Task.Linux.Bootstrap.Ubuntu'
-        },
-        {
-            label: 'catalog-dmi',
-            taskName: 'Task.Catalog.dmi'
-        },
-        {
-            label: 'catalog-ohai',
-            taskName: 'Task.Catalog.ohai',
-            waitOn: {
-                'catalog-dmi': 'finished'
-            }
-        },
-        {
-            label: 'catalog-bmc',
-            taskName: 'Task.Catalog.bmc',
-            waitOn: {
-                'catalog-ohai': 'finished'
-            },
-            ignoreFailure: true
-        },
-        {
-            label: 'catalog-lsall',
-            taskName: 'Task.Catalog.lsall',
-            waitOn: {
-                'catalog-bmc': 'finished'
-            },
-            ignoreFailure: true
-        },
-        {
-            label: 'catalog-megaraid',
-            taskName: 'Task.Catalog.megaraid',
-            waitOn: {
-                'catalog-lsall': 'finished'
-            },
-            ignoreFailure: true
-        },
-        {
-            label: 'catalog-smart',
-            taskName: 'Task.Catalog.smart',
-            waitOn: {
-                'catalog-megaraid': 'finished'
-            },
-            ignoreFailure: true
-        },
-        {
-            label: 'catalog-driveid',
-            taskName: 'Task.Catalog.Drive.Id',
-            waitOn: {
-                'catalog-smart': 'finished'
-            },
-            ignoreFailure: true
-        },
-        {
-            label: 'catalog-lldp',
-            taskName: 'Task.Catalog.LLDP',
-            waitOn: {
-                'catalog-driveid': 'finished'
-            },
-            ignoreFailure: true
-        },
-       {
-            label: 'finish-bootstrap-trigger',
-            taskName: 'Task.Trigger.Send.Finish',
-            waitOn: {
-                'catalog-lldp': 'finished'
-            }
-        }
-    ]
-   };
-
-
-Once the above steps are completed (edited and saved) the service needs to be restarted:
+A node gets discovered and the BMC IPMI comes up with a default username/password. User can automatically set
+IPMI OBM settings  using a  default user name('__rackhd__') and an auto generated password in rackHD by adding the following
+to RackHD ``config.json``:
 
 .. code-block:: shell
 
-    sudo service on-taskgraph start
-
+   "autoCreateObm": "true"  
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
