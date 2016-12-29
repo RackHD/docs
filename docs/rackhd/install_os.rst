@@ -242,7 +242,7 @@ installType         String           *optional*   **(PhotonOS only)** The value 
 installScriptUri    String           *optional*   The download URI for a custom kickstart/preseed/autoyast/cloud-config template to be used for automatic installation/configuration.
 
                                                   NOTE: There are RackHD specific commands within all default install templates that should be copied into any custom install templates. The built-in templates support the above options, and any additional install logic is best added by copying the default templates and modifying from there. The default install scripts can be found in https://github.com/RackHD/on-http/tree/master/data/templates, and the filename is specified by the `installScript` field in the various OS installer task definitions (e.g. https://github.com/RackHD/on-tasks/blob/master/lib/task-data/tasks/install-centos.js)
-
+remoteLogging       Boolean          *optional*   If set to true, OS installation logs will be sent to RackHD server from nodes if installer supports remote logging. Note you must configure rsyslog on RackHD server if you want to receive those logs. Please refer to https://github.com/RackHD/RackHD/blob/master/example/config/rsyslog_rackhd.cfg.example as how to enable rsyslog service on RackHD server. Currently only CentOS installation supports this feature, we are still working on other OS installation workflows to enable this feature. 
 
 =================== ================ ============ ============================================
 
