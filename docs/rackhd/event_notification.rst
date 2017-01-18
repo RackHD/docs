@@ -1,106 +1,313 @@
 Event Notification
 ------------------
 
-The change of resources managed by RackHD could be retrieved from AMQP messages.
+RackHD support event notification via both AMQP and web hook.
 
-- Exchange: **on.events**
-- Routing Key **event.<type>**
+A web hook allows an application to subscribe certain RackHD published events by configured URL, when one of the subscribed events is triggered, RackHD will send a HTTP POST request with event payload to configured URL.
 
-`<type>` is event's type, it's the same with event's payload `type`, see payloads_ for more details.
+RackHD also publishes defined events over AMQP, so subscribers to RackHD's instance of AMQP don't need to register a webhook URL to get events. The AMQP events can be prolific, so we recommend that consumers filter events as they are received to what is desired.
 
-An example of listening node events using tool 'sniff.js' located at https://github.com/RackHD/on-tools/blob/master/dev_tools/README.md.
+Events Payloads
+~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: Bash
+.. _event_payload:
 
-    $ sudo node sniff.js "on.events" "event.#"
-
-.. _payloads:
-
-`type` and `action` fields exist for all types of events.
+All published external events' payload formats are common, the event attributes are as below:
 
 ========= ====== =================================
 Attribute Type   Description
 ========= ====== =================================
-type      String The event type, it could be `node`, `sku`, etc.
-action    String The `action` that was performed, it's related to event `type`
+version   String Event payload format version.
+type      String It could be one of the values: **heartbeat**, **node**, **polleralert**, **graph**.
+action    String a verb or a composition of component and verb which indicates what happened, it's associated with the `type` attribute.
+severity  String Event severity, it could be one of the values: **critical**, **warning**, **information**.
+typeId    String It's associated with the `type` attribute. It could be graph 'Id' for **graph** type, poller 'Id' for **polleralert** type, <fqdn>.<service name> for **heartbeat** event, node 'Id' for **node** type. Please see table_ for more details .
+createdAt String The time event happened.
+nodeId    String The node `Id`, it's `null` for 'heartbeat' event.
+data      Object Detail information are included in this attribute.
 ========= ====== =================================
 
+.. _table:
 
-Node Events
-~~~~~~~~~~~~~~~~~~~~
+The table of `type`, `typeId`, `action` and `severity` for all external events
 
-An example of a minimal node event message format is below:
++--------------+------------------------+------------------------+----------------+-----------------------------------+
+| *type*       | *typeId*               | *action*               | *severity*     | Description                       |
+|              |                        |                        |                |                                   |
++==============+========================+========================+================+===================================+
+| heartbeat    | <fqdn>.<service name>  | updated                | information    | Each running RackHD service will  |
+|              |                        |                        |                | publish a periodic heartbeat      |
+|              |                        |                        |                | event message to notify that      |
+|              |                        |                        |                | service is running.               |
++--------------+------------------------+------------------------+----------------+-----------------------------------+
+| polleralert  | the 'Id' of poller     | sel.updated            | related to sel | Triggered when condition rules    |
+|              |                        |                        | rules, it      | of sel alert defined in SKU PACK  |
+|              |                        |                        | could be one   | is matched                        |
+|              |                        |                        | of the values: |                                   |
+|              |                        |                        | critical,      |                                   |
+|              |                        |                        | warning,       |                                   |
+|              |                        |                        | information    |                                   |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | sdr.updated            | information    | Triggered when sdr information    |
+|              |                        |                        |                | is updated.                       |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | fabricservice.updated  | information    | Triggered when fabricservice      |
+|              |                        |                        |                | information is updated.           |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | snmp.updated           | related to     | Triggered when condition rules    |
+|              |                        |                        | snmp rules, it | of snmp alert defined in SKU PACK |
+|              |                        |                        | could be one   | is matched                        |
+|              |                        |                        | of the values: |                                   |
+|              |                        |                        | critical,      |                                   |
+|              |                        |                        | warning,       |                                   |
+|              |                        |                        | information    |                                   |
++--------------+------------------------+------------------------+----------------+-----------------------------------+
+| graph        | the 'Id' of graph      | started                | information    | Triggered when graph started.     |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | finished               | information    | Triggered when graph finished.    |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | progress.updated       | information    | Triggered when long task's        |
+|              |                        |                        |                | progress information is updated.  |
++--------------+------------------------+------------------------+----------------+-----------------------------------+
+| node         | the 'Id' of node       | discovered             | information    | Triggered in node's               |
+|              |                        |                        |                | discovery process,it has          |
+|              |                        |                        |                | two cases:                        |
+|              |                        |                        |                |                                   |
+|              |                        |                        |                | - Automatic discovery             |
+|              |                        |                        |                | - Passive discovery by            |
+|              |                        |                        |                |   post a node by REST API         |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | added                  | information    | Triggered when a rack node is     |
+|              |                        |                        |                | added to database by REST API     |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | removed                | information    | Triggered when node is            |
+|              |                        |                        |                | deleted by REST API               |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | sku.assigned           | information    | Triggered when node's `sku`       |
+|              |                        |                        |                | field is assigned.                |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | sku.unassigned         | information    | Triggered when node's `sku`       |
+|              |                        |                        |                | field is unassigned.              |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | sku.updated            | information    | Triggered when node's `sku`       |
+|              |                        |                        |                | field is updated.                 |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | obms.assigned          | information    | Triggered when node's `obms`      |
+|              |                        |                        |                | field is assigned.                |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | obms.unassigned        | information    | Triggered when node's `obms`      |
+|              |                        |                        |                | field is unassigned.              |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | obms.updated           | information    | Triggered when node's `obms`      |
+|              |                        |                        |                | field is updated.                 |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | accessible             | information    | Triggered when node telemetry     |
+|              |                        |                        |                | OBM service (IPMI or SNMP) is     |
+|              |                        |                        |                | accessible                        |
+|              |                        |                        |                |                                   |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | inaccessible           | information    | Triggered when node telemetry     |
+|              |                        |                        |                | OBM service (IPMI or SNMP) is     |
+|              |                        |                        |                | inaccessible                      |
++--------------+------------------------+------------------------+----------------+-----------------------------------+
+
+
+Example of heartbeat event payload:
 
 .. code-block:: JSON
 
     {
-        type: 'node',
-        action: 'discovered'
-        nodeId: '577d758e5bee93f307b9c062',
-        nodeType: 'compute'
+        "version": "1.0",
+        "type": "heartbeat",
+        "action": "updated",
+        "typeId": "kickseed.example.com.on-tftp",
+        "severity": "information",
+        "createdAt": "2016-07-13T14:23:45.627Z",
+        "nodeId": "null",
+        "data": {
+            "delivery_info": {
+                "consumer_tag": "None1",
+                "delivery_tag": 2479,
+                "exchange": "on.heartbeat",
+                "redelivered": false,
+                "routing_key": "kickseed.example.com.on-tftp"
+            },
+            "message": {
+                "value": {
+                    "name": "on-tftp",
+                    "pid": 26633,
+                    "lastUpdate": "2016-07-13T14:23:35.784Z",
+                    "currentTime": "2016-07-13T14:23:45.627Z",
+                    "nextUpdate": "2016-07-13T14:23:55.627Z",
+                    "cpuUsage": {
+                        "system": 92810,
+                        "user": 1545498
+                    },
+                    "memoryUsage": {
+                        "heapTotal": 71938048,
+                        "heapUsed": 45444240,
+                        "rss": 98926592
+                    },
+                    "platform": "linux",
+                    "release": {
+                        "headersUrl": "https://nodejs.org/download/release/v6.3.0/node-v6.3.0-headers.tar.gz",
+                        "name": "node",
+                        "sourceUrl": "https://nodejs.org/download/release/v6.3.0/node-v6.3.0.tar.gz"
+                    },
+                    "title": "node",
+                    "uid": 0,
+                    "versions": {
+                        "ares": "1.10.1-DEV",
+                        "http_parser": "2.7.0",
+                        "icu": "57.1",
+                        "modules": "48",
+                        "node": "6.3.0",
+                        "openssl": "1.0.2h",
+                        "uv": "1.9.1",
+                        "v8": "5.0.71.52",
+                        "zlib": "1.2.8"
+                    }
+                }
+            },
+            "properties": {
+                "content_type": "application/json",
+                "type": "Result"
+            }
+        }
     }
 
-The payload attributes of node event:
+Events via AMQP
+~~~~~~~~~~~~~~~~~~~~
 
-========= ====== =================================
-Attribute Type   Description
-========= ====== =================================
-type      String `type` is `'node'` for node events
-action    String The `action` that was performed by node event, See actions_ for more details.
-nodeId    String The node's unique identifier
-nodeType  String The node type could be `compute`, `pdu`, `switch`, `mgmt`, `enclosure`, it's related to `action`
-uri       String it's **optional**
-========= ====== =================================
+AMQP Exchange and Routing Key
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. _actions:
+The change of resources managed by RackHD could be retrieved from AMQP messages.
 
-All node event actions:
+- Exchange: **on.events**
+- Routing Key **<type>.<action>.<severity>.<typeId>.<nodeId>**
 
-+-----------------+-----------+----------------------------------+--------------------------------+
-| Action          | Frequency | Cases                            | When Triggered                 |
-|                 |           |                                  |                                |
-+=================+===========+==================================+================================+
-| discovered      | one-shot  | Event occurs in node's           | Triggered when node is         |
-|                 |           | discovery process,it has         | created and all catalog        |
-|                 |           | two cases:                       | jobs are finished              |
-|                 |           |                                  |                                |
-|                 |           | - Automatic discovery            |                                |
-|                 |           | - Passive discovery by           |                                |
-|                 |           |   post a node by REST API        |                                |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| removed         | one-shot  | Event occurs when node is        | Triggered when node's all      |
-|                 |           | deleted by REST API              | information are deleted,       |
-|                 |           |                                  | it includes node,catalogs,     |
-|                 |           |                                  | relationships with other       |
-|                 |           |                                  | models, etc.                   |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| sku.assigned    | one-shot  | Event occurs when node's `sku`   | Triggered when sku is created  |
-|                 |           | field is assigned.               | and associated with the node   |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| sku.unassigned  | one-shot  | Event occurs when node's `sku`   | Triggered when sku is          |
-|                 |           | field is unassigned.             | not associated with the node   |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| sku.updated     | one-shot  | Event occurs when node's `sku`   | Triggered when node's sku is   |
-|                 |           | field is updated.                | associated with another sku    |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| obms.assigned   | one-shot  | Event occurs when node's `obms`  | Triggered when obm is created  |
-|                 |           | field is assigned.               | and associated with the node   |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| obms.unassigned | one-shot  | Event occurs when node's `obms`  | Triggered when obm is          |
-|                 |           | field is unassigned.             | not associated with the node   |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| obms.updated    | one-shot  | Event occurs when node's `obms`  | Triggered when node don't have |
-|                 |           | field is updated.                | obm settings                   |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| accessible      | one-shot  | Event occurs when node telemetry | Triggered when any poller of a |
-|                 |           | OBM service (IPMI or SNMP) is    | node become accessible while   |
-|                 |           | accessible                       | the node's state is            |
-|                 |           |                                  | inaccessilbe or null           |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| inaccessible    | one-shot  | Event occurs when node telemetry | Triggered when all pollers     |
-|                 |           | OBM service (IPMI or SNMP) is    | of a node become inaccessible. |
-|                 |           | inaccessible                     |                                |
-+-----------------+-----------+----------------------------------+--------------------------------+
-| added           | one-shot  | Event occurs when a rack node is | Triggered after a rack node is |
-|                 |           | added via the API.               | written to the database        |
-+-----------------+-----------+----------------------------------+--------------------------------+                                
+ALl the fields in routing key exists in the common event payloads event_payload_.
+
+Examples of routing key:
+
+Heartbeat event routing key of on-tftp service:
+
+.. code-block:: REST
+
+    heartbeat.updated.information.kickseed.example.com.on-tftp
+
+Polleralert sel event routing key:
+
+.. code-block:: REST
+
+    polleralert.sel.updated.critical.44b15c51450be454180fabc.57b15c51450be454180fa460
+
+Node discovered event routing key:
+
+.. code-block:: REST
+
+    node.discovered.information.57b15c51450be454180fa460.57b15c51450be454180fa460
+
+Graph event routing key:
+
+.. code-block:: REST
+
+    graph.started.information.35b15c51450be454180fabd.57b15c51450be454180fa460
+
+
+AMQP Routing Key Filter
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All the events could be filtered by routing keys, for example:
+
+All services' heartbeat events:
+
+.. code-block:: Bash
+
+    $ sudo node sniff.js "on.events" "heartbeat.#"
+
+All nodes' discovered events:
+
+.. code-block:: Bash
+
+    $ sudo node sniff.js "on.events" "#.discovered.#"
+
+'sniff.js' is a tool located at https://github.com/RackHD/on-tools/blob/master/dev_tools/README.md
+
+
+Events via Hook
+~~~~~~~~~~~~~~~~
+
+Register Web Hooks
+^^^^^^^^^^^^^^^^^^^
+
+The web hooks used for subscribing event notification could be registered by ``POST <server>/api/2.0/hooks`` API as below
+
+.. code-block:: REST
+
+    curl -H "Content-Type: application/json" -X POST -d @payload.json <server>/api/2.0/hooks
+
+.. _hook_payload:
+
+The `payload.json` attributes in the example above are as below:
+
+========= ====== ============ ============================================
+Attribute Type   Flags        Description
+========= ====== ============ ============================================
+url       String **required** The hook url that events are notified to.
+name      String **optional** Any name user specified.
+filters   Array  **optional** The conditions of which events are notified. When it's not specified, or it's empty, all events will be notified to registered `url`
+========= ====== ============ ============================================
+
+An example of `payload.json` with minimal attributes
+
+.. code-block:: JSON
+
+    {
+        "url": "http://www.abc.com/def"
+    }
+
+RackHD will send a ``POST request`` to the hook url when a hook is registered, its  ``Content-Type`` is ``application/json``, and the event payload is in the request body.
+
+When multiple hooks are registered, each 'url' in the hooks will receive the events.
+
+Event Filter Rules
+^^^^^^^^^^^^^^^^^^^
+
+The conditions of which events are notified could be specified in the `filters` attribute in the hook_payload_, when `filters` attribute is not specified, or it's empty, all the events will be notified.
+
+The `filters` attribute is an array, so multiple filters could be specified. The event will be sent as long as one filter condition is satisfied, even if the conditions may have overlaps.
+
+The filter attributes are `type`, `typeId`, `action`, `severity` and `nodeId` listed in event_payload_. When one attribute is not specified or its value is wildcard ``*``, it means any values in that attribute could meet conditions.
+
+An example of multiple filters
+
+.. code-block:: JSON
+
+    {
+        "name": "event sets",
+        "url": "http://www.abc.com/def",
+        "filters": [
+            {
+                "type": "node",
+                "typeId": "*",
+                "action": "*",
+                "severity": "information",
+                "nodeId": "57b15c51450be454180fa460"
+            },
+            {
+                "type": "node",
+                "typeId": "*",
+                "action": "discovered",
+                "severity": "information",
+                "nodeId": "*"
+            }
+        ]
+    }
+
+
+Web Hook APIs
+^^^^^^^^^^^^^^^
+
+**TODO** (The APIs of web hooks developments are ongoing, this section wiil be updated when they are finished).
