@@ -101,5 +101,6 @@ All node event actions:
 |                 |           | OBM service (IPMI or SNMP) is    | of a node become inaccessible. |
 |                 |           | inaccessible                     |                                |
 +-----------------+-----------+----------------------------------+--------------------------------+
-
-
+| added           | one-shot  | Event occurs when a rack node is | Triggered after a rack node is |
+|                 |           | added via the API.               | written to the database        |
++-----------------+-----------+----------------------------------+--------------------------------+                                
