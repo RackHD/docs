@@ -15,6 +15,7 @@ RackHD Users Guide
    tasks
    skus
    tags
+   graph_progress
    install_os
    secure_erase
    workflow_examples
