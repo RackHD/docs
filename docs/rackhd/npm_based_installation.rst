@@ -145,6 +145,26 @@ Install & Configure RackHD
 
 #######
 
+* **Open Ports in Firewall**
+
+   If the firewall is enabled, open below ports in firewall:
+
+   - 4011/udp 
+   - 8080/tcp 
+   - 67/udp 
+   - 8443/tcp 
+   - 69/udp 
+   - 9080/tcp
+
+   An example of opening port:
+
+    .. code::
+
+       sudo ufw allow 8080
+
+
+#######
+
 * **CONFIGURATION FILE**
 
    Create the required file /opt/monorail/config.json , you can use the demonstration configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json as a reference.
@@ -153,7 +173,7 @@ Install & Configure RackHD
 
 * **RACKHD BINARY SUPPORT FILES**
 
-   Downloaded binary files from bintray.com/rackhd/binary and placed them.
+   Download binary files from bintray and placed them with below shell script.
 
    .. code::
 
@@ -531,6 +551,29 @@ Install & Configure RackHD
 
 #######
 
+
+* **Open Ports in Firewall**
+
+   If the firewall is enabled, open below ports in firewall:
+
+   - 4011/udp
+   - 8080/tcp
+   - 67/udp
+   - 8443/tcp
+   - 69/udp
+   - 9080/tcp
+
+   An example of opening port:
+
+    .. code::
+
+
+     sudo firewall-cmd --permanent --add-port=8080/tcp
+     sudo firewall-cmd --reload
+     
+   
+#######
+
 * **CONFIGURATION FILE**
 
    Create the required file /opt/monorail/config.json , you can use the demonstration configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json as a reference.
@@ -539,7 +582,7 @@ Install & Configure RackHD
 
 * **RACKHD BINARY SUPPORT FILES**
 
-   Downloaded binary files from bintray.com/rackhd/binary and placed them.
+   Download binary files from bintray and placed them with below shell script.
 
    .. code::
 
