@@ -29,6 +29,5 @@ RackHD Users Guide
    arp_poller
    boot_settings
    ssdp
-   heartbeat
    event_notification.rst
    api-usage-examples
