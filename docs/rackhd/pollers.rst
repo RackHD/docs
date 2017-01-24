@@ -338,92 +338,92 @@ Sample Output: SNMP
 IPMI Poller Alerts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Alerting is currently supported for "sel" and "sdr" command type pollers.
-
-**Receiving Alerts**
-
-Alerts are published over AMQP:
-
-- Channel: 'events' (type: topic)
-- Routing Key for SEL: 'poller.alert.sel.\*'  
-- Routing Key for SDR: 'poller.alert.sdr.\*'
-  (\* is a uuid assigned to the poller graph that processed the alert)  
+Please see :doc:`event_notification` for more poller alert events information. 
 
 Sample data for a "sel" alert:
 
 .. code-block:: REST
 
     {
-        host: '10.1.1.3',
-        user: 'admin',
-        password: 'admin',
-        workItemId: '54d6cdff8db79442ddf33333',
-        alerts: [
-            {
-                data: {
-                    date: '10/26/2014',
-                    time: '20:17:48',
-                    sensor: 'Power Unit #0x02',
-                    event: 'Fully Redundant',
-                    value: 'Deasserted'
-                },
-                matches: [
+        "type":"polleralert",
+        "action":"sel.updated",
+        "typeId":"588586022116386a0d1e860f",
+        "nodeId":"588585bee0f66f700da40335",
+        "severity":"warning",
+        "data":{
+            "user":"admin",
+            "host":"172.31.128.13",
+            "alert":{
+                "matches":[
                     {
-                        sensor: 'Power Unit\s.*$',  // regex supported
-                        event: 'Fully Redundant'    // string matching supported
+                        "Event Type Code":"07",
+                        "Event Data":"/010000|040000/"
                     }
-                ]
+                ],
+                "reading":{
+                    "SEL Record ID":"0102",
+                    "Record Type":"02",
+                    "Timestamp":"01/01/1970 03:09:50",
+                    "Generator ID":"0001",
+                    "EvM Revision":"04",
+                    "Sensor Type":"Physical Security",
+                    "Sensor Number":"02",
+                    "Event Type":"Generic Discrete",
+                    "Event Direction":"Assertion Event",
+                    "Event Data":"010000",
+                    "Description":"Transition to Non-critical from OK",
+                    "Event Type Code":"07",
+                    "Sensor Type Code":"05"
+                }
             }
-        ]
+        },
+        "version":"1.0",
+        "createdAt":"2017-01-23T07:36:53.092Z"
     }
-
 
 Sample data for an "sdr" alert:
 
 .. code-block:: REST
 
     {
-        "value": [
-            {
-                "host": "172.31.128.15",
-                "inCondition": true,
-                "node": "56ab9c002a53c545059db172",
-                "password": "admin",
-                "pollerName": "sdr",
-                "reading": {
-                    "assertionsEnabled": [
-                        "lcr-"
-                    ],
-                    "deassertionsEnabled": [
-                    "lcr-"
-                    ],
-                    "entityId": "29.1",
-                    "entryIdName": "Fan Device",
-                    "eventMessageControl": "Per-threshold",
-                    "lowerCritical": "600.000",
-                    "maximumSensorRange": "Unspecified",
-                    "minimumSensorRange": "Unspecified",
-                    "negativeHysteresis": "Unspecified",
-                    "nominalReading": "",
-                    "normalMaximum": "",
-                    "normalMinimum": "",
-                    "positiveHysteresis": "Unspecified",
-                    "readableThresholds": "lcr",
-                    "sdrType": "Threshold",
-                    "sensorId": "Fan_SYS0_1(0xc0)",
-                    "sensorReading": "0",
-                    "sensorReadingUnits": "%RPM",
-                    "sensorType": "Fan",
-                    "settableThresholds": "lcr",
-                    "statesAsserted": [],
-                    "status": "Lower Critical",
-                    "thresholdReadMask": "lcr"
-                },
-                "user": "admin",
-                "workItemId": "56ab9c52a0e5e24005bbf8ea"
+        "type":"polleralert",
+        "action":"sdr.updated",
+        "typeId":"588586022116386a0d1e8610",
+        "nodeId":"588585bee0f66f700da40335",
+        "severity":"information",
+        "data":{
+            "host":"172.31.128.13",
+            "user":"admin",
+            "inCondition":true,
+            "reading":{
+                "sensorId":"Fan_SSD1 (0xfd)",
+                "entityId":"29.1",
+                "entryIdName":"Fan Device",
+                "sdrType":"Threshold",
+                "sensorType":"Fan",
+                "sensorReading":"0",
+                "sensorReadingUnits":"% RPM",
+                "nominalReading":"",
+                "normalMinimum":"",
+                "normalMaximum":"",
+                "statesAsserted":[],
+                "status":"LowerCritical",
+                "lowerCritical":"500.000",
+                "lowerNonCritical":"1000.000",
+                "positiveHysteresis":"Unspecified",
+                "negativeHysteresis":"Unspecified",
+                "minimumSensorRange":"Unspecified",
+                "maximumSensorRange":"Unspecified",
+                "eventMessageControl":"Per-threshold",
+                "readableThresholds":"lcr lnc",
+                "settableThresholds":"lcr lnc",
+                "thresholdReadMask":"lcr lnc",
+                "assertionsEnabled":["lnc- lcr-"],
+                "deassertionsEnabled":["lnc- lcr-"]
             }
-
-        ]
+        },
+        "version":"1.0",
+        "createdAt":"2017-01-23T07:36:56.179Z"
     }
 
 
@@ -432,33 +432,56 @@ Sample data for an "snmp" alert:
 .. code-block:: REST
 
     {
-        value: {
+        "type":"polleralert",
+        "action":"snmp.updated",
+        "typeId":"588586022116386a0d1e8611",
+        "nodeId":"588585bee0f66f700da40335",
+        "severity":"information",
+        "data":{
+            "states":{
+                "last":"ON",
+                "current":"OFF"
+            }
+        },
+        data: {
             host: '10.1.1.3',
             oid: '.1.3.6.1.2.1.1.5.0',
             value: 'APC Rack Mounted UPS'
-            nodeRef: '/nodes/561c2b1894e9d7c6057be675',
-            dataRef: '/pollers/561c2b3e94e9d7c6057be676/data/current',
             matched: '/Mounted/'
         }
+        "version":"1.0",
+        "createdAt":"2017-01-23T08:20:32.231Z"
     }
 
 Sample data for an "snmp" metric alert:
 
 .. code-block:: REST
 
-    { 
-        value: {
+    {
+        "type":"polleralert",
+        "action":"snmp.updated",
+        "typeId":"588586022116386a0d1e8611",
+        "nodeId":"588585bee0f66f700da40335",
+        "severity":"information",
+        "data":{
+            "states":{
+                "last":"ON",
+                "current":"OFF"
+            }
+        },
+        data: {
             host: '127.0.0.1',
             oid: '.1.3.6.1.4.1.9.9.117.1.1.2.1.2.470',
             value: 'No Such Instance currently exists at this OID',
-            nodeRef: '/nodes/57c07bb9cc6ecf1555fe48b8',
-            dataRef: '/pollers/57c07c23c0b6ffbc71d6fd21/data/current',
             matched: { contains: 'No Such Instance' },
             severity: 'warning',
             description: 'PSU element is not present',
             metric: 'snmp-switch-sensor-status'
-        } 
+        }
+        "version":"1.0",
+        "createdAt":"2017-01-23T08:20:32.231Z"
     }
+
 
 **Creating Alerts**
 
@@ -565,8 +588,8 @@ name and generate an alert when the value is greater than 0.
 Chassis Power State Alert 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The IPMI chassis poller will publish an alert message when the power state of the node transitions. The AMQP message 
-payload will contain both the current and last power state, a reference location to the node resource and a reference 
+The IPMI chassis poller will publish an alert message when the power state of the node transitions. The AMQP message
+payload will contain both the current and last power state, a reference location to the node resource and a reference
 location to the pollers current data cache.
 
 - Example message:
@@ -574,29 +597,20 @@ location to the pollers current data cache.
 .. code-block:: JSON
 
     {
-        "delivery_info": {
-            "consumer_tag": "None1",
-            "delivery_tag": 1,
-            "exchange": "on.events",
-            "redelivered": false,
-            "routing_key": "poller.alert.chassis.power.f40c2981-7329-40b7-8b04-27f187aecfb5"
-        },
-        "message": {
-            "value": {
-                "states": {
-                    "last": "OFF",
-                    "current": "ON"
-                },
-                "nodeRef": "/nodes/57966eb83ab822453d73300a",
-                "dataRef": "/pollers/59945eb33a7827473d732010/data/current"
+        "type":"polleralert",
+        "action":"chassispower.updated",
+        "typeId":"588586022116386a0d1e8611",
+        "nodeId":"588585bee0f66f700da40335",
+        "severity":"information",
+        "data":{
+            "states":{
+                "last":"ON",
+                "current":"OFF"
             }
         },
-        "properties": {
-            "content_type": "application/json",
-            "type": "Result"
-        }
+        "version":"1.0",
+        "createdAt":"2017-01-23T08:20:32.231Z"
     }
-
 
 
 Poller JSON Format
