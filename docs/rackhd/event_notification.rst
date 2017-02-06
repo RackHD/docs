@@ -3,7 +3,7 @@ Event Notification
 
 RackHD support event notification via both AMQP and web hook.
 
-A web hook allows an application to subscribe certain RackHD published events by configured URL, when one of the subscribed events is triggered, RackHD will send a HTTP POST request with event payload to configured URL.
+A web hook allows an application to subscribe certain RackHD published events by configured URL, when one of the subscribed events is triggered, RackHD will send a POST request with event payload to configured URL.
 
 RackHD also publishes defined events over AMQP, so subscribers to RackHD's instance of AMQP don't need to register a webhook URL to get events. The AMQP events can be prolific, so we recommend that consumers filter events as they are received to what is desired.
 
@@ -257,7 +257,7 @@ An example of `payload.json` with minimal attributes
         "url": "http://www.abc.com/def"
     }
 
-RackHD will send a ``POST request`` to the hook url when a hook is registered, its  ``Content-Type`` is ``application/json``, and the event payload is in the request body.
+RackHD will send a ``POST request`` to the hook url when a hook is registered, its  ``Content-Type`` is ``application/json``, and the request body will be the event payload.
 
 When multiple hooks are registered, each 'url' in the hooks will receive the events.
 
