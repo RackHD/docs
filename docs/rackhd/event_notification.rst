@@ -1,9 +1,9 @@
 Event Notification
 ------------------
 
-RackHD support event notification via both AMQP and web hook.
+RackHD supports event notification via both web hook and AMQP.
 
-A web hook allows an application to subscribe certain RackHD published events by configured URL, when one of the subscribed events is triggered, RackHD will send a POST request with event payload to configured URL.
+A web hook allows applications to subscribe certain RackHD published events by configured URL, when one of the subscribed events is triggered, RackHD will send a POST request with event payload to configured URL.
 
 RackHD also publishes defined events over AMQP, so subscribers to RackHD's instance of AMQP don't need to register a webhook URL to get events. The AMQP events can be prolific, so we recommend that consumers filter events as they are received to what is desired.
 
@@ -244,12 +244,14 @@ The `payload.json` attributes in the example above are as below:
 ========= ====== ============ ============================================
 Attribute Type   Flags        Description
 ========= ====== ============ ============================================
-url       String **required** The hook url that events are notified to.
-name      String **optional** Any name user specified.
-filters   Array  **optional** The conditions of which events are notified. When it's not specified, or it's empty, all events will be notified to registered `url`
+url       String **required** The hook url that events are notified to. Both http and https urls are supported. url must be unique.
+name      String **optional** Any name user specified for the hook.
+filters   Array  **optional** An array of conditions that decides which events should be notified to hook url.
 ========= ====== ============ ============================================
 
-An example of `payload.json` with minimal attributes
+When a hook is registered and eligible events happened, RackHD will send a ``POST request`` to the hook url. POST request's ``Content-Type`` will be ``application/json``, and the request body be the event payload.
+
+An example of `payload.json` with minimal attributes:
 
 .. code-block:: JSON
 
@@ -257,20 +259,28 @@ An example of `payload.json` with minimal attributes
         "url": "http://www.abc.com/def"
     }
 
-RackHD will send a ``POST request`` to the hook url when a hook is registered, its  ``Content-Type`` is ``application/json``, and the request body will be the event payload.
-
-When multiple hooks are registered, each 'url' in the hooks will receive the events.
+When multiple hooks are registered, a single event can be sent to multiple hook urls if it meets hooks' filtering conditions.
 
 Event Filter Rules
 ^^^^^^^^^^^^^^^^^^^
 
-The conditions of which events are notified could be specified in the `filters` attribute in the hook_payload_, when `filters` attribute is not specified, or it's empty, all the events will be notified.
+The conditions of which events should be notified could be specified in the `filters` attribute in the hook_payload_, when `filters` attribute is not specified, or it's empty, all the events will be notified to the hook url.
 
-The `filters` attribute is an array, so multiple filters could be specified. The event will be sent as long as one filter condition is satisfied, even if the conditions may have overlaps.
+The `filters` attribute is an array, so multiple filters could be specified. The event will be sent as long as any filter condition is satisfied, even if the conditions may have overlaps.
 
-The filter attributes are `type`, `typeId`, `action`, `severity` and `nodeId` listed in event_payload_. When one attribute is not specified or its value is wildcard ``*``, it means any values in that attribute could meet conditions.
+The filter attributes are `type`, `typeId`, `action`, `severity` and `nodeId` listed in event_payload_. Filtering by `data` is not supported currently. Filtering expression of hook `filters` is based on javascript regular expression, below table describes some base operations for hook filters:
 
-An example of multiple filters
+=============================================== ======================================================= ============================
+Description                                     Example                                                 Eligible Events
+=============================================== ======================================================= ============================
+Attribute equals some value                     {"action": "^discovered$"}                              Events with `action` equals `discovered`
+Attribute can be any of specified value.        {"action": "discovered|updated"}                        Events with `action` equals either `discovered` or `updated`
+Attribute can not be any of specified value.    {"action": "[^(discovered|updated)]"}                   Events with `action` equals neither `discovered` nor `updated`
+Multiple attributes must meet specified values. {"action": "[^(discovered|updated)]", "type": "node"}   Events with `type` equals `node`
+                                                                                                        while `action` equals neither `discovered` nor `updated`
+=============================================== ======================================================= ============================
+
+An example of multiple filters:
 
 .. code-block:: JSON
 
@@ -280,17 +290,11 @@ An example of multiple filters
         "filters": [
             {
                 "type": "node",
-                "typeId": "*",
-                "action": "*",
-                "severity": "information",
                 "nodeId": "57b15c51450be454180fa460"
             },
             {
                 "type": "node",
-                "typeId": "*",
-                "action": "discovered",
-                "severity": "information",
-                "nodeId": "*"
+                "action": "discovered|updated",
             }
         ]
     }
@@ -299,4 +303,49 @@ An example of multiple filters
 Web Hook APIs
 ^^^^^^^^^^^^^^^
 
-**TODO** (The APIs of web hooks developments are ongoing, this section wiil be updated when they are finished).
+
+**Create a new hook**
+
+
+.. code-block:: REST
+
+    POST /api/2.0/hooks
+    {
+        "url": "http://www.abc.com/def"
+    }
+
+
+**Delete an existing hook**
+
+
+.. code-block:: REST
+
+    DELETE /api/2.0/hooks/:id
+
+
+**Get a list of hooks**
+
+
+.. code-block:: REST
+
+    GET /api/2.0/hooks
+
+
+**Get details of a single hook**
+
+
+.. code-block:: REST
+
+    GET /api/2.0/hooks/:id
+
+
+**Update an existing hook**
+
+
+.. code-block:: REST
+
+    PATCH /api/2.0/hooks/:id
+    {
+        "name": "New Hook"
+    }
+
