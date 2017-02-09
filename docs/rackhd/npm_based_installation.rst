@@ -10,15 +10,15 @@ Prerequisites
 
 **NICs**
 
-1. **UBUNTU 14.04**
+* **UBUNTU 14.04**
 
-* Start with an Ubuntu trusty(14.04) instance with 2 nics:
+1. Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
    * eth0 for the 'public' network - providing access to RackHD APIs, and providing routed (layer3) access to out of band network for machines under management
 
    * eth1 for dhcp/pxe to boot/configure the machines
 
-* Edit the network:
+2. Edit the network:
 
    * eth0 - assign IP address as appropriate for the environment, or you can use DHCP
 
@@ -29,15 +29,15 @@ Prerequisites
 
 ####
 
-2. **UBUNTU 16.04**
+* **UBUNTU 16.04**
 
-* Start with an Ubuntu xenial(16.04) instance with 2 nics:
+1. Start with an Ubuntu xenial(16.04) instance with 2 nics:
 
    * ens160 for the 'public' network - providing access to RackHD APIs, and providing routed (layer3) access to out of band network for machines under management
 
    * ens192 for dhcp/pxe to boot/configure the machines
 
-* Edit the network:
+2. Edit the network:
 
    * ens160 - assign IP address as appropriate for the environment, or you can use DHCP
 
@@ -47,48 +47,45 @@ Prerequisites
 
 **Packages**
 
-1. **NodeJS 4.x**
+* **NodeJS 4.x**
 
-   **If Node.js 4.x is not installed**
+  1. **Remove Node.js (< 4.0)**
 
-* **Remove Node.js (< 4.0)**
+     *If Node.js is installed via apt, but is older than version 4.x, do this first* (apt-get installs v0.10 by default)
 
-   *If Node.js is installed via apt, but is older than version 4.x, do this first* (apt-get installs v0.10 by default)
+     .. code::
 
-   .. code::
+      sudo apt-get remove nodejs nodejs-legacy
 
-    sudo apt-get remove nodejs nodejs-legacy
+  2. **Install Node.js 4.x**
 
-* **Install Node.js 4.x**
+     Add the NodeSource key and repository (*instructions copied from* https://github.com/nodesource/distributions#manual-installation):
 
-   Add the NodeSource key and repository (*instructions copied from* https://github.com/nodesource/distributions#manual-installation):
+     .. code::
 
-   .. code::
+      curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+      VERSION=node_4.x
+      DISTRO="$(lsb_release -s -c)"
+      echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+      echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 
-    curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-    VERSION=node_4.x
-    DISTRO="$(lsb_release -s -c)"
-    echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-    echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+      sudo apt-get update
+      sudo apt-get install nodejs
 
-    sudo apt-get update
-    sudo apt-get install nodejs
+  3. **Verify Node.js 4.x**
 
-* **Ensure Node.js is at version 4.x**
+     .. code::
 
-   For Example:
+      $ node -v
+      v4.4.5
 
-   .. code::
+####
 
-    $ node -v
-    v4.4.5
+* **Dependencies**
 
+  Install dependency packages
 
-2. **Dependencies**
-
-* **Install dependency packages**
-
-   .. code::
+  .. code::
 
     sudo apt-get install rabbitmq-server
     sudo apt-get install mongodb
@@ -109,8 +106,7 @@ Prerequisites
 Install & Configure RackHD
 ^^^^
 
-1. **Install RackHD NPM package**
-
+1. **Install RackHD NPM Packages**
 
    Install the latest release of RackHD
 
@@ -121,131 +117,126 @@ Install & Configure RackHD
      npm install $service;
      done
 
+####
 
 2. **Basic RackHD Configuration**
 
+   * **DHCP**
 
-* **DHCP**
-
-   Update /etc/dhcp/dhcpd.conf per your network configuration
+     Update /etc/dhcp/dhcpd.conf per your network configuration
  
-   .. code::
+     .. code::
 
-    # RackHD added lines
-    deny duplicates;
+      # RackHD added lines
+      deny duplicates;
 
-    ignore-client-uids true;
+      ignore-client-uids true;
 
-    subnet 172.31.128.0 netmask 255.255.240.0 {
-      range 172.31.128.2 172.31.143.254;
-      # Use this option to signal to the PXE client that we are doing proxy DHCP
-      option vendor-class-identifier "PXEClient";
-    }
+      subnet 172.31.128.0 netmask 255.255.240.0 {
+        range 172.31.128.2 172.31.143.254;
+        # Use this option to signal to the PXE client that we are doing proxy DHCP
+        option vendor-class-identifier "PXEClient";
+      }
 
+   * **Open Ports in Firewall**
 
-#######
+     If the firewall is enabled, open below ports in firewall:
 
-* **Open Ports in Firewall**
+     - 4011/udp 
+     - 8080/tcp 
+     - 67/udp 
+     - 8443/tcp 
+     - 69/udp 
+     - 9080/tcp
 
-   If the firewall is enabled, open below ports in firewall:
+     An example of opening port:
 
-   - 4011/udp 
-   - 8080/tcp 
-   - 67/udp 
-   - 8443/tcp 
-   - 69/udp 
-   - 9080/tcp
-
-   An example of opening port:
-
-    .. code::
+     .. code::
 
        sudo ufw allow 8080
 
 
-#######
+   * **CONFIGURATION FILE**
 
-* **CONFIGURATION FILE**
+     Create the required file /opt/monorail/config.json , you can use the demonstration configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json as a reference.
 
-   Create the required file /opt/monorail/config.json , you can use the demonstration configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json as a reference.
 
-#######
+   * **RACKHD BINARY SUPPORT FILES**
 
-* **RACKHD BINARY SUPPORT FILES**
+     Download binary files from bintray and placed them with below shell script.
 
-   Download binary files from bintray and placed them with below shell script.
+     .. code::
 
-   .. code::
+      #!/bin/bash
 
-    #!/bin/bash
+      mkdir -p node_modules/on-tftp/static/tftp
+      cd node_modules/on-tftp/static/tftp
 
-    mkdir -p node_modules/on-tftp/static/tftp
-    cd node_modules/on-tftp/static/tftp
+      for file in $(echo "\
+      monorail.ipxe \
+      monorail-undionly.kpxe \
+      monorail-efi64-snponly.efi \
+      monorail-efi32-snponly.efi");do
+      wget "https://dl.bintray.com/rackhd/binary/ipxe/$file"
+      done
 
-    for file in $(echo "\
-    monorail.ipxe \
-    monorail-undionly.kpxe \
-    monorail-efi64-snponly.efi \
-    monorail-efi32-snponly.efi");do
-    wget "https://dl.bintray.com/rackhd/binary/ipxe/$file"
-    done
+      cd -
 
-    cd -
+      mkdir -p node_modules/on-http/static/http/common
+      cd node_modules/on-http/static/http/common
 
-    mkdir -p node_modules/on-http/static/http/common
-    cd node_modules/on-http/static/http/common
+      for file in $(echo "\
+      base.trusty.3.16.0-25-generic.squashfs.img \
+      discovery.overlay.cpio.gz \
+      initrd.img-3.16.0-25-generic \
+      vmlinuz-3.16.0-25-generic");do
+      wget "https://dl.bintray.com/rackhd/binary/builds/$file"
+      done
 
-    for file in $(echo "\
-    base.trusty.3.16.0-25-generic.squashfs.img \
-    discovery.overlay.cpio.gz \
-    initrd.img-3.16.0-25-generic \
-    vmlinuz-3.16.0-25-generic");do
-    wget "https://dl.bintray.com/rackhd/binary/builds/$file"
-    done
+      cd -
 
-    cd -
 
 3. **Start RackHD**
 
-   Start the 5 service of RackHD with pm2 and a yml file.
+   Start the 5 services of RackHD with pm2 and a yml file.
 
-* **Install pm2**
+   I. **Install pm2**
   
     .. code::
       
        sudo npm install pm2 -g
 
-* **Prepare a yml file**
+   II. **Prepare a yml file**
 
-   An example of yml file:
+       An example of yml file:
 
-    .. code::
+       .. code::
 
-     apps:
-        - script: index.js
-          name: on-taskgraph
-          cwd: node_modules/on-taskgraph
-        - script: index.js
-          name: on-http
-          cwd: node_modules/on-http
-        - script: index.js
-          name: on-dhcp-proxy
-          cwd: node_modules/on-dhcp-proxy
-        - script: index.js
-          name: on-syslog
-          cwd: node_modules/on-syslog
-        - script: index.js
-          name: on-tftp
-          cwd: node_modules/on-tftp
+        apps:
+          - script: index.js
+            name: on-taskgraph
+            cwd: node_modules/on-taskgraph
+          - script: index.js
+            name: on-http
+            cwd: node_modules/on-http
+          - script: index.js
+            name: on-dhcp-proxy
+            cwd: node_modules/on-dhcp-proxy
+          - script: index.js
+            name: on-syslog
+            cwd: node_modules/on-syslog
+          - script: index.js
+            name: on-tftp
+            cwd: node_modules/on-tftp
      
 
-* **Start Service**
+   III. **Start Services**
 
     .. code::
 
        sudo pm2 start rackhd.yml
 
-   All the services are started:
+    All the services are started:
 
     .. code::
 
@@ -288,13 +279,13 @@ Prerequisites
 
 **NICs**
 
-* Start with an centos 7 instance with 2 nics:
+1. Start with an centos 7 instance with 2 nics:
 
    * eno16777984 for the 'public' network - providing access to RackHD APIs, and providing routed (layer3) access to out of band network for machines under management
 
    * eno33557248 for dhcp/pxe to boot/configure the machines
 
-* Edit the network:
+2. Edit the network:
 
    * eno16777984 - assign IP address as appropriate for the environment, or you can use DHCP
 
@@ -305,121 +296,114 @@ Prerequisites
 
 **Packages**
 
-1. **NodeJS 4.x**
+* **NodeJS 4.x**
 
-   **If Node.js 4.x is not installed**
+  1. **Remove Node.js (< 4.0)**
 
-* **Remove Node.js (< 4.0)**
+     *If Node.js is installed via yum, but is older than version 4.x, do this first* 
+     .. code::
 
-   *If Node.js is installed via yum, but is older than version 4.x, do this first* 
-   .. code::
+      sudo yum remove nodejs
 
-    sudo yum remove nodejs
+  2. **Install Node.js 4.x**
+  
+     *Instructions copied from* https://github.com/nodesource/distributions#manual-installation:
 
-* **Install Node.js 4.x**
+     .. code::
 
-   *Instructions copied from* https://github.com/nodesource/distributions#manual-installation:
+       curl -sL https://rpm.nodesource.com/setup_4.x |sudo bash -
+       sudo yum install -y nodejs
 
-   .. code::
+     **Optional**: install build tools
 
-     curl -sL https://rpm.nodesource.com/setup_4.x |sudo bash -
-     sudo yum install -y nodejs
+     To compile and install native addons from npm you may also need to install build tools:
 
-   **Optional**: install build tools
+     .. code::
 
-   To compile and install native addons from npm you may also need to install build tools:
+       yum install gcc-c++ make
+       # or: yum groupinstall 'Development Tools'
 
-   .. code::
+  3. **Verify Node.js 4.x**
 
-     yum install gcc-c++ make
-     # or: yum groupinstall 'Development Tools'
+     .. code::
 
-* **Ensure Node.js is at version 4.x**
+      $ node -v
+      v4.4.5
 
-   For Example:
-
-   .. code::
-
-    $ node -v
-    v4.4.5
-
-
-2. **Dependencies**
+####
 
 * **RabbitMQ**
 
-  - **Install Erlang**
+  1. **Install Erlang**
 
-    .. code::
+      .. code::
 
-     sudo yum -y update
-     sudo yum install -y epel-release
-     sudo yum install -y gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel git wget wxBase.x86_64
+       sudo yum -y update
+       sudo yum install -y epel-release
+       sudo yum install -y gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel git wget wxBase.x86_64
 
-     wget http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
-     sudo rpm -Uvh erlang-solutions-1.0-1.noarch.rpm
-     sudo yum -y update
+       wget http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
+       sudo rpm -Uvh erlang-solutions-1.0-1.noarch.rpm
+       sudo yum -y update
 
 
-  - **Verify Erlang**
+  2. **Verify Erlang**
 
-    .. code::
-
-     erl
+       .. code::
+ 
+        erl
      
-    Sample output:
+       Sample output:
     
-    .. code::
+       .. code::
 
-     Erlang/OTP 19 [erts-8.2] [source-fbd2db2] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+        Erlang/OTP 19 [erts-8.2] [source-fbd2db2] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
 
-     Eshell V8.2  (abort with ^G)
-     1>
+        Eshell V8.2  (abort with ^G)
+        1>
 
-  - **Install RabbitMQ**
+  3. **Install RabbitMQ**
 
-    .. code::
+      .. code::
+  
+       wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.1/rabbitmq-server-3.6.1-1.noarch.rpm
+       sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+       sudo yum install -y rabbitmq-server-3.6.1-1.noarch.rpm
 
-     wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.1/rabbitmq-server-3.6.1-1.noarch.rpm
-     sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-     sudo yum install -y rabbitmq-server-3.6.1-1.noarch.rpm
+  4. **Start RabbitMQ**
 
+      .. code::
 
-  - **Start RabbitMQ**
-
-    .. code::
-
-      sudo systemctl start rabbitmq-server
-      sudo systemctl status rabbitmq-server
-
+        sudo systemctl start rabbitmq-server
+        sudo systemctl status rabbitmq-server
 
 
 * **MongoDB**
 
-  - **Configure the package management system (yum)**
+  1. **Configure the package management system (yum)**
 
     
-    Create a /etc/yum.repos.d/mongodb-org-3.4.repo and add below lines: 
+      Create a /etc/yum.repos.d/mongodb-org-3.4.repo and add below lines: 
 
 
-    .. code::
+      .. code::
+ 
+       [mongodb-org-3.4]
+       name=MongoDB Repository
+       baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+       gpgcheck=1
+       enabled=1
+       gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 
-     [mongodb-org-3.4]
-     name=MongoDB Repository
-     baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
-     gpgcheck=1
-     enabled=1
-     gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 
-
-  - **Install MongoDB**
+  2. **Install MongoDB**
 
     .. code::
 
      sudo yum install -y mongodb-org
 
 
-  - **Start MongoDB**
+  3. **Start MongoDB**
 
     .. code::
 
@@ -429,14 +413,14 @@ Prerequisites
 
 * **snmp**
 
-  - **Install snmp**
+  1. **Install snmp**
 
     .. code::
 
      sudo yum install -y net-snmp
 
 
-  - **Start snmp**
+  2. **Start snmp**
 
     .. code::
 
@@ -446,8 +430,6 @@ Prerequisites
 
 * **ipmitool**
 
-  - **Install ipmitool**
-
     .. code::
 
      sudo yum install -y OpenIPMI ipmitool
@@ -455,13 +437,13 @@ Prerequisites
 
 * **git**
 
-  - **Install git**
+  1. **Install git**
 
     .. code::
 
      sudo yum install -y git
 
-  - **Verify git**
+  2. **Verify git**
 
     .. code::
 
@@ -470,17 +452,18 @@ Prerequisites
 
 * **ansible**
 
-  - **Install ansible**
+  1. **Install ansible**
 
     .. code::
 
      sudo yum install -y ansible
 
-  - **Verify ansible**
+  2. **Verify ansible**
 
     .. code::
 
      ansible --version
+
 
     Sample output:
 
@@ -492,16 +475,12 @@ Prerequisites
 
 * **amtterm**
 
-  - **Install amtterm**
-
     .. code::
 
      sudo yum install amtterm
 
 
 * **dhcp**
-
-  - **Install dhcp**
 
     .. code::
 
@@ -515,146 +494,139 @@ Prerequisites
 Install & Configure RackHD
 ^^^^
 
-1. **Install RackHD NPM package**
 
-*
-  Install the latest release RackHD
+1. **Install RackHD NPM Packages**
+
+   Install the latest release of RackHD
 
    .. code::
 
      for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
-     do 
+     do
      npm install $service;
      done
 
+####
 
 2. **Basic RackHD Configuration**
 
+   * **DHCP**
 
-* **DHCP**
+     Update /etc/dhcp/dhcpd.conf per your network configuration
 
-   Update /etc/dhcp/dhcpd.conf per your network configuration
- 
-   .. code::
+     .. code::
 
-    # RackHD added lines
-    deny duplicates;
+      # RackHD added lines
+      deny duplicates;
 
-    ignore-client-uids true;
+      ignore-client-uids true;
 
-    subnet 172.31.128.0 netmask 255.255.240.0 {
-      range 172.31.128.2 172.31.143.254;
-      # Use this option to signal to the PXE client that we are doing proxy DHCP
-      option vendor-class-identifier "PXEClient";
-    }
-
-
-#######
+      subnet 172.31.128.0 netmask 255.255.240.0 {
+        range 172.31.128.2 172.31.143.254;
+        # Use this option to signal to the PXE client that we are doing proxy DHCP
+        option vendor-class-identifier "PXEClient";
+      }
 
 
-* **Open Ports in Firewall**
+   * **Open Ports in Firewall**
 
-   If the firewall is enabled, open below ports in firewall:
+     If the firewall is enabled, open below ports in firewall:
 
-   - 4011/udp
-   - 8080/tcp
-   - 67/udp
-   - 8443/tcp
-   - 69/udp
-   - 9080/tcp
+     - 4011/udp
+     - 8080/tcp
+     - 67/udp
+     - 8443/tcp
+     - 69/udp
+     - 9080/tcp
 
-   An example of opening port:
+     An example of opening port:
 
-    .. code::
+     .. code::
+
+       sudo firewall-cmd --permanent --add-port=8080/tcp
+       sudo firewall-cmd --reload
+      
+
+   * **CONFIGURATION FILE**
+
+     Create the required file /opt/monorail/config.json , you can use the demonstration configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json as a reference.
 
 
-     sudo firewall-cmd --permanent --add-port=8080/tcp
-     sudo firewall-cmd --reload
-     
-   
-#######
+   * **RACKHD BINARY SUPPORT FILES**
 
-* **CONFIGURATION FILE**
+     Download binary files from bintray and placed them with below shell script.
 
-   Create the required file /opt/monorail/config.json , you can use the demonstration configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json as a reference.
+     .. code::
 
-#######
+       #!/bin/bash
 
-* **RACKHD BINARY SUPPORT FILES**
+       mkdir -p node_modules/on-tftp/static/tftp
+       cd node_modules/on-tftp/static/tftp
 
-   Download binary files from bintray and placed them with below shell script.
+       for file in $(echo "\
+       monorail.ipxe \
+       monorail-undionly.kpxe \
+       monorail-efi64-snponly.efi \
+       monorail-efi32-snponly.efi");do
+       wget "https://dl.bintray.com/rackhd/binary/ipxe/$file"
+       done
 
-   .. code::
+       cd -
 
-    #!/bin/bash
+       mkdir -p node_modules/on-http/static/http/common
+       cd node_modules/on-http/static/http/common
 
-    mkdir -p node_modules/on-tftp/static/tftp
-    cd node_modules/on-tftp/static/tftp
+       for file in $(echo "\
+       base.trusty.3.16.0-25-generic.squashfs.img \
+       discovery.overlay.cpio.gz \
+       initrd.img-3.16.0-25-generic \
+       vmlinuz-3.16.0-25-generic");do
+       wget "https://dl.bintray.com/rackhd/binary/builds/$file"
+       done
 
-    for file in $(echo "\
-    monorail.ipxe \
-    monorail-undionly.kpxe \
-    monorail-efi64-snponly.efi \
-    monorail-efi32-snponly.efi");do
-    wget "https://dl.bintray.com/rackhd/binary/ipxe/$file"
-    done
-
-    cd -
-
-    mkdir -p node_modules/on-http/static/http/common
-    cd node_modules/on-http/static/http/common
-
-    for file in $(echo "\
-    base.trusty.3.16.0-25-generic.squashfs.img \
-    discovery.overlay.cpio.gz \
-    initrd.img-3.16.0-25-generic \
-    vmlinuz-3.16.0-25-generic");do
-    wget "https://dl.bintray.com/rackhd/binary/builds/$file"
-    done
-
-    cd -
+       cd -
 
 3. **Start RackHD**
 
-   Start the 5 service of RackHD with pm2 and a yml file.
+   Start the 5 services of RackHD with pm2 and a yml file.
 
-* **Install pm2**
+   I. **Install pm2**
 
     .. code::
 
        sudo npm install pm2 -g
 
-* **Prepare a yml file**
+   II. **Prepare a yml file**
 
-   An example of yml file:
+       An example of yml file:
 
-    .. code::
+       .. code::
 
-     apps:
-        - script: index.js
-          name: on-taskgraph
-          cwd: node_modules/on-taskgraph
-        - script: index.js
-          name: on-http
-          cwd: node_modules/on-http
-        - script: index.js
-          name: on-dhcp-proxy
-          cwd: node_modules/on-dhcp-proxy
-        - script: index.js
-          name: on-syslog
-          cwd: node_modules/on-syslog
-        - script: index.js
-          name: on-tftp
-          cwd: node_modules/on-tftp
+        apps:
+          - script: index.js
+            name: on-taskgraph
+            cwd: node_modules/on-taskgraph
+          - script: index.js
+            name: on-http
+            cwd: node_modules/on-http
+          - script: index.js
+            name: on-dhcp-proxy
+            cwd: node_modules/on-dhcp-proxy
+          - script: index.js
+            name: on-syslog
+            cwd: node_modules/on-syslog
+          - script: index.js
+            name: on-tftp
+            cwd: node_modules/on-tftp
      
 
-* **Start Service**
+   III. **Start Services**
 
     .. code::
 
        sudo pm2 start rackhd.yml
 
-   All the services are started:
+    All the services are started:
 
     .. code::
 
