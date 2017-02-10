@@ -173,7 +173,7 @@ An example of starting an OS installation workflow for CentOS:
     curl -X POST \
          -H 'Content-Type: application/json' \
          -d @params.json \
-         <server>/api/1.1/nodes/<identifier>/workflows?name=Graph.InstallCentOS
+         <server>/api/current/nodes/<identifier>/workflows?name=Graph.InstallCentOS
 
 
 An example of params.json with minimal parameters for installing CentOS workflow:
@@ -188,31 +188,34 @@ An example of params.json with full set of parameters for installing CentOS work
 
 There are few more payload examples at https://github.com/RackHD/RackHD/tree/master/example/samples.
 
-Check the workflow is active or inactive:
+Check the active workflow running on a node
+
+::
+
+    curl <server>/api/current/nodes/<identifier>/workflows?active=true
+
+
+Deprecated 1.1 API - Check the active workflow running on a node
 
 .. code-block:: REST
 
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
-
-2.0 API to list active workflows running against the node
-
-::
-
-    curl <server>/api/2.0/nodes/<identifier>/workflows?active=true
-
-Stop the active workflow to cancel OS installation:
-
-.. code-block:: REST
-
-    curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
-
-2.0 API Stop the currently active workflow for a node:
+    
+Stop the currently active workflow on a node:
 
 ::
     curl -X PUT \
     -H 'Content-Type: application/json' \
     -d '{"command": "cancel"}' \
-    <server>/api/2.0/nodes/<id>/workflows/action
+    <server>/api/current/nodes/<id>/workflows/action
+
+Deprecated 1.1 API - Stop the active workflow to cancel OS installation:
+
+.. code-block:: REST
+
+    curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
+
+
 
 
 Non-Windows OS Installation Workflow Payload

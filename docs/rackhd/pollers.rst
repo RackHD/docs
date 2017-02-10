@@ -40,7 +40,7 @@ for that node (see the Metric pollers section below for a list of these).
 
 Example request to create and auto-discover a switch::
 
-    POST /api/1.1/nodes
+    POST /api/current/nodes
     Content-Type: application/json
 
     {
@@ -86,11 +86,11 @@ can send:
 
 .. code-block:: REST
 
-    GET /api/1.1/pollers/library
+    GET /api/current/pollers/library
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/pollers/library
+    curl <server>/api/current/pollers/library
 
 
 **Create a new SNMP poller with a node**
@@ -113,7 +113,7 @@ an "snmpSettings" field with a host and community fields:
 
 .. code-block:: REST
 
-    POST /api/1.1/pollers
+    POST /api/current/pollers
     {
         "type": "snmp",
         "pollInterval": 10000,
@@ -132,13 +132,13 @@ an "snmpSettings" field with a host and community fields:
         -H 'Content-Type: application/json' \
         -d '{"type":"snmp","pollInterval":10000,"node":"54daadd764f1a8f1088fdc42",
             "config":{"oids":["IF-MIB::ifSpeed","IF-MIB::ifOperStatus"}}' \
-        <server>/api/1.1/pollers
+        <server>/api/current/pollers
 
 **Create a New IPMI Poller With a Node**
 
 .. code-block:: REST
 
-    POST /api/1.1/pollers
+    POST /api/current/pollers
     {
         "type": "ipmi",
         "pollInterval": 10000,
@@ -154,7 +154,7 @@ an "snmpSettings" field with a host and community fields:
         -H 'Content-Type: application/json' \
         -d '{"type":"ipmi","pollInterval":10000,"node":"54daadd764f1a8f1088fdc42",
             "config":{"command":"power"}}' \
-        <server>/api/1.1/pollers
+        <server>/api/current/pollers
 
 .. literalinclude:: samples/ipmi-poller.json
    :language: JSON
@@ -163,7 +163,7 @@ an "snmpSettings" field with a host and community fields:
 
 .. code-block:: REST
 
-    POST /api/1.1/pollers
+    POST /api/current/pollers
     {
         "type": "ipmi",
         "pollInterval": 10000,
@@ -181,7 +181,7 @@ an "snmpSettings" field with a host and community fields:
         -H 'Content-Type: application/json' \
         -d '{"type":"ipmi","pollInterval":10000,"node":"54daadd764f1a8f1088fdc42",
             "config":{"command":"power","host":"10.1.1.2","user":"admin","password":"admin"}}' \
-        <server>/api/1.1/pollers
+        <server>/api/current/pollers
 
 .. literalinclude:: samples/ipmi-poller-no-node.json
    :language: JSON
@@ -190,7 +190,7 @@ an "snmpSettings" field with a host and community fields:
 
 .. code-block:: REST
 
-    POST /api/1.1/pollers
+    POST /api/current/pollers
     {
         "type": "snmp",
         "pollInterval": 10000,
@@ -211,7 +211,7 @@ an "snmpSettings" field with a host and community fields:
         -d '{"type":"snmp","pollInterval":10000,"node":"54daadd764f1a8f1088fdc42",
             "config":{"host":"10.1.1.3","communityString":"public",
               "oids":["PDU-MIB::outletVoltage","PDU-MIB::outletCurrent"]}}' \
-        <server>/api/1.1/pollers
+        <server>/api/current/pollers
 
 .. literalinclude:: samples/snmp-poller.json
    :language: JSON
@@ -223,7 +223,7 @@ config instead of data like "oids" or "command"
 
 .. code-block:: REST
 
-    POST /api/1.1/pollers
+    POST /api/current/pollers
     {
         "type": "snmp",
         "pollInterval": 10000,
@@ -239,17 +239,17 @@ config instead of data like "oids" or "command"
         -H 'Content-Type: application/json' \
         -d '{"type":"snmp","pollInterval":10000,"node":"54daadd764f1a8f1088fdc42",
             "config":{"metric":"snmp-interface-bandwidth-poller"}}' \
-        <server>/api/1.1/pollers
+        <server>/api/current/pollers
 
 **Get a Poller's Data Stream**
 
 .. code-block:: REST
 
-    GET /api/1.1/pollers/:id/data
+    GET /api/current/pollers/:id/data
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/pollers/<pollerid>/data
+    curl <server>/api/current/pollers/<pollerid>/data
 
 Sample Output: IPMI
 
@@ -265,27 +265,27 @@ Sample Output: SNMP
 
 .. code-block:: REST
 
-    GET /api/1.1/pollers
+    GET /api/current/pollers
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/pollers
+    curl <server>/api/current/pollers
 
 **Get Definition for a Single Poller**
 
 .. code-block:: REST
 
-    GET /api/1.1/pollers/:id
+    GET /api/current/pollers/:id
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/pollers/<pollerid>
+    curl <server>/api/current/pollers/<pollerid>
 
 **Update a Single Poller to change the interval**
 
 .. code-block:: REST
 
-    PATCH /api/1.1/pollers/:id
+    PATCH /api/current/pollers/:id
     {
         "pollInterval": 15000
     }
@@ -295,13 +295,13 @@ Sample Output: SNMP
     curl -X PATCH \
         -H 'Content-Type: application/json' \
         -d '{"pollInterval":15000}' \
-        <server>/api/1.1/pollers/<pollerid>
+        <server>/api/current/pollers/<pollerid>
 
 **Update a Single Poller to pause the poller**
 
 .. code-block:: REST
 
-    PATCH /api/1.1/pollers/:id
+    PATCH /api/current/pollers/:id
     {
         "paused": true
     }
@@ -311,28 +311,28 @@ Sample Output: SNMP
     curl -X PATCH \
         -H 'Content-Type: application/json' \
         -d '{"paused":true}' \
-        <server>/api/1.1/pollers/<pollerid>
+        <server>/api/current/pollers/<pollerid>
 
 **Delete a Single Poller**
 
 .. code-block:: REST
 
-    DELETE /api/1.1/pollers/:id
+    DELETE /api/current/pollers/:id
 
 .. code-block:: REST
 
-    curl -X DELETE <server>/api/1.1/pollers/<pollerid>
+    curl -X DELETE <server>/api/current/pollers/<pollerid>
 
 
 **Get List of Active Pollers Associated With a Node**
 
 .. code-block:: REST
 
-    GET /api/1.1/nodes/:id/pollers
+    GET /api/current/nodes/:id/pollers
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/nodes/<nodeid>/pollers
+    curl <server>/api/current/nodes/<nodeid>/pollers
 
 
 IPMI Poller Alerts

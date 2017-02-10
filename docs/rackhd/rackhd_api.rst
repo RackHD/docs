@@ -18,13 +18,13 @@ API documentation as described below or download the latest from
 
 .. code::
 
-  curl http://<server>:8080/api/common/nodes | python -mjson.tool
+  curl http://<server>:8080/api/current/nodes | python -mjson.tool
 
 **Set the Active Workflow**
 
 .. code::
 
-  curl http://<server>:8080/api/common/nodes/<identifier>/workflows/active | python -mjson.tool
+  curl http://<server>:8080/api/current/nodes/<identifier>/workflows/active | python -mjson.tool
 
 
 Starting and Stopping the API Server
@@ -56,7 +56,7 @@ repository and running the following command.
 The default and example quick start build that we describe in :doc:`../tutorials/vagrant`
 has the API docs rendered and embedded within that instance for easy use, available
 at http://[IP ADDRESS OF VM]:8080/docs/ for the 1.1 API documentation, and
-http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the 2.0 and Redfish API documentation.
+http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the current (2.0) and Redfish API documentation.
 
 RackHD Client Libraries
 -------------------------
@@ -149,7 +149,7 @@ resources in the collection.
 Here is an example request using $skip and $top to get get the second page of nodes with
 four items per page.::
 
-    curl http://localhost:8080/api/2.0/nodes?$skip=4&$top=4
+    curl http://localhost:8080/api/current/nodes?$skip=4&$top=4
 
 RackHD will add a link header to assist in traversing a large collection.  Links will be added
 if either ``$skip`` or ``$top`` is used and the size of the collection is greater than the
@@ -159,9 +159,9 @@ previous links will be ommitted for the last and first pages respectively.
 
 Here is an example link header from a collection containing 1000 nodes.::
 
-    </api/2.0/nodes?$skip=0&$top=4>; rel="first",
-    </api/2.0/nodes?$skip=1004&$top=4>; rel="last",
-    </api/2.0/nodes?$skip=0&$top=4>; rel="prev",
-    </api/2.0/nodes?$skip=8&$top=4>; rel="next"
+    </api/current/nodes?$skip=0&$top=4>; rel="first",
+    </api/current/nodes?$skip=1004&$top=4>; rel="last",
+    </api/current/nodes?$skip=0&$top=4>; rel="prev",
+    </api/current/nodes?$skip=8&$top=4>; rel="next"
 
 

@@ -135,7 +135,7 @@ The following table describes the configuration parameters in config.json:
       - Optional HTTP/HTTPS proxies list. There are 3 parameters for each proxy:
 
         "localPath"/"remotePath" are optional and defaults to "/". A legal "localPath"/"remotePath" string must start with slash and ends without slash, like "/mirrors".
-        If "localPath" is assigned to an existing local path like "/api/common/nodes", proxy won't work. Instead the path will keep its original feature and function.
+        If "localPath" is assigned to an existing local path like "/api/current/nodes", proxy won't work. Instead the path will keep its original feature and function.
         "server" is a must, both http and https servers are supported. A legal "server" string must ends without slash like "http://centos.eecs.wsu.edu". Instead "http://centos.eecs.wsu.edu/" is illegal.
 
         Example:
@@ -255,7 +255,7 @@ to RackHD ``config.json``:
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
-    POST:        http://server-ip:8080/api/1.1/workflows/
+    POST:        http://server-ip:8080/api/current/workflows/
 
    add the below content in the json body for payload (example node identifier and username, password shown below)
 
@@ -338,7 +338,7 @@ By running this workflow, a boot-graph runs to bootstrap an ubuntu image on the 
 
 To remove the BMC credentials, User can run the following workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-remove-graph.js`` and can be posted using Postman or Curl command.
 
-    POST:        http://server-ip:8080/api/1.1/workflows/
+    POST:        http://server-ip:8080/api/current/workflows/
 
    add the below content in the json body for payload (example node identifier and username, password shown below)
 

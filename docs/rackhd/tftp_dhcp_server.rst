@@ -126,7 +126,7 @@ iPXE bootloader image that corresponds to the system's architecture type.
 .. code-block:: shell
 
     if ((exists user-class) and (option user-class = "MonoRail")) {
-        filename "http://172.31.128.1:9080/api/common/profiles";
+        filename "http://172.31.128.1:9080/api/current/profiles";
     } else {
         if option arch-type = 00:09 {
           filename "monorail-efi64-snponly.efi";
@@ -153,12 +153,12 @@ The third-party DHCP service could be used with possible solution configurations
 +=================+==============================================================+============================================================+
 |                 | DHCP service has functionalities like ISC DHCP, it could     | Configure it like ISC DHCP to make node auto chainloading  |
 |                 | configure DHCP to return different bootfile name according   | iPXE files and finally iPXE hit RackHD URL                 |
-|                 | to `user-class`, `arch-type`, `vendor-class-identifier` etc. | ``http://172.31.128.1:9080/api/common/profiles``           |
+|                 | to `user-class`, `arch-type`, `vendor-class-identifier` etc. | ``http://172.31.128.1:9080/api/current/profiles``           |
 |                 |                                                              | IP address and port are configured according to RackHD     |
 | Third-party     |                                                              | southbound configuration.                                  |
 | DHCP service    +--------------------------------------------------------------+------------------------------------------------------------+
 | only            | DHCP service could not proxy DHCP, and on-dhcp-proxy         | Replace "autoboot" command in `Default iPXE Config`_ with  |
-|                 | also could not be deployed in the DHCP server, only bootfile | "dhcp" and "http://172.31.128.1:9080/api/common/profiles", |
+|                 | also could not be deployed in the DHCP server, only bootfile | "dhcp" and "http://172.31.128.1:9080/api/current/profiles", |
 |                 | name could be specified by DHCP                              | then re-compile iPXE in `on-imagebuilder`_ to generate new |
 |                 |                                                              | iPXE files, specify one of generated iPXE files as         |
 |                 |                                                              | bootfile name in DHCP configuration. IP address and        |

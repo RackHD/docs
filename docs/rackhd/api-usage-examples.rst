@@ -12,10 +12,10 @@ This example provides instructions on how to flash a BMC image on a Quanta (node
      **Get Nodes**
      ::
      
-         GET /api/2.0/nodes
+         GET /api/current/nodes
      ::
      
-         curl <server>/api/2.0/nodes
+         curl <server>/api/current/nodes
 
 
 2. Post the obm settings if they don't already exist for the node. An example on how to do this is shown in Section 7.1.8.1 here http://rackhd.readthedocs.io/en/latest/tutorials/vagrant.html#adding-a-sku-definition Section 7.1.8.1
@@ -52,17 +52,17 @@ This example provides instructions on how to flash a BMC image on a Quanta (node
 
        .. code-block:: REST
 
-          GET /api/2.0/nodes/:id/pollers
+          GET /api/current/nodes/:id/pollers
 
        .. code-block:: REST
 
-          curl <server>/api/2.0/nodes/<nodeid>/pollers
+          curl <server>/api/current/nodes/<nodeid>/pollers
   
     **Update a Single Poller to pause the poller**
 
        .. code-block:: REST
 
-           PATCH /api/2.0/pollers/:id
+           PATCH /api/current/pollers/:id
            {
                 "paused": true
            }
@@ -72,7 +72,7 @@ This example provides instructions on how to flash a BMC image on a Quanta (node
            curl -X PATCH \
               -H 'Content-Type: application/json' \
               -d '{"paused":true}' \
-              <server>/api/2.0/pollers/<pollerid>  
+              <server>/api/current/pollers/<pollerid>
 
 7. The workflow to flash a new BMC image to a Quanta node needs to be POST'ed
 If a user would upgrade a node without reboot at the end or run BMC upgrade with a file override, a user need add a payload when posting the workflow. Details please refer to the README.md under Quanta directory.
@@ -81,11 +81,11 @@ If a user would upgrade a node without reboot at the end or run BMC upgrade with
      
        .. code-block:: REST
 
-          POST /api/2.0/nodes/:id/workflows?name=Graph.Flash.Quanta.Bmc
+          POST /api/current/nodes/:id/workflows?name=Graph.Flash.Quanta.Bmc
 
        .. code-block:: REST
 
-          curl -X POST <server>/api/2.0/nodes/<nodeid>/workflows?name=Graph.Flash.Quanta.Bmc
+          curl -X POST <server>/api/current/nodes/<nodeid>/workflows?name=Graph.Flash.Quanta.Bmc
           
 8. Check if any active workflows on that node exist to make sure the workflow has completed
    
@@ -93,11 +93,11 @@ If a user would upgrade a node without reboot at the end or run BMC upgrade with
           
        .. code-block:: REST
 
-          GET /api/2.0/nodes/<id>/workflows/active
+          GET /api/current/nodes/<id>/workflows/active
 
        .. code-block:: REST
 
-          curl <server>/api/2.0/nodes/<id>/workflows/active
+          curl <server>/api/current/nodes/<id>/workflows/active
           
           
 If a remote viewing session exists for the node, check the BMC firmware to verify the version has been updated.      

@@ -231,11 +231,11 @@ Events via Hook
 Register Web Hooks
 ^^^^^^^^^^^^^^^^^^^
 
-The web hooks used for subscribing event notification could be registered by ``POST <server>/api/2.0/hooks`` API as below
+The web hooks used for subscribing event notification could be registered by ``POST <server>/api/current/hooks`` API as below
 
 .. code-block:: REST
 
-    curl -H "Content-Type: application/json" -X POST -d @payload.json <server>/api/2.0/hooks
+    curl -H "Content-Type: application/json" -X POST -d @payload.json <server>api/current/hooks
 
 .. _hook_payload:
 

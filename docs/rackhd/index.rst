@@ -1,3 +1,5 @@
+WARNING: 1.1 API DEPRECATED
+
 RackHD Users Guide
 ==================
 

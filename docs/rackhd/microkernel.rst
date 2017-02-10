@@ -29,7 +29,7 @@ Terms
 
 .. list-table::
    :widths: 20 80
-   :header-rows: 1
+   :header-rows: 1a
 
    * - Term
      - Description
@@ -138,7 +138,7 @@ The workflow name is `Graph.BootstrapUbuntu`.
 
 .. code-block:: REST
 
-    curl -X POST -H 'Content-Type: application/json' <server>/api/2.0/nodes/<identifier>/workflows?name=Graph.BootstrapUbuntu
+    curl -X POST -H 'Content-Type: application/json' <server>/api/current/nodes/<identifier>/workflows?name=Graph.BootstrapUbuntu
 
 When this workflow is running, it will set node to PXE boot, then reboot the node.
 The node will boot into Ubuntu microkernel, finally you could SSH login node's microkernel from the RackHD server.
@@ -147,4 +147,4 @@ the SSH username:password is `monorail:monorail`.
 
 .. code-block:: REST
 
-    curl <server>/api/2.0/lookups?q=<identifier>
+    curl <server>/api/current/lookups?q=<identifier>

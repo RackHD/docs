@@ -13,7 +13,7 @@ To configure RackHD to provide a custom iPXE response to a node outside of a wor
     curl -X PATCH \
         -H 'Content-Type: application/json' \
         -d @boot.json \
-        <server>/api/1.1/nodes/<identifier>
+        <server>/api/current/nodes/<identifier>
 
 
 A example of boot.json:

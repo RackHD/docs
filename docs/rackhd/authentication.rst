@@ -54,7 +54,7 @@ users, such as an Administrator role.
 
 Here is an example of creating an initial 'admin' user with a password of 'admin123'.::
 
-    curl -ks -X POST -H "Content-Type:application/json" https://localhost:8443/api/2.0/users -d '{"username": "admin", "password": "admin123", "role": "Administrator"}' | python -m json.tool
+    curl -ks -X POST -H "Content-Type:application/json" https://localhost:8443/api/current/users -d '{"username": "admin", "password": "admin123", "role": "Administrator"}' | python -m json.tool
     {
         "role": "Administrator",
         "username": "admin"

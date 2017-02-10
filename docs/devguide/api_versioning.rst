@@ -5,7 +5,7 @@ All current APIs are prefixed with:
 
 .. code::
 
-    /api/1.1
+    /api/current
 
 RackHD extenders can supplement the central API (common) with versioned customer-specific APIs in parallel.
 
