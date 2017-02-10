@@ -73,19 +73,19 @@ The following API commands can be used to view, create, modify and delete roles.
 
 ::
 
-    GET /api/2.0/roles
+    GET /api/current/roles
 
 **Get information about a specified role.**
 
 ::
 
-    GET /api/2.0/roles/<name>
+    GET /api/current/roles/<name>
 
 **Create a new role and store it.**
 
 ::
 
-    POST /api/2.0/roles
+    POST /api/current/roles
 
     {
         "privileges": [
@@ -99,7 +99,7 @@ The following API commands can be used to view, create, modify and delete roles.
 
 ::
 
-    PATCH /api/2.0/roles/<name>
+    PATCH /api/current/roles/<name>
 
     {
         "privileges": [
@@ -112,4 +112,4 @@ The following API commands can be used to view, create, modify and delete roles.
 
 ::
 
-    DELETE /api/2.0/roles/<name>
+    DELETE /api/current/roles/<name>

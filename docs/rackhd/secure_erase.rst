@@ -13,7 +13,7 @@ An example of starting secure erase for disks:
     curl -X POST \
          -H 'Content-Type: application/json' \
          -d @params.json \
-         <server>/api/1.1/nodes/<identifier>/workflows?name=Graph.Drive.SecureErase
+         <server>/api/current/nodes/<identifier>/workflows?name=Graph.Drive.SecureErase
 
 
 An example of params.json for disk secure erase:
@@ -23,28 +23,30 @@ An example of params.json for disk secure erase:
 
 Use below command to check the workflow is active or inactive:
 
+::
+    curl <server>/api/current/nodes/<identifier>/workflows?active=true
+
+
+Deprecated 1.1 API - Use below command to check the workflow is active or inactive:
+
 .. code-block:: REST
 
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
 
-2.0 API - Use below command to check the workflow is active or inactive:
-
-::
-    curl <server>/api/2.0/nodes/<identifier>/workflows?active=true
-
 Use below command to stop the active workflow to cancel secure erase workflow:
-
-.. code-block:: REST
-
-    curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
-
-2.0 API - Use below command to stop the active workflow to cancel secure erase workflow:
 
 ::
     curl -X PUT \
     -H 'Content-Type: application/json' \
     -d '{"command": "cancel"}' \
-    <server>/api/2.0/nodes/<id>/workflows/action
+    <server>/api/current/nodes/<id>/workflows/action
+
+
+Deprecated 1.1 API - Use below command to stop the active workflow to cancel secure erase workflow:
+
+.. code-block:: REST
+
+    curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
 
 Disk Secure Erase Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

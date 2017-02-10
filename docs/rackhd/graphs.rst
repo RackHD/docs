@@ -328,43 +328,63 @@ The following are API commands that can be used when running the *on-http* proce
 
 ::
 
+    GET /api/current/workflows/graphs
+
+::
+
+    curl <server>/api/current/workflows/graphs
+
+
+**Deprecated 1.1 API - Get Available Graphs in the Library**
+
+::
+
     GET /api/1.1/workflows/library/*
 
 ::
 
     curl <server>/api/1.1/workflows/library/*
 
-**2.0 API Get Available Graphs in the Library**
-
-::
-
-    GET /api/2.0/workflows/graphs
-
-::
-
-    curl <server>/api/2.0/workflows/graphs
 
 **Query the State of an Active Graph**
 
 ::
 
-        GET /api/1.1/nodes/<id>/workflows/active
+    GET /api/current/nodes/<id>/workflows?active=true
 
 ::
 
-        curl <server>/api/1.1/nodes/<id>/workflows/active
+    curl <server>/api/current/workflows?active=true
 
-**2.0 API Query State of an Active Graph**
 
-::
-
-        GET /api/2.0/nodes/<id>/workflows?active=true
+**Deprecated 1.1 API - Query State of an Active Graph**
 
 ::
 
-        curl <server>/api/2.0/workflows?active=true
+    GET /api/1.1/nodes/<id>/workflows/active
+
+::
+
+    curl <server>/api/1.1/nodes/<id>/workflows/active
 
 **Cancel or Kill an Active Graph running against a Node**
+
+::
+
+    PUT /api/current/nodes/<id>/workflows/action
+            {
+                "command": "cancel"
+            }
+
+::
+
+    curl -X PUT \
+            -H 'Content-Type: application/json' \
+            -d '{"command": "cancel"}' \
+            <server>/api/current/nodes/<id>/workflows/action
+
+
+**Deprecated 1.1 API - Cancel or Kill an Active Graph running against a Node**
 
 ::
 
@@ -374,47 +394,33 @@ The following are API commands that can be used when running the *on-http* proce
 
         curl -X DELETE <server>/api/1.1/nodes/<id>/workflows/active
 
-**2.0 API Cancel or Kill an Active Graph running against a Node**
-
-::
-
-        PUT /api/2.0/nodes/<id>/workflows/action
-                {
-                    "command": "cancel"
-                }
-
-::
-
-        curl -X PUT \
-                -H 'Content-Type: application/json' \
-                -d '{"command": "cancel"}' \
-                <server>/api/2.0/nodes/<id>/workflows/action
 
 **List all Graphs that have or are running against a Node**
 
 ::
 
-        GET /api/1.1/nodes/<id>/workflows
+        GET /api/current/nodes/<id>/workflows
 
 ::
 
-        curl <server>/api/1.1/nodes/<id>/workflows
+        curl <server>/api/current/nodes/<id>/workflows
 
 
 **Create a Graph Definition**
 
 ::
 
-        PUT /api/1.1/workflows
+        PUT /api/current/workflows/graph
         {
             <json definition of graph>
         }
 
-**2.0 API Create a Graph Definition**
+
+**Deprecated 1.1 API - Create a Graph Definition**
 
 ::
 
-        PUT /api/2.0/workflows/graph
+        PUT /api/1.1/workflows
         {
             <json definition of graph>
         }
@@ -426,7 +432,7 @@ Find the graph definition you would like to use and copy the top-level *injectab
 
 ::
 
-    POST /api/1.1/nodes/<id>/workflows
+    POST /api/current/nodes/<id>/workflows
     {
         "name": <graph name>
     }
@@ -434,18 +440,18 @@ Find the graph definition you would like to use and copy the top-level *injectab
 
 ::
 
-    curl -X POST <server>/api/1.1/nodes/<id>/workflows?name=<graphname>
+    curl -X POST <server>/api/current/nodes/<id>/workflows?name=<graphname>
     OR
     curl -X POST \
         -H 'Content-Type: application/json' \
         -d '{"name": "<graphname>"}' \
-        <server>/api/1.1/nodes/<id>/workflows
+        <server>/api/current/nodes/<id>/workflows
 
 To override option values, add an options object to the POST data as detailed in the `Graph Options`_ section.
 
 ::
 
-    POST /api/1.1/nodes/<id>/workflows
+    POST /api/current/nodes/<id>/workflows
     {
         "name": <graph name>
         "options": { <graph options here> }
@@ -455,7 +461,7 @@ For example, to override an option "username" for all tasks in a graph that util
 
 ::
 
-    POST /api/1.1/nodes/<id>/workflows
+    POST /api/current/nodes/<id>/workflows
     {
         "name": <graph name>
         "options": {

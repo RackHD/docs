@@ -155,9 +155,9 @@ Next, the script must be uploaded as a template to the RackHD server:
 
 .. code-block:: Bash
 
-    # PUT https://<server>:<port>/api/1.1/templates/library/cisco-catalog-snmp-example.py
+    # PUT https://<server>:<port>/api/current/templates/library/cisco-catalog-snmp-example.py
     # via curl:
-    curl -X PUT -H "Content-type: text/raw" -d @<script path> https://<server>:<port>/api/1.1/templates/library/cisco-catalog-snmp-example.py
+    curl -X PUT -H "Content-type: text/raw" -d @<script path> https://<server>:<port>/api/current/templates/library/cisco-catalog-snmp-example.py
 
 **3. Add script to a workflow**
 
@@ -227,14 +227,14 @@ The deploy script and startup config file should be uploaded via the templates A
 .. code-block:: Bash
 
     # Upload the deploy script
-    # PUT https://<server>:<port>/api/1.1/templates/library/deploy-cisco-startup-config.py
+    # PUT https://<server>:<port>/api/current/templates/library/deploy-cisco-startup-config.py
     # via curl:
-    curl -X PUT -H "Content-type: text/raw" -d @<deploy script path> https://<server>:<port>/api/1.1/templates/library/deploy-cisco-startup-config.py
+    curl -X PUT -H "Content-type: text/raw" -d @<deploy script path> https://<server>:<port>/api/current/templates/library/deploy-cisco-startup-config.py
 
     # Upload the startup config
-    # PUT https://<server>:<port>/api/1.1/templates/library/cisco-example-startup-config
+    # PUT https://<server>:<port>/api/current/templates/library/cisco-example-startup-config
     # via curl:
-    curl -X PUT -H "Content-type: text/raw" -d @<startup config path> https://<server>:<port>/api/1.1/templates/library/cisco-example-startup-config
+    curl -X PUT -H "Content-type: text/raw" -d @<startup config path> https://<server>:<port>/api/current/templates/library/cisco-example-startup-config
 
 *Note the ejs template variable used in the above python script* (:code:`<%=startupConfigUri%>`).
 *This is used by the RackHD server to render its own API address dynamically, and must be specified within the workflow options.*

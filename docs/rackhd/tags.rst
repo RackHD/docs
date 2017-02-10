@@ -74,7 +74,7 @@ at :ref:`node-api-tags-ref-label`.
 
 .. code-block:: REST
 
-    POST /api/1.1/tags
+    POST /api/current/tags
     {
       "name": "Intel-32GB-RAM",
       "rules": [
@@ -94,11 +94,11 @@ at :ref:`node-api-tags-ref-label`.
 
 .. code-block:: REST
 
-    GET /api/1.1/tags
+    GET /api/current/tags
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/tags
+    curl <server>/api/current/tags
 
 
 **Get Definition for a Single tag**
@@ -106,11 +106,11 @@ at :ref:`node-api-tags-ref-label`.
 
 .. code-block:: REST
 
-    GET /api/1.1/tags/:tagname
+    GET /api/current/tags/:tagname
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/tags/<tagname>
+    curl <server>/api/current/tags/<tagname>
 
 
 **Delete a Single tag**
@@ -118,33 +118,33 @@ at :ref:`node-api-tags-ref-label`.
 
 .. code-block:: REST
 
-    DELETE /api/1.1/tags/:tagname
+    DELETE /api/current/tags/:tagname
 
 .. code-block:: REST
 
-    curl -X DELETE <server>/api/1.1/tags/<tagname>
+    curl -X DELETE <server>/api/current/tags/<tagname>
 
 **List nodes with a tag**
 
 
 .. code-block:: REST
 
-    GET /api/1.1/tags/:tagname/nodes
+    GET /api/current/tags/:tagname/nodes
 
 .. code-block:: REST
 
-    curl <server>/api/1.1/tags/<tagname>/nodes
+    curl <server>/api/current/tags/<tagname>/nodes
 
 **Post a workflow to all nodes with a tag**
 
 
 .. code-block:: REST
 
-    POST /api/1.1/tags/:tagname/nodes/workflows
+    POST /api/current/tags/:tagname/nodes/workflows
 
 .. code-block:: REST
 
-    curl -H "Content-Type: application/json" -X POST -d @options.json <server>/api/1.1/tags/<tagname>/nodes/workflows
+    curl -H "Content-Type: application/json" -X POST -d @options.json <server>/api/current/tags/<tagname>/nodes/workflows
 
 Tag JSON format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

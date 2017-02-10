@@ -26,7 +26,6 @@ Nodes are defined via a JSON definition that conform to this schema:
 - createdAt (string): ISO8601 date string of time resource was created
 - updatedAt (string): ISO8601 date string of time resource was last updated
 - identifiers (array of strings): a list of strings that make up alternative identifiers for the node.
-- obmSettings (array of objects): a list of objects that define out-of-band management access mechanisms
 - relations (array of objects): a list of relationship objects
 
 
@@ -51,22 +50,22 @@ The following are common API commands that can be used when running the *on-http
 
 ::
 
-    GET /api/1.1/nodes
+    GET /api/current/nodes
 
 ::
 
-    curl <server>/api/1.1/nodes
+    curl <server>/api/current/nodes
 
 
 **Get Specific Node**
 
 ::
 
-    GET /api/1.1/nodes/<id>
+    GET /api/current/nodes/<id>
 
 ::
 
-    curl <server>/api/1.1/nodes/<id>
+    curl <server>/api/current/nodes/<id>
 
 
 Sample switch node after Discovery
@@ -84,11 +83,11 @@ Sample compute node after Discovery
 
 ::
 
-    GET /api/1.1/nodes/<id>/catalogs
+    GET /api/current/nodes/<id>/catalogs
 
 ::
 
-    curl <server>/api/1.1/nodes<id>/catalogs
+    curl <server>/api/current/nodes<id>/catalogs
 
 
 
@@ -96,11 +95,11 @@ Sample compute node after Discovery
 
 ::
 
-    GET /api/1.1/nodes/<id>/catalogs/<source>
+    GET /api/current/nodes/<id>/catalogs/<source>
 
 ::
 
-    curl <server>/api/1.1/nodes<id>/catalogs/<source>
+    curl <server>/api/current/nodes<id>/catalogs/<source>
 
 
 Sample Output:
@@ -112,17 +111,17 @@ Sample Output:
 
 ::
 
-    curl -X PATCH -H "Content-Type:application/json" localhost/api/current/nodes/5542b78c130198aa216da3ac -d '{ "obmSettings": [ { "service": "noop-obm-service", "config": { } } ] }'
+    curl -X PUT -H "Content-Type:application/json" localhost/api/current/nodes/5542b78c130198aa216da3ac -d '{  { "service": "noop-obm-service", "config": { } } }'
 
 
 **To set a IPMI OBM setting on a node**
 
 .. code-block:: REST
 
-    curl -X PATCH \
+    curl -X PUT \
         -H 'Content-Type: application/json' \
-        -d '{ "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } } ] }' \
-        {server}/api/1.1/nodes/{nodeID}
+        -d ' { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } }' \
+        {server}/api/current/nodes/{nodeID}/obm
 
 .. _node-api-tags-ref-label:
 
@@ -133,31 +132,31 @@ Node Tags
 
 ::
 
-    PATCH /api/1.1/nodes/<id>/tags
+    PATCH /api/current/nodes/<id>/tags
 
 ::
 
-    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": [<list of tags>]}' <server>/api/1.1/nodes/<id>/tags
+    curl -H "Content-Type: application/json" -X PATCH -d '{ "tags": [<list of tags>]}' <server>/api/current/nodes/<id>/tags
 
 **List tags for a node**
 
 ::
 
-    GET /api/1.1/nodes/<id>/tags
+    GET /api/current/nodes/<id>/tags
 
 ::
 
-    curl <server>/api/1.1/nodes/<id>/tags
+    curl <server>/api/current/nodes/<id>/tags
 
 **Delete a tag from a node**
 
 ::
 
-    DELETE /api/1.1/nodes/<id>/tags/<tagname>
+    DELETE /api/current/nodes/<id>/tags/<tagname>
 
 ::
 
-    curl -X DELETE <server>/api/1.1/nodes/<id>/tags/<tagname>
+    curl -X DELETE <server>/api/current/nodes/<id>/tags/<tagname>
 
 Node Relations
 ^^^^^^^^^^
@@ -166,10 +165,10 @@ Node Relations
 
 ::
 
-    GET <server>/api/2.0/nodes/<id>/relations
+    GET <server>/api/current/nodes/<id>/relations
 ::
 
-    curl <server>/api/2.0/nodes/<id>/relations
+    curl <server>/api/current/nodes/<id>/relations
 
 Sample response:
 
@@ -180,7 +179,7 @@ Sample response:
 
 ::
 
-    PUT <server>/api/2.0/nodes/<id>/relations
+    PUT <server>/api/current/nodes/<id>/relations
 
 ::
     
@@ -200,11 +199,11 @@ Sample response body:
 
 ::
 
-    DELETE <server>/api/2.0/nodes/<id>/relations
+    DELETE <server>/api/current/nodes/<id>/relations
 
 ::
 
-    curl -H "Content-Type: application/json" -X DELETE -d '{ <relationType>: [<list of targets>]}' <server>/api/2.0/nodes/<id>/relations
+    curl -H "Content-Type: application/json" -X DELETE -d '{ <relationType>: [<list of targets>]}' <server>/api/current/nodes/<id>/relations
 
 Sample request body:
 
