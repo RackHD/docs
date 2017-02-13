@@ -25,7 +25,8 @@ Nodes are defined via a JSON definition that conform to this schema:
 - sku (string): the SKU 'id' that has been matched from the SKU workflow task
 - createdAt (string): ISO8601 date string of time resource was created
 - updatedAt (string): ISO8601 date string of time resource was last updated
-- identifiers (array of strings): a list of strings that make up alternative identifiers for the node.
+- identifiers (array of strings): a list of strings that make up alternative identifiers for the node
+- obms (array of objects): a list of objects that define out-of-band management access mechanisms
 - relations (array of objects): a list of relationship objects
 
 
