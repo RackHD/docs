@@ -18,6 +18,7 @@ RackHD Users Guide
    tasks
    skus
    tags
+   workflow_progress_notification 
    install_os
    secure_erase
    workflow_examples
