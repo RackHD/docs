@@ -7,9 +7,9 @@
         "08:00:27:27:eb:12"
     ],
     "name": "08:00:27:27:eb:12",
-    "obmSettings": [
+    "obms": [
         {
-            "config": {},
+            "ref": "/api/2.0/obms/58806bb776fab9d82b831e52",
             "service": "noop-obm-service"
         }
     ],

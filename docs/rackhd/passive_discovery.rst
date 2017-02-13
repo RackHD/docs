@@ -89,7 +89,7 @@ using different settings. For example, a smart PDU:
          "options":{"defaults":{"nodeId": "55b6afba024fd1b349afc148"}}}' \
         <server>/api/1.1/nodes/55b6afba024fd1b349afc148/workflows
 
-And a management server (or other server you do not want to or ca not to reboot
+And a management server (or other server you do not want to or cannot to reboot
 to interrogate)
 
 .. code-block:: REST
@@ -97,7 +97,7 @@ to interrogate)
     curl -X POST \
         -H 'Content-Type: application/json' \
         -d '{"name":"nodeName", "type": "compute", \
-        "obmSettings": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3",  \
+        "obms": [ { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3",  \
         "user": "admin", "password": "admin" } } ] }' \
         <server>/api/current/nodes
 
