@@ -34,10 +34,13 @@ If you have questions about the disposition of a request, feel free to email one
 Core Committer Team
 ~~~~~~~~~~~~~~~~~~~~~
 
-* Ben.BroderickPhillips@emc.com
-* Felix.Yuan@emc.com
-* Andrew.Hou@emc.com
-* Brian.Parry@emc.com
+* Jeanne.Ohren@dell.com
+* Felix.Yuan@dell.com
+* Andrew.Hou@dell.com
+* Brian.Parry@dell.com
+* Rahman.Muhammad@dell.com
+* Geoffrey.Reid@dell.com
+
 
 Please direct general conversation about how to use RackHD or discussion about improvements and features to our mailing list at rackhd@googlegroups.com
 
