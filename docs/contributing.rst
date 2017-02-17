@@ -40,6 +40,7 @@ Core Committer Team
 * Brian.Parry@dell.com
 * Rahman.Muhammad@dell.com
 * Geoffrey.Reid@dell.com
+* James.King@dell.com
 
 
 Please direct general conversation about how to use RackHD or discussion about improvements and features to our mailing list at rackhd@googlegroups.com
