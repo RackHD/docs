@@ -1,9 +1,9 @@
 Workflow Progress Notification
 --------------------------------
 
-RackHD workflow progress feature provides message notification mechanism to indicate status of an active workflow or task. User can get to know what has been done and what is to be done for an active workflow or task with progress messages. 
+RackHD workflow progress feature provides message notification mechanism to indicate status of an active workflow or task. User can get to know what has been done and what is to be done for an active workflow or task with progress messages.
 
-Workflow Progress Events 
+Workflow Progress Events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 RackHD will publish a workflow progress message if any of below events happens:
@@ -16,7 +16,7 @@ RackHD will publish a workflow progress message if any of below events happens:
 
 * Progress timer timeout for an active long-run task.
 
-  Some tasks doesn't have milestones but progress information is continuous and can be got all the time. In this case a repeating timer with fixed interval is set. Progress message will be retrieved and sent each time the timer is timeout.
+  Some tasks don't have milestones but progress information is continuous and can be got all the time. In this case a repeating timer with fixed interval is set. Progress message will be retrieved and sent each time the timer is timeout.
 
 Progress Message Payload
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,7 +99,7 @@ Workflow level progress measurement
 
 Before a workflow's completion workflow level progress is based on tasks counting. It is measured by completed tasks count (which will be assigned to `value`) against total tasks count (which will be assigned to `maximum`) for the workflow.
 
-Percentage will be set to 100% and `value` equal `maximum` at workflow's completion. After completion workflow level progress will not be updated even though some tasks may still be running.
+Percentage will be set to 100% and `value` be set to `maximum` at workflow's completion. After completion workflow level progress will not be updated even though some tasks may still be running.
 
 Task level progress measurement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,16 +119,42 @@ Besides task started and finished events, a time-consuming task is not proper to
 
 **OS installation task progress**
 
-As a typical long-run task, OS installation task progress can not be easily measured. As a compromise, RackHD creates some milestones at important timeslot of installation process and divides the task into several sub-tasks.
+As a typical long-run task, OS installation task progress can't be easily measured. As a compromise, RackHD creates some milestones at important timeslot of installation process thus divides OS install task into several sub-tasks.
 
-Take CentOS installation for example, 4 milestones are created for this task:
+Below table includes descriptions for all existing RackHD OS installation milestones:
 
-- Profile downloaded: installation task started
-- Kernel downloaded: installer kernel downloaded
-- Installation started: installer started
-- Installation finished: installation and configuration completed
+=================== ==============================================================================================
+Milestone name      Milestone description
+=================== ==============================================================================================
+requestProfile      Enter ipxe and request OS installation profile. Common milestone for all OSes.
+enterProfile        Enter profile, start to download kernel or installer. Common milestone for all OSes.
+startInstaller      Start installer and prepare installation. Common milestone for all OSes.
+preConfig           Enter Pre OS configuration.
+startSetup          Net use Windows Server 2012 and start setup.exe. Only used for Windows Server.
+installToDisk       Execute OS installation. Only used for CoreOS.
+startPartition      Start partition. Only used for Ubuntu.
+postPartitioning    Finished partitioning and mounting, start package installation. Only used for SUSE.
+chroot              Finished package installation, start first boot. Only used for SUSE.
+postConfig          Enter Post OS configuration.
+completed           Finished OS installation. Common milestone for all OSes.
+=================== ==============================================================================================
 
-With completion of each subtask, RackHD will send progress information to user with `value` varies from 1 to 4 and `maximum` fixed with 4;
+Below table includes default milestone sequence for RackHD supported OSes:
+
+=============== =================== ==============================================================================================
+OS Name         Milestone Quantity  Milestones in Sequence
+=============== =================== ==============================================================================================
+CentOS, RHEL    6                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.preConfig; 5.postConfig; 6.completed
+Esxi            6                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.preConfig; 5.postConfig; 6.completed
+CoreOS          5                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.installToDisk; 5.completed
+Ubuntu          7                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.preConfig; 5.startPartition; 6.postConfig; 7.completed
+WindowServer    5                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.startSetup; 5.completed
+SUSE            7                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.preConfig; 5.postPartitioning; 6.chroot; 7.completed
+PhotonOS        5                   1.requestProfile; 2.enterProfile; 3.startInstaller; 4.postConfig; 5.completed
+=============== =================== ==============================================================================================
+
+In progress message, milestone quantity will be set to `maximum` and sequence number to `value` while RackHD is installing OS.
+Take CentOS as an example, with completion of `postConfig` milestone, RackHD will send progress information to user with `value` 5 and `maximum` 6. `value` varies from 1 to 5 and with `maximum` fixed 6 during whole CentOS installation progress.
 
 **Secure erase task progress**
 
@@ -140,10 +166,10 @@ Progress Message Retrieve Channels
 As instant data, progress messages can't be retrieved via API.
 Instead progress messages will be published in AMQP channel and posted to webhook urls after adding RackHD standard message header.
 
-Below are basic information for user to retrieve data from AMQP channel:
+Below is basic information for user to retrieve data from AMQP channel:
 
 - Exchange: on.events
 - Routing Key: graph.progress.updated.information.<graphId>.<nodeId>
 
-More details on RackHD AMQP events and webhook features, please refer to :doc:`event_notification`.
+More details on RackHD AMQP events and webhook feature, please refer to :doc:`event_notification`.
 
