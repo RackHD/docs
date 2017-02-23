@@ -131,39 +131,74 @@ Example of heartbeat event payload:
         "createdAt": "2016-07-13T14:23:45.627Z",
         "nodeId": "null",
         "data": {
-            name: 'on-taskgraph',
-            title: 'node',
-            pid: 6086,
-            uid: 0,
-            platform: 'linux',
-            release: {
-                name: 'node',
-                lts: 'Argon',
-                sourceUrl: 'https://nodejs.org/download/release/v4.7.2/node-v4.7.2.tar.gz',
-                headersUrl: 'https://nodejs.org/download/release/v4.7.2/node-v4.7.2-headers.tar.gz'
+            "name": "on-taskgraph",
+            "title": "node",
+            "pid": 6086,
+            "uid": 0,
+            "platform": "linux",
+            "release": {
+                "name": "node",
+                "lts": "Argon",
+                "sourceUrl": "https://nodejs.org/download/release/v4.7.2/node-v4.7.2.tar.gz",
+                "headersUrl": "https://nodejs.org/download/release/v4.7.2/node-v4.7.2-headers.tar.gz"
             },
-            versions: {
-                http_parser: '2.7.0',
-                node: '4.7.2',
-                v8: '4.5.103.43',
-                uv: '1.9.1',
-                zlib: '1.2.8',
-                ares: '1.10.1-DEV',
-                icu: '56.1',
-                modules: '46',
-                openssl: '1.0.2j'
+            "versions": {
+                "http_parser": "2.7.0",
+                "node": "4.7.2",
+                "v8": "4.5.103.43",
+                "uv": "1.9.1",
+                "zlib": "1.2.8",
+                "ares": "1.10.1-DEV",
+                "icu": "56.1",
+                "modules": "46",
+                "openssl": "1.0.2j"
             },
-            memoryUsage: {
-                rss: 116531200,
-                heapTotal: 84715104,
-                heapUsed: 81638904
+            "memoryUsage": {
+                "rss": 116531200,
+                "heapTotal": 84715104,
+                "heapUsed": 81638904
             },
-            currentTime: '2017-01-24T07:18:49.236Z',
-            nextUpdate: '2017-01-24T07:18:59.236Z',
-            lastUpdate: '2017-01-24T07:18:39.236Z',
-            cpuUsage: 'NA'
+            "currentTime": "2017-01-24T07:18:49.236Z",
+            "nextUpdate": "2017-01-24T07:18:59.236Z",
+            "lastUpdate": "2017-01-24T07:18:39.236Z",
+            "cpuUsage": "NA"
         }
     }
+
+Example of node *discovered* event payload:
+
+
+.. code-block:: JSON
+
+    {
+        "type": "node",
+        "action": "discovered",
+        "typeId": "58aa8e54ef2b49ed6a6cdd4c",
+        "nodeId": "58aa8e54ef2b49ed6a6cdd4c",
+        "severity": "information",
+        "data": {
+            "ipMacAddresses": [
+                {
+                    "ipAddress": "172.31.128.2",
+                    "macAddress": "2c:60:0c:ad:d5:ba"
+                },
+                {
+                    "macAddress": "90:e2:ba:91:1b:e4"
+                },
+                {
+                    "macAddress": "90:e2:ba:91:1b:e5"
+                },
+                {
+                    "macAddress": "2c:60:0c:c0:a8:ce"
+                }
+            ],
+            "nodeId": "58aa8e54ef2b49ed6a6cdd4c",
+            "nodeType": "compute"
+        },
+        "version": "1.0",
+        "createdAt": "2017-02-20T06:37:23.775Z"
+    }
+
 
 Events via AMQP
 ~~~~~~~~~~~~~~~~~~~~

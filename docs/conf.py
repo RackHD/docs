@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'RackHD'
-copyright = u'2015-2016, Dell EMC'
+copyright = u'2015-2017, Dell EMC'
 author = u'Dell EMC'
 
 # The version info for the project you're documenting, acts as replacement for

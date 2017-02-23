@@ -160,7 +160,7 @@ Node Tags
     curl -X DELETE <server>/api/current/nodes/<id>/tags/<tagname>
 
 Node Relations
-^^^^^^^^^^
+^^^^^^^^^^^^^^
 
 **List relations for a node** 
 
