@@ -55,7 +55,7 @@ in `config.json`_, and `RackHD iPXE`_ files are placed into the `tftpRoot` direc
 
 In many cases, another TFTP service can be used with RackHD. RackHD simply needs the files
 that on-tftp would serve to be provided by another instance of TFTP. You can frequently
-do this by simply placing the RackHD iPXE_ files into the TFTP service root directory.
+do this by simply placing the `RackHD iPXE`_ files into the TFTP service root directory.
 
 For scripts in `RackHD TFTP Templates`_, where the parameters such as `apiServerAddress`, `apiServerPort` are rendered by `on-tftp`,
 they need to be hardcoded, They are `172.31.128.1` and `9080` in the example, then provide these scripts into the TFTP root directory.
@@ -153,12 +153,12 @@ The third-party DHCP service could be used with possible solution configurations
 +=================+==============================================================+============================================================+
 |                 | DHCP service has functionalities like ISC DHCP, it could     | Configure it like ISC DHCP to make node auto chainloading  |
 |                 | configure DHCP to return different bootfile name according   | iPXE files and finally iPXE hit RackHD URL                 |
-|                 | to `user-class`, `arch-type`, `vendor-class-identifier` etc. | ``http://172.31.128.1:9080/api/current/profiles``           |
+|                 | to `user-class`, `arch-type`, `vendor-class-identifier` etc. | ``http://172.31.128.1:9080/api/current/profiles``          |
 |                 |                                                              | IP address and port are configured according to RackHD     |
 | Third-party     |                                                              | southbound configuration.                                  |
 | DHCP service    +--------------------------------------------------------------+------------------------------------------------------------+
 | only            | DHCP service could not proxy DHCP, and on-dhcp-proxy         | Replace "autoboot" command in `Default iPXE Config`_ with  |
-|                 | also could not be deployed in the DHCP server, only bootfile | "dhcp" and "http://172.31.128.1:9080/api/current/profiles", |
+|                 | also could not be deployed in the DHCP server, only bootfile | "dhcp" and "http://172.31.128.1:9080/api/current/profiles",|
 |                 | name could be specified by DHCP                              | then re-compile iPXE in `on-imagebuilder`_ to generate new |
 |                 |                                                              | iPXE files, specify one of generated iPXE files as         |
 |                 |                                                              | bootfile name in DHCP configuration. IP address and        |
@@ -169,7 +169,7 @@ The third-party DHCP service could be used with possible solution configurations
 |                 |                                                              | 2. Only one iPXE bootfile name could be specified. it's    |
 |                 |                                                              | not flexible to switch bootfile name automatically.        |
 +-----------------+--------------------------------------------------------------+------------------------------------------------------------+
-| Third-party     | DHCP service's functionality is less than ISC DHCP,           | **on-dhcp-proxy** could be leveraged to avoid complicated |
+| Third-party     | DHCP service's functionality is less than ISC DHCP,          | **on-dhcp-proxy** could be leveraged to avoid complicated  |
 | DHCP service    | but it could proxy DHCP like ISC DHCP's configuration        | DHCP configuration.                                        |
 | + DHCP proxy    | "option vendor-class-identifier "PXEClient"                  |                                                            |
 +-----------------+--------------------------------------------------------------+------------------------------------------------------------+
@@ -219,7 +219,7 @@ services.
 
 
 TFTP Service Configuration in the Separate Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Default on-tftp Configuration**
 
@@ -255,7 +255,7 @@ The third-party TFTP service setup in the separate server is the same with in Ra
 `RackHD TFTP Templates`_ scripts' rendered parameters `apiServerAddress`, `apiServerPort` is `172.31.128.2`, `9080` in the example.
 
 DHCP Service Configuration in the Separate Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Default ISC DHCP + on-dhcp-proxy Configuration**
 
