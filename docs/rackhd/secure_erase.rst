@@ -51,15 +51,16 @@ Deprecated 1.1 API - Use below command to stop the active workflow to cancel sec
 Disk Secure Erase Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Parameters descriptions of secure erase workflow payload are listed below.
+Parameters descriptions of secure erase workflow payload are listed below. Among them, `duration` is for `drive-scan-delay` task, other parameters are for `drive-secure-erase` task.
 
 =================== ================ ============ ============================================
 Parameters          Type              Flags       Description
 =================== ================ ============ ============================================
-eraseSettings       Array            **required** Contains secure erase option list, each list element is made up of "disks" and optional "tool" and "arg" parameters
-disks               Array            **required** Contains disks to be erased, both devName or identifier from driveId catalog are eligible
+eraseSettings       Array            **required** Contains secure erase option list, each list element is made up of "disks" and optional "tool" and "arg" parameters.
+disks               Array            **required** Contains disks to be erased, both devName or identifier from driveId catalog are eligible.
 tool                String           optional     Specify tool to be used for secure erase. Default it would be scrub.
-arg                 String           optional     Specify secure erase arguments with specified tools
+arg                 String           optional     Specify secure erase arguments with specified tools.
+duration            Integer          optional     Specify delay time in milliseconds. After node boots into microkernel, it takes some time for OS to scan all disks. `duration` is designed so that secure erase is initiated after all disks are scanned. `duration` is 10 seconds if not specified.
 =================== ================ ============ ============================================
 
 Supported Disk Secure Erase Tools
@@ -141,7 +142,8 @@ Disk Secure Erase Workflow Notes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Please pay attention to below items if you are using RackHD secure erase function:
 
-* **Use RackHD to manage RAID operation**. RackHD relies on its catalog data for secure erase. If RAID operation is not done via RackHD, RackHD secure erase workflow is not able to recognize drive names given. A suggestion is to re-run discovery for the compute node if you did changed RAID configure not using RackHD
+* **RackHD Secure Erase is not fully tested**. RackHD secure erase is tested on RackHD supported servers with only one LSI RAID controller. Servers with multiple RAID controllers, disk array enclosures or non-LSI RAID controllers are not tested.
+* **Use RackHD to manage RAID operation**. RackHD relies on its catalog data for secure erase. If RAID operation is not done via RackHD, RackHD secure erase workflow might not be able to recognize drive names given and fail. A suggestion is to re-run discovery for the compute node if you did changed RAID configure not using RackHD.
 * **Secure Erase is time-consuming**. Hdparm, sg_format and sg_sanitize will leverage drive firmware to do secure erase, even so it might take hours for a 1T drive. Scrub is overwriting data to disks and its speed is depends on argument you chose. For a "gutmann" argument, it will take days to erase a 1T drive.
 * **Cancel Secure Erase workflow can't cancel secure erase operation**. Hdparm, sg_sanitize and sg_format are leverage drive firmware to do secure erase, once started there is no proper way to ask drive firmware to stop it till now.
 * **Power cycle is risky**. Except for scrub tool, other tools are actually issue a command to drive and drive itself will control secure erase. That means once you started secure erase workflow, you can't stop it until it is completed. If you power cycled compute node under this case, drive might be frozen, locked or in worst case bricked. All data will not be accessible. If this happens, you need extra effort to bring your disks back to normal status.
