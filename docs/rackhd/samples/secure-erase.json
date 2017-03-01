@@ -13,6 +13,9 @@
                     "arg": "nnsa"
                 }
             ]
+        },
+        "disk-scan-delay": {
+            "duration": 10000
         }
     }
 }
