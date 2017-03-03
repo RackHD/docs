@@ -410,7 +410,7 @@ The following are API commands that can be used when running the *on-http* proce
 
 ::
 
-        PUT /api/current/workflows/graph
+        PUT /api/current/workflows/graphs
         {
             <json definition of graph>
         }
