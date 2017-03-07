@@ -1,8 +1,5 @@
 .. _workflows-ref-label:
 
-Workflows
----------------------------
-
 Workflow Graphs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

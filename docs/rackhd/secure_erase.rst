@@ -1,4 +1,4 @@
-Disk Secure Erase Workflow Support
+Disk Secure Erase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Secure Erase (SE) also known as a wipe is to destroy data on a disk so that data can't or is difficult to be retrieved. RackHD implements solution to do disk Secure Erase.

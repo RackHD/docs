@@ -59,7 +59,7 @@ at http://[IP ADDRESS OF VM]:8080/docs/ for the 1.1 API documentation, and
 http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the current (2.0) and Redfish API documentation.
 
 RackHD Client Libraries
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The 1.1 API for RackHD includes annotations in code that are used to generate
 API documentation (the `npm run apidoc` command above) that is hosted directly
@@ -131,7 +131,7 @@ Or the same asynchronously (with a callback)::
     thread = nodes.api2_0_nodes_get(callback=cb_func)
 
 Using Pagination
------------------
+~~~~~~~~~~~~~~~~
 
 The RackHD 2.0 ``/nodes``, ``/pollers``, and ``/workflows`` APIs support pagination
 using ``$skip`` and ``$top`` query parameters.

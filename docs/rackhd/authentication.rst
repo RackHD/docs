@@ -1,5 +1,5 @@
-Accessing RackHD APIs with Authentication
------------------------------------------
+Authentication
+-------------------------
 
 When 'authEnabled' is set to 'true' in the config.json file for an endpoint, authentication
 will be needed to access the APIs that are defined within that endpoint.  Enabling authentication
@@ -7,8 +7,8 @@ will also enable authorization control when accessing API 2.0 and Redfish APIs.
 
 This section describes how to access APIs that need authentication.
 
-Setup endpoints to enable authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enable Authentication
+~~~~~~~~~~~~~~~~~~~~~~
 
 Please refer to :ref:`http-endpoint-config-ref-label` on how to setup endpoints. Simply put,
 the following endpoint configuration will be a good start.::
@@ -40,12 +40,14 @@ The second endpoint represents an HTTP service listening at port 8080 that serve
 called by nodes interacting with the system. Authentication should NOT be enabled for southbound APIs in
 order for PXE to work fine.
 
+**Note**: although there is no limitation to enable authentication together with insecure HTTP
+(httpsEnabled = false) for an endpoint, it is strongly not recommended to do so. Sending
+user credentials over unencrypted HTTP connection exposes users to the risk of malicious attacks.
+
 .. _localhost-exception-label:
 
 Setup the first user with Localhost Exception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Please refer to :ref:`authentication-config-ref-label` on how to setup endpoints.
 
 The localhost exception permits unauthenticated access to create the first user in the system.  With
 authentication enabled, the first user can be created by issuing a POST to the /users API only if the
@@ -62,6 +64,27 @@ Here is an example of creating an initial 'admin' user with a password of 'admin
 
 The localhost exception can be disabled by setting the configuration value "enableLocalHostException" to
 false.  The default value of "enableLocalHostException" is true.
+
+Setting up Token
+~~~~~~~~~~~~~~~~~
+
+There are few settings needed for generating the token.
+
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - authTokenSecret
+      - The secret used to generate the token.
+    * - authTokenExpireIn
+      - The time interval in second after which the token will expire, since the time the
+        token is generated.
+
+        Token will never expire if this value is set to 0.
+
 
 Login to get a token
 ~~~~~~~~~~~~~~~~~~~~

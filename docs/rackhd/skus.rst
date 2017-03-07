@@ -1,7 +1,7 @@
 .. _sku-ref-label:
 
-Workflow SKU Support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SKUs
+~~~~
 
 The SKU API provides functionality to categorize nodes into groups based on data
 present in a node's catalogs. SKU matching is done using a series of rules. If

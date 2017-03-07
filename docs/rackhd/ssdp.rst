@@ -29,7 +29,7 @@ Northbound M-SEARCH Queries
   }
 
 
-Southbound M-SEARCH Queries:
+Southbound M-SEARCH Queries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - Request all: **ssdp:all**
 - Request API v1.1 service: **urn:schemas-upnp-org:service:api:1.1:southbound**
@@ -51,7 +51,7 @@ Southbound M-SEARCH Queries:
   }
 
 
-Southbound Advertisement Handler:
+Southbound Advertisement Handler
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 RackHD will poll for SSDP/UPnP advertisements made by nodes residing on the southbound side network.
 For each advertisement RackHD will publish an alert event to the **on.ssdp** AMQP exchange to notify
