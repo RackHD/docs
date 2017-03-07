@@ -24,6 +24,7 @@ An example of params.json for disk secure erase:
 Use below command to check the workflow is active or inactive:
 
 ::
+
     curl <server>/api/current/nodes/<identifier>/workflows?active=true
 
 
@@ -36,6 +37,7 @@ Deprecated 1.1 API - Use below command to check the workflow is active or inacti
 Use below command to stop the active workflow to cancel secure erase workflow:
 
 ::
+
     curl -X PUT \
     -H 'Content-Type: application/json' \
     -d '{"command": "cancel"}' \

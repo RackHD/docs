@@ -55,8 +55,8 @@ repository and running the following command.
 
 The default and example quick start build that we describe in :doc:`../tutorials/vagrant`
 has the API docs rendered and embedded within that instance for easy use, available
-at http://[IP ADDRESS OF VM]:8080/docs/ for the 1.1 API documentation, and
-http://[IP ADDRESS OF VM]:8080/swagger-ui/ for the current (2.0) and Redfish API documentation.
+at ``http://[IP ADDRESS OF VM]:8080/docs/`` for the 1.1 API documentation, and
+``http://[IP ADDRESS OF VM]:8080/swagger-ui/`` for the current (2.0) and Redfish API documentation.
 
 RackHD Client Libraries
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -147,7 +147,9 @@ These parameters can be used individually or combined to display any subset of c
 resources in the collection.
 
 Here is an example request using $skip and $top to get get the second page of nodes with
-four items per page.::
+four items per page.
+
+::
 
     curl http://localhost:8080/api/current/nodes?$skip=4&$top=4
 
@@ -157,7 +159,9 @@ number of resources displayed (i.e. the collection cannot fit on one page).  If 
 links to first, last, next, and previous pages will be included in the header.  The next and
 previous links will be ommitted for the last and first pages respectively.
 
-Here is an example link header from a collection containing 1000 nodes.::
+Here is an example link header from a collection containing 1000 nodes.
+
+::
 
     </api/current/nodes?$skip=0&$top=4>; rel="first",
     </api/current/nodes?$skip=1004&$top=4>; rel="last",

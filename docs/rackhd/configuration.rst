@@ -120,7 +120,7 @@ The following table describes the configuration parameters in config.json:
     * - httpApiDocsDirectory
       - Fully-qualified directory containing the API docs.
     * - httpEndpoints
-      - Collection of http/https endpoints. See details in `Setting up HTTP/HTTPS endpoint`_
+      - Collection of http/https endpoints. See details in :ref:`http-endpoint-config-ref-label`
     * - httpFileServiceRoot
       - Directory path for for storing uploaded files on disk.
     * - httpFileServiceType
@@ -144,7 +144,7 @@ The following table describes the configuration parameters in config.json:
 
         { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
 
-        Note: To ensure this feature works, the httpProxies need be separately enabled for specified HTTP/HTTPS endpoint. See details in `Setting up HTTP/HTTPS endpoint`_
+        Note: To ensure this feature works, the httpProxies need be separately enabled for specified HTTP/HTTPS endpoint. See details in :ref:`http-endpoint-config-ref-label`
     * - httpFrontendDirectory
       - Fully-qualified directory to the web GUI content
     * - httpStaticDirectory
@@ -257,9 +257,9 @@ If a user wants to change the BMC credentials later in time, when the node has b
 
     POST:        http://server-ip:8080/api/current/workflows/
 
-   add the below content in the json body for payload (example node identifier and username, password shown below)
+add the below content in the json body for payload (example node identifier and username, password shown below)
 
-.. code-block:: shell
+.. code-block:: JSON
 
    {
        "name": "Graph.Bootstrap.With.BMC.Credentials.Setup",
@@ -340,9 +340,9 @@ To remove the BMC credentials, User can run the following workflow located at ``
 
     POST:        http://server-ip:8080/api/current/workflows/
 
-   add the below content in the json body for payload (example node identifier and username, password shown below)
+add the below content in the json body for payload (example node identifier and username, password shown below)
 
-.. code-block:: shell
+.. code-block:: JSON
 
    {
        "name": "Graph.Bootstrap.With.BMC.Credentials.Remove",
@@ -413,7 +413,7 @@ choice. Verify the certificate by restarting on-http and visiting
 
 .. _http-endpoint-config-ref-label:
 
-Setting up HTTP/HTTPS endpoint
+Setup HTTP/HTTPS endpoint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section describes how to setup HTTP/HTTPS endpoints in RackHD.
