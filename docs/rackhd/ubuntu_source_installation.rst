@@ -52,8 +52,8 @@ How to update to the latest code
     cd ~/src
     ./scripts/clean_all.bash && ./scripts/reset_submodules.bash && ./scripts/link_install_locally.bash
 
-To reset the database of nodes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How to Reset the Database
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code::
 
