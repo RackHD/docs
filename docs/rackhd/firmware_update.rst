@@ -1,5 +1,5 @@
-Rest-2.0 API examples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Firmware Update
+~~~~~~~~~~~~~~~
 
 
 Firmware update Example using SKU Pack

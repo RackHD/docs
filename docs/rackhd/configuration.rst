@@ -1,5 +1,5 @@
-RackHD Configuration
-----------------------
+Configuration
+-------------
 
 The following JSON is an examples of the current defaults:
 
@@ -120,7 +120,7 @@ The following table describes the configuration parameters in config.json:
     * - httpApiDocsDirectory
       - Fully-qualified directory containing the API docs.
     * - httpEndpoints
-      - Collection of http/https endpoints. See details in `Setting up HTTP/HTTPS endpoint`_
+      - Collection of http/https endpoints. See details in :ref:`http-endpoint-config-ref-label`
     * - httpFileServiceRoot
       - Directory path for for storing uploaded files on disk.
     * - httpFileServiceType
@@ -144,7 +144,7 @@ The following table describes the configuration parameters in config.json:
 
         { "server": "https://centos.eecs.wsu.edu", "remotePath": "/centos" } would map http requests to local directory / to https://centos.eecs.wsu.edu/centos/
 
-        Note: To ensure this feature works, the httpProxies need be separately enabled for specified HTTP/HTTPS endpoint. See details in `Setting up HTTP/HTTPS endpoint`_
+        Note: To ensure this feature works, the httpProxies need be separately enabled for specified HTTP/HTTPS endpoint. See details in :ref:`http-endpoint-config-ref-label`
     * - httpFrontendDirectory
       - Fully-qualified directory to the web GUI content
     * - httpStaticDirectory
@@ -257,9 +257,9 @@ If a user wants to change the BMC credentials later in time, when the node has b
 
     POST:        http://server-ip:8080/api/current/workflows/
 
-   add the below content in the json body for payload (example node identifier and username, password shown below)
+add the below content in the json body for payload (example node identifier and username, password shown below)
 
-.. code-block:: shell
+.. code-block:: JSON
 
    {
        "name": "Graph.Bootstrap.With.BMC.Credentials.Setup",
@@ -340,9 +340,9 @@ To remove the BMC credentials, User can run the following workflow located at ``
 
     POST:        http://server-ip:8080/api/current/workflows/
 
-   add the below content in the json body for payload (example node identifier and username, password shown below)
+add the below content in the json body for payload (example node identifier and username, password shown below)
 
-.. code-block:: shell
+.. code-block:: JSON
 
    {
        "name": "Graph.Bootstrap.With.BMC.Credentials.Remove",
@@ -361,12 +361,12 @@ To remove the BMC credentials, User can run the following workflow located at ``
 
 
 Certificates
--------------------------
+~~~~~~~~~~~~~
 
 This section describes how to generate and install a self-signed certificate to use for testing.
 
 Generating Self-Signed Certificates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you already have a key and certificate, skip down to the
 `Installing Certificates`_ section.
@@ -389,7 +389,7 @@ When you run this command, OpenSSL prompts you for some metadata to associate wi
 certificate. The generated certificate contains the corresponding public key.
 
 Installing Certificates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Once you have your private key and certificate, you'll need to let the application know where to
 find them. It is suggested that you move them into the /opt/monorail/data folder.
@@ -413,8 +413,8 @@ choice. Verify the certificate by restarting on-http and visiting
 
 .. _http-endpoint-config-ref-label:
 
-Setting up HTTP/HTTPS endpoint
-------------------------------
+Setup HTTP/HTTPS endpoint
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section describes how to setup HTTP/HTTPS endpoints in RackHD.
 An endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. Users can
@@ -482,63 +482,4 @@ There are currently two API groups defined in RackHD:
         You can now choose from "northbound-api-router","southbound-api-router" or
         ["northbound-api-router", "southbound-api-router"].
 
-.. _authentication-config-ref-label:
 
-Authentication
--------------------------
-
-This section describes how to enable user authentication in RackHD.
-
-Enable Authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-As mentioned in the `Setting up HTTP/HTTPS endpoint`_ section, authentication can be enabled
-or disabled per endpoint basis.
-
-Setting the authEnabled flag to true in an endpoint configuration will enable authentication for
-that specific endpoint.
-
-.. code-block:: JSON
-
-    {
-        "address": "0.0.0.0",
-        "port": 8443,
-        "httpsEnabled": true,
-        "proxiesEnabled": false,
-        "authEnabled": true,
-        "routers": "northbound-api-router"
-    }
-
-**Note**: although there is no limitation to enable authentication together with insecure HTTP
-(httpsEnabled = false) for an endpoint, it is strongly not recommended to do so. Sending
-user credentials over unencrypted HTTP connection exposes users to the risk of malicious attacks.
-
-Setting up username and password
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Every time a request is sent an API route that needs authentication, a token needs to be sent with
-the request. The token is returned from RackHD by posting a request to the /login API with a
-username and password in the request body.
-
-The default username and password is setup using the localhost exception mechanism described in
-:ref:`localhost-exception-label`.
-
-Setting up token
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-There are few settings needed for generating the token.
-
-
-.. list-table::
-    :widths: 20 100
-    :header-rows: 1
-
-    * - Parameter
-      - Description
-    * - authTokenSecret
-      - The secret used to generate the token.
-    * - authTokenExpireIn
-      - The time interval in second after which the token will expire, since the time the
-        token is generated.
-
-        Token will never expire if this value is set to 0.

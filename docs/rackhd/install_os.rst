@@ -1,4 +1,4 @@
-OS Installation Support
+OS Installation
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 RackHD workflow support installing Operating System automatically from remote http repository.
@@ -23,7 +23,7 @@ Edit the samba config file in order to export the shared directory
 
 .. code-block:: REST
 
-sudo nano /etc/samba/smb.conf
+    sudo nano /etc/samba/smb.conf
 
 .. code-block:: REST
 
@@ -67,6 +67,7 @@ Making the Mirrors
 
 Notes: Because CentOS 6.5 was deprecated by provider, the following rsync source is not available to 
 make mirror. Just leave it for an example.
+
   .. code::
 
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
@@ -204,6 +205,7 @@ Deprecated 1.1 API - Check the active workflow running on a node
 Stop the currently active workflow on a node:
 
 ::
+
     curl -X PUT \
     -H 'Content-Type: application/json' \
     -d '{"command": "cancel"}' \

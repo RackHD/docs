@@ -1,5 +1,5 @@
-Accessing RackHD APIs with Authorization
-----------------------------------------
+Authorization
+-------------
 
 API access control is enabled when authentication is enabled.  The Access Control is controlled per
 API and per API method.  A GET on an API can have different access control than a POST on the same API.

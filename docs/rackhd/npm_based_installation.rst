@@ -1,16 +1,16 @@
 
-NPM Based Installation
----------------------------------
+NPM Installation
+----------------
 
 
 Ubuntu
-~~~~
+~~~~~~
 Prerequisites
-^^^^
+^^^^^^^^^^^^^
 
 **NICs**
 
-* **UBUNTU 14.04**
+* **Ubuntu 14.04**
 
 1. Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
@@ -29,7 +29,7 @@ Prerequisites
 
 ####
 
-* **UBUNTU 16.04**
+* **Ubuntu 16.04**
 
 1. Start with an Ubuntu xenial(16.04) instance with 2 nics:
 
@@ -104,7 +104,7 @@ Prerequisites
 ####
 
 Install & Configure RackHD
-^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. **Install RackHD NPM Packages**
 
@@ -254,7 +254,7 @@ Install & Configure RackHD
 #######
 
 How to Erase the Database to Restart Everything
-^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. code::
 
@@ -272,10 +272,10 @@ How to Erase the Database to Restart Everything
 
 
 
-Centos7
-~~~~
+CentOS 7
+~~~~~~~~
 Prerequisites
-^^^^
+^^^^^^^^^^^^^
 
 **NICs**
 
@@ -492,7 +492,7 @@ Prerequisites
 ####
 
 Install & Configure RackHD
-^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 1. **Install RackHD NPM Packages**
@@ -644,7 +644,7 @@ Install & Configure RackHD
 #######
 
 How to Erase the Database to Restart Everything
-^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. code::
 

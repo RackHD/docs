@@ -1,7 +1,5 @@
-
-Ubuntu Package Based Installation
----------------------------------
-
+Package Installation on Ubuntu
+-------------------------------
 
 Prerequisites
 ~~~~~~~~~~~~~
@@ -9,7 +7,7 @@ NICs
 ^^^^
 
 
-**UBUNTU 14.04**
+**Ubuntu 14.04**
 
 Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
@@ -29,7 +27,7 @@ edit the network:
 
 #######
 
-**UBUNTU 16.04**
+**Ubuntu 16.04**
 
 Start with an Ubuntu xenial(16.04) instance with 2 nics:
 

@@ -1,5 +1,5 @@
-Accessing RackHD APIs with Authentication
------------------------------------------
+Authentication
+-------------------------
 
 When 'authEnabled' is set to 'true' in the config.json file for an endpoint, authentication
 will be needed to access the APIs that are defined within that endpoint.  Enabling authentication
@@ -7,11 +7,13 @@ will also enable authorization control when accessing API 2.0 and Redfish APIs.
 
 This section describes how to access APIs that need authentication.
 
-Setup endpoints to enable authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enable Authentication
+~~~~~~~~~~~~~~~~~~~~~~
 
 Please refer to :ref:`http-endpoint-config-ref-label` on how to setup endpoints. Simply put,
-the following endpoint configuration will be a good start.::
+the following endpoint configuration will be a good start.
+
+::
 
     "httpEndpoints": [
         {
@@ -40,19 +42,23 @@ The second endpoint represents an HTTP service listening at port 8080 that serve
 called by nodes interacting with the system. Authentication should NOT be enabled for southbound APIs in
 order for PXE to work fine.
 
+**Note**: although there is no limitation to enable authentication together with insecure HTTP
+(httpsEnabled = false) for an endpoint, it is strongly not recommended to do so. Sending
+user credentials over unencrypted HTTP connection exposes users to the risk of malicious attacks.
+
 .. _localhost-exception-label:
 
-Setup the first user with Localhost Exception
+Setup the First User with Localhost Exception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Please refer to :ref:`authentication-config-ref-label` on how to setup endpoints.
 
 The localhost exception permits unauthenticated access to create the first user in the system.  With
 authentication enabled, the first user can be created by issuing a POST to the /users API only if the
 API is issued from localhost.  The first user must be assigned a role with privileges to create other
 users, such as an Administrator role.
 
-Here is an example of creating an initial 'admin' user with a password of 'admin123'.::
+Here is an example of creating an initial 'admin' user with a password of 'admin123'.
+
+::
 
     curl -ks -X POST -H "Content-Type:application/json" https://localhost:8443/api/current/users -d '{"username": "admin", "password": "admin123", "role": "Administrator"}' | python -m json.tool
     {
@@ -63,7 +69,28 @@ Here is an example of creating an initial 'admin' user with a password of 'admin
 The localhost exception can be disabled by setting the configuration value "enableLocalHostException" to
 false.  The default value of "enableLocalHostException" is true.
 
-Login to get a token
+Setup the Token
+~~~~~~~~~~~~~~~~~
+
+There are few settings needed for generating the token.
+
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - authTokenSecret
+      - The secret used to generate the token.
+    * - authTokenExpireIn
+      - The time interval in second after which the token will expire, since the time the
+        token is generated.
+
+        Token will never expire if this value is set to 0.
+
+
+Login to Get a Token
 ~~~~~~~~~~~~~~~~~~~~
 
 Following the endpoint settings, a token is needed to access any northbound APIs, except the /login API.
@@ -71,7 +98,9 @@ Following the endpoint settings, a token is needed to access any northbound APIs
 Posting a request to /login with username and password in the request body will get a token returned from
 RackHD, which will be used to access any other northbound APIs.
 
-Here is an example of getting a token using curl.::
+Here is an example of getting a token using curl.
+
+::
 
     curl -k -X POST -H "Content-Type:application/json" https://localhost:8443/login -d '{"username":"admin", "password":"admin123" }' | python -m json.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -85,7 +114,9 @@ A 401 unauthorized response with 'Invalid username or password' message will be 
 
 - Username or password is wrong in the http request body
 
-For example:::
+For example:
+
+::
 
     curl -k -X POST -H "Content-Type:application/json" https://localhost:8443/login -d '{"username":"admin", "password":"admin123balabala" }' | python -m json.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -95,7 +126,7 @@ For example:::
         "message": "Invalid username or password"
     }
 
-Accessing API using the token
+Accessing API Using the Token
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are three ways of using the token in a http/https request:
@@ -104,7 +135,9 @@ There are three ways of using the token in a http/https request:
 - send the token as a query header
 - send the token as request body
 
-Example of sending the token as query string:::
+Example of sending the token as query string:
+
+::
 
     curl -k -H "Content-Type:application/json" https://localhost:8443/api/1.1/config?auth_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE | python -mjson.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -119,7 +152,9 @@ Example of sending the token as query string:::
 Example of sending the token as query header.
 
 **Note**: the header should be 'authorization' and the token
-should start will 'JWT' followed by a whitespace and then the token itself.::
+should start will 'JWT' followed by a whitespace and then the token itself.
+
+::
 
     curl -k -H "Content-Type:application/json" https://localhost:8443/api/1.1/config --header 'authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE' | python -mjson.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -131,7 +166,9 @@ should start will 'JWT' followed by a whitespace and then the token itself.::
         "tftpRoot": "./static/tftp"
     }
 
-Example of sending the token as query body:::
+Example of sending the token as query body:
+
+::
 
     curl -k -X POST -H "Content-Type:application/json" https://localhost:8443/api/1.1/lookups -d '{"auth_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE","macAddress":"aa:bb:cc:dd:ee:ff", "ipAddress":"192.168.1.1", "node":"123453134" }' | python -m json.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -151,7 +188,9 @@ A 401 unauthorized response with a 'invalid signature' message will be returned 
 
 - Invalid token found in query string, header or request body
 
-For example:::
+For example:
+
+::
 
     curl -k -H "Content-Type:application/json" https://localhost:8443/api/1.1/config --header 'authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE0NTU2MTI5MzMsImV4cCI6MTQ1NTY5OTMzM30.glW-IvWYDBCfDZ6cS_6APoty22PE_Ir5L1mO-YqO3eE-----------' | python -mjson.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -167,7 +206,9 @@ A 401 bad request response with a 'No auth token' message will be returned if:
 - No auth_token key in query string or request body, or
 - No authorization key in request header
 
-For example:::
+For example:
+
+::
 
     curl -k -H "Content-Type:application/json" https://localhost:8443/api/1.1/config | python -mjson.tool                                                                   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                      Dload  Upload   Total   Spent    Left  Speed
@@ -183,7 +224,9 @@ Posting a request to the Redfish Session Service with UserName and Password in t
 the Redfish service which can be used to access any other Redfish APIs.  The token is returned in the 'X-Auth-Token' header in
 the response object.
 
-Here is an example of getting a token using curl.::
+Here is an example of getting a token using curl.
+
+::
 
     curl -vk -X POST -H "Content-Type:application/json" https://localhost:8443/redfish/v1/SessionService/Sessions -d '{"UserName":"admin", "Password":"admin123" }' | python -m json.tool
     < HTTP/1.1 200 OK
@@ -214,7 +257,9 @@ A 401 unauthorized response will be returned if:
 
 - Username or password is wrong in the http request body
 
-For example:::
+For example:
+
+::
 
     curl -vk -X POST -H "Content-Type:application/json" https://localhost:8443/redfish/v1/SessionService/Sessions -d '{"UserName":"admin", "Password":"bad" }' | python -m json.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -234,7 +279,9 @@ For example:::
     No JSON object could be decoded
 
 Once the X-Auth-Token is acquired, it can be included in all future Redfish requests by adding a X-Auth-Token
-header to the request object:::
+header to the request object:
+
+::
 
     curl -k -H "Content-Type:application/json" -H 'X-Auth-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k' https://localhost:8443/redfish/v1/SessionService/Sessions | python -m json.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -257,7 +304,9 @@ header to the request object:::
 Deleting a Redfish Session
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To invalidate a Redfish session token, the respective session instance should be deleted:::
+To invalidate a Redfish session token, the respective session instance should be deleted:
+
+::
 
     curl -k -X DELETE -H "Content-Type:application/json" -H 'X-Auth-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k' https://localhost:8443/redfish/v1/SessionService/Sessions/ceb94323-42d6-4c70-9d21-105f2a8e5cc8 | python -m json.tool
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -265,7 +314,9 @@ To invalidate a Redfish session token, the respective session instance should be
       0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
     No JSON object could be decoded
 
-Once the session has been deleted, the session token will no longer be valid:::
+Once the session has been deleted, the session token will no longer be valid:
+
+::
 
     curl -vk -H "Content-Type:application/json" -H 'X-Auth-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4iLCJpZCI6ImNlYjk0MzIzLTQyZDYtNGM3MC05ZDIxLTEwNWYyYThlNWNjOCIsImlhdCI6MTQ3MzcwNzM5OCwiZXhwIjoxNDczNzkzNzk4fQ.EpxRI911dS25-yr3CiSI-RzvrgM9JYioQUqdKq6HQ1k' https://localhost:8443/redfish/v1/SessionService/Sessions | python -m json.tool
     < HTTP/1.1 401 Unauthorized

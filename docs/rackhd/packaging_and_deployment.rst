@@ -1,4 +1,4 @@
-Packaging and Deployment
+Deployment Environment
 =======================================
 
 RackHD can use a number of different mechanisms to coordinate and control

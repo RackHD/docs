@@ -1,12 +1,10 @@
-Nodes
+Nodes and Catalogs
 ---------------------------
 
 Nodes are the elements that RackHD manages - compute servers, switches, etc.
 Nodes typically have at least one catalog, and can have :doc:`pollers` and
 :doc:`graphs` assigned to or working against that node.
 
-Catalogs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Catalogs are free form data structures with information about the nodes. Catalogs
 are created during 'discovery' workflows, and present information that can be
@@ -14,7 +12,8 @@ requested via API and is available to workflows to operate against.
 
 
 Defining Nodes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
+
 
 Nodes are defined via a JSON definition that conform to this schema:
 
@@ -31,7 +30,7 @@ Nodes are defined via a JSON definition that conform to this schema:
 
 
 Defining Catalogs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 - id (string): unique identifier for the node
 - createdAt (string): ISO8601 date string of time resource was created
@@ -42,7 +41,7 @@ Defining Catalogs
 
 
 API Commands for Nodes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~
 
 The following are common API commands that can be used when running the *on-http* process.
 
@@ -127,7 +126,7 @@ Sample Output:
 .. _node-api-tags-ref-label:
 
 Node Tags
-^^^^^^^^^^
+~~~~~~~~~
 
 **Add a tag to a node**
 
@@ -160,7 +159,7 @@ Node Tags
     curl -X DELETE <server>/api/current/nodes/<id>/tags/<tagname>
 
 Node Relations
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 **List relations for a node** 
 

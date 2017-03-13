@@ -1,5 +1,5 @@
-Workflow Tag Support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tags
+~~~~
 
 The Tag API provides functionality to automatically categorize nodes into
 groups based on data present in a node's catalogs or by manually assigning
