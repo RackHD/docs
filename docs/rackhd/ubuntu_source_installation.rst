@@ -32,6 +32,19 @@ that it will be run with `pm2`_.
     cd ~
     sudo pm2 start rackhd-pm2-config.yml
 
+isc-dhcp-server is installed through ansible script, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+check if DHCP service is started:
+
+.. code::
+
+    sudo service --status-all
+
+If isc-dhcp-server is not running, run below to start DHCP service:
+
+.. code::
+
+    sudo service isc-dhcp-server start
+
 Some useful commands of pm2:
 
 .. code::

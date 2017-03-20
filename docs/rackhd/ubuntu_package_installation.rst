@@ -194,6 +194,19 @@ Update dhcpd.conf per your network configuration
       option vendor-class-identifier "PXEClient";
     }
 
+isc-dhcp-server is installed through ansible script, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+check if DHCP service is started:
+
+.. code::
+
+    sudo service --status-all
+
+If isc-dhcp-server is not running, run below to start DHCP service:
+
+.. code::
+
+    sudo service isc-dhcp-server start
+
 
 #######
 
