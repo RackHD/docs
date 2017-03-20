@@ -32,7 +32,18 @@ that it will be run with `pm2`_.
     cd ~
     sudo pm2 start rackhd-pm2-config.yml
 
-isc-dhcp-server is installed through ansible script, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+Some useful commands of pm2:
+
+.. code::
+
+    sudo pm2 restart all           # restart all RackHD services
+    sudo pm2 restart on-taskgraph  # restart the on-taskgraph service only.
+    sudo pm2 logs                  # show the combined real-time log for all RackHD services
+    sudo pm2 logs on-taskgraph     # show the on-taskgraph real-time log
+    sudo pm2 flush                 # clean the RackHD logs
+    sudo pm2 status                # show the status of RackHD services
+
+Notes：isc-dhcp-server is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
 check if DHCP service is started:
 
 .. code::
@@ -44,17 +55,6 @@ If isc-dhcp-server is not running, run below to start DHCP service:
 .. code::
 
     sudo service isc-dhcp-server start
-
-Some useful commands of pm2:
-
-.. code::
-
-    sudo pm2 restart all           # restart all RackHD services
-    sudo pm2 restart on-taskgraph  # restart the on-taskgraph service only.
-    sudo pm2 logs                  # show the combined real-time log for all RackHD services
-    sudo pm2 logs on-taskgraph     # show the on-taskgraph real-time log
-    sudo pm2 flush                 # clean the RackHD logs
-    sudo pm2 status                # show the status of RackHD services
 
 
 How to update to the latest code
