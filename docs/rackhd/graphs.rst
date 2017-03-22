@@ -437,7 +437,7 @@ Find the graph definition you would like to use and copy the top-level *injectab
 
 ::
 
-    curl -X POST <server>/api/current/nodes/<id>/workflows?name=<graphname>
+    curl -X POST -H 'Content-Type: application/json' <server>/api/current/nodes/<id>/workflows?name=<graphname>
     OR
     curl -X POST \
         -H 'Content-Type: application/json' \
