@@ -127,6 +127,19 @@ These will install the prerequisite packages, install the RackHD debian packages
 All the services are started and have logs in /var/log/rackhd.
 Verify with ``service on-[something] status``
 
+Notes：isc-dhcp-server is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+check if DHCP service is started:
+
+.. code::
+
+    sudo service --status-all
+
+If isc-dhcp-server is not running, run below to start DHCP service:
+
+.. code::
+
+    sudo service isc-dhcp-server start
+
 
 _`Install/Configure with Step by Step Guide`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -193,6 +206,19 @@ Update dhcpd.conf per your network configuration
       # Use this option to signal to the PXE client that we are doing proxy DHCP
       option vendor-class-identifier "PXEClient";
     }
+
+Notes：sometimes isc-dhcp-server won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+check if DHCP service is started:
+
+.. code::
+
+    sudo service --status-all
+
+If isc-dhcp-server is not running, run below to start DHCP service:
+
+.. code::
+
+    sudo service isc-dhcp-server start
 
 
 #######

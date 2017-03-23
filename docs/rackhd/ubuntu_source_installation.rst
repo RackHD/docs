@@ -43,6 +43,19 @@ Some useful commands of pm2:
     sudo pm2 flush                 # clean the RackHD logs
     sudo pm2 status                # show the status of RackHD services
 
+Notes：isc-dhcp-server is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+check if DHCP service is started:
+
+.. code::
+
+    sudo service --status-all
+
+If isc-dhcp-server is not running, run below to start DHCP service:
+
+.. code::
+
+    sudo service isc-dhcp-server start
+
 
 How to update to the latest code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
