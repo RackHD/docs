@@ -3,6 +3,12 @@ OS Installation
 
 RackHD workflow support installing Operating System automatically from remote http repository.
 
+Setting up RackHD OS repository with image service
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Image servie provides a convinient method for users to setup RackHD repository, details please refer to https://github.com/RackHD/image-service.
+Alternatively, users could setup the repos by executing `Configuring RackHD OS Mirrors`_ and `Making the Mirrors`_.
+
 Configuring RackHD OS Mirrors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
