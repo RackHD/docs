@@ -25,7 +25,8 @@ Name            Type    Flags       Description
 friendlyName    String  Required    A human-readable name for the task
 injectableName  String  Required    A unique name used by the system and the API to refer to the task.
 implementsTask  String  Required    The injectableName of the base task.
-schemaRef       String  Optional    The task schema for the *options*, see `Task Schema`_ for detail.
+optionsSchema   Object/  Optional    The JSON schema for the task's *options*, see `Options Schema`_ for detail.
+                String
 options         Object  Required    Key value pairs that are passed in as options to the job.
                                     Values required by a job may be defined in the task definition or overridden by options in a graph definition.
 properties      Object  Required    JSON defining any relevant metadata or tagging for the task.
@@ -81,6 +82,8 @@ Name                Type    Flags     Description
 =================== ======= ========= =========================================================
 friendlyName        String  Required  A human-readable name for the task.
 injectableName      String  Required  A unique name used by the system and the API to refer to the task.
+optionsSchema       Object/ Optional  The JSON schema for the job's *options*, see `Options Schema`_ for detail.
+                    String
 requiredOptions     Object  Required  Required option values to be set in a task definition implementing the base task.
 requiredProperties  Object  Required  JSON defining required properties that need to exist in other tasks in a graph in
                                       order for this task to be able to be run successfully.
@@ -148,145 +151,88 @@ The primary difference between the *Install CoreOS* task and the *Install Ubuntu
 is the profile value, which is the ipxe template that specifies the installer
 images that an installation target should download.
 
-.. _`Task Schema`:
+.. _`Options Schema`:
 
-Task Schema
+Options Schema
 ^^^^^^^^^^^^^^^^^^^^^^
-A Task Schema is a JSON-Schema_ file that outlines the attributes and validation requirement for all options of a task. It provides standardized and declarative way to annotate task options. It offloads job's validation work and brings benefit to the upfront validation for graph input options.
+The Options Schema is a JSON-Schema_ file or object that outlines the attributes and validation requirement for all options of a task or job. It provides standardized and declarative way to annotate task/job options. It offloads job's validation work and brings benefit to the upfront validation for graph input options.
 
 .. _JSON-Schema: http://json-schema.org/
 
-**Relation between Job & Schema & Task**
+**Schema Classification**
 
-- A Task Definition conforms to only one Task Schema, but different Task Definition can conform to the same Task Schema; For example, all obm-control tasks share the same obm-control schema.
-- A Task Schema only describes one Job, but a Job may be described by multiple Task Schemas. For example, all of install-centos, install-ubuntu, install-esxi schemas are to describe the same install-os job.
-- A Task Schema can include other schemas for the sake of schema reuse and minimizing duplication. For example, all task schemas include a common options schema.
+There are totally 3 kinds of options schema: Common options schema, Base Task options schema and Task options schema.
 
-Below is a diagram shows the relation:
+- The Common options schema is to describe all those common options that are shared by all tasks, such as `_taskTimeout`, the common options schema is defined in the file 'https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/common-task-options.json'. User doesn't have to explicitly define the common schema in Task or Base Task definition, it is default enabled for every task.
 
-.. image:: /_static/task_schema_job_relation.png
-  :align: center
+- The schema in Base Task definition is to describe the options of the corresponding job.
 
-**Task Meta Schema**
+- The schema in Task definition is to describe the options of corresponding task. Since a Task defintion will always link to a Base Task, so the task's schema will automatically inherit the Base Task's schema during validation. So in practice, usually the task schema only needs to describe those options that are not covered in Base Task.
 
-The Task Meta Schema is the schema of Task Schema, it restricts the syntax of Task Schema.
+NOTE: The options schema is always optional for Task definition and Base Task definition. If options schema is not defined, that means user gives up the upfront options validation before running a TaskGraph.
 
-The name of Task Meta Schema is rackhd-task-schema.json_, any Task Schema should write against it by set the *$schema*:
+**Schema Format**
 
-.. _rackhd-task-schema.json: https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/rackhd-task-schema.json
+The options schema supports two kinds of format:
 
-.. code-block:: JSON
+- Built-in Schema <Object>: Directly put the full JSON schema content into the Task and Base Task definition.
 
-    "$schema": "rackhd-task-schema.json"
+- Schema File Reference <String>: Specify the file name of a JSON file, the JSON file is a valid JSON schema and it must be placed in the folder 'https://github.com/RackHD/on-tasks/tree/master/lib/task-data/schemas'.
 
-The meta schema is bases on the JSON-Schema_ draft-04 standard (http://json-schema.org/draft-04/schema), and it extends following keywords:
+The Built-in Schema is usually used when there is few options or for situation that is not suitable to use file reference, such as within skupack.
+The File Reference schema is usually used when there are plents of options or to share schema between Task and Base Task.
 
-============== ======= ========= =========================================================
-Keyword        Format  Flags     Description
-============== ======= ========= =========================================================
-describeJob    String  Required  The property is required to point to a job’s di injectable name
-copyright      String  Optional  This attribute shall contain the copyright notice for the schema
-readonly       Boolean Optional  This property shall designate a property to be readonly for user when set to true
-============== ======= ========= =========================================================
-
-**Define a Task Schema**
-
-You can follow below 3 steps to define a Task Schema:
-
-- Step 1: Create a JSON File
-
-The Task Schema has to be written in JSON. The filename is critical and should be unique as it will be used as reference identifier between tasks and schemas.
-
-- Step 2: Define Basic Properties
-
-At least specify following properties:
-
-============== ======= =========================================================
-Property       Format  Description
-============== ======= =========================================================
-$schema        String  Specify the version of this schema file, it has to be `rackhd-task-schema.json`
-title          String  Specify a short description for this schema
-description    String  Specify a long & verbose description for this schema
-describeJob    String  Specify the job which this schema is to describe, via job's injectableName
-============== ======= =========================================================
-
-- Step 3: Define Options
-
-The task options are divided into task common options and task specific options.
-
-The common task options are the options that same for all tasks, such as `Task Timeout`_.
-The schema for common task options has been defined in common-task-options.json_, so you don't need to write a duplicated one, you can just reference it by:
-
-.. _common-task-options.json: https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/common-task-options.json
-
-.. code-block:: JSON
-
-    { "$ref": "common-task-options.json#/definitions/Options" }
-
-The task specific options vary by task. This is usually the section you mostly work on while defining your schema.
-
-To combine the common and specific options, use the keyword allOf_.
-
-.. _allOf: http://json-schema.org/latest/json-schema-validation.html#anchor82
-
-The following example shows the schema for the *Analyze-OS-Repo* task:
+Below is an example of Built-in Schema in Base Task definition:
 
 .. code-block:: JSON
 
     {
-        "$schema": "rackhd-task-schema.json",
-        "copyright": "Copyright 2016, EMC, Inc.",
-        "title": "Analyze OS Repository",
-        "description": "The schema for analyzing os repository job",
-        "describeJob": "Job.Os.Analyze.Repo",
-        "allOf": [
-            { "$ref": "common-task-options.json#/definitions/Options" },
-            {
-                "type": "object",
-                "properties": {
-                    "version": {
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    "repo": {
-                        "type": "string",
-                        "format": "uri"
-                    },
-                    "osType": {
-                        "readoly": true
-                    }
+        "friendlyName": "Analyze OS Repository",
+        "injectableName": "Task.Base.Os.Analyze.Repo",
+        "runJob": "Job.Os.Analyze.Repo",
+        "optionsSchema": {
+            "properties": {
+                "version": {
+                    "$ref": "types-installos.json#/definitions/Version"
                 },
-                "required": ["osType", "repo", "version"]
-            }
-        ]
+                "repo": {
+                    "$ref": "types-installos.json#/definitions/Repo"
+                },
+                "osName": {
+                    "enum": [
+                        "ESXi"
+                    ]
+                }
+            },
+            "required": [
+                "osName",
+                "repo",
+                "version"
+            ]
+        },
+        "requiredProperties": {},
+        "properties": {}
     }
 
-Above schema example shows its task specific options are *"version"*, *"repo"* and *"osType"*, it describes the job *Job.Os.Analyze.Repo*.
+Below is an example of File Reference schema in Base Task definition:
 
-**Link Schema and Task**
+.. code-block:: JSON
 
-The property *schemaRef* is used to specify its schema via the filename.
+    {
+        "friendlyName": "Linux Commands",
+        "injectableName": "Task.Base.Linux.Commands",
+        "runJob": "Job.Linux.Commands",
+        "optionsSchema": "linux-command.json",
+        "requiredProperties": {},
+        "properties": {
+            "commands": {}
+        }
+    }
 
-Below is the example about how the *Analyze-OS-Repo* task references the schema (Assume the corresponding schema filename is `analyze-os-repo.json`)
-
-.. code-block:: javascript
-
-    module.exports = {
-        friendlyName: 'Analyze Esx Repository',
-        injectableName: 'Task.Os.Esx.Analyze.Repo',
-        implementsTask: 'Task.Base.Os.Analyze.Repo',
-        schemaRef: 'analyze-os-repo.json',
-        options: {
-            osName: 'esx',
-        },
-        properties: {}
-    };
-
-You can define the default value in the *options* property. These default values will be used as complement if user doesn't pass any value for that option while trigger the task, so all default value should conform to the schema as well.
 
 **Upfront Schema Validation**
 
-The Task Schema validation will be firstly executed when user triggers a workflow. Only if all options (Combine user input and the default value) conform to schema for every task, the workflow then can be successfully triggered.
+The options schema validation will be firstly executed when user triggers a workflow. Only if all options (Combine user input and the default value) conform to all of above schemas for the task, the workflow can then be successfully triggered.
 If any option violates the schema, The API request will report `400 Bad Request`_ and append detail error message in response body. For example:
 
 .. _`400 Bad Request`: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
