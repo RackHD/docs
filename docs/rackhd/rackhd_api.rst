@@ -20,11 +20,11 @@ API documentation as described below or download the latest from
 
   curl http://<server>:8080/api/current/nodes | python -mjson.tool
 
-**Set the Active Workflow**
+**Get the Active Workflow**
 
 .. code::
 
-  curl http://<server>:8080/api/current/nodes/<identifier>/workflows/active | python -mjson.tool
+  curl http://<server>:8080/api/current/nodes/<identifier>/workflows/?active=true | python -mjson.tool
 
 
 Starting and Stopping the API Server
@@ -52,6 +52,7 @@ repository and running the following command.
   $ cd on-http
   $ npm install
   $ npm run apidoc
+  $ npm run taskdoc
 
 The default and example quick start build that we describe in :doc:`../tutorials/vagrant`
 has the API docs rendered and embedded within that instance for easy use, available
@@ -61,22 +62,24 @@ at ``http://[IP ADDRESS OF VM]:8080/docs/`` for the 1.1 API documentation, and
 RackHD Client Libraries
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The 1.1 API for RackHD includes annotations in code that are used to generate
-API documentation (the `npm run apidoc` command above) that is hosted directly
-within RackHD.
-
-A similiar process generates a swagger API definition file that can be used to
+The 2.0 API generates a swagger API definition file that can be used to
 create client libraries with `swagger`_. To create this file locally, you can
 check out the on-http library and run the commands::
 
     npm install
-    npm run apidoc-swagger
+    npm run apidoc
 
-The resulting file will be build/apidoc-swagger/swagger.json. You can use this
-file with `swagger tools`_ to generate client libraries in any of the languages
-that swagger supports. `RackHD travis build`_ for on-http includes using
-codegen from `swagger tools`_ to generate a python library, available in a debian
-package, that we use with integration testing.
+The resulting files will be in ``build/swagger-doc`` and will be pdf files that are documentation
+for the 2.0 API (rackhd-api-2.1.0.pdf) and the Redfish API (rackhd-redfish-v1-1.1.1.pdf).
+
+To create a client library you can run the command::
+
+    npm run client -- -l <language>
+
+Where the `language` you input can currently be python, go, or java. Go is generated
+using go-swagger and python and java are generated using swagger-codegen. This command
+will generate client libraries for the 2.0 API and Redfish API and will be in the saved
+in the directories ``on-http/on-http-api2.0` and ``on-http/on-http-redfish-1.0`` , respectively.
 
 You can also use the `swagger generator`_ online tool to generate a client zip
 bundle for a variety of languages, including python, Java, javascript, ruby,
@@ -90,20 +93,7 @@ scala, php, and more.
 Examples using the python client library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Getting a list of nodes::
-
-    from on_http import NodesApi, ApiClient, Configuration
-
-    config = Configuration()
-    config.debug = True
-    config.verify_ssl = False
-
-    client = ApiClient(host='http://localhost:9090',header_name='Content-Type',header_value='application/json')
-    nodes = NodesApi(api_client=client)
-    nodes.api1_1_nodes_get()
-    print client.last_response.data
-
-2.0 API - Getting a list of nodes ::
+Getting a list of nodes ::
 
     from on_http import NodesApi, ApiClient, Configuration
 
@@ -116,19 +106,32 @@ Getting a list of nodes::
         nodes.api2_0_nodes_get()
         print client.last_response.data
 
+Deprecated 1.1 API - Getting a list of nodes::
+
+    from on_http import NodesApi, ApiClient, Configuration
+
+    config = Configuration()
+    config.debug = True
+    config.verify_ssl = False
+
+    client = ApiClient(host='http://localhost:9090',header_name='Content-Type',header_value='application/json')
+    nodes = NodesApi(api_client=client)
+    nodes.api1_1_nodes_get()
+    print client.last_response.data
+
 Or the same asynchronously (with a callback)::
 
     def cb_func(resp):
     print 'GET /nodes callback!', resp
 
-    thread = nodes.api1_1_nodes_get(callback=cb_func)
+    thread = nodes.api2_0_nodes_get(callback=cb_func)
 
-2.0 API - Or the same asynchronously (with a callback)::
+Deprecated 1.1 API - Or the same asynchronously (with a callback)::
 
     def cb_func(resp):
     print 'GET /nodes callback!', resp
 
-    thread = nodes.api2_0_nodes_get(callback=cb_func)
+    thread = nodes.api1_1_nodes_get(callback=cb_func)
 
 Using Pagination
 ~~~~~~~~~~~~~~~~
@@ -140,7 +143,7 @@ using ``$skip`` and ``$top`` query parameters.
  Parameter   Description
 =========== =================================================================================================================
 ``$skip``        An integer indicating the number of items that should be skipped starting with the first item in the collection.
-``$top``         An integeter indicating the number of items that should be included in the response.
+``$top``         An integer indicating the number of items that should be included in the response.
 =========== =================================================================================================================
 
 These parameters can be used individually or combined to display any subset of consecutive
@@ -157,7 +160,7 @@ RackHD will add a link header to assist in traversing a large collection.  Links
 if either ``$skip`` or ``$top`` is used and the size of the collection is greater than the
 number of resources displayed (i.e. the collection cannot fit on one page).  If applicable,
 links to first, last, next, and previous pages will be included in the header.  The next and
-previous links will be ommitted for the last and first pages respectively.
+previous links will be omitted for the last and first pages respectively.
 
 Here is an example link header from a collection containing 1000 nodes.
 
