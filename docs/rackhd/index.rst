@@ -25,4 +25,5 @@ RackHD Users Guide
    web_ui
    boot_settings
    ssdp
+   ucs-service
 
