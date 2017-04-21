@@ -115,6 +115,11 @@ The table of `type`, `typeId`, `action` and `severity` for all external events
 |              |                        | inaccessible           | information    | Triggered when node telemetry     |
 |              |                        |                        |                | OBM service (IPMI or SNMP) is     |
 |              |                        |                        |                | inaccessible                      |
+|              |                        +------------------------+----------------+-----------------------------------+
+|              |                        | alerts                 | could be one:  | Triggered when rackHD receives    |
+|              |                        |                        | information,   | a redfish alert                  |
+|              |                        |                        | warning, or    |                                   |
+|              |                        |                        | critical       |                                   |
 +--------------+------------------------+------------------------+----------------+-----------------------------------+
 
 
@@ -384,3 +389,73 @@ Web Hook APIs
         "name": "New Hook"
     }
 
+Redfish Alert Notification
+~~~~~~~~~~~~~~~~
+
+Description
+^^^^^^^^^^^^^^^^^^^
+RackHD is enabled to receive redfish based notifications. 
+It is possible to configure a redfish endpoint to send alerts to RackHD.
+When RackHD receives an alert, it determines which node issued the alert and then it adds some additional context such as nodeId, service tag, etc. 
+Lastly, RackHD publishes the alert to AMQP and Web Hook.
+
+Configuring the Redfish endpoint
+^^^^^^^^^^^^^^^^^^^
+If the endpoint is redfish enabled and supports the Resfish EventService, it is possible to configure the endpoint to send the alerts to RackHD. Please note that the "Destination" property in the example below should be a reference to RackHD.
+
+.. code-block:: REST
+
+    POST /redfish/v1/EventService/Subscriptions
+	{
+		"Context": "context string",
+		"Description": "Event Subscription Details",
+		"Destination": "https://10.240.19.226:8443/api/2.0/notification/alerts",
+		"EventTypes": [
+    		"ResourceAdded",
+	    	"StatusChange",
+		    "Alert"
+		],
+		"Id": "id",
+		"Name": "name",
+		"Protocol": "Redfish"
+	}
+
+Alert message
+^^^^^^^^^^^^^^^^^^^
+In addition to the redfish alert message, RackHD adds the following properties: "sourceIpAddress" (of the BMC), "nodeId","macAddress" (of the BMC), "ChassisName",  "ServiceTag", "SN".
+
+.. code-block:: JSON
+
+	{
+		"type": "node",
+		"action": "alerts",
+		"data": {
+			"Context": "context string",
+			"EventId": "8689",
+			"EventTimestamp": "2017-04-03T10:07:32-0500",
+			"EventType": "Alert",
+			"MemberId": "7e675c8e-127a-11e7-9fc8-64006ac35232",
+			"Message": "The coin cell battery in CMC 1 is not working.",
+			"MessageArgs": ["1"],
+			"MessageArgs@odata.count": 1,
+			"MessageId": "CMC8572",
+			"Severity": "Critical",
+			"sourceIpAddress": "10.240.19.130",
+			"nodeId": "58d94cec316779d4126be134",
+			"macAddress": "64:00:6a:c3:52:32",
+			"ChassisName": "PowerEdge R630",
+			"ServiceTag": "4666482",
+			"SN": "CN747515A80855"
+		},
+		"severity": "critical",
+		"typeId": "58d94cec316779d4126be134",
+		"version": "1.0",
+		"createdAt": "2017-04-03T14:11:46.245Z"
+	}
+
+AMQP
+^^^^^^^^^^^^^^^^^^^
+The messages are pulished to:
+
+- Exchange: **on.events**
+- Routing Key: **node.alerts.<severity>.<typeId>.<nodeId>**
