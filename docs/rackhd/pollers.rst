@@ -46,10 +46,7 @@ Example request to create and auto-discover a switch::
     {
       "name": "my switch",
       "identifiers": [],
-      "snmpSettings": {
-        "host": "10.1.1.3",
-        "community": "public"
-      },
+      "ibms": [{"service": "snmp-ibm-service", "config": {"host": "10.1.1.3", "community": "public"}}],
       "type": "switch",
       "autoDiscover": true
     }
@@ -97,7 +94,7 @@ can send:
 
 
 To use an SNMP poller that references a node, the node document must have
-an "snmpSettings" field with a host and community fields:
+an "ibms" field with a host and community fields:
 
 .. code-block:: REST
 
@@ -105,10 +102,7 @@ an "snmpSettings" field with a host and community fields:
     {
       "name": "example node",
       "identifiers": [],
-      "snmpSettings": {
-        "host": "10.1.1.3",
-        "community": "public"
-      }
+      "ibms": [{"service": "snmp-ibm-service", "config": {"host": "10.1.1.3", "community": "public"}}]
     }
 
 .. code-block:: REST
