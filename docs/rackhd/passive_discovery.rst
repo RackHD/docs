@@ -11,7 +11,7 @@ A new node created by posting to /api/current/node will be
 automatially discovered if:
 
 * the type is 'switch'
-* it has an snmpSettings field with the host to query and snmp community string
+* it has an ibms field with the host to query and snmp community string
 * the autoDiscover field is set to true
 
 **Create a Node to be Auto-Discovered**
@@ -23,10 +23,7 @@ automatially discovered if:
         "name": "nodeName"
         "type": "switch",
         "autoDiscover": true
-        "snmpSettings": {
-            host: "10.1.1.3",
-            community: "public"
-        }
+        "ibms": [{"service": "snmp-ibm-service", "config": {"host": "10.1.1.3", "community": "public"}}]
     }
 
 .. code-block:: REST
@@ -34,7 +31,7 @@ automatially discovered if:
     curl -X POST \
         -H 'Content-Type: application/json' \
         -d '{"name":"nodeName", "type": "switch", "autoDiscover":true, \
-         "snmpSettings": {"host": "10.1.1.3", "community": "public"}}' \
+        "ibms": [{"service": "snmp-ibm-service", "config": {"host": "10.1.1.3", "community": "public"}}] \
         <server>/api/current/nodes
 
 .. literalinclude:: samples/auto-discover-switch-node.json
@@ -78,7 +75,7 @@ using different settings. For example, a smart PDU:
     curl -X POST \
         -H 'Content-Type: application/json' \
         -d '{"name":"nodeName", "type": "pdu", \
-         "snmpSettings": {"host": "10.1.1.3", "community": "public"}}' \
+        "ibms": [{"service": "snmp-ibm-service", "config": {"host": "10.1.1.3", "community": "public"}}] \
         <server>/api/current/nodes
 
 .. code-block:: REST

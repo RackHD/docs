@@ -348,7 +348,7 @@ Once the node has been discovered by RackHD, you can see it through the API.
 
     [
         {
-            "autoDiscover": "false",
+            "autoDiscover": false,
             "id": "57967193a045ba7c0800207b",
             "identifiers": [],
             "name": "Enclosure Node QTFCJ05160195",
@@ -357,7 +357,7 @@ Once the node has been discovered by RackHD, you can see it through the API.
             "type": "enclosure"
         },
         {
-            "autoDiscover": "false",
+            "autoDiscover": false,
             "id": "579680825d434579084ff910",
             "identifiers": [
                 "52:54:be:ef:aa:ee"
@@ -703,7 +703,7 @@ API:
 .. code-block:: JSON
 
     {
-      "autoDiscover": "false",
+      "autoDiscover": false,
       "id": "57990efa0d76e7c207cdfc3f",
       "name": "52:54:be:ef:40:98",
       "identifiers": [
@@ -719,7 +719,7 @@ If the node has an OBM service, the key ``obms`` will have some data in it:
 .. code-block:: JSON
 
     {
-      "autoDiscover": "false",
+      "autoDiscover": false,
       "id": "57990efa0d76e7c207cdfc3f",
       "name": "52:54:be:ef:40:98",
       "identifiers": [
