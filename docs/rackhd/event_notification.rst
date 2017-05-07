@@ -394,9 +394,9 @@ Redfish Alert Notification
 
 Description
 ^^^^^^^^^^^^^^^^^^^
-RackHD is enabled to receive redfish based notifications. 
+RackHD is enabled to receive redfish based notifications.
 It is possible to configure a redfish endpoint to send alerts to RackHD.
-When RackHD receives an alert, it determines which node issued the alert and then it adds some additional context such as nodeId, service tag, etc. 
+When RackHD receives an alert, it determines which node issued the alert and then it adds some additional context such as nodeId, service tag, etc.
 Lastly, RackHD publishes the alert to AMQP and Web Hook.
 
 Configuring the Redfish endpoint
@@ -420,6 +420,68 @@ If the endpoint is redfish enabled and supports the Resfish EventService, it is 
 		"Protocol": "Redfish"
 	}
 
+If the node is a Dell node, it is possible to post the Graph.Dell.Configure.Redfish.Alerting workflow.
+The workflow will:
+
+1- Enable Alerts for the Dell node. Equivalent to running "set iDRAC.IPMILan.AlertEnable 1" racadam command.
+
+2- Enable redfish alerts. Equivalent to running "eventfilters set -c idrac.alert.all -a none -n redfish-events" racadam command.
+
+3- Disable the "Audit" info alerts. Equivalent to running  "eventfilters set -c idrac.alert.audit.info -a none -n none" racadam command.
+
+The workflow will run the default values if the node's obm is set and the "rackhdPublicIp" property is set in the rackHD config.json file.
+Below is an example the default settings:
+
+.. code-block:: REST
+
+    {
+      "@odata.context": "/redfish/v1/$metadata#EventDestination.EventDestination",
+      "@odata.id": "/redfish/v1/EventService/Subscriptions/b50106d4-32c6-11e7-8b05-64006ac35232",
+      "@odata.type": "#EventDestination.v1_0_2.EventDestination",
+      "Context": "RackhHD Subscription",
+      "Description": "Event Subscription Details",
+      "Destination": "https://10.1.1.1:8443/api/2.0/notification/alerts",
+      "EventTypes": [
+        "ResourceAdded",
+        "StatusChange",
+        "Alert"
+      ],
+      "EventTypes@odata.count": 3,
+      "Id": "b50106d4-32c6-11e7-8b05-64006ac35232",
+      "Name": "EventSubscription b50106d4-32c6-11e7-8b05-64006ac35232",
+      "Protocol": "Redfish"
+    }
+
+It is possible to overwrite any of the values by adding it to payload when posting the Graph.Configure.Redfish.Alerting workflow.
+Here is an instance of the payload:
+
+.. code-block:: REST
+
+    {
+    	"options": {
+    		"redfish-subscribtion": {
+    			"url": "https://10.240.19.130/redfish/v1/EventService/Subscriptions",
+    			"credential": {
+    				"username": "root",
+    				"password": "1234567"
+    			},
+    			"data": {
+    				"Context": "context string",
+    				"Description": "Event Subscription Details",
+    				"Destination": "https://1.1.1.1:8443/api/2.0/notification/alerts",
+    				"EventTypes": [
+    					"StatusChange",
+    					"Alert"
+    				],
+    				"Id": "id",
+    				"Name": "name",
+    				"Protocol": "Redfish"
+    			}
+
+    		}
+    	}
+    }
+
 Alert message
 ^^^^^^^^^^^^^^^^^^^
 In addition to the redfish alert message, RackHD adds the following properties: "sourceIpAddress" (of the BMC), "nodeId","macAddress" (of the BMC), "ChassisName",  "ServiceTag", "SN".
@@ -442,7 +504,7 @@ In addition to the redfish alert message, RackHD adds the following properties: 
 			"Severity": "Critical",
 			"sourceIpAddress": "10.240.19.130",
 			"nodeId": "58d94cec316779d4126be134",
-			"macAddress": "64:00:6a:c3:52:32",
+			"sourceMacAddress   ": "64:00:6a:c3:52:32",
 			"ChassisName": "PowerEdge R630",
 			"ServiceTag": "4666482",
 			"SN": "CN747515A80855"
