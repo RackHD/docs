@@ -107,6 +107,85 @@ Sample Output:
 .. literalinclude:: samples/vm-dmi-catalog.json
    :language: JSON
 
+Out of Band Management Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get list of Out of Band Management settings that have been associated with nodes.
+
+**Get list of OBMs settings**
+
+::
+
+    GET /api/current/obms
+
+::
+
+    curl <server>/api/current/obms
+
+**Get list of OBMs schemas showing required properties to create an OBM**
+
+::
+
+    GET /api/current/obms/definitions
+
+::
+
+    curl <server>/api/current/obms/definitions
+
+**Create or update a single OBM service and associate it with a node**
+
+::
+
+    PUT /api/current/obms
+
+::
+
+    curl -X PUT -H "Content-Type: application/json" -d '{ "nodeId": <node id>, "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "<host ip>" } }' /api/current/obms
+
+Example output of PUT
+
+::
+
+    {
+      "id": "5911fa6447f8b7b207f9a485",
+      "node": "/api/2.0/nodes/590cbcbf29ba9e40471c9f3c",
+      "service": "ipmi-obm-service",
+      "config": {
+        "user": "admin",
+        "host": "172.31.128.2"
+      }
+    }
+
+**Get a specific OBM setting**
+
+::
+
+    GET /api/current/obms/<id>
+
+::
+
+    curl <server>/api/current/obms/<id>
+
+**PATCH an OBM setting**
+
+::
+
+    PATCH /api/current/obms/<id>
+
+::
+
+    curl -X PUT -H "Content-Type: application/json" -d '{ "nodeId": <node id>, "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "<host ip>" } }' /api/current/obms/<id>
+
+**Delete an OBM setting**
+
+::
+
+    DELETE /api/current/obms/<id>
+
+::
+
+    curl -X DELETE <server>/api/current/obms/<id>
+
+
 **To set a no-op OBM setting on a node**
 
 ::
@@ -118,12 +197,86 @@ Sample Output:
 
 .. code-block:: REST
 
-    curl -X PUT \
-        -H 'Content-Type: application/json' \
-        -d ' { "service": "ipmi-obm-service", "config": { "host": "10.1.1.3", "user": "admin", "password": "admin" } }' \
-        {server}/api/current/nodes/{nodeID}/obm
+    curl -X PUT -H 'Content-Type: application/json' -d ' { "service": "ipmi-obm-service", "config": { "host": "<host ip>", "user": "admin", "password": "admin" } }' <server>/api/current/nodes/<nodeID>/obm
 
 .. _node-api-tags-ref-label:
+
+In Band Management Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get list of In Band Management settings that have been associated with nodes.
+
+**Get list of IBMs settings**
+
+::
+
+    GET /api/current/ibms
+
+::
+
+    curl <server>/api/current/ibms
+
+**Get list of IBMs schemas showing required properties to create an IBM**
+
+::
+
+    GET /api/current/ibms/definitions
+
+::
+
+    curl <server>/api/current/ibms/definitions
+
+**Create or update a single IBM service and associate it with a node**
+
+::
+
+    PUT /api/current/ibms
+
+::
+
+    curl -X PUT -H "Content-Type: application/json" -d '{ "nodeId": <node id>, "service": "snmp-ibm-service", "config": { "community": "public", "host": "<host ip>" } }' /api/current/ibms
+
+Example output of PUT
+
+::
+
+    {
+      "id": "591c569c087752c67428e4b3",
+      "node": "/api/2.0/nodes/590cbcbf29ba9e40471c9f3c",
+      "service": "snmp-ibm-service",
+      "config": {
+        "host": "172.31.128.2"
+      }
+    }
+
+**Get a specific IBM setting**
+
+::
+
+    GET /api/current/ibms/<id>
+
+::
+
+    curl <server>/api/current/ibms/<id>
+
+**PATCH an IBM setting**
+
+::
+
+    PATCH /api/current/ibms/<id>
+
+::
+
+    curl -X PUT -H "Content-Type: application/json" -d '{ "nodeId": <node id>, "service": "snmp-ibm-service", "config": { "community": "public", "host": "<host ip>" } }' /api/current/ibms/<id>
+
+**Delete an IBM setting**
+
+::
+
+    DELETE /api/current/ibms/<id>
+
+::
+
+    curl -X DELETE <server>/api/current/ibms/<id>
 
 Node Tags
 ~~~~~~~~~
