@@ -787,7 +787,7 @@ Three steps to install os.
 
 image-service: https://github.com/rackhd/image-service
 
-- step 3: Start installing os----
+- step 3: Start installing os
 .. code-block:: REST
 
     cd ~/src/rackhd/examples
