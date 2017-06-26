@@ -1,7 +1,7 @@
 Refresh Node Discovery
 ----------------------
 
-Compute type nodes can be re-discovered/refreshed either by running an immediate refresh discovery graph or a delayed refresh discovery graph using the same nodeID from the original discovery process. The node catalog(s) will updated with new entries.
+Compute type nodes can be re-discovered/refreshed either by running an immediate refresh discovery graph or a delayed refresh discovery graph using the same nodeID from the original discovery process. The node catalog(s) will be updated with new entries.
 
 Immediate Refresh Node Discovery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
