@@ -77,7 +77,7 @@ A node can be refreshed immediately by posting to /api/2.0/workflows with a payl
 Delayed Refresh Node Discovery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-An user can defer a node discovery by posting to /api/2.0/workflows with a payload. The user will need to manually reboot the node after executing the API before the node re-discovery/refresh process can start.
+A user can defer a node discovery by posting to /api/2.0/workflows with a payload. The user will need to manually reboot the node after executing the API before the node re-discovery/refresh process can start.
 
 **Delayed Node Re-discovery example**
 
