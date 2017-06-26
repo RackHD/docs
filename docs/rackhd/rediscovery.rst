@@ -138,7 +138,7 @@ An user can defer a node discovery by posting to /api/2.0/workflows with a paylo
             }' \
         <server>/api/2.0/workflows
 
-**Example manually rebooting the node using ipmitool**
+**Manually rebooting the node using ipmitool example**
 
 .. code-block:: REST
 
