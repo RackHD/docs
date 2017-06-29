@@ -34,13 +34,18 @@ If you have questions about the disposition of a request, feel free to email one
 Core Committer Team
 ~~~~~~~~~~~~~~~~~~~~~
 
-* Jeanne.Ohren@dell.com
-* Felix.Yuan@dell.com
+* Michael.Hepfer@dell.com
 * Andrew.Hou@dell.com
-* Brian.Parry@dell.com
-* Rahman.Muhammad@dell.com
-* Geoffrey.Reid@dell.com
+* Andre.Keedy@dell.com
 * James.King@dell.com
+* Lyne.Lin@dell.com
+* Rahman.Muhammad@dell.com
+* Jeanne.Ohren@dell.com
+* Michael.Regert@dell.com
+* Geoffrey.Reid@dell.com
+* Stuart.Stanley@dell.com
+* James.Turnquist@dell.com
+
 
 
 Please direct general conversation about how to use RackHD or discussion about improvements and features to our mailing list at rackhd@googlegroups.com
