@@ -250,8 +250,8 @@ kvm                 Boolean          *optional*   The value is *true* or *false*
 switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters. If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks. See switchDevices_ for more details.
 postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration.
 installType         String           *optional*   **(PhotonOS only)** The value is *minimal* or *full* to indicate the type of installed OS, defualt *installType* is **minimal**
-gdbPort             String           *optional*   **(ESXi only)** Serial port used for GDB debug
-logPort             String           *optional*   **(ESXi only)** Serial port for log output in ESXi
+gdbPort             String           *optional*   **(ESXi only)** Serial port used for GDB debug, value could be: default, none, com1, com2 ...
+logPort             String           *optional*   **(ESXi only)** Serial port for log output in ESXi, value could be: default, none, com1, com2 ...
 debugLogToSerial    String           *optional*   **(ESXi only)** Set debug port out put redirect 0 = Serial debug off; 1 = Serial debug on;2 = defer to config option file
 installScriptUri    String           *optional*   The download URI for a custom kickstart/preseed/autoyast/cloud-config template to be used for automatic installation/configuration.
 
