@@ -16,7 +16,7 @@ RackHD will publish a workflow progress message if any of below events happens:
 
 * Progress timer timeout for an active long-run task.
 
-  Some tasks don't have milestones but progress information is continuous and can be got all the time. In this case a repeating timer with fixed interval is set. Progress message will be retrieved and sent each time the timer is timeout.
+  Some tasks don't have milestones but progress information is continuous and can be got all the time. In this case progress messages is generated with fixed interval.
 
 Progress Message Payload
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,7 +154,6 @@ PhotonOS        5                   1.requestProfile; 2.enterProfile; 3.startIns
 =============== =================== ==============================================================================================
 
 In progress message, milestone quantity will be set to `maximum` and sequence number to `value` while RackHD is installing OS.
-Take CentOS as an example, with completion of `postConfig` milestone, RackHD will send progress information to user with `value` 5 and `maximum` 6. `value` varies from 1 to 5 and with `maximum` fixed 6 during whole CentOS installation progress.
 
 **Secure erase task progress**
 
