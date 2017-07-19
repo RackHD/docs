@@ -247,7 +247,7 @@ rootSshKey          String           *optional*   The public SSH key that will b
 installDisk         String/Number    *optional*   *installDisk* is to specify the target disk which the OS will be installed on. It can be a string or a number. **For string**, it is a disk path that the OS can recongize, its format varies with OS. For example, "/dev/sda" or "/dev/disk/by-id/scsi-36001636121940cc01df404d80c1e761e" for CentOS/RHEL, "t10.ATA_____SATADOM2DSV_3SE__________________________20130522AA0990120088" or "naa.6001636101840bb01df404d80c2d76fe" or "mpx.vmhba1:C0:T1:L0" or "vml.0000000000766d686261313a313a30" for ESXi. **For number**, it is a RackHD generated disk identifier (it could be obtained from "driveId" catalog). If *installDisk* is omitted, RackHD will assign the default disk by order: SATADOM -> first disk in "driveId" catalog -> "sda" for Linux OS. **NOTE**: Users need to make sure the *installDisk* (either specified by user or by default) is the first bootable drive from BIOS and raid controller setup. **PhotonOS** only supports '/dev/sd*' format currently.
 installPartitions   Array            *optional*   *installPartitions* is to specify the *installDisk*'s partitions when OS installer's default auto partitioning is not wanted. (Only support **CentOS** at present, Other Linux OS will be supported). See installPartitions_ for more details.
 kvm                 Boolean          *optional*   The value is *true* or *false* to indicates to install kvm or not, default is **false**. (**ESXi, PhotonOS** doesn't support this parameter)
-switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName and uplinks (optional) parameters. If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks. See switchDevices_ for more details.
+switchDevices       Array            *optional*   **(ESXi only)** If specified, this contains an array of objects with switchName, uplinks (optional), and failoverPolicy (optional) parameters. If *uplinks* is omitted, null or empty, the vswitch will be created with no uplinks. If *failoverPolicy* is omitted, null or empty, the default ESXi policy will be used. See switchDevices_ for more details.
 postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration.
 installType         String           *optional*   **(PhotonOS only)** The value is *minimal* or *full* to indicate the type of installed OS, defualt *installType* is **minimal**
 installScriptUri    String           *optional*   The download URI for a custom kickstart/preseed/autoyast/cloud-config template to be used for automatic installation/configuration.
@@ -314,12 +314,13 @@ vlanIds     Array    *optional*   The VLAN ID. This is an array of integers (0-4
 
 For **switchDevices** **(ESXi only)** in payload:
 
-=========== ======== ============ ============================================
-Parameters  Type     Flags        Description
-=========== ======== ============ ============================================
-switchName  String   **required** The name of the vswitch
-uplinks     String   *optional*   The array of vmnic# devices or MAC address to set as the uplinks.(Ex: uplinks: ["vmnic0", "2c:60:0c:ad:d5:ba"]). If an uplink is attached to a vSwitch, it will be removed from the old vSwitch before being added to the vSwitch named by 'switchName'.
-=========== ======== ============ ============================================
+============== ======== ============ ============================================
+Parameters     Type     Flags        Description
+============== ======== ============ ============================================
+switchName     String   **required** The name of the vswitch
+uplinks        String   *optional*   The array of vmnic# devices or MAC address to set as the uplinks.(Ex: uplinks: ["vmnic0", "2c:60:0c:ad:d5:ba"]). If an uplink is attached to a vSwitch, it will be removed from the old vSwitch before being added to the vSwitch named by 'switchName'.
+failoverPolicy String   *optional*   This can be one of the following options: explicit: Always use the highest order uplink from the list of active adapters which pass failover criteria. iphash: Route based on hashing the src and destination IP addresses mac: Route based on the MAC address of the packet source. portid: Route based on the originating virtual port ID.
+============== ======== ============ ============================================
 
 Windows OS Installation Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
