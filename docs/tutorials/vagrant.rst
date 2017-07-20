@@ -18,7 +18,7 @@ prerequisites
 
     which can also be used with a pager, such as `less`.
 
-You will need to have `Vagrant`_ and `VirtualBox`_ installed on your machine to use
+You will need to have `Vagrant`_ and `VirtualBox`_ (>=1.8.0) installed on your machine to use
 this tutorial.
 
 You may also want to consider installing `jq`_ which provides a command-line
@@ -79,17 +79,13 @@ The Vagrant setup also enables port forwarding that allows your localhost to acc
     git clone https://github.com/rackhd/rackhd
     cd rackhd/example
 
+- Edit the Vagrantfile - delete the line 89: 'v.gui = true'
+
 - Download a RackHD vagrant instance
 
 .. code::
 
     vagrant up dev
-
-- Start the local instance
-
-.. code::
-
-    vagrant ssh dev -c "sudo pm2 start rackhd-pm2-config.yml"
 
 The logs from RackHD will show in the console window where you invoked this last
 command. You can use control-c (^C) to stop the processes. Additionally you can
@@ -109,7 +105,7 @@ Accessing your local instance of RackHD
 
         vagrant destroy -f
         vagrant up dev
-        vagrant ssh dev -c "sudo pm2 start rackhd-pm2-config.yml"
+        vagrant ssh dev
 
 
     **Resetting and updating the code to the latest master branch**
@@ -133,7 +129,7 @@ Accessing your local instance of RackHD
 
     Once that is complete, you can exit your SSH sessions with the VM and start all the services::
 
-        vagrant ssh dev -c "sudo pm2 start rackhd-pm2-config.yml"
+        vagrant ssh dev
 
 When RackHD is operational, the self-hosted API documentation should immediately
 be available:
@@ -698,7 +694,7 @@ Checking and setting the OBM settings for a node
 You can check to see if any OBM settings are defined on the node using the nodes
 API:
 
-``curl -k https://localhost:9093/api/2.0/nodes/57990efa0d76e7c207cdfc3f -H 'Authorization: JWT <token>' | jq``
+``curl -k https://localhost:9093/api/2.0/nodes/<nodeId> -H 'Authorization: JWT <token>' | jq``
 
 .. code-block:: JSON
 
@@ -757,7 +753,7 @@ Power Off
     curl -k -X POST \
         -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         -d '{"name": "Graph.PowerOff.Node"}' \
-        https://localhost:9093/api/2.0/nodes/5799151faa0559c007dab5e3/workflows
+        https://localhost:9093/api/2.0/nodes/<nodeId>/workflows
 
 Power On
 ^^^^^^^^^^^
@@ -767,15 +763,35 @@ Power On
     curl -k -X POST \
         -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         -d '{"name": "Graph.PowerOn.Node"}' \
-        https://localhost:9093/api/2.0/nodes/5799151faa0559c007dab5e3/workflows
+        https://localhost:9093/api/2.0/nodes/<nodeId>/workflows
 
 Install OS
 ^^^^^^^^^^^
+Three steps to install os.
 
+- step 1: OBM setting
+.. code-block:: REST
+    curl localhost:9090/api/current/nodes/<nodeId>/catalogs/bmc | jq '.' | grep "IP Address" 
+    curl -k -X PUT \
+    -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
+    -d '{ "nodeId": "<nodeId>", "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "<BMC IP>" } }' \https://localhost:9093/api/2.0/obms
+
+- step 2: Prepare OS Image - manual method or image-service
+.. code-block:: REST
+
+ sudo mkdir -p /var/mirrors/Centos
+ cd /var/renasar/on-http && sudo mkdir -p static/http/mirrors/
+ sudo mount -o loop ~/static/http/mirrors/CentOS-7.0-1406-x86_64-DVD.iso /var/mirrors/Centos
+ sudo ln -s /var/mirrors/Centos /var/renasar/on-http/static/http/mirrors/   
+ sudo service on-http restart 
+
+image-service: https://github.com/rackhd/image-service
+
+- step 3: Start installing os
 .. code-block:: REST
 
     cd ~/src/rackhd/examples
     curl -k -X POST \
         -H 'Content-Type: application/json' -H 'Authorization: JWT <token>' \
         --data @samples/centos_iso_boot.json \
-        https://localhost:9093/api/2.0/nodes/579680825d434579084ff910/workflows
+        https://localhost:9093/api/2.0/nodes/<nodeId>/workflows
