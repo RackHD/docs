@@ -308,7 +308,7 @@ To talk with BMC, RackHD must be configured with the the BMC IP and credentials.
 
 .. code::
    
-   vagrant@rackhd:~$ curl -k -X PUT -H 'Content-Type: application/json' -d '{ "nodeId": "<node-id>", "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "<BMC-IP>" } }' localhost:8080/api/2.0/obm
+   vagrant@rackhd:~$ curl -k -X PUT -H 'Content-Type: application/json' -d '{ "nodeId": "<node-id>", "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "<BMC-IP>" } }' localhost:8080/api/2.0/obms
 
 4. Once the OBM credentials have been configured, RackHD can communicate with BMC in workflows (e.g. power-cycle the BMC or retrieve poller data)
 
