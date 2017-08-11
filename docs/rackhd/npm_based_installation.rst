@@ -87,6 +87,8 @@ Prerequisites
 
   .. code::
 
+    sudo apt-get install build-essential
+    sudo apt-get install libkrb5-dev
     sudo apt-get install rabbitmq-server
     sudo apt-get install mongodb
     sudo apt-get install snmp
