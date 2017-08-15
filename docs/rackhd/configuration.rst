@@ -485,4 +485,115 @@ There are currently two API groups defined in RackHD:
         You can now choose from "northbound-api-router","southbound-api-router" or
         ["northbound-api-router", "southbound-api-router"].
 
+Raid Configuration
+~~~~~~~~~~~~~~~~~~
 
+Setting up the overlay image 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+For the correct tooling (storcli for Quanta and perccli for Dell) you will need this overlay image: http://XXX.XXX.XXX.XXX/repo/overlays/secure.erase.overlay.cpio.gz 
+
+In the static on-http directory: 
+
+.. code-block:: shell
+
+   onrack@ORA:/var/renasar/on-http/static/http/common$ ls 
+   base.trusty.3.16.0-25-generic.squashfs.img discovery.overlay.cpio.gz initrd.img-3.16.0-25-generic secure.erase.overlay.cpio.gz vmlinuz-3.16.0-25-generic 
+
+Posting the Workflow
+^^^^^^^^^^^^^^^^^^^^
+    POST:        http://server-ip:8080/api/2.0/nodes/596637ca7c7f8c9e6d310bee/workflows/?name=Graph.Bootstrap.Megaraid.Configure
+
+add the below example content in the json body for payload
+
+.. code-block:: JSON
+
+   {
+      "options": {
+          "config-raid":{
+                     "ssdStoragePoolArr":[],
+                     "ssdCacheCadeArr":[{
+                            "enclosure": 252,
+                            "type": "raid0",
+                            "drives":"[0]"
+                     }],
+                     "controller": 0,
+                     "path":"/opt/MegaRAID/storcli/storcli64",
+                     "hddArr":[{
+                             "enclosure": 252,
+                             "type": "raid0",
+                             "drives":"[1]"
+                      },
+                      {
+                            "enclosure": 252,
+                            "type": "raid1",
+                            "drives":"[4,5]"
+                      }]
+         }
+      }
+   }
+
+Notes:
+ssdStoragePoolArr, ssdCacheCadeArr, hddArr should be passed as empty arrays if they don’t need to be configure like the “ssdStoragePoolArr” array in the example payload above is an empty array.
+For CacheCade (ssdCacheCadeArr) to work the controller should have the ability to configure it. 
+
+Payload Definition
+^^^^^^^^^^^^^^^^^^
+The drive information for payload can be gathered from the node catalogs using the api below:
+
+    GET /api/current/nodes/<id>/catalogs/<source>
+    
+Or from the node’s microkernel:
+(Note: the workflow does not stop in the micro-kernel. In order to be able to stop in the microkernel the workflow needs to be updated to remove the last two tasks.)
+
+.. code-block:: javascript
+    
+   {
+       label: 'refresh-catalog-megaraid',
+       taskName: 'Task.Catalog.megaraid',
+       waitOn: {
+           'config-raid': 'succeeded'
+       }
+    },
+    {
+       label: 'final-reboot',
+       taskName: 'Task.Obm.Node.Reboot',
+       waitOn: {
+           'refresh-catalog-megaraid': 'finished'
+       }
+    }
+    
+The elements in the arrays represent the EID of the drives (run this command in the micro-kernel storcli 64 /c0 show)
+ 
+   Physical Drives = 6 PD LIST : ======= -------------------------------------------------------------------------
+
+   EID:Slt DID State DG Size Intf Med SED PI SeSz Model Sp -------------------------------------------------------------------------
+
+   252:0 0 Onln 0 372.093 GB SAS SSD N N 512B HUSMM1640ASS200 U
+   
+   252:1 4 Onln 5 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+   
+   252:2 3 Onln 1 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+   
+   252:4 5 Onln 2 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+   
+   252:5 2 Onln 3 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+   
+   252:6 1 Onln 4 1.090 TB SAS HDD N N 512B HUC101212CSS600 U 
+
+"hddArr": is the array of hard drives that will take part of the storage pool 
+"ssdStoragePoolArr": ": is the array of solid state drives that will take part of the storage pool 
+"ssdCacheCadeArr": ": is the array of hard drives that will take part of CacheCade 
+
+Results
+^^^^^^^^^^^^^^^^^^
+After the workflow runs successfully, you should be able to see the newly created virtual disks either from the catalogs or from the monorail micro-kernel
+
+.. code-block:: shell
+
+   monorail@monorail-micro:~$ sudo /opt/MegaRAID/storcli/storcli64 /c0/vall show Virtual Drives : ==============-------------------------------------------------------------- DG/VD TYPE State Access Consist Cache Cac sCC Size Name --------------------------------------------------------------- 
+   0/0 Cac0 Optl RW Yes NRWBD - ON 372.093 GB 
+   1/1 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
+   2/2 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
+   3/3 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
+   4/4 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
+   5/5 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
