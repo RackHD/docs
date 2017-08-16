@@ -501,7 +501,7 @@ In the static on-http directory:
 
 Posting the Workflow
 ^^^^^^^^^^^^^^^^^^^^
-    POST:        http://server-ip:8080/api/2.0/nodes/596637ca7c7f8c9e6d310bee/workflows/?name=Graph.Bootstrap.Megaraid.Configure
+    POST:        http://server-ip:8080/api/2.0/nodes/:id/workflows/?name=Graph.Bootstrap.Megaraid.Configure
 
 add the below example content in the json body for payload
 
