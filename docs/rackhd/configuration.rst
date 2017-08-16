@@ -581,8 +581,8 @@ The elements in the arrays represent the EID of the drives (run this command in 
    252:6 1 Onln 4 1.090 TB SAS HDD N N 512B HUC101212CSS600 U 
 
 "hddArr": is the array of hard drives that will take part of the storage pool 
-"ssdStoragePoolArr": ": is the array of solid state drives that will take part of the storage pool 
-"ssdCacheCadeArr": ": is the array of hard drives that will take part of CacheCade 
+"ssdStoragePoolArr": is the array of solid state drives that will take part of the storage pool 
+"ssdCacheCadeArr": is the array of hard drives that will take part of CacheCade 
 
 Results
 ^^^^^^^^^^^^^^^^^^
