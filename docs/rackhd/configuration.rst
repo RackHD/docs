@@ -490,14 +490,55 @@ Raid Configuration
 
 Setting up the overlay image 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-For the correct tooling (storcli for Quanta and perccli for Dell) you will need this overlay image: http://XXX.XXX.XXX.XXX/repo/overlays/secure.erase.overlay.cpio.gz 
 
-In the static on-http directory: 
+For the correct tooling (storcli for Quanta and perccli for Dell) you will to need build the overlay image using the following steps:
+
+(1). Add the repo https://github.com/RackHD/on-imagebuilder
+
+(2). Make sure there are no previous versions of ansible present:
+   
+.. code-block:: shell
+
+   sudo pip uninstall ansible
+   sudo dpkg -r
+   sudo apt-get purge ansible
+   sudo pip –U install pip
+
+(3). Refer to the Requirements section of the Readme in the on-imagebuilder repo to install latest version of ansible: https://github.com/RackHD/on-imagebuilder#requirements
+
+(4). Refer to the Getting started section to build the default images first https://github.com/RackHD/on-imagebuilder#getting-started
 
 .. code-block:: shell
 
-   onrack@ORA:/var/renasar/on-http/static/http/common$ ls 
-   base.trusty.3.16.0-25-generic.squashfs.img discovery.overlay.cpio.gz initrd.img-3.16.0-25-generic secure.erase.overlay.cpio.gz vmlinuz-3.16.0-25-generic 
+   cd on-imagebuilder/
+   sudo ./build_all.sh
+
+(5). For Quanta storcli - https://github.com/RackHD/on-imagebuilder#adding-provisioner-roles-and-configuration-files  
+
+Refer to the NOTE section:  OEM roles provision_raid_overlay and provision_secure_erase_overlay require storcli_1.17.08_all.deb being copied into common/files. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip
+
+(6). For Dell PERCcli: https://github.com/RackHD/on-imagebuilder#adding-provisioner-roles-and-configuration-files
+
+Refer to the NOTE section to download and unzip the percCLI package and derive a debian version using ‘alien’ 
+There is no .deb version perccli tool. User can download .rpm perccli from https://downloads.dell.com/FOLDER02444760M/1/perccli-1.11.03-1_Linux_A00.tar.gz unzip the package and then use alien to get a .deb version perccli tool as below:
+
+.. code-block:: shell
+
+   sudo apt-get install alien
+   sudo alien -k perccli-1.11.03-1.noarch.rpm
+
+OEM roles provision_dell_raid_overlay and provision_secure_erase_overlay require perccli_1.11.03-1_all.deb being copied into common/files in /on-imagebuilder.
+
+(7). Build the overlayfs.  This creates the dell.raid.overlay.cpio.gz image in /tmp/on-imagebuilder/builds 
+
+.. code-block:: shell
+
+   sudo ./build_oem.sh 
+
+(8). Copy the image dell.raid.overlay.cpio.gz to /on-http/static/http/common
+
+(9). Restart the RackHD service
+
 
 Posting the Workflow
 ^^^^^^^^^^^^^^^^^^^^
