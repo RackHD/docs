@@ -13,7 +13,7 @@ config.json_
         "amqp": "amqp://localhost",
         "rackhdPublicIp": null,
         "apiServerAddress": "172.31.128.1",
-        "apiServerPort": 9080,
+        "apiServerPort": 9030,
         "dhcpPollerActive": false,
         "dhcpGateway": "172.31.128.1",
         "dhcpProxyBindAddress": "172.31.128.1",
@@ -28,17 +28,13 @@ config.json_
                 "httpsEnabled": false,
                 "proxiesEnabled": true,
                 "authEnabled": false,
-                "routers": "northbound-api-router"
+                "yamlName": ["monorail-2.0.yaml", "redfish.yaml"]
             },
-            {
-                "address": "172.31.128.1",
-                "port": 9080,
-                "httpsEnabled": false,
-                "proxiesEnabled": true,
-                "authEnabled": false,
-                "routers": "southbound-api-router"
-            }
         ],
+        "taskGraphEndpoint": {
+            "address": "172.31.128.1",
+            "port": 9030
+        },
         "httpDocsRoot": "./build/apidoc",
         "httpFileServiceRoot": "./static/files",
         "httpFileServiceType": "FileSystem",
@@ -423,11 +419,9 @@ This section describes how to setup HTTP/HTTPS endpoints in RackHD.
 An endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. Users can
 choose to enable authentication or enable HTTPS for each endpoint.
 
-There are currently two API groups defined in RackHD:
+There is currently one API group defined in RackHD:
 
 - the northbound-api-router API group. This is the API group that is used by users
-- the southbound-api-router API group. This is the API group that is used by nodes
-  interacting with the system
 
 .. code-block:: JSON
 
@@ -441,15 +435,7 @@ There are currently two API groups defined in RackHD:
             "httpsPfx": null,
             "proxiesEnabled": false,
             "authEnabled": false,
-            "routers": "northbound-api-router"
-        },
-        {
-            "address": "172.31.128.1",
-            "port": 9080,
-            "httpsEnabled": false,
-            "proxiesEnabled": true,
-            "authEnabled": false,
-            "routers": "southbound-api-router"
+            "yamlName": ["monorail-2.0.yaml", "redfish.yaml"]
         }
     ]
 
@@ -479,10 +465,35 @@ There are currently two API groups defined in RackHD:
       - A boolean value to toggle httpProxies (defaults to false)
     * - authEnabled
       - Toggle API Authentication
-    * - routers
-      - A single router name or a list of router names.
-        This would only take effect for 1.1 APIs.
-        You can now choose from "northbound-api-router","southbound-api-router" or
-        ["northbound-api-router", "southbound-api-router"].
+    * - yamlName
+      - A list of yaml file used to define the routes.
+        current availabe files are momorail-2.0.yaml, and redfish.yaml.
+
+
+.. _taskgraph-endpoint-config-ref-label:
+
+Setup Taskgraph Endpoint
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section describes how to setup the taskgraph endpoint in RackHD.
+The taskgraph endpoint is the interface that is used by nodes to interacting with the system
+
+.. code-block:: JSON
+
+    "taskGraphEndpoint": {
+        "address": "172.31.128.1",
+        "port": 9030
+    }
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - address
+      - IP/Interface that the tastgraph sevice is listeing on
+    * - port
+      - Local port that the taskgraph service is listening on
 
 
