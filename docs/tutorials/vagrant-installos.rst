@@ -23,8 +23,8 @@ Prerequisite
 
 .. image:: ../_static/node_info.png
      :align: center
-   
-    
+
+
 2. Use the mouse to select and copy ``node-id`` text( as shown in the below example snapshot). This ID will be used in the following steps.
 
 3. In RackHD server, ensure its OBM setting is not blank. right click to paste the ``node-id`` text in the following command.
@@ -45,8 +45,8 @@ To install OS on the vnode, RackHD can act as an OS mirror repository.
 
 1. Create the following folders
 
-For development environment, 
-  
+For development environment,
+
 .. code::
 
     vagrant@rackhd:~$ sudo su
@@ -55,15 +55,15 @@ For development environment,
     root@rackhd:/home/vagrant# mkdir -p /home/vagrant/src/on-http/static/http/mirrors/
 
 For demo environment,
- 
+
 .. code::
-   
+
      vagrant@rackhd:~$ sudo su
      root@rackhd:/home/vagrant# mkdir iso && cd iso
      root@rackhd:/home/vagrant# mkdir -p /var/mirrors/Photon
      root@rackhd:/home/vagrant# mkdir -p /var/renasar/on-http/static/http/mirrors/
-   
-2. Create OS mirror from an ISO image by typing below command. (Note: The photon-1.0-13c08b6.iso needs to be downloaded in /home/vagrant/iso)
+
+2. Create OS mirror from an ISO image by typing below command. (Note:The photon-1.0-13c08b6.iso needs to be downloaded in /home/vagrant/iso. Search the download URL, download it with `wget` command. For example: `wget https://bintray.com/vmware/photon/download_file?file_path=photon-1.0-62c543d.iso`)
 
 .. code::
 
@@ -83,7 +83,7 @@ For demo environment,
 .. code::
 
    root@rackhd:/home/vagrant/iso# sudo ln -s /var/mirrors/Photon /var/renasar/on-http/static/http/mirrors/
- 
+
 Install OS with RackHD API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -113,6 +113,8 @@ In this step, you will create a payload file, and then leverage the RackHD build
 .. code::
 
   "repo": "http://172.31.128.1:9080/mirrors/Photon"
+
+`Note: Notice the case issue, avoid the mismatch between repo address and the name of mirror folder.`
 
 (2.3) Save and exist vim ( Hit "ESC" key first, then type ":wq" , then hit "Enter")
 
@@ -145,4 +147,4 @@ In the json output RackHD responses, you will see "_status" field is "running", 
 You can move on the guide or revisit previous sessions, then go back after 4~5 minutes .
 
 .. image:: ../_static/install_os_process.png
-   :align: center 
+   :align: center
