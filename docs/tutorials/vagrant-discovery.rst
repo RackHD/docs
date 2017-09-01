@@ -292,7 +292,7 @@ To talk with BMC, RackHD must be configured with the the BMC IP and credentials.
 **Note**: the <node_id> is the Node-ID retrieved from Step 3.
 
 .. code::
- 
+
    vagrant@rackhd:~$ curl localhost:8080/api/2.0/nodes/<node_id>/catalogs/bmc | jq '.' | grep "IP Address"
 
 2. In the following example, the BMC IP is 172.31.128.23. and it will be the value of <BMC_IP> variable in next step.
@@ -304,10 +304,10 @@ To talk with BMC, RackHD must be configured with the the BMC IP and credentials.
 
 3. Include the BMC IP (it should be 172.31.128.xx , the DHCP from rackhd-server) in the following command, to set an IPMI OBM setting on a node.
 
-**Note**: Do not forget to fill the exact <BMC_IP> and <node_id> based on those assigned to your specific nodes.
+**Note**: Do not forget to fill the exact <BMC_IP> and <node_id> based on those assigned to your specific nodes. The OBM setting would be returned as response if the command is executed successfully.
 
 .. code::
-   
+
    vagrant@rackhd:~$ curl -k -X PUT -H 'Content-Type: application/json' -d '{ "nodeId": "<node-id>", "service": "ipmi-obm-service", "config": { "user": "admin", "password": "admin", "host": "<BMC-IP>" } }' localhost:8080/api/2.0/obms
 
 4. Once the OBM credentials have been configured, RackHD can communicate with BMC in workflows (e.g. power-cycle the BMC or retrieve poller data)

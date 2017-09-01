@@ -76,7 +76,7 @@ As below output example, you will find lots of handy built-in workflow which Rac
 
 Post a workflow to a specific node by running the following command.
 
-In the following example, to post a workflow to Reset a Note, the Node_id is obtained by the "curl localhost:8080/api/2.0/nodes | jq '.' "API.
+In the following example, to post a workflow to Reset a Node, the Node_id is obtained by the "curl localhost:8080/api/2.0/nodes | jq '.' "API.
 
 .. code::
  
