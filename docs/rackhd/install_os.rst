@@ -229,7 +229,9 @@ Deprecated 1.1 API - Stop the active workflow to cancel OS installation:
 Non-Windows OS Installation Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All parameters descriptions of OS installation workflow payload are listed below , they are fit to all supported OSes except CoreOS, **NOTE:** CoreOS only supports parameters *version*, *repo* and *installScriptUri*.
+All parameters descriptions of OS installation workflow payload are listed below, they are fit for use with all supported OSes except for CoreOS (see note below).
+
+**NOTE:** The CoreOS installer is pretty basic, and only supports certain parameters shown below. Configurations not directly supported by RackHD may still be made via a custom Ignition template. Typical parameters for CoreOS include: *version*, *repo*, and *installScriptUri*|*ignitionScriptUri* and optionally *vaultToken* and *grubLinuxAppend*.
 
 =================== ================ ============ ============================================
 Parameters          Type              Flags       Description
@@ -251,6 +253,9 @@ switchDevices       Array            *optional*   **(ESXi only)** If specified, 
 postInstallCommands Array            *optional*   **(ESXi only)** If specified, this contains an array of string commands that will be run at the end of the post installation step.  This can be used by the customer to tweak final system configuration.
 installType         String           *optional*   **(PhotonOS only)** The value is *minimal* or *full* to indicate the type of installed OS, defualt *installType* is **minimal**
 installScriptUri    String           *optional*   The download URI for a custom kickstart/preseed/autoyast/cloud-config template to be used for automatic installation/configuration.
+ignitionScriptUri   String           *optional*   **(CoreOS only)** The download URI for a custom Ignition template used for post-install system configurations for CoreOS Container Linux
+vaultToken          String           *optional*   **(CoreOS only)** The token used for unwrapping a wrapped Vault response -- currently only an Ignition template (ignitionScriptUri) or cloud-config userdata (installScriptUri) payload is supported.
+grubLinuxAppend     String           *optional*   **(CoreOS only)** Extra (persistent) kernel boot parameters
 
                                                   NOTE: There are RackHD specific commands within all default install templates that should be copied into any custom install templates. The built-in templates support the above options, and any additional install logic is best added by copying the default templates and modifying from there. The default install scripts can be found in https://github.com/RackHD/on-http/tree/master/data/templates, and the filename is specified by the `installScript` field in the various OS installer task definitions (e.g. https://github.com/RackHD/on-tasks/blob/master/lib/task-data/tasks/install-centos.js)
 remoteLogging       Boolean          *optional*   If set to true, OS installation logs will be sent to RackHD server from nodes if installer supports remote logging. Note you must configure rsyslog on RackHD server if you want to receive those logs. Please refer to https://github.com/RackHD/RackHD/blob/master/example/config/rsyslog_rackhd.cfg.example as how to enable rsyslog service on RackHD server. Currently only CentOS installation supports this feature, we are still working on other OS installation workflows to enable this feature. 
