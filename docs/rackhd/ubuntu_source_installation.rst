@@ -1,6 +1,51 @@
 Source Installation on Ubuntu
 ---------------------------------
 
+NICs
+^^^^
+
+**Ubuntu 14.04**
+
+Start with an Ubuntu trusty(14.04) instance with 2 nics:
+
+* eth0 for the 'public' network - providing access to RackHD APIs, and providing
+  routed (layer3) access to out of band network for machines under management
+
+* eth1 for dhcp/pxe to boot/configure the machines
+
+edit the network:
+
+* eth0 - assign IP address as appropriate for the environment, or you can use DHCP
+
+* eth1 static ( 172.31.128.0/22 )
+
+
+#######
+
+**Ubuntu 16.04**
+
+Start with an Ubuntu xenial(16.04) instance with 2 nics:
+
+* ens160 for the 'public' network - providing access to RackHD APIs, and providing
+  routed (layer3) access to out of band network for machines under management
+
+* ens192 for dhcp/pxe to boot/configure the machines
+
+edit the network:
+
+* ens160 - assign IP address as appropriate for the environment, or you can use DHCP
+
+* ens192 static ( 172.31.128.0/22 )
+
+If you start with Ubuntu xenial(16.04), please check the network config file: `/etc/network/interfaces`. The ens192's ip address is 172.31.128.1. Like as follows:
+
+.. code::
+
+    auto ens192
+    iface ens192 inet static
+            address 172.31.128.1
+            post-up ifconfig ens192 promisc
+
 We will leverage the ansible roles created for the RackHD demonstration environment.
 
 .. code::
@@ -26,6 +71,10 @@ This will install all the relevant dependencies and code into ~/src, expecting
 that it will be run with `pm2`_.
 
 .. _pm2: http://pm2.keymetrics.io/
+
+
+Start RackHD
+~~~~~~~~~~~~
 
 .. code::
 
