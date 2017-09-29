@@ -3,6 +3,8 @@ RackHD documentation source for http://rackhd.readthedocs.io
 
 [![Documentation Build Status](https://readthedocs.org/projects/rackhd/badge/?version=latest)](https://readthedocs.org/projects/rackhd/?badge=latest)
 
+Copyright © 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
+
 ## Setting up for editing and building the docs
 
 create a Virtualenv and set up the requirements
@@ -65,3 +67,12 @@ sphinx-autobuild -H 0.0.0.0 -p 8000 . _build/html
 
 and navigate to http://&lt;server ip>:8000 to see the docs  
 the default url is http://127.0.0.1:8000
+
+
+## Licensing
+
+Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+RackHD is a Trademark of Dell EMC
