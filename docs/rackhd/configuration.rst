@@ -97,7 +97,7 @@ The following table describes the configuration parameters in config.json:
 
             "amqp": ["amqp://<host_1>:<port_1>","amqp://<host_2>:<port_2>",..., "amqp://<host_n:<port_n>"],
     * - apiServerAddress
-          - External facing IP address of the API server
+      - External facing IP address of the API server
     * - rackhdPublicIp
       - RackHD's public IP
     * - apiServerPort
