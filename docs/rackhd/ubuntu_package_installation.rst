@@ -146,7 +146,7 @@ _`Install/Configure with Step by Step Guide`
 
 (1). Install the prerequisite packages:
 
-.. code::
+  .. code::
 
     sudo apt-get install rabbitmq-server
     sudo apt-get install mongodb
@@ -158,6 +158,11 @@ _`Install/Configure with Step by Step Guide`
     sudo apt-get install amtterm
 
     sudo apt-get install isc-dhcp-server
+
+
+  **Note**:
+  MongoDB versions 2.4.9 (on Ubuntu 14.04), 2.6.10 (on Ubuntu 16.04) and 3.4.9 (on both Ubuntu 14.04 and 16.04) are verified with RackHD.
+  For more details on how to install MongDB 3.4.9, please refer to: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
 (2). Set up the RackHD bintray repository for use within this instance of Ubuntu
 
