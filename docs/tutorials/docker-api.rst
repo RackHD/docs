@@ -1,5 +1,5 @@
 Interfacing with The RESTful API
-===============================
+================================
 
 Overview
 --------
@@ -13,15 +13,15 @@ The Redfish API is compliant with the Redfish specification as an additional RES
 The REST API 2.0 provides unique features that are not provided in the Redfish API.
 
 Restful API ( v2.0 )
------------------
+--------------------
 
 **REST API ( v 2.0) - Get workflow history**
 
-Before the following operations are excuted, you need to ssh the vagrant box first. ``vagrant ssh dev`` can enter the demo environment. ``vagrant ssh dev_ansible`` can enter development environment. The **<Node-ID>** is retrieved from 7.2.
+The **<Node-ID>** is retrieved from 7.2.
 
 .. code::
 
-  vagrant@rackhd:~$ curl localhost:8080/api/2.0/nodes/<Node-ID>/workflows | jq '.'
+  curl localhost:9090/api/2.0/nodes/<Node-ID>/workflows | jq '.'
 
 .. image:: ../_static/node_workflow.png
      :align: center
@@ -30,7 +30,7 @@ Before the following operations are excuted, you need to ssh the vagrant box fir
 
 .. code::
 
-   vagrant@rackhd:~$ curl localhost:8080/api/2.0/nodes/<Node-ID>/workflows?active=true | jq '.'
+   curl localhost:9090/api/2.0/nodes/<Node-ID>/workflows?active=true | jq '.'
 
 In the following example, the return is blank ([]), which means no workflow is actively running on this node.
 
@@ -43,7 +43,7 @@ Show the RackHD configurations, by running the following command.
 
 .. code::
 
- vagrant@rackhd:~$ curl localhost:8080/api/2.0/config | jq '.'
+  curl localhost:9090/api/2.0/config | jq '.'
 
 .. image:: ../_static/config_file.png
      :align: center
@@ -54,7 +54,7 @@ Dump the IP address in the lookup table (where RackHD maintain the nodes IP), by
 
 .. code::
 
-  vagrant@rackhd:~$ curl localhost:8080/api/2.0/lookups | jq '.'
+  curl localhost:9090/api/2.0/lookups | jq '.'
 
 .. image:: ../_static/lookup_info.png
    :align: center
@@ -64,8 +64,8 @@ Dump the IP address in the lookup table (where RackHD maintain the nodes IP), by
 - Show the name of all built-in workflow
 
 .. code::
-  
-   vagrant@rackhd:~$ curl localhost:8080/api/2.0/workflows/graphs | jq '.' | grep injectableName | grep "Graph.*" | grep -v "Task"
+
+    curl localhost:9090/api/2.0/workflows/graphs | jq '.' | grep injectableName | grep "Graph.*" | grep -v "Task"
 
 As below output example, you will find lots of handy built-in workflow which RackHD carries, which you can leverage them directly.
 
@@ -76,11 +76,11 @@ As below output example, you will find lots of handy built-in workflow which Rac
 
 Post a workflow to a specific node by running the following command.
 
-In the following example, to post a workflow to Reset a Node, the Node_id is obtained by the "curl localhost:8080/api/2.0/nodes | jq '.' "API.
+In the following example, to post a workflow to Reset a Node, the Node_id is obtained by the "curl localhost:9090/api/2.0/nodes | jq '.' "API.
 
 .. code::
- 
-   vagrant@rackhd:~$ curl -X POST -H 'Content-Type: application/json' 127.0.0.1:8080/api/2.0/nodes/<Node_id>/workflows?name=Graph.Reset.Node | jq '.'
+
+    curl -X POST -H 'Content-Type: application/json' 127.0.0.1:9090/api/2.0/nodes/<Node_id>/workflows?name=Graph.Reset.Node | jq '.'
 
 Then the vNode is powered cycle and rebooted.
 
@@ -93,7 +93,7 @@ List the Chassis that is managed by RackHD (equivalent to the enclosure node in 
 
 .. code::
 
-  vagrant@rackhd:~$ curl 127.0.0.1:8080/redfish/v1/Chassis| jq '.'
+  curl 127.0.0.1:9090/redfish/v1/Chassis| jq '.'
 
 
 .. image:: ../_static/redfish_chasis.png
@@ -104,8 +104,8 @@ List the Chassis that is managed by RackHD (equivalent to the enclosure node in 
 1. In the rackhd-server, list the System that is managed by RackHD (equivalent to compute node in API 2.0), by running the following command
 
 .. code::
-  
- vagrant@rackhd:~$ curl 127.0.0.1:8080/redfish/v1/Systems| jq '.'
+
+  curl 127.0.0.1:9090/redfish/v1/Systems| jq '.'
 
 2. Use the mouse to select the **System-ID** as below example, then the ID will be in your clipboard. This ID will be used in the following steps.
 
@@ -117,7 +117,7 @@ List the Chassis that is managed by RackHD (equivalent to the enclosure node in 
 
 .. code::
 
-   vagrant@rackhd:~$ curl 127.0.0.1:8080/redfish/v1/systems/<System-ID>/LogServices/Sel| jq '.'
+    curl 127.0.0.1:9090/redfish/v1/systems/<System-ID>/LogServices/Sel| jq '.'
 
 .. image:: ../_static/redfish_sel.png
      :align: center
@@ -126,7 +126,7 @@ List the Chassis that is managed by RackHD (equivalent to the enclosure node in 
 
 .. code::
 
-  vagrant@rackhd:~$ curl 127.0.0.1:8080/redfish/v1/Systems/<System-ID>/Processors/0| jq '.'
+   curl 127.0.0.1:9090/redfish/v1/Systems/<System-ID>/Processors/0| jq '.'
 
 .. image:: ../_static/redfish_cpu.png
      :align: center
@@ -136,8 +136,8 @@ List the Chassis that is managed by RackHD (equivalent to the enclosure node in 
 Show the list of RackHD Redfish APIs' by running below command:
 
 .. code::
-  
-  vagrant@rackhd:~$ curl 127.0.0.1:8080/redfish/v1| jq '.'
+
+  curl 127.0.0.1:9090/redfish/v1| jq '.'
 
 .. image:: ../_static/redfish_helper.png
      :align: center

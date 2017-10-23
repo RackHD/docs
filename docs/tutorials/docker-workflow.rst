@@ -1,48 +1,23 @@
 Workflow Editor
 ================
 
-Before the following operations are excuted, you need to ssh the vagrant box first. ``vagrant ssh dev`` can enter the demo environment. ``vagrant ssh dev_ansible`` can enter development environment.
-
-Step 1: Download on-web-ui
----------------------------
-
-For development environment,
-
-.. code::
-
-  vagrant@rackhd:~$ sudo mkdir -p /home/vagrant/src/on-http/static/http
-  vagrant@rackhd:~$ cd /home/vagrant/src/on-http/static/http/
-  vagrant@rackhd:~$ sudo wget https://github.com/RackHD/on-web-ui/archive/gh-pages.zip
-  vagrant@rackhd:~$ sudo unzip gh-pages.zip
-  vagrant@rackhd:~$ sudo mv on-web-ui-gh-pages on-web-ui
-
-For demo environment,
-
-.. code::
-
-  vagrant@rackhd:~$ sudo mkdir -p /var/renasar/on-http/static/http
-  vagrant@rackhd:~$ cd /var/renasar/on-http/static/http
-  vagrant@rackhd:~$ sudo wget https://github.com/RackHD/on-web-ui/archive/gh-pages.zip
-  vagrant@rackhd:~$ sudo unzip gh-pages.zip
-  vagrant@rackhd:~$ sudo mv on-web-ui-gh-pages on-web-ui
-
-Step 2: Configure on-web-ui
+Step 1: Configure on-web-ui
 ----------------------------
 
-1. On the Windows desktop of launchpad, open Chrome, and then and go to the following URL. ``http://<IP>:9090/on-web-ui``
+1. On the Windows desktop of launchpad, open Chrome, and then and go to the following URL. ``http://localhost:9090/ui``
 
 2. click the "gear" button on the left panel
 
-3. leave the 2 switches as default ( in this Lab, in the /opt/monorail/config.json, the https and api authentication are both disabled )
+3. leave the 2 switches as default ( in this Lab, in the /opt/monorail/config.json, the https is enabled and api authentication is disabled )
 
-4. On the Windows desktop of launchpad, fill the API 2.0 end point (<IP>:9090/api/2.0)
+4. On the Windows desktop of launchpad, verify the API 2.0 end point (127.0.0.1:9090/api/2.0)
 
 5. click "apply settings" button on the bottom.
 
 .. image:: ../_static/workflow_UI.png
      :align: center
 
-Step 3: Try on-web-ui
+Step 2: Try on-web-ui
 -----------------------
 
 1. Click the meter button in the left panel.
@@ -79,7 +54,7 @@ Step 3: Try on-web-ui
      :align: center
 
 
-Step 4: Create A New Workflow
+Step 3: Create A New Workflow
 -----------------------------
 
 In this session, you will customize a RackHD workflow to implement your own logic.
@@ -166,7 +141,7 @@ The on-web-ui will show there's a dummy operation (no-op) in this workflow.
 .. image:: ../_static/workflow_op13.png
      :align: center
 
-``[Note]`` Besides, you need to edit the code block of **Reboot**, as is shown in the picture above.  
+``[Note]`` Besides, you need to edit the code block of **Reboot**, as is shown in the picture above.
 
 18. Select the existing task Boostrap Ubuntu
 
@@ -270,10 +245,10 @@ Save The Workflow
      :align: center
 
 
-Step 5: Run The New Workflow
+Step 4: Run The New Workflow
 ----------------------------
 
-Click the run icon, to run the workflow that you created in 7.5.4. 
+Click the run icon, to run the workflow that you created in 7.5.4.
 
 .. image:: ../_static/workflow_op24.png
      :align: center
@@ -295,4 +270,4 @@ On the pop up diagram,
 5. Click the running My_Workflow, to view the progress. After several minutes, the workflow is completed, and the color of the workflow indicates the running result (red for fail, yellow for canceled, green for success).
 
 .. image:: ../_static/workflow_op26.png
-     :align: center 
+     :align: center
