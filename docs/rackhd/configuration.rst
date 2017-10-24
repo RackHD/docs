@@ -85,17 +85,33 @@ The following table describes the configuration parameters in config.json:
       - URI for accessing the AMQP interprocess communications channel. RackHD can be configured to use a single AMQP server or a AMQP cluster consisting of multiple AMQP servers.
 
         For a single AMQP server use the following formats:
-        
+
         .. code-block:: json
 
-            "amqp": "amqp://localhost",
-            "amqp": "amqp://<host>:<port>",
+            "amqp": "amqp[s]://localhost",
+            "amqp": "amqp[s]://<host>:<port>",
 
         For multiple AMQP servers use an array with the following format:
 
         .. code-block:: json
 
-            "amqp": ["amqp://<host_1>:<port_1>","amqp://<host_2>:<port_2>",..., "amqp://<host_n:<port_n>"],
+            "amqp": ["amqp[s]://<host_1>:<port_1>","amqp[s]://<host_2>:<port_2>",..., "amqp[s]://<host_n:<port_n>"],
+    * - amqpSsl
+      - SSL setting used to access the AMQP channel.
+
+        To enable SSL connections to the AMQP channel:
+
+        .. code-block:: json
+
+            {
+                "enabled": true,
+                "keyFile": "/path/to/key/file",
+                "certFile": "/path/to/cert/file",
+                "caFile": "/path/to/cacert/file"
+            }
+
+        The key, certificate, and certificate authority files must be in pem format. Alternatively, ``pfxFile`` can be used to read key and certificate from a single file.
+
     * - apiServerAddress
       - External facing IP address of the API server
     * - rackhdPublicIp
@@ -206,8 +222,8 @@ The following table describes the configuration parameters in config.json:
       - Listening port for RackHD WebSocket Service (defaults to 9100).
     * - trustedProxy
       - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
-    * - discoveryGraph 
-      - Injectable name for the discovery graph that should be run against new nodes 
+    * - discoveryGraph
+      - Injectable name for the discovery graph that should be run against new nodes
 
         See documentation at https://expressjs.com/en/guide/behind-proxies.html
     * - autoCreateObm
@@ -250,7 +266,7 @@ to RackHD ``config.json``:
 
 .. code-block:: shell
 
-   "autoCreateObm": "true"  
+   "autoCreateObm": "true"
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
@@ -495,5 +511,3 @@ The taskgraph endpoint is the interface that is used by nodes to interacting wit
       - IP/Interface that the tastgraph sevice is listeing on
     * - port
       - Local port that the taskgraph service is listening on
-
-
