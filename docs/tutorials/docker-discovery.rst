@@ -15,7 +15,7 @@ The infrsim/default.yml file is used to defined the virutal node's configuration
 
 UltraVNC Viewer is used to show the console of vnode. In this environment, the vnode console will be availabe on the rackhd_southbound network on port `5901`.
 
-1. Run up a vnode
+1. Start up a vnode
 
 To start a vnode, the follwing command should be run from the rackh/example/infrasim direcotry.
 
@@ -29,7 +29,7 @@ You can execute command on host to check whether quanta_d51 vnode is up successf
 
   docker-compose ps
 
-Once the virutual node is up, you can connect to it via a vnc viwer on port 5901.  You first need to look at the log output to find the ip address of the bridge, br0, the virtual node is connected to.
+Once the virutual node is up, you can connect to it via a vnc viewer on port 5901.  You first need to look at the log output to find the ip address of the bridge, br0, the virtual node is connected to.
 
 .. code::
 

@@ -55,7 +55,7 @@ How to set up these environments is shown as follows.
     .. code::
 
         git clone https://github.com/RackHD/RackHD.git
-        cd RackHD/example
+        cd RackHD/example/rackhd
 
 2. Download and start the RackHD services with the docker-compose up file.  This command will load the configuration from the docker-compse.yml file.
 
@@ -77,4 +77,4 @@ How to set up these environments is shown as follows.
     .. image:: ../_static/docker_compose_ps.png
          :align: center
 
-4. The command ``docker-compse logs`` will output the logs from all the running RackHD services.  Additionally, you can stop the services with the command ``docker-compose stop``, or stop and delete the services with ``docker-compopse down``.
+4. The command ``docker-compose logs`` will output the logs from all the running RackHD services.  Additionally, you can stop the services with the command ``docker-compose stop``, or stop and delete the services with ``docker-compopse down``.
