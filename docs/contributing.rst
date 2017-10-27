@@ -41,7 +41,6 @@ Core Committer Team
 * Lyne.Lin@dell.com
 * Rahman.Muhammad@dell.com
 * Jeanne.Ohren@dell.com
-* Michael.Regert@dell.com
 * Geoffrey.Reid@dell.com
 * Stuart.Stanley@dell.com
 * James.Turnquist@dell.com
@@ -87,7 +86,7 @@ Submitting Design Proposals
 
 Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at groups.google.com/forum/#!forum/rackhd)
 for discussion. The Core Committer team reviews the proposals to make sure architectural details are aligned, with a floating agenda updated on the
-RackHD github wiki at https://github.com/RackHD/RackHD/wiki/Core-Committer-Meeting. The meeting notes are posted to the google groups mailing list.
+RackHD Confluence page at https://rackhd.atlassian.net/wiki/spaces/RAC1/pages/9437198/Core+Commiter+Weekly+Interlock (formerly github wiki at https://github.com/RackHD/RackHD/wiki/Core-Committer-Meeting). The meeting notes are posted to the google groups mailing list.
 
 Work by dedicated teams is scheduled within a broader `RackHD Roadmap`_. External contributions are absolutely welcome outside of planning exposed in the
 roadmap.
