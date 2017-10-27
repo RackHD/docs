@@ -10,5 +10,5 @@ We encourage you to take the time to explore the links below and reach out via S
 more about RackHD.
 
 - General portal : http://rackhd.io/
--  Documents : http://rackhd.readthedocs.io/en/latest/index.html
+- Documents : http://rackhd.readthedocs.io/en/latest/index.html
 - Code in GitHub : https://github.com/RackHD
