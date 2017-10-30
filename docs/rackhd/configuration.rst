@@ -205,7 +205,7 @@ The following table describes the configuration parameters in config.json:
     * - tftproot
       - Fully-qualified directory from which static TFTP content is served
     * - minLogLevel
-      - A numerical value for filtering the logging from RackHD
+      - A numerical value for filtering the logging from RackHD. The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L31-L37
     * - logColorEnable
       - A boolean value to toggle the colorful log output (defaults to false)
     * - enableLocalHostException
@@ -229,8 +229,6 @@ The following table describes the configuration parameters in config.json:
     * - autoCreateObm
       - Allow rackHD to setup IPMI OBM settings on active dicovery by creating a new BMC user on the compute node.
 
-
-The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
 These configurations can also be overridden by setting environment variables in the
 process that's running each application, or on the command line when running node directly.
