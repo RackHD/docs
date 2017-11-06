@@ -1,0 +1,24 @@
+{
+    "options": {
+        "bootstrap":{
+            "overlayfsFile": "raid.overlay.cpio.gz"
+        },
+        "create-raid": {
+            "raidList": [
+                {
+                    "enclosure": 255,
+                    "type": "raid1",
+                    "drives": [1, 4],
+                    "name": "VD0"
+                },
+                {
+                    "enclosure": 255,
+                    "type": "raid5",
+                    "drives": [2, 5, 3],
+                    "name": "VD1"
+                }
+            ]
+        }
+    }
+}
+
