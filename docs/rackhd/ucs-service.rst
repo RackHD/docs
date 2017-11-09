@@ -1,7 +1,7 @@
 UCS-Service
 -----------
 
-The UCS-Service is an optional Rack-HD service that will enable RackHD to communicate with Cisco UCS Manger.  This allows RackHD to discover and manage the hardware under the UCS Manager.
+The UCS-Service is an optional RackHD service that will enable RackHD to communicate with Cisco UCS Manger.  This allows RackHD to discover and manage the hardware under the UCS Manager.
 
 UCS-Service Setup
 ~~~~~~~~~~~~~~~~~
@@ -11,24 +11,46 @@ The UCS-Service configuration can be set in the config.json file. The following 
 ================ ===============================
  Option           Description
 ================ ===============================
-address           IP address the UCS-service will bind to
-port              TCP port the UCS-service will bind to
-httpsEnabled      set to "true" to enable https access
-certFile          Certificate file for https (null for self signed)
-keyFile           Key file for https (null for self signed)
-debug             set to "true" to enable debugging
+**address**      IP address the UCS-service will bind to
+**port**         TCP port the UCS-service will bind to
+**httpsEnabled** set to "true" to enable https access
+**certFile**     Certificate file for https (null for self signed)
+**keyFile**      Key file for https (null for self signed)
+**debug**        set to "true" to enable debugging
+**callbackUrl**  RackHD callback API. ucs-service asynchronous API will post data to RackHD via this callback
+**concurrency**  Celery concurrent process number, default is 2
+**session**      After ucs-service login UCSM, it will keep login active for a duration of "session", default it is 60 seconds
 ================ ===============================
 
-To start the UCS-Service run
+To start the UCS-Service run:
 
 .. code::
 
+  $ pip install -r requirements.txt
   $ python app.py
+  $ python task.py worker
+
+Or if you system has supervisord installed, you can use the script ucs-service-ctl.sh to start UCS-service:
+
+.. code::
+
+  sudo ./ucs-service-ctl.sh start
+
+After you start UCS-service with ucs-service-ctl.sh, you can also stop or restart it with:
+
+.. code::
+
+  sudo ./ucs-service-ctl.sh stop/restart
+
+There is a supervisord web GUI that can also be used to control ucs-service, by browsing https://<RackHD_Host>:9001
 
 UCS-Service API
 ~~~~~~~~~~~~~~~
 
 The API for the UCS-Service can be accessed via a graphical GUI by directing a browser to https://<RackHD_Host>:7080/ui
+UCS-service is originally built with synchronous http/https APIs, later on some asynchronous APIs are also developed to improve performance accessing UCSM. UCS-service asynchronous API uses Celery as task queue tool.
+If user accessed UCS-service asynchronous API, user won't get required data immediately but a response body only includes string "Accepted".
+Real data will be posted to **callbackUrl** retrieved from config.json.
 
 UCS-Service Workflows
 ~~~~~~~~~~~~~~~~~~~~~
