@@ -10,3 +10,4 @@ Tutorials
    docker-workflow
    docker-installos
    docker-conclusion
+   workflow-engine-service
