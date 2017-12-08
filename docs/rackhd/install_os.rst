@@ -71,7 +71,7 @@ Making the Mirrors
 
 **Centos 6.5**
 
-Notes: Because CentOS 6.5 was deprecated by provider, the following rsync source is not available to 
+Notes: Because CentOS 6.5 was deprecated by provider, the following rsync source is not available to
 make mirror. Just leave it for an example.
 
   .. code::
@@ -110,8 +110,61 @@ make mirror. Just leave it for an example.
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.2 /var/mirrors/suse/update
     sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/13.2-non-oss /var/mirrors/suse/update
 
+**Ubuntu**
 
-For the Ubuntu repo, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
+**[IMPORTANT]** DNS server is required in Ubuntu installation, make sure you have put following lines in /etc/dhcp/dhcpd.conf. 172.31.128.1 is a default option in RackHD
+
+  .. code::
+
+    option domain-name-servers 172.31.128.1;
+    option routers 172.31.128.254;
+
+**[Method-1]** For **iso** installation, see this payload https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_iso_minimal.json Remember to replace {{ file.server }} with your own, see 'fileServerAddress' and 'fileServerPort' in /opt/monorail/config.json
+
+  .. code::
+
+    mkdir ~/iso && cd !/iso
+
+    # Download iso file
+    wget http://releases.ubuntu.com/13.04/ubuntu-14.04.5-server-amd64.iso
+
+    mkdir -p /var/mirrors/ubuntu
+
+    # Replace {on-http-dir} with your own
+    mkdir -p {on-http-dir}/static/http/mirrors
+
+    # Mount iso
+    sudo mount ubuntu-14.04.5-server-amd64.iso /var/mirrors/ubuntu
+
+    sudo ln -s /var/mirrors/ubuntu {on-http-dir}/static/http/mirrors/
+
+    # Create workflow
+    # Replace the 9090 port if you are using other ports
+    # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
+    curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_iso_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
+
+
+**[Method-2]** For **live** installation, see this payload https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json Remember to replace **repo** with your own **{fileServerAddress}:{fileServerPort}/ubuntu**, you can find the proper parameters in /opt/monorail/config.json
+
+Add following block into httpProxies in /opt/monorail/config.json
+
+  .. code::
+
+    {
+      "localPath": "/ubuntu",
+      "server": "http://us.archive.ubuntu.com/",
+      "remotePath": "/ubuntu/"
+    }
+
+  .. code::
+
+    # Create workflow
+    # Replace the 9090 port if you are using other ports
+    # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
+    curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
+
+
+**[Method-3]** For the **Ubuntu repo**, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
 
   .. code::
 
@@ -162,7 +215,7 @@ OS            Workflow                     Version
 ESXi          Graph.InstallESXi            5.5/6.0
 RHEL          Graph.InstallRHEL            7.0
 CentOS        Graph.InstallCentOS          6.5/7
-Ubuntu        Graph.InstallUbuntu          trusty(14.04)
+Ubuntu        Graph.InstallUbuntu          trusty(14.04), xenial(16.04)
 SUSE          Graph.InstallSUSE            openSUSE: leap/42.1, SLES: 11/12
 CoreOS        Graph.InstallCoreOS          899.17.0
 Windows       Graph.InstallWindowsServer   Server 2012
@@ -207,7 +260,7 @@ Deprecated 1.1 API - Check the active workflow running on a node
 .. code-block:: REST
 
     curl <server>/api/1.1/nodes/<identifier>/workflows/active
-    
+
 Stop the currently active workflow on a node:
 
 ::
@@ -258,7 +311,7 @@ vaultToken          String           *optional*   **(CoreOS only)** The token us
 grubLinuxAppend     String           *optional*   **(CoreOS only)** Extra (persistent) kernel boot parameters
 
                                                   NOTE: There are RackHD specific commands within all default install templates that should be copied into any custom install templates. The built-in templates support the above options, and any additional install logic is best added by copying the default templates and modifying from there. The default install scripts can be found in https://github.com/RackHD/on-http/tree/master/data/templates, and the filename is specified by the `installScript` field in the various OS installer task definitions (e.g. https://github.com/RackHD/on-tasks/blob/master/lib/task-data/tasks/install-centos.js)
-remoteLogging       Boolean          *optional*   If set to true, OS installation logs will be sent to RackHD server from nodes if installer supports remote logging. Note you must configure rsyslog on RackHD server if you want to receive those logs. Please refer to https://github.com/RackHD/RackHD/blob/master/example/config/rsyslog_rackhd.cfg.example as how to enable rsyslog service on RackHD server. Currently only CentOS installation supports this feature, we are still working on other OS installation workflows to enable this feature. 
+remoteLogging       Boolean          *optional*   If set to true, OS installation logs will be sent to RackHD server from nodes if installer supports remote logging. Note you must configure rsyslog on RackHD server if you want to receive those logs. Please refer to https://github.com/RackHD/RackHD/blob/master/example/config/rsyslog_rackhd.cfg.example as how to enable rsyslog service on RackHD server. Currently only CentOS installation supports this feature, we are still working on other OS installation workflows to enable this feature.
 
 =================== ================ ============ ============================================
 
@@ -311,7 +364,7 @@ ipAddr      String   **required** The assigned static IP address
 gateway     String   **required** The gateway.
 netmask     String   **required** The subnet mask.
 vlanIds     Array    *optional*   The VLAN ID. This is an array of integers (0-4095).
-                                  In the case of Windows OS, the vlan is an array of one parameter only  
+                                  In the case of Windows OS, the vlan is an array of one parameter only
 =========== ======== ============ ============================================
 
 
