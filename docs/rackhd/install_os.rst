@@ -128,6 +128,7 @@ make mirror. Just leave it for an example.
     # Download iso file
     wget http://releases.ubuntu.com/13.04/ubuntu-14.04.5-server-amd64.iso
 
+    # Create mirror folder
     mkdir -p /var/mirrors/ubuntu
 
     # Replace {on-http-dir} with your own
