@@ -216,7 +216,7 @@ OS            Workflow                     Version
 ESXi          Graph.InstallESXi            5.5/6.0
 RHEL          Graph.InstallRHEL            7.0
 CentOS        Graph.InstallCentOS          6.5/7
-Ubuntu        Graph.InstallUbuntu          trusty(14.04), xenial(16.04)
+Ubuntu        Graph.InstallUbuntu          trusty(14.04)/xenial(16.04)/artful(17.10)
 SUSE          Graph.InstallSUSE            openSUSE: leap/42.1, SLES: 11/12
 CoreOS        Graph.InstallCoreOS          899.17.0
 Windows       Graph.InstallWindowsServer   Server 2012
