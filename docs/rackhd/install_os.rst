@@ -214,7 +214,7 @@ Supported OSes and their workflows are listed in table, and the listed versions 
 OS            Workflow                     Version
 ============= =========================== =================================================
 ESXi          Graph.InstallESXi            5.5/6.0
-RHEL          Graph.InstallRHEL            7.0
+RHEL          Graph.InstallRHEL            7.0/7.1/7.2
 CentOS        Graph.InstallCentOS          6.5/7
 Ubuntu        Graph.InstallUbuntu          trusty(14.04)/xenial(16.04)/artful(17.10)
 SUSE          Graph.InstallSUSE            openSUSE: leap/42.1, SLES: 11/12
@@ -313,6 +313,10 @@ grubLinuxAppend     String           *optional*   **(CoreOS only)** Extra (persi
 
                                                   NOTE: There are RackHD specific commands within all default install templates that should be copied into any custom install templates. The built-in templates support the above options, and any additional install logic is best added by copying the default templates and modifying from there. The default install scripts can be found in https://github.com/RackHD/on-http/tree/master/data/templates, and the filename is specified by the `installScript` field in the various OS installer task definitions (e.g. https://github.com/RackHD/on-tasks/blob/master/lib/task-data/tasks/install-centos.js)
 remoteLogging       Boolean          *optional*   If set to true, OS installation logs will be sent to RackHD server from nodes if installer supports remote logging. Note you must configure rsyslog on RackHD server if you want to receive those logs. Please refer to https://github.com/RackHD/RackHD/blob/master/example/config/rsyslog_rackhd.cfg.example as how to enable rsyslog service on RackHD server. Currently only CentOS installation supports this feature, we are still working on other OS installation workflows to enable this feature.
+bonds               Array            *optional*   **(RHEL/CentOS only)** Bonded interface configuration. Bonded interfaces will be created after OS installation. If it is omitted, null or empty, RackHD will not create any bond interface.
+packages            Array            *optional*   **(RHEL/CentOS only)** List of packages, package groups, package environments that needs to be installed along with base RPMs. If it is omitted, null or empty, RackHD will just install packages in base package group.
+enableServices      Array            *optional*   **(RHEL/CentOS only)** List of services that needs to be enabled explicitly after OS installation is completed.
+disableServices     Array            *optional*   **(RHEL/CentOS only)** List of services that needs to be disabled explicitly after OS installation is completed. If it is omitted, null or empty, RackHD will not not disable any installed service.
 
 =================== ================ ============ ============================================
 
