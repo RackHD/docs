@@ -3,10 +3,11 @@ Tutorials
 
 .. toctree::
 
-   vagrant-overview
-   vagrant-setup
-   vagrant-discovery
-   vagrant-api
-   vagrant-workflow
-   vagrant-installos
-   vagrant-conclusion
+   docker-overview
+   docker-setup
+   docker-discovery
+   docker-api
+   docker-workflow
+   docker-installos
+   docker-conclusion
+   workflow-engine-service

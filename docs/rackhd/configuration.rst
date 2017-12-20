@@ -13,7 +13,7 @@ config.json_
         "amqp": "amqp://localhost",
         "rackhdPublicIp": null,
         "apiServerAddress": "172.31.128.1",
-        "apiServerPort": 9080,
+        "apiServerPort": 9030,
         "dhcpPollerActive": false,
         "dhcpGateway": "172.31.128.1",
         "dhcpProxyBindAddress": "172.31.128.1",
@@ -28,17 +28,13 @@ config.json_
                 "httpsEnabled": false,
                 "proxiesEnabled": true,
                 "authEnabled": false,
-                "routers": "northbound-api-router"
+                "yamlName": ["monorail-2.0.yaml", "redfish.yaml"]
             },
-            {
-                "address": "172.31.128.1",
-                "port": 9080,
-                "httpsEnabled": false,
-                "proxiesEnabled": true,
-                "authEnabled": false,
-                "routers": "southbound-api-router"
-            }
         ],
+        "taskGraphEndpoint": {
+            "address": "172.31.128.1",
+            "port": 9030
+        },
         "httpDocsRoot": "./build/apidoc",
         "httpFileServiceRoot": "./static/files",
         "httpFileServiceType": "FileSystem",
@@ -89,19 +85,35 @@ The following table describes the configuration parameters in config.json:
       - URI for accessing the AMQP interprocess communications channel. RackHD can be configured to use a single AMQP server or a AMQP cluster consisting of multiple AMQP servers.
 
         For a single AMQP server use the following formats:
-        
+
         .. code-block:: json
 
-            "amqp": "amqp://localhost",
-            "amqp": "amqp://<host>:<port>",
+            "amqp": "amqp[s]://localhost",
+            "amqp": "amqp[s]://<host>:<port>",
 
         For multiple AMQP servers use an array with the following format:
 
         .. code-block:: json
 
-            "amqp": ["amqp://<host_1>:<port_1>","amqp://<host_2>:<port_2>",..., "amqp://<host_n:<port_n>"],
+            "amqp": ["amqp[s]://<host_1>:<port_1>","amqp[s]://<host_2>:<port_2>",..., "amqp[s]://<host_n:<port_n>"],
+    * - amqpSsl
+      - SSL setting used to access the AMQP channel.
+
+        To enable SSL connections to the AMQP channel:
+
+        .. code-block:: json
+
+            {
+                "enabled": true,
+                "keyFile": "/path/to/key/file",
+                "certFile": "/path/to/cert/file",
+                "caFile": "/path/to/cacert/file"
+            }
+
+        The key, certificate, and certificate authority files must be in pem format. Alternatively, ``pfxFile`` can be used to read key and certificate from a single file.
+
     * - apiServerAddress
-          - External facing IP address of the API server
+      - External facing IP address of the API server
     * - rackhdPublicIp
       - RackHD's public IP
     * - apiServerPort
@@ -193,7 +205,7 @@ The following table describes the configuration parameters in config.json:
     * - tftproot
       - Fully-qualified directory from which static TFTP content is served
     * - minLogLevel
-      - A numerical value for filtering the logging from RackHD
+      - A numerical value for filtering the logging from RackHD. The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L31-L37
     * - logColorEnable
       - A boolean value to toggle the colorful log output (defaults to false)
     * - enableLocalHostException
@@ -210,15 +222,13 @@ The following table describes the configuration parameters in config.json:
       - Listening port for RackHD WebSocket Service (defaults to 9100).
     * - trustedProxy
       - Enable trust proxy in express. Populate req.ip with left most IP address from the XForwardFor list.
-    * - discoveryGraph 
-      - Injectable name for the discovery graph that should be run against new nodes 
+    * - discoveryGraph
+      - Injectable name for the discovery graph that should be run against new nodes
 
         See documentation at https://expressjs.com/en/guide/behind-proxies.html
     * - autoCreateObm
       - Allow rackHD to setup IPMI OBM settings on active dicovery by creating a new BMC user on the compute node.
 
-
-The log levels for filtering are defined at https://github.com/RackHD/on-core/blob/master/lib/common/constants.js#L36-L44
 
 These configurations can also be overridden by setting environment variables in the
 process that's running each application, or on the command line when running node directly.
@@ -254,7 +264,7 @@ to RackHD ``config.json``:
 
 .. code-block:: shell
 
-   "autoCreateObm": "true"  
+   "autoCreateObm": "true"
 
 If a user wants to change the BMC credentials later in time, when the node has been already discovered and database updated, a separate workflow located at ``on-taskgraph/lib/graphs/bootstrap-bmc-credentials-setup-graph.js`` can be posted using Postman or Curl command.
 
@@ -423,11 +433,9 @@ This section describes how to setup HTTP/HTTPS endpoints in RackHD.
 An endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. Users can
 choose to enable authentication or enable HTTPS for each endpoint.
 
-There are currently two API groups defined in RackHD:
+There is currently one API group defined in RackHD:
 
 - the northbound-api-router API group. This is the API group that is used by users
-- the southbound-api-router API group. This is the API group that is used by nodes
-  interacting with the system
 
 .. code-block:: JSON
 
@@ -441,15 +449,7 @@ There are currently two API groups defined in RackHD:
             "httpsPfx": null,
             "proxiesEnabled": false,
             "authEnabled": false,
-            "routers": "northbound-api-router"
-        },
-        {
-            "address": "172.31.128.1",
-            "port": 9080,
-            "httpsEnabled": false,
-            "proxiesEnabled": true,
-            "authEnabled": false,
-            "routers": "southbound-api-router"
+            "yamlName": ["monorail-2.0.yaml", "redfish.yaml"]
         }
     ]
 
@@ -479,11 +479,37 @@ There are currently two API groups defined in RackHD:
       - A boolean value to toggle httpProxies (defaults to false)
     * - authEnabled
       - Toggle API Authentication
-    * - routers
-      - A single router name or a list of router names.
-        This would only take effect for 1.1 APIs.
-        You can now choose from "northbound-api-router","southbound-api-router" or
-        ["northbound-api-router", "southbound-api-router"].
+    * - yamlName
+      - A list of yaml file used to define the routes.
+        current availabe files are momorail-2.0.yaml, and redfish.yaml.
+
+
+.. _taskgraph-endpoint-config-ref-label:
+
+Setup Taskgraph Endpoint
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section describes how to setup the taskgraph endpoint in RackHD.
+The taskgraph endpoint is the interface that is used by nodes to interacting with the system
+
+.. code-block:: JSON
+
+    "taskGraphEndpoint": {
+        "address": "172.31.128.1",
+        "port": 9030
+    }
+
+.. list-table::
+    :widths: 20 100
+    :header-rows: 1
+
+    * - Parameter
+      - Description
+    * - address
+      - IP/Interface that the tastgraph sevice is listeing on
+    * - port
+      - Local port that the taskgraph service is listening on
+
 
 Raid Configuration
 ~~~~~~~~~~~~~~~~~~

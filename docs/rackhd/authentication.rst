@@ -1,5 +1,5 @@
 Authentication
--------------------------
+--------------
 
 When 'authEnabled' is set to 'true' in the config.json file for an endpoint, authentication
 will be needed to access the APIs that are defined within that endpoint.  Enabling authentication
@@ -8,7 +8,7 @@ will also enable authorization control when accessing API 2.0 and Redfish APIs.
 This section describes how to access APIs that need authentication.
 
 Enable Authentication
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 Please refer to :ref:`http-endpoint-config-ref-label` on how to setup endpoints. Simply put,
 the following endpoint configuration will be a good start.
@@ -49,7 +49,7 @@ user credentials over unencrypted HTTP connection exposes users to the risk of m
 .. _localhost-exception-label:
 
 Setup the First User with Localhost Exception
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The localhost exception permits unauthenticated access to create the first user in the system.  With
 authentication enabled, the first user can be created by issuing a POST to the /users API only if the
@@ -70,7 +70,7 @@ The localhost exception can be disabled by setting the configuration value "enab
 false.  The default value of "enableLocalHostException" is true.
 
 Setup the Token
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 There are few settings needed for generating the token.
 
@@ -216,6 +216,18 @@ For example:
     {
         "message": "No auth token"
     }
+
+Invalidating all Tokens
+~~~~~~~~~~~~~~~~~~~~~~~
+
+All active tokens can be invalidated by changing the authTokenSecret property in the RackHD configuration file:
+
+config.json_
+
+.. _config.json: https://github.com/RackHD/RackHD/blob/master/packer%2Fansible%2Froles%2Fmonorail%2Ffiles%2Fconfig.json
+
+Edit config.json, modify the value of authTokenSecret, and save the file. Restart the on-http service. Any previously
+generated tokens, signed with the old secret, will now be invalid.
 
 Creating a Redfish Session
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

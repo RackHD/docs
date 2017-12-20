@@ -127,9 +127,6 @@ to support dynamic PXE responses. RackHD commonly uses iPXE as its initial
 bootloader, loading remaining files for PXE booting via HTTP and using that communications
 path as a mechanism to control what a remote server will do when rebooting.
 
-on-http also serves as the communication channel for the microkernel to support
-deep hardware interrogation, firmware updates, and other actions that can only be
-invoked directly on the hardware (not through an out of band management channel).
 
 on-syslog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -144,6 +141,10 @@ on-taskgraph
 on-taskgraph is the workflow engine, driving actions on remote systems and processing
 workflows for machines being managed. Additionally, the workflow engine provides the
 engine for polling and monitoring.
+
+on-taskgraph also serves as the communication channel for the microkernel to support
+deep hardware interrogation, firmware updates, and other actions that can only be
+invoked directly on the hardware (not through an out of band management channel).
 
 Features
 =========

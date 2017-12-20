@@ -201,6 +201,33 @@ Example output of PUT
 
 .. _node-api-tags-ref-label:
 
+
+**How to use obms when more than one obm are present on a node**
+
+Example: when update firmware workflow is called on a node that has multiple obms (ipmi-obm-service, redfish-obm-service), the payload needs to call out what obm service to use for certain tasks within the workflow that use the obm service..
+
+::
+
+    POST /api/current/nodes/<id>/nodes/workflows?name=Graph.Dell.Racadm.Update.Firmware
+
+.. code-block:: JSON
+
+	{
+	  "options": {
+		  "defaults": {
+				"filePath": "xyz",
+				"serverUsername": "abc",
+				"serverPassword": "123",
+				"serverFilePath": "def"
+		   },
+	   "set-boot-pxe": {
+				"obmServiceName": "ipmi-obm-service"
+				},
+	   "reboot": {
+				"obmServiceName": "ipmi-obm-service"
+	   }          
+	 }
+    
 In Band Management Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Get list of In Band Management settings that have been associated with nodes.
