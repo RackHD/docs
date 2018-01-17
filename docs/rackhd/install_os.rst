@@ -201,6 +201,26 @@ Add following block into httpProxies in /opt/monorail/config.json
     #end of file
     ###################
 
+**Debian**
+For **live** installation, see this payload https://github.com/RackHD/RackHD/blob/master/example/samples/install_debian_payload_minimal.json Remember to replace **repo** with your own **{fileServerAddress}:{fileServerPort}/debian**, you can find the proper parameters in /opt/monorail/config.json
+
+Add following block into httpProxies in /opt/monorail/config.json
+
+  .. code::
+
+    {
+      "localPath": "/debian",
+      "server": "http://ftp.us.debian.org/",
+      "remotePath": "/debian/"
+    }
+
+  .. code::
+
+    # Create workflow
+    # Replace the 9090 port if you are using other ports
+    # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
+    curl -X POST -H 'Content-Type: application/json' -d @install_debian_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallDebian | jq '.'
+
 **Reference: Here are some useful links to vendor's official website about Mirros setup.**
 
 * **CentOS**: `Creating Local Mirrors for Updates or Installs <https://wiki.centos.org/HowTos/CreateLocalMirror>`_
@@ -217,6 +237,7 @@ ESXi          Graph.InstallESXi            5.5/6.0
 RHEL          Graph.InstallRHEL            7.0/7.1/7.2
 CentOS        Graph.InstallCentOS          6.5/7
 Ubuntu        Graph.InstallUbuntu          trusty(14.04)/xenial(16.04)/artful(17.10)
+Debian        Graph.InstallDebian          wheezy(7)/jessie(8)/stretch(9)
 SUSE          Graph.InstallSUSE            openSUSE: leap/42.1, SLES: 11/12
 CoreOS        Graph.InstallCoreOS          899.17.0
 Windows       Graph.InstallWindowsServer   Server 2012
@@ -292,9 +313,12 @@ Parameters          Type              Flags       Description
 =================== ================ ============ ============================================
 version             String           **required** The version number of target OS that needs to install. **NOTE**: For Ubuntu, *version* should be the codename, not numbers, for example, it should be "trusty", not "14.04"
 repo                String           **required** The OS repository address, currently only supports HTTP. Some examples of free OS distributions for reference. For **CentOS**, http://mirror.centos.org/centos/7/os/x86_64/. For **Ubuntu**, http://us.archive.ubuntu.com/ubuntu/. For **openSUSE**, http://download.opensuse.org/distribution/leap/42.1/repo/oss/. For **ESXi**, **RHEL**, **SLES** and **PhotonOS**, the repository is the directory of mounted DVD ISO image, and http service is provided for this directory.
+osName              String           **required** **(Debian/Ubuntu only)** The OS name, the default value is **debian** for ubuntu installation use **ubuntu**.
 rootPassword        String           *optional*   The password for the OS root account, it could be clear text, RackHD will do encryption before store it into OS installer's config file. default *rootPassword* is  **"RackHDRocks!"**. Some OS distributions' password requirements *must* be satisfied. For **ESXi 5.5**, `ESXi 5 Password Requirements <https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc_50%2FGUID-DC96FFDB-F5F2-43EC-8C73-05ACDAE6BE43.html&resultof=%22password%22%20>`_. For **ESXi 6.0**, `ESXi 6 Password Requirements <http://pubs.vmware.com/vsphere-60/index.jsp#com.vmware.vsphere.security.doc/GUID-4BDBF79A-6C16-43B0-B0B1-637BF5516112.html?resultof=%2522%2550%2561%2573%2573%2577%256f%2572%2564%2522%2520%2522%2570%2561%2573%2573%2577%256f%2572%2564%2522%2520%2522%2552%2565%2571%2575%2569%2572%2565%256d%2565%256e%2574%2573%2522%2520%2522%2572%2565%2571%2575%2569%2572%2522%2520>`_.
 hostname            String           *optional*   The hostname for target OS, default *hostname* is **"localhost"**
 domain              String           *optional*   The domain for target OS
+timezone            String           *optional*   **(Debian/Ubuntu only)** The Timezone based on $TZ. Please refer to https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+ntp                 String           *optional*   **(Debian/Ubuntu only)** The NTP server address. 
 users               Array            *optional*   If specified, this contains an array of objects, each object contains the user account information that will be created after OS installation. 0, 1, or multiple users could be specified.  If *users* is omitted, null or empty, no user will be created. See users_ for more details.
 dnsServers          Array            *optional*   If specified, this contains an array of string, each element is the Domain Name Server, the first one will be primary, others are alternative.
 ntpServers          Array            *optional*   If specified, this contains an array of string, each element is the Network Time Protocol Server.
@@ -357,6 +381,8 @@ mountPoint     String   **required**  Mount point, it could be "/boot", "/", "sw
 size           String   **required**  Partition size, it could be a number string or "auto", For number, default unit is **MB**. For "auto", all available free disk space will be used.
 fsType         String   *optional*    File system supported by OS, it could be "ext3", "xfs", "swap", etc. If *mountPoint* is "swap", the fsType must be "swap".
 ============== ======== ============ ============================================
+
+* **Debian/Ubuntu** installation requires boot, root and swap partitions, make sure your auto sized partition must be the last partition.
 
 .. _`ipv4 or ipv6`:
 
