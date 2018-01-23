@@ -11,38 +11,63 @@ In this module, you will learn about RackHD's discovery, catalog and poller func
 
 Discovery
 ----------
-The infrsim/default.yml file is used to defined the virutal node's configuration.  This demo uses an emulated quanta_d52 vnode. If you want to learn more about InfraSIM, you can go to https://github.com/InfraSIM.
+The infrsim/default.yml file (dir: RackHD/example) is used to defined the virutal node's configuration.  This demo uses an emulated quanta_d52 vnode. If you want to learn more about InfraSIM, you can go to https://github.com/InfraSIM.
 
 UltraVNC Viewer is used to show the console of vnode. In this environment, the vnode console will be availabe on the rackhd_southbound network on port `5901`.
 
 1. Start up a vnode
 
-To start a vnode, the follwing command should be run from the rackh/example/infrasim direcotry.
+To start a vnode, the follwing command should be run from the Rackhd/example/infrasim direcotry.
 
 .. code::
 
-  docker-compose up -d
+  sudo docker-compose up -d
 
 You can execute command on host to check whether quanta_d51 vnode is up successfully. If the status of quanta_d51 vnode is ``running``, quanta_d51 is up successfully.
 
 .. code::
 
-  docker-compose ps
+  sudo docker-compose ps
 
 Once the virutual node is up, you can connect to it via a vnc viewer on port 5901.  You first need to look at the log output to find the ip address of the bridge, br0, the virtual node is connected to.
 
 .. code::
 
-  docker-compose logs
+  sudo docker-compose logs
 
 .. image:: ../_static/infrasim_logs.png
      :align: center
 
-Now conncet via a vncviewer to this node on port 5901
+You can find the vnode's ip&port is `172.31.128.100:5901`. And you can use the vncviewer to connect this node. There are two scenes.
+- If your vncviewer tool and docker host are the same local network. You can connect the vnode using vncviewer tool directly.
+- If not, eg: your docker host is a remote machine with ubuntu system, and the vncviewer is installed in the local windows machine yte vncviewer is installed in the local windows machine. Please follow the three steps:
+
+First, install vnc4server in your docker host (suppose its ip is `1.2.3.4`). eg: install vnc4server in ubuntu 14.04 OS: `sudo apt-get install vnc4server`.
+Second, run vnodeDiscovery.sh script in your docker host, you can find the mapping port.
 
 .. code::
 
-  vncviewer 172.31.128.100:5901
+ #/bin/bash -x
+ HOST_IP=`ifconfig eth0 | grep "inet addr" | awk 'BEGIN{FS=" "}{print $2}' | awk 'BEGIN{FS=":"}{print $2}'`
+ echo "Host eth0 IP is $HOST_IP"
+
+ for i in {2..255}
+ do
+     NUMBER=$i
+     IPADDR="172.31.128.$NUMBER"
+     PORTNUM=`expr 28000 + $NUMBER`
+     sudo iptables -P INPUT ACCEPT
+     sudo iptables -P FORWARD ACCEPT
+     sudo sysctl net.ipv4.ip_forward=1 > /dev/null
+     sudo iptables -A PREROUTING -t nat -p tcp -d $HOST_IP --dport $PORTNUM -j DNAT --to $IPADDR:5901
+     sudo iptables -t nat -A POSTROUTING -d $IPADDR -p tcp --dport 5901 -j MASQUERADE
+     echo "Setting VNC port $PORTNUM for IP $IPADDR"
+ done
+
+.. image:: ../_static/vnode_port_mapping.png
+    :align: center
+
+Third, use vncviewer tool to connect the vnode using the vnc server address `1.2.3.4:28100`. Vncviewer download address: http://www.uvnc.com/downloads/ultravnc.html
 
 .. image:: ../_static/infrasim_node_discovery.png
      :align: center

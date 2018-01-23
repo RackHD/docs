@@ -61,7 +61,7 @@ How to set up these environments is shown as follows.
 
     .. code::
 
-        docker-compose -f docker-compose.yml up -d
+        sudo docker-compose -f docker-compose.yml up -d
 
     .. image:: ../_static/docker_compose_up.png
          :align: center
@@ -70,11 +70,11 @@ How to set up these environments is shown as follows.
 
     .. code::
 
-        docker-compose ps
+        sudo docker-compose ps
 
     If RackHD is set up successfully, the result will be shown as follows.
 
     .. image:: ../_static/docker_compose_ps.png
          :align: center
 
-4. The command ``docker-compose logs`` will output the logs from all the running RackHD services.  Additionally, you can stop the services with the command ``docker-compose stop``, or stop and delete the services with ``docker-compopse down``.
+4. The command ``sudo docker-compose logs`` will output the logs from all the running RackHD services.  Additionally, you can stop the services with the command ``sudo docker-compose stop``, or stop and delete the services with ``sudo docker-compose down``.

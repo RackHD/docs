@@ -20,6 +20,21 @@ The compute vNode discoved in the previous section will be used as the OS-Instal
 
 The ``node-id`` specified in the response will be used in the following steps.
 
+Set Up OS Mirror
+~~~~~~~~~~~~~~~~
+
+To provision the OS to the node, RackHD can act as an OS mirror repository.
+
+1. Download CentOS iso: CentOS-7-x86_64-Everything-1708.iso, from https://www.centos.org/download/.
+
+2. Create OS mirror from an ISO image by typing below command. (Note: The iso file supposes to be downloaded in ~/iso)
+
+.. code::
+
+   cd ./RackHD/example/rackhd/files/mount/common/
+   mkdir -p centos/7/os/x86_x64/
+   sudo mount -o loop ~/iso/CentOS-7-x86_64-Everything-1708.iso ./centos/7/os/x86_64/
+
 Install OS with RackHD API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -36,7 +51,7 @@ Create a file named install_centos_7_payload.json and add the following to it:
         "options": {
             "defaults": {
                 "version": "7",
-                "repo": "http://172.31.128.2:9090/centos/7/os/x86_64",
+                "repo": "http://172.31.128.2:9090/common/centos/7/os/x86_64",
                 "rootPassword": "RackHDRocks!"
             }
         }
@@ -55,7 +70,7 @@ Installation Progress
 
 .. code::
 
-  root@rackhd:/home/vagrant# curl 127.0.0.1:8080/api/2.0/nodes/<Node_ID>/workflows?active=true | jq '.'
+  root@rackhd:/home/vagrant# curl 127.0.0.1:9090/api/2.0/nodes/<Node_ID>/workflows?active=true | jq '.'
 
 
 In the json output RackHD responses, you will see "_status" field is "running", and "graphName" field is "Install Cent OS",
