@@ -396,6 +396,7 @@ gateway     String   **required** The gateway.
 netmask     String   **required** The subnet mask.
 vlanIds     Array    *optional*   The VLAN ID. This is an array of integers (0-4095).
                                   In the case of Windows OS, the vlan is an array of one parameter only
+mtu         Number   *optional*   Size of the largest network layer protocol data unit
 =========== ======== ============ ============================================
 
 
@@ -410,6 +411,31 @@ switchName     String   **required** The name of the vswitch
 uplinks        String   *optional*   The array of vmnic# devices or MAC address to set as the uplinks.(Ex: uplinks: ["vmnic0", "2c:60:0c:ad:d5:ba"]). If an uplink is attached to a vSwitch, it will be removed from the old vSwitch before being added to the vSwitch named by 'switchName'.
 failoverPolicy String   *optional*   This can be one of the following options: explicit: Always use the highest order uplink from the list of active adapters which pass failover criteria. iphash: Route based on hashing the src and destination IP addresses mac: Route based on the MAC address of the packet source. portid: Route based on the originating virtual port ID.
 ============== ======== ============ ============================================
+
+.. _bonds:
+
+For **bonds** **(RHEL/CentOS only)** in payload:
+
+=================== ======== ============ ============================================
+Parameters          Type     Flags        Description
+=================== ======== ============ ============================================
+name                String   **required** The name of the bond. Example 'bond0'
+nics                Array    *optional*   The array of server NICs that needs to be included in the bond.
+bondvlaninterfaces  Array    *optional*   List of tagged sub-interfaces to be created associated with the bond interface
+=================== ======== ============ ============================================
+
+.. _bondvlaninterfaces:
+
+For **bondvlaninterfaces** in payload, both ipv4 and ipv6 are supported
+
+============== ======== ============ ============================================
+Parameters     Type     Flags        Description
+============== ======== ============ ============================================
+vlanid         Number   **required**  VLAN ID to be associated with the tagged sub interface
+ipv4           Object   *optional*    See `ipv4 or ipv6`_ more details.
+ipv6           Object   *optional*    See `ipv4 or ipv6`_ more details.
+============== ======== ============ ============================================
+
 
 Windows OS Installation Workflow Payload
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
