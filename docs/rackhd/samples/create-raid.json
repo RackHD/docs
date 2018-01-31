@@ -1,7 +1,7 @@
 {
     "options": {
-        "bootstrap":{
-            "overlayfsFile": "raid.overlay.cpio.gz"
+        "bootstrap-rancher":{
+            "dockerFile": "raid.docker.tar.xz"
         },
         "create-raid": {
             "raidList": [

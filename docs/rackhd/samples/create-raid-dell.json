@@ -1,7 +1,7 @@
 {
     "options": {
-        "bootstrap":{
-            "overlayfsFile": "dell-raid.overlay.cpio.gz"
+        "bootstrap-rancher":{
+            "dockerFile": "dell.raid.docker.tar.xz"
         },
         "create-raid": {
             "path": "/opt/MegaRAID/perccli/percli64",

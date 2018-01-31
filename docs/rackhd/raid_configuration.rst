@@ -3,14 +3,14 @@ RAID Configuration
 
 RackHD supports RAID configuration to create and delete RAID for hardwares with LSI RAID controller.
 
-Create overlay with Storcli/Perccli
+Create docker image with Storcli/Perccli
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-RackHD leverages LSI provided tool Storcli to configure RAID. RackHD requires user to build overlay including Storcli.
-As on how to build overlay for RakcHD, please refer to https://github.com/RackHD/on-imagebuilder.
+RackHD leverages LSI provided tool Storcli to configure RAID. RackHD requires user to build docker image including Storcli.
+As on how to build docker image for RakcHD, please refer to https://github.com/RackHD/on-imagebuilder.
 Perccli is a Dell tool which is based on Storcli and has the same commands with it.
-If user wants to configure RAID on Dell servers, Perccli instead of Storcli should be built in overlay.
-The newly built overlay (default named "dell.raid.overlay.cpio.gz" for Dell and "raid.overlay.cpio.gz" for others) should be put in RackHD static file path.
+If user wants to configure RAID on Dell servers, Perccli instead of Storcli should be built in docker image.
+The newly built docker image(default named "dell.raid.docker.tar.xz" for Dell and "raid.docker.tar.xz" for others) should be put in RackHD static file path.
 
 Create RAID
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -34,7 +34,7 @@ For details on items of create-raid.options, please refer to: https://github.com
 **Note**:
 
 * User need make sure drives are under UGOOD status before creating RAID. If drives are under other status (JBOD, online/offline or UBAD), RackHD won't be able to create RAID with them.
-* For Dell servers, overlay tool path should be specified in param.json as below:
+* For Dell servers, tool path in docker container should be specified in param.json as below:
 
 .. literalinclude:: samples/create-raid-dell.json
    :language: JSON
@@ -62,8 +62,8 @@ An example of params.json for deleting RAID workflow:
             "delete-raid": {
                 "raidIds": [0, 1]
             },
-            "bootstrap": {
-                "overlayfsFile": "raid.overlay.cpio.gz"
+            "bootstrap-rancher": {
+                "dockerFile": "raid.docker.tar.xz"
             }
         }
     }
@@ -81,8 +81,8 @@ For Dell servers, the payload should look like:
                 "path": "/opt/MegaRAID/perccli/percli64",
                 "raidIds": [0, 1]
             },
-            "bootstrap": {
-                "overlayfsFile": "dell.raid.overlay.cpio.gz"
+            "bootstrap-rancher": {
+                "dockerFile": "dell.raid.docker.tar.xz"
             }
         }
     }

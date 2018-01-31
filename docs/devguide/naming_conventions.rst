@@ -31,26 +31,26 @@ Examples::
     Graph.Arista.Zerotouch.EOS
 
 
-Overlays
+Microkernel docker image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Overlay Names**
+**Image Names**
 
-We tend to prefix overlays with *overlayfs_*  along with some information about which
-kernel/base image the overlay was built off and information about what is contained
-within the overlay. Overlays are suffixed with *.cpio.gz* because they are gzipped
-cpio archives.
+We tend to prefix docker images with *micro_*  along with some information about which
+RancherOS the docker image was built off and information about what is contained
+within the docker image. Images are suffixed with *docker.tar.xz* because they are xzed
+tar archives contain docker image.
 
 Examples::
 
-    overlayfs_3.13.0-32_flashupdt.cpio.gz
-    overlayfs_3.13.0-32_brocade.cpio.gz
-    overlayfs_3.13.0-32_all_binaries.cpio.gz
+    micro_1.2.0_flashupdt.docker.tar.xz
+    micro_1.2.0_brocade.docker.tar.xz
+    micro_1.2.0_all_binaries.docker.tar.xz
 
 
-**Overlay Files**
+**Image Files**
 
-When adding scripts and binaries to an overlay, we typically put them in /opt within subdirectories
+When adding scripts and binaries to docker image, we typically put them in /opt within subdirectories
 based on vendor.
 
 Examples::
@@ -65,17 +65,17 @@ then add them to /usr/local/bin or any other directory in the default PATH for b
 
 **File Paths**
 
-Our HTTP server will serve overlay files from /opt/monorail/static/http. It is recommended that you
+Our HTTP server will serve docker images from /opt/monorail/static/http. It is recommended that you
 create subdirectories within this directory for further organization.
 
 Examples::
 
-/opt/monorail/static/http/teamA/intel_flashing/overlayfs_3.13.0-32_flashupdt.cpio.gz
-/opt/monorail/static/http/teamA/generic/overlayfs_3.13.0-32_all_binaries.cpio.gz
+/opt/monorail/static/http/teamA/intel_flashing/micro_1.2.0_flashupdt.docker.tar.xz
+/opt/monorail/static/http/teamA/generic/micro_1.2.0_all_binaries.docker.tar.xz
 
 
 These file paths can then be referenced in workflows starting from the base path
 of /opt/monorail/static/http, so the above paths are referenced for download as::
 
-    teamA/intel_flashing/overlayfs_3.13.0-32_flashupdt.cpio.gz
-    teamA/generic/overlayfs_3.13.0-32_all_binaries.cpio.gz
+    teamA/intel_flashing/micro_1.2.0_flashupdt.docker.tar.xz
+    teamA/generic/micro_1.2.0_all_binaries.docker.tar.xz

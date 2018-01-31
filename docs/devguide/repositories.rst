@@ -74,7 +74,7 @@ Supplemental Code
      - A local statsD implementation that makes it easy to deploy on a local machine for aggregating and summarizing application metrics.
    * - ImageBuilder
      - https://github.com/RackHD/on-imagebuilder
-     - Tooling to build RackHD binary files, including the microkernel, specific iPXE builds, and microkernel overlays
+     - Tooling to build RackHD binary files, including the microkernel docker images and specific iPXE builds
    * - SKU Packs
      - https://github.com/RackHD/on-skupack
      - Example SKU pack definitions and example code

@@ -481,7 +481,7 @@ The catalog object in the above table may look like:
 To use this feature, new workflows and tasks (units of work) must be registered in the system.
 To create a basic workflow that runs user-specified shell commands with specified images, do the following steps:
 
-1. Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom overlay)::
+1. Define a custom workflow task with the images specified to be used (this is not necessary if you don't need to use a custom image)::
 
        PUT <server>/api/current/workflows/tasks
         Content-Type: application/json
@@ -490,15 +490,13 @@ To create a basic workflow that runs user-specified shell commands with specifie
             "injectableName": "Task.Linux.Bootstrap.Custom",
             "implementsTask": "Task.Base.Linux.Bootstrap",
             "options": {
-               "kernelFile": "vmlinuz-3.13.0-32-generic",
-               "initrdFile": "initrd.img-3.13.0-32-generic",
-               "basefsFile": "base.trusty.3.13.0-32-generic.squashfs.img",
-               "overlayfsFile": "discovery.overlay.cpio.gz",
+               "kernelFile": "vmlinuz-1.0.2-rancher",
+               "initrdFile": "initrd-1.0.2-rancher",
+               "dockerFile": "discovery.docker.tar.xz",
                "kernelUri": "{{ api.server }}/common/{{ options.kernelFile }}",
                "initrdUri": "{{ api.server }}/common/{{ options.initrdFile }}",
-               "basefsUri": "{{ api.server }}/common/{{ options.basefsFile }}",
-               "overlayfsUri": "{{ api.server }}/common/{{ options.overlayfsFile }}",
-               "profile": "linux.ipxe",
+               "dockerUri": "{{ api.server }}/common/{{ options.dockerFile }}",
+               "profile": "rancherOS.ipxe",
                "comport": "ttyS0"
             },
             "properties": {}
