@@ -192,10 +192,9 @@ Install & Configure RackHD
       cd node_modules/on-http/static/http/common
 
       for file in $(echo "\
-      base.trusty.3.16.0-25-generic.squashfs.img \
-      discovery.overlay.cpio.gz \
-      initrd.img-3.16.0-25-generic \
-      vmlinuz-3.16.0-25-generic");do
+      discovery.docker.tar.xz \
+      initrd-1.0.2-rancher \
+      vmlinuz-1.0.2-rancher");do
       wget "https://dl.bintray.com/rackhd/binary/builds/$file"
       done
 
@@ -583,10 +582,9 @@ Install & Configure RackHD
        cd node_modules/on-http/static/http/common
 
        for file in $(echo "\
-       base.trusty.3.16.0-25-generic.squashfs.img \
-       discovery.overlay.cpio.gz \
-       initrd.img-3.16.0-25-generic \
-       vmlinuz-3.16.0-25-generic");do
+       discovery.docker.tar.xz \
+       initrd-1.0.2-rancher \
+       vmlinuz-1.0.2-rancher");do
        wget "https://dl.bintray.com/rackhd/binary/builds/$file"
        done
 

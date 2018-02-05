@@ -514,38 +514,22 @@ The taskgraph endpoint is the interface that is used by nodes to interacting wit
 Raid Configuration
 ~~~~~~~~~~~~~~~~~~
 
-Setting up the overlay image 
+Setting up the docker image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For the correct tooling (storcli for Quanta and perccli for Dell) you will to need build the overlay image using the following steps:
+For the correct tooling (storcli for Quanta/Intel and perccli for Dell) you will need to build the docker image using the following steps:
 
 (1). Add the repo https://github.com/RackHD/on-imagebuilder
 
-(2). Make sure there are no previous versions of ansible present:
-   
-.. code-block:: shell
+(2). Refer to the Requirements section of the Readme in the on-imagebuilder repo to install latest version of docker: https://github.com/RackHD/on-imagebuilder#requirements
 
-   sudo pip uninstall ansible
-   sudo dpkg -r
-   sudo apt-get purge ansible
-   sudo pip –U install pip
+(3). For Quanta/Intel storcli - https://github.com/RackHD/on-imagebuilder#oem-tools
 
-(3). Refer to the Requirements section of the Readme in the on-imagebuilder repo to install latest version of ansible: https://github.com/RackHD/on-imagebuilder#requirements
+Refer to the **OEM tools** section:  OEM docker images **raid** and **secure_erase** require storcli_1.17.08_all.deb being copied into raid and secure-erase under on-imagebuilder/oem. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip
 
-(4). Refer to the Getting started section to build the default images first https://github.com/RackHD/on-imagebuilder#getting-started
+(4). For Dell PERCcli: https://github.com/RackHD/on-imagebuildera#oem-tools
 
-.. code-block:: shell
-
-   cd on-imagebuilder/
-   sudo ./build_all.sh
-
-(5). For Quanta storcli - https://github.com/RackHD/on-imagebuilder#adding-provisioner-roles-and-configuration-files  
-
-Refer to the NOTE section:  OEM roles provision_raid_overlay and provision_secure_erase_overlay require storcli_1.17.08_all.deb being copied into common/files. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip
-
-(6). For Dell PERCcli: https://github.com/RackHD/on-imagebuilder#adding-provisioner-roles-and-configuration-files
-
-Refer to the NOTE section to download and unzip the percCLI package and derive a debian version using ‘alien’ 
+Refer to the **OEM tools** section to download and unzip the percCLI package and derive a debian version using ‘alien’
 There is no .deb version perccli tool. User can download .rpm perccli from https://downloads.dell.com/FOLDER02444760M/1/perccli-1.11.03-1_Linux_A00.tar.gz unzip the package and then use alien to get a .deb version perccli tool as below:
 
 .. code-block:: shell
@@ -553,17 +537,25 @@ There is no .deb version perccli tool. User can download .rpm perccli from https
    sudo apt-get install alien
    sudo alien -k perccli-1.11.03-1.noarch.rpm
 
-OEM roles provision_dell_raid_overlay and provision_secure_erase_overlay require perccli_1.11.03-1_all.deb being copied into common/files in /on-imagebuilder.
+OEM docker images **dell_raid** and **secure_erase** require perccli_1.11.03-1_all.deb being copied into dell-raid and secure-erase under on-imagebuilder/oem.
 
-(7). Build the overlayfs.  This creates the dell.raid.overlay.cpio.gz image in /tmp/on-imagebuilder/builds 
+(5). Build the docker image.
 
 .. code-block:: shell
 
-   sudo ./build_oem.sh 
+    #This creates the dell.raid.docker.tar.xz image
+    cd on-imagebuilder/oem/dell-raid
+    sudo docker build -t rackhd/micro .
+    sudo docker save rackhd/micro | xz -z > dell.raid.docker.tar.xz
 
-(8). Copy the image dell.raid.overlay.cpio.gz to /on-http/static/http/common
+    #This creates the raid.docker.tar.xz image
+    cd on-imagebuilder/oem/raid
+    sudo docker build -t rackhd/micro .
+    sudo docker save rackhd/micro | xz -z > raid.docker.tar.xz
 
-(9). Restart the RackHD service
+(6). Copy the image dell.raid.docker.tar.xz or raid.docker.tar.xz to /on-http/static/http/common
+
+(7). Restart the RackHD service
 
 
 Posting the Workflow

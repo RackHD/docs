@@ -6,7 +6,7 @@ Discovery with a Default Workflow
 
 Sequence Diagram for the Discovery Workflow
 
-.. image:: https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgRGVmYXVsdCBEaXNjb3ZlcnkgV29ya2Zsb3cKICAgIFNlcnZlci0-UmFja0hEOiBESENQIGZyb20gUFhFKG5pYyBvciBCSU9TKQAqBQAhBi0-ADEGOiBJU0MALQZyZXNwb25zZSB3aXRoIElQABkVREhDUC1wcm94eQAhD2Jvb3RmaWxlAIEOBW5vdGUgcmlnaHQgb2YAawc6IElmIHRoZSBub2RlIGlzIGFscmVhZHkgImtub3duIiwgaXQgd2lsbCBvbmwAVghkIGkAMAVyZSdzIGFuIGFjdGl2ZSB3AIF5ByB0aGF0J3MgYmVlbiBpbnZva2VkIHJlbGF0ZWQgdG8AZgkAghMVUmVxdWVzdCB0byBkb3dubG9hZACBPQkgdmlhIFRGVACBbxZURlRQIHNlbmRzIHIAPwZlZCAAMgUobW9ub3JhaWwuaXB4ZQCCawYAgggFbGVmAIIHBQCCbggAgy8GIGxvYWRzIAAoDSBhbmQgaW5pdGlhdGVzIG9uAIJWBWxvYWRlcgCDWxVJUFhFIHNjcmlwdACBBwhzIHdoYQCBUwcAhAUGAIQXBiAoaHR0cACBDAsAgxQQAIRMBSAgICBtdWx0aWxpbgCDSgYAhC4KIGxvb2tzIHVwIElQIGFkZHJlc3Mgb2YgSFRUUACCBQgAhHcGaQCBDAt0byBmaW5kAIN1CnZpYSBpdHMgbWFjLQA_By4AcwkAgymAfwBxEm4ndCAAhSAFAIUaCmNyZWF0ZSBhAIUBCihkAIcgB2lzAIViBQCFGwknR3JhcGguU2t1LgCHOQknKQCDYgUAhV0IAIZtBWFuAIIkEACDfggAhWIFAIMSCWVuZACGXAUAhzkVAIJqDCgAhAAFAINzB2NhbGxzIGEgUHJvZmlsZSkgKHZpYSAAhAAPAIUWEACDOAwAiBEFZACIegltaWNyb2tlcm5lbACFKQlyZACEVQwAiQgQAIQMBQCFGAlzdGF0aWMAhjAGLQCIEwV2bWxpbnV6IABPBgCJFxUAGwgALzcAgR4GAIIiFgCBLhEAhxUidGhlAIEmBwCBdgxhbmQgdHJhbnNmZXJzIGNvbnRyb2wgKGJvb3RzAIkrBQCCLwwAghMXAIJGBgCIFwZhZGRpdGlvbmFsAIhcB292ZXJsYXkpAIteBgCIQgd0byBleHRlbmQAgw0MAIhlGnRoZQCDNRdpcyBzZQCKEAUAh0YIYW5kIGxhdW5jaCBhIE5vZGVKUyB0YXNrIHJ1bm5uAIh-FwCJAAl0aGUAjBcFc3RyYXAuanMgdGVtcGxhAIUoFwAdDWZpbGxlZCBvdQCEdgd2YWx1ZXMgc3BlY2lmaWMAi1UMIGJhc2VkIG9uIGEAiR0FdXAAimEacnVucwAuBwCBDQsAjjYVAIEwCSBhc2tzIGZvcgCBdQVzAIZUB3Nob3VsZCBJIGRvPwCORxZkYXRhIHBhY2tlAI4FBQA2BwCGVyMAj1oSIHBhc3NlcwCNJwUAgH8HAIgeBXRlcnJvZ2F0ZSBoYXJkd2FyAI59Bmxvb3AAgSwFZWFjaCBUYXNrAIt9DACLXwkAkC0Qb3V0cHUAgSMJAJBbBWVuAIYtBgCPQRQAjB4SIACMOgkAhB8FAEkHc3RvcmVkIGFzIGNhdGFsb2dzIGluAI0NCACKbRxpAJA3CCBpAIZIBWZpZ3VyZQCKKwdTS1UgZGVmAI4oBW9ucwCQPQVwcm9jZQCCJAV0aGVzZQBmCnRvIGRldGVybWluZQCRAwVTS1UAWwwAkF0JAFIFAIRcCQCQYgkAZAVlZCwAh0oJAIELBnRpbnUAkGUIAIsaCwCGUw4AkScJAIwvDW4gZW5jbG9zdXIAhTUQdGgAgTAJAIQ-BQAyJWFsc28AjRAISVBNSSBwb2xsZXIAhTAHAJJwCWYgcmVsZXZlbnQgaW5mb3JtYXRpb24gY2FuIGJlIGZvdQCQegUAdwwAjGQWAIVbUU5vdGhpbmcgbW9yZSwgdGhhbmtzIC0gcGxlYXNlIHJlYm9vdACNKgw&s=default
+.. image:: https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgRGVmYXVsdCBEaXNjb3ZlcnkgV29ya2Zsb3cKU2VydmVyLT5SYWNrSEQ6IERIQ1AgZnJvbSBQWEUobmljIG9yIEJJT1MpCgAdBi0-AC0GOiBJU0MAKQZyZXNwb25zZSB3aXRoIElQCm5vdGUgb3ZlciAAUAcKICAgIElmIHRoZSBub2RlIGlzIGFscmVhZHkgImtub3duIiwAHwVpdCB3aWxsIG9ubHkAUQdkIGkANAVyZSdzIGFuIGFjdGl2ZSB3AIE6CCAgICB0aGF0J3MgYmVlbiBpbnZva2VkIHJlbGF0ZWQgdG8AbgkKZW5kIG5vdGUAgTsRREhDUC1wcm94AG4IAIFGCGJvb3RmaWxlAIIYEVJlcXVlc3QgdG8gZG93bmxvYWQAJAkgdmlhIFRGVFAAgiMRVEZUUCBzZW5kcyByADsGZWQgAC4FKG1vbm9yYWlsLmlweGUpAII5CwCCaQcAgj8FAIMpBiBsb2FkcyAAJQ0Agl4FYW5kIGluaXRpYXRlcyBvbgCBOgVsb2FkZXIAgXIKAINjEElQWEUgc2NyaXB0AIENCHMgd2hhAIFVBwCECAYAhBoGIChodHRwAIERDACDVQwAHQdsb29rcyB1cCBJUCBhZGRyZXNzIG9mIEhUVFAAgW0IAIRcBmkAbgt0byBmaW5kAIQYCnZpYSBpdHMgbWFjLQA_By4AhEIFMSkAhCogAINnXwCBAQYyAHcQbid0IACFRgUAdgpjcmVhdGUgYQCFJAkgKGQAhwQHaXMAhggFABAJJ0dyYXBoLlNrdS4Ahx0JJykAg0wJAIYDCACGXQVhbgCCKxAAg2wIAIYEBS4AhU0aAIJmDCgAg14FAINRB2NhbGxzIGEgUHJvZmlsZSkgKHZpYSAAg10QAIR-DACDMQwAh3MFUmFuY2hlck9TIHZtbGludXoAh0sHbml0cmQAhRUFY2xvdWQtY29uZmlnAIRCCACEfRkAhBgFAIUGCXN0YXRpYwCGJAYtAIhCBQBeESBrZXJuZWwAiRYRABcSAIU-BwBGLFJhAIFVBwCBSQYAShsAgWkHAIYYEQCHLRl0aGUAgToJAIc4CHJkAIoJBmFuZCB0cmFuc2ZlcnMgY29udHJvbCAoYm9vdHMAgmcKAIIrGwCDCwoAh1EJAIJ5DQCBTwsAgxIMAIIqGwCDOQwAgjIXAIQACgCJIgZkAIxuCWRvY2tlciBpbWFnZQCMYAYAjHoGAIlXF3RoZQAyC2NvbnRhaW5lciBpcyBzZQCKdgUAij4HAIl0CWxhdW5jaCBhIE5vZGVKUyB0YXNrIHJ1bm5uAIlmHACJbQl0aGUAi20Fc3RyYXAuanMgdGVtcGxhAIweEwAZDWZpbGxlZCBvdQCGBAd2YWx1ZXMgc3BlY2lmaWMAjHcMIGJhc2VkIG9uIGEAiiQFdXAAi1MXcnVucwArBwCBBgsAiywaAIEuCSBhc2tzIGZvcgCBeAVzAIdhB3Nob3VsZCBJIGRvPwCPORJkYXRhIHBhY2tldCBvZgAxCACHYyAAkDwTICAgIHBhc3NlcwCOEQUAfAd0bwCIBAd0ZXJyb2dhdGUgaGFyZHdhcgCPCAtsb29wAIEyBWVhY2ggVGFzawCMbgwAjXMLAJEjCm91dHB1AIEpCQplbmQAkGoRAJB1BQBIBQAmB3N0b3JlZCBhcyBjYXRhbG9ncyBpbgCNVwgAi1UZSWYAjXoIaQCHAwVmaWd1cmUAiwkHU0tVIGRlZgCOdAVvbnMAkUEJcHJvY2UAggcFdGhlc2UAZwp0byBkZXRlcm1pbmUAkg8FU0tVAF8JAJFiCQBTBQCEOwkAjDoJAGUFZWQsAIgGCQCBDAZ0aW51AJFmCGF0AI4lBlQAhjMNAIx8CQCNDw1uIGVuY2xvc3VyAIUREHRoAIEqCQCEHAUAMiJhbHNvAI1tCElQTUkgcG9sbGVyAIUHBwCTdQcAk2IHZiByZWxldmVudCBpbmZvcm1hdGlvbiBjYW4gYmUgZm91AJFGBQB5DABZJ2dlbmVyAI4HBWFnAGYTAIZ3CXVzZXItAIJGByB0YWdnaW5nIHJ1bGVzAI42CwCGGU1Ob3RoaW5nIG1vcmUsIHRoYW5rcyAtIHBsZWFzZSByZWJvb3QAjm4L&s=modern-blue
 
 The diagram is made with `WebSequenceDiagrams`_.
 
@@ -36,44 +36,72 @@ Default discovery workflow
     title Default Discovery Workflow
     Server->RackHD: DHCP from PXE(nic or BIOS)
     RackHD->Server: ISC DHCP response with IP
+    note over RackHD:
+        If the node is already "known",
+        it will only respond if there's an active workflow
+        that's been invoked related to the node
+    end note
     RackHD->Server: DHCP-proxy response with bootfile
-    note right of RackHD: If the node is already "known", it will only respond if there's an active workflow that's been invoked related to the node
     Server->RackHD: Request to download bootfile via TFTP
     RackHD->Server: TFTP sends requested file (monorail.ipxe)
-    note left of Server: Server loads monorail.ipxe and initiates on bootloader
+    note over Server:
+        Server loads monorail.ipxe
+        and initiates on bootloader
+    end note
     Server->RackHD: IPXE script requests what to do from RackHD (http)
-    note right of RackHD:
-        multiline
+    note over RackHD:
         RackHD looks up IP address of HTTP request from iPXE script to find the node via its mac-address.
-        If the node is already "known", it will only respond if there's an active workflow that's been invoked related to the node
-        If the node isn't known, it will create a workflow (default is the workflow 'Graph.Sku.Discovery') and respond with an iPXE script to initiate that
-        end note
+        1) If the node is already "known", it will only respond if there's an active workflow
+        that's been invoked related to the node.
+        2) If the node isn't known, it will create a workflow (default is the workflow 'Graph.Sku.Discovery')
+        and respond with an iPXE script to initiate that.
+    end note
     RackHD->Server: iPXE script (what RackHD calls a Profile) (via http)
-    note left of Server: iPXE script with discovery microkernel and initrd (http)
-    Server->RackHD: iPXE requests static file - the vmlinuz kernel
-    RackHD->Server: vmlinuz (http)
-    Server->RackHD: iPXE requests static file - initrd
-    RackHD->Server: initrd (http)
-    note left of Server: Server loads the kernel and initrd and transfers control (boots that microkernel)
-    Server->RackHD: initrd loads additional file (overlay) from Server to extend microkernel
-    note left of Server: the discovery microkernel is set to request and launch a NodeJS task runnner
+    note over Server:
+        iPXE script with RancherOS vmlinuz,
+        initrd and cloud-config (http)
+    end note
+    Server->RackHD: iPXE requests static file - the RancherOS vmlinuz kernel
+    RackHD->Server: RancherOS vmlinuz (http)
+    Server->RackHD: iPXE requests static file - RacherOS initrd
+    RackHD->Server: RancherOS initrd (http)
+    note over Server:
+        Server loads the vmlinuz and initrd,
+        and transfers control (boots RancherOS)
+    end note
+    Server->RackHD: RancherOS requests cloud-config - RacherOS cloud-config
+    RackHD->Server: RancherOS cloud-config(http)
+    Server->RackHD: RancherOS loads discovery docker image from Server
+    note over Server:
+        the discovery container is set to request
+        and launch a NodeJS task runnner
+    end note
     Server->RackHD: requests the bootstrap.js template
     RackHD->Server: bootstrap.js filled out with values specific to the node based on a lookup
-    note left of Server: runs node bootstrap.js
+    note over Server:
+        runs node bootstrap.js
+    end note
     Server->RackHD: bootstrap asks for tasks (what should I do?)
     RackHD->Server: data packet of tasks (via http)
-    note left of Server: Discovery Workflow passes down tasks to interrogate hardware
+    note over Server:
+        Discovery Workflow
+        passes down tasks to
+        interrogate hardware
+    end note
     loop for each Task from RackHD
         Server->RackHD: output of task
     end
-    note right of RackHD
-        multiline
-        task output stored as catalogs in RackHD related to the node
-        if RackHD is configured with SKU definitions, it processes these catalogs to determine the SKU
-        if there's a SKU specific workflow defined, control is continued to that
-        the discovery workflow will create an enclosure node based on the catalog data
-        the discovery workflow will also create IPMI pollers for the node if relevent information can be found in the catalog
-        end note
+    note over RackHD
+        Task output stored as catalogs in RackHD related to the node.
+        If RackHD is configured with SKU definitions,
+        it processes these catalogs to determine the SKU.
+        If there's a SKU specific workflow defined, control is continued to that.
+        The discovery workflow will create an enclosure node based on the catalog data.
+        The discovery workflow will also create IPMI pollers for the node,
+        if relevent information can be found in the catalog.
+        The discovery workflow will also generate tag for the node,
+        based on user-defined tagging rules.
+    end note
     Server->RackHD: bootstrap asks for tasks (what should I do?)
     RackHD->Server: Nothing more, thanks - please reboot (via http)
 

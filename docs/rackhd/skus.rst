@@ -275,7 +275,7 @@ package may have static, template, profile, workflow and task directories.
     config.json
     static/
     static/common/
-    static/common/discovery.overlay.cpio.gz
+    static/common/discovery.docker.tar.xz
     templates/
     templates/ansible.pub
     templates/esx-ks
