@@ -193,8 +193,8 @@ Install & Configure RackHD
 
       for file in $(echo "\
       discovery.docker.tar.xz \
-      initrd-1.0.2-rancher \
-      vmlinuz-1.0.2-rancher");do
+      initrd-1.2.0-rancher \
+      vmlinuz-1.2.0-rancher");do
       wget "https://dl.bintray.com/rackhd/binary/builds/$file"
       done
 
@@ -583,8 +583,8 @@ Install & Configure RackHD
 
        for file in $(echo "\
        discovery.docker.tar.xz \
-       initrd-1.0.2-rancher \
-       vmlinuz-1.0.2-rancher");do
+       initrd-1.2.0-rancher \
+       vmlinuz-1.2.0-rancher");do
        wget "https://dl.bintray.com/rackhd/binary/builds/$file"
        done
 

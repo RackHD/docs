@@ -490,8 +490,8 @@ To create a basic workflow that runs user-specified shell commands with specifie
             "injectableName": "Task.Linux.Bootstrap.Custom",
             "implementsTask": "Task.Base.Linux.Bootstrap",
             "options": {
-               "kernelFile": "vmlinuz-1.0.2-rancher",
-               "initrdFile": "initrd-1.0.2-rancher",
+               "kernelFile": "vmlinuz-1.2.0-rancher",
+               "initrdFile": "initrd-1.2.0-rancher",
                "dockerFile": "discovery.docker.tar.xz",
                "kernelUri": "{{ api.server }}/common/{{ options.kernelFile }}",
                "initrdUri": "{{ api.server }}/common/{{ options.initrdFile }}",

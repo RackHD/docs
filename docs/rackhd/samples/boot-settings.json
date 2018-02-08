@@ -3,8 +3,8 @@
         "profile":"defaultboot.ipxe",
         "options":{
             "url":"http://172.31.128.1:9080/common",
-            "kernel":"vmlinuz-1.0.2-rancher",
-            "initrd":"initrd-1.0.2-rancher",
+            "kernel":"vmlinuz-1.2.0-rancher",
+            "initrd":"initrd-1.2.0-rancher",
             "bootargs":"console=tty0 console=ttyS0,115200n8"
         }
     }
