@@ -260,8 +260,8 @@ Downloaded binary files from bintray.com/rackhd/binary and placed them using htt
 
     for file in $(echo "\
     discovery.docker.tar.xz \
-    initrd-1.0.2-rancher \
-    vmlinuz-1.0.2-rancher");do
+    initrd-1.2.0-rancher \
+    vmlinuz-1.2.0-rancher");do
     wget "https://dl.bintray.com/rackhd/binary/builds/$file"
     done
 
