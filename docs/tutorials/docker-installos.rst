@@ -32,7 +32,7 @@ To provision the OS to the node, RackHD can act as an OS mirror repository.
 .. code::
 
    cd ./RackHD/example/rackhd/files/mount/common/
-   mkdir -p centos/7/os/x86_x64/
+   mkdir -p centos/7/os/x86_64/
    sudo mount -o loop ~/iso/CentOS-7-x86_64-Everything-1708.iso ./centos/7/os/x86_64/
 
 Install OS with RackHD API
