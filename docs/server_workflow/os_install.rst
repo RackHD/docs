@@ -222,6 +222,42 @@ RackHD workflow support installing Operating System automatically from remote ht
      Windows
 
   .. tab:: PhotonOS
+=======
+.. tabs::
+
+   .. tab:: ESXI
+
+      TODO: Description about install ESXI
+
+   .. tab:: RHEL
+
+      TODO: Description about install RHEL
+
+   .. tab:: CentOS
+
+      Centos
+
+   .. tab:: Ubuntu
+
+      Ubuntu
+
+   .. tab:: Debian
+
+      Debian
+
+   .. tab:: SUSE
+
+      SUSE
+
+   .. tab:: CoreOS
+
+      CoreOS
+
+   .. tab:: Windows
+
+      Windows
+
+   .. tab:: PhotonOS
 
       PhotonOS
 

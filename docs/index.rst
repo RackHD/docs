@@ -12,6 +12,21 @@ RackHD™
 
 .. _Introduction to RackHD: https://www.youtube.com/embed/cCiXtROSt8U
 
+
+.. tabs::
+
+   .. tab:: Apples
+
+      Apples are green, or sometimes red.
+
+   .. tab:: Pears
+
+      Pears are green.
+
+   .. tab:: Oranges
+
+      Oranges are orange.
+
 RackHD is a technology stack for enabling automated hardware management and
 orchestration through cohesive APIs. It serves as an abstraction layer between
 other management layers and the underlying, vendor-specific physical hardware.
