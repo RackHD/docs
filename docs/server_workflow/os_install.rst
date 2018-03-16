@@ -201,9 +201,9 @@ RackHD workflow support installing Operating System automatically from remote ht
 
      TODO: Description about install RHEL
 
-  .. tab:: CentOS
+  .. tab:: ESXI
 
-     Centos
+     TODO: Description about install ESXI
 
   .. tab:: Debian
 
