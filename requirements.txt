@@ -22,5 +22,4 @@ sphinx_tabs
 tornado==4.2.1
 watchdog==0.8.3
 sphinxcontrib-contentui
-sphinx_rtd_theme==0.2.4
-
+sphinx_rtd_theme

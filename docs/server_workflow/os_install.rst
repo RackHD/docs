@@ -236,7 +236,7 @@ RackHD workflow support installing Operating System automatically from remote ht
             option routers 172.31.128.254;
 
     .. toggle-header::
-        :header: Method-1[iso] **Show/Hide Steps**
+        :header: Method-1[iso]  **Show/Hide Steps**
 
         For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_iso_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
@@ -265,7 +265,7 @@ RackHD workflow support installing Operating System automatically from remote ht
             curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_iso_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
 
     .. toggle-header::
-        :header: Method-2[live] **Show/Hide Steps**
+        :header: Method-2[live]  **Show/Hide Steps**
 
         For **live** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``, you can find the proper parameters in ``/opt/monorail/config.json``
 
@@ -326,7 +326,7 @@ RackHD workflow support installing Operating System automatically from remote ht
 
   .. tab:: ESXI
 
-     TODO: Description about install ESXI
+     Method-1
 
   .. tab:: RHEL
 
