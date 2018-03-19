@@ -2,7 +2,6 @@ Built-in Workflows
 =================
 
 .. toctree::
-   :maxdepth: 1
 
    discovery
    install_os
