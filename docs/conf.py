@@ -134,8 +134,12 @@ html_theme_path = sphinx_rtd_theme.get_html_theme_path()
 # documentation.
 html_theme_options = {
     'collapse_navigation': False,
+<<<<<<< HEAD
     'navigation_depth': 3,
     'display_version': True
+=======
+    'display_version': True,
+>>>>>>> afadf
 
     # Navigation bar title. (Default: ``project`` value)
 #    'navbar_title': "RackHD",
