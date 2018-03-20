@@ -4,6 +4,7 @@ RackHD Users Guide
 ==================
 
 .. toctree::
+   :maxdepth: 1
 
    packaging_and_deployment
    installation
