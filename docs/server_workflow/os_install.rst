@@ -223,6 +223,8 @@ RackHD workflow support installing Operating System automatically from remote ht
 
   .. tab:: PhotonOS
 
+      PhotonOS
+
 Setting up RackHD OS repository with image service
 --------------------------------------------------
 
