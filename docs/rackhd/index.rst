@@ -4,7 +4,7 @@ RackHD Users Guide
 ==================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
 
    packaging_and_deployment
    installation
@@ -13,7 +13,7 @@ RackHD Users Guide
    rackhd_api
    event_notification.rst
    nodes
-   workflows
+   Workflows <workflows>
    tasks
    pollers
    skus

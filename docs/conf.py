@@ -14,15 +14,17 @@
 
 import sys
 import os
-import sphinx_bootstrap_theme
+#import sphinx_bootstrap_theme
+import sphinx_rtd_theme
 
 #import shlex
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('_ext'))
+sys.path.insert(0, os.path.abspath('rst'))
 
 # -- General configuration ------------------------------------------------
 
@@ -32,7 +34,7 @@ sys.path.insert(0, os.path.abspath('_ext'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['edit_on_github']
+extensions = ['edit_on_github', 'sphinx_tabs.tabs', 'sphinxcontrib.contentui']
 edit_on_github_project = 'rackhd/docs'
 edit_on_github_branch = 'master'
 edit_on_github_src_path = 'docs/'  # optional. default: ''
@@ -109,76 +111,85 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+# Sphonx configuration for navtree
+
 
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme = 'sphinx_rtd_theme'
+#html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+def setup(app):
+    app.add_stylesheet('_static/_override.css')
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
+    'collapse_navigation': False,
+    'navigation_depth': 3,
+    'display_version': True
+
     # Navigation bar title. (Default: ``project`` value)
-    'navbar_title': "RackHD",
-
-    # Tab name for entire site. (Default: "Site")
-    'navbar_site_name': "Docs",
-
-    # A list of tuples containing pages or urls to link to.
-    # Valid tuples should be in the following forms:
-    #    (name, page)                 # a link to a page
-    #    (name, "/aa/bb", 1)          # a link to an arbitrary relative url
-    #    (name, "http://example.com", True) # arbitrary absolute url
-    # Note the "1" or "True" value above as the third argument to indicate
-    # an arbitrary url.
-    # 'navbar_links': [
-        # ("Examples", "examples"),
-        # ("Link", "http://example.com", True),
-    # ],
-
-    # Render the next and previous page links in navbar. (Default: true)
-    'navbar_sidebarrel': False,
-
-    # Render the current pages TOC in the navbar. (Default: true)
-    'navbar_pagenav': False,
-
-    # Tab name for the current pages TOC. (Default: "Page")
-    # 'navbar_pagenav_name': "Page",
-
-    # Global TOC depth for "site" navbar tab. (Default: 1)
-    # Switching to -1 shows all levels.
-    'globaltoc_depth': -1,
-
-    # Include hidden TOCs in Site navbar?
-    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
-    # non-hidden ``toctree`` directives in the same page, or else the build
-    # will break.
-    # Values: "true" (default) or "false"
-    # 'globaltoc_includehidden': "false",
-
-    # HTML navbar class (Default: "navbar") to attach to <div> element.
-    # For black navbar, do "navbar navbar-inverse"
-    # 'navbar_class': "navbar navbar-inverse",
-
-    # Fix navigation bar to top of page?
-    # Values: "true" (default) or "false"
-    'navbar_fixed_top': "true",
-
-    # Location of link to source.
-    # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "footer",
-
-    # Bootswatch (http://bootswatch.com/) theme.
-    # Options are nothing (default) or the name of a valid theme
-    # such as "amelia", "cosmo", or "united".
-    'bootswatch_theme': "yeti",
-
-    # Choose Bootstrap version.
-    # Values: "3" (default) or "2" (in quotes)
-    # 'bootstrap_version': "2",
+#    'navbar_title': "RackHD",
+#
+#    # Tab name for entire site. (Default: "Site")
+#    'navbar_site_name': "Docs",
+#
+#    # A list of tuples containing pages or urls to link to.
+#    # Valid tuples should be in the following forms:
+#    #    (name, page)                 # a link to a page
+#    #    (name, "/aa/bb", 1)          # a link to an arbitrary relative url
+#    #    (name, "http://example.com", True) # arbitrary absolute url
+#    # Note the "1" or "True" value above as the third argument to indicate
+#    # an arbitrary url.
+#    # 'navbar_links': [
+#        # ("Examples", "examples"),
+#        # ("Link", "http://example.com", True),
+#    # ],
+#
+#    # Render the next and previous page links in navbar. (Default: true)
+#    'navbar_sidebarrel': False,
+#
+#    # Render the current pages TOC in the navbar. (Default: true)
+#    'navbar_pagenav': False,
+#
+#    # Tab name for the current pages TOC. (Default: "Page")
+#    # 'navbar_pagenav_name': "Page",
+#
+#    # Global TOC depth for "site" navbar tab. (Default: 1)
+#    # Switching to -1 shows all levels.
+#    'globaltoc_depth': -1,
+#
+#    # Include hidden TOCs in Site navbar?
+#    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
+#    # non-hidden ``toctree`` directives in the same page, or else the build
+#    # will break.
+#    # Values: "true" (default) or "false"
+#    # 'globaltoc_includehidden': "false",
+#
+#    # HTML navbar class (Default: "navbar") to attach to <div> element.
+#    # For black navbar, do "navbar navbar-inverse"
+#    # 'navbar_class': "navbar navbar-inverse",
+#
+#    # Fix navigation bar to top of page?
+#    # Values: "true" (default) or "false"
+#    'navbar_fixed_top': "true",
+#
+#    # Location of link to source.
+#    # Options are "nav" (default), "footer" or anything else to exclude.
+#    'source_link_position': "footer",
+#
+#    # Bootswatch (http://bootswatch.com/) theme.
+#    # Options are nothing (default) or the name of a valid theme
+#    # such as "amelia", "cosmo", or "united".
+#    'bootswatch_theme': "yeti",
+#
+#    # Choose Bootstrap version.
+#    # Values: "3" (default) or "2" (in quotes)
+#    # 'bootstrap_version': "2",
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -219,7 +230,9 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+    '*': ['searchbox.html', 'localtoc.html']
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

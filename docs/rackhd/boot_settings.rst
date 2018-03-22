@@ -3,8 +3,10 @@ Customize Default iPXE Boot Setting
 
 A compute server's BIOS can be set to always PXE network boot using the BIOS boot order. The default RackHD response when no workflow is operating is to do nothing - normally falling through to the next item in the BIOS boot order. RackHD can also be configured with a default iPXE script to provide boot instructions when no workflow is operational against the node.
 
-Default iPXE Boot Customized OS Into RAM
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. container:: mytitle
+
+    Default iPXE Boot Customized OS Into RAM
+
 
 To configure RackHD to provide a custom iPXE response to a node outside of a workflow running, such as booting a customized kernel and initrd, you can do so by providing configuration to the Node resource in RackHD. This functionality can be enabled by using a PATCH REST API call adding **bootSettings** to a node.
 
@@ -43,8 +45,9 @@ bootargs  String     **required**  Boot arguments of `kernel`
 ======== =========== ============ ============================================
 
 
-Customize iPXE Boot Profile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. container:: mytitle
+
+    Customize iPXE Boot Profile
 
 **profile** in **bootSettings** could be customized instead of `defaultboot.ipxe`. `defaultboot.ipxe` is provided by default, and its **options** `url`, `kernel`, `initrd`, `bootargs` are aligned with the variables `<%=url%>` `<%=kernel%>` `<%=initrd%>` `<%=bootargs%>` in `defaultboot.ipxe`, so if the profile is customized, the options also should be aligned with the variables that will be rendered in customized iPXE profile just like `defaultboot.ipxe`
 
