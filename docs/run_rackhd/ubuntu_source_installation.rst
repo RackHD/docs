@@ -1,8 +1,13 @@
-Source Installation on Ubuntu
----------------------------------
+Installation from Source Code
+=============================
+
+.. contents:: Table of Contents
+
+Prerequisites
+-----------------------------
 
 NICs
-^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Ubuntu 14.04**
 
@@ -74,7 +79,7 @@ that it will be run with `pm2`_.
 
 
 Start RackHD
-~~~~~~~~~~~~
+-----------------------------
 
 .. code::
 
@@ -107,7 +112,7 @@ If isc-dhcp-server is not running, run below to start DHCP service:
 
 
 How to update to the latest code
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 
 .. code::
 
@@ -115,7 +120,7 @@ How to update to the latest code
     ./scripts/clean_all.bash && ./scripts/reset_submodules.bash && ./scripts/link_install_locally.bash
 
 How to Reset the Database
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 .. code::
 

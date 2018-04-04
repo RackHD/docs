@@ -2,15 +2,10 @@ Running RackHD
 ========================
 
 .. toctree::
+   :titlesonly:
+   :hidden:
 
-Deployment Environment
-------------------------
-   
-Installation
-------------------------
-
-Configuration
-------------------------
-
-Security
-------------------------
+   Deployment <deployment>
+   installation
+   configuration
+   security
