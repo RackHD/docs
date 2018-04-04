@@ -1,5 +1,7 @@
 Configuration
--------------
+=============================
+
+.. contents:: Table of Contents
 
 The following JSON is an examples of the current defaults:
 
@@ -70,7 +72,7 @@ config.json_
 
 
 Configuration Parameters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 The following table describes the configuration parameters in config.json:
 
@@ -239,7 +241,7 @@ For example, to override the value of amqp for the configuration, you could use:
 prior to running the relevant application.
 
 HTTPS/TLS Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 To use TLS, a private RSA key and X.509 certificate must be provided. On Ubuntu and
 Mac OS X, the openssl command line tool can be used to generate keys and certificates.
@@ -256,7 +258,7 @@ See the table in `Configuration Parameters`_ for information about HTTP/HTTPS co
 These parameters beging with *HTTP* and *HTTPS*.
 
 BMC Username and Password Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 A node gets discovered and the BMC IPMI comes up with a default username/password. User can automatically set
 IPMI OBM settings  using a  default user name('__rackhd__') and an auto generated password in rackHD by adding the following
@@ -374,12 +376,12 @@ add the below content in the json body for payload (example node identifier and 
 
 
 Certificates
-~~~~~~~~~~~~~
+-----------------------------
 
 This section describes how to generate and install a self-signed certificate to use for testing.
 
 Generating Self-Signed Certificates
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you already have a key and certificate, skip down to the
 `Installing Certificates`_ section.
@@ -402,7 +404,7 @@ When you run this command, OpenSSL prompts you for some metadata to associate wi
 certificate. The generated certificate contains the corresponding public key.
 
 Installing Certificates
-^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once you have your private key and certificate, you'll need to let the application know where to
 find them. It is suggested that you move them into the /opt/monorail/data folder.
@@ -427,7 +429,7 @@ choice. Verify the certificate by restarting on-http and visiting
 .. _http-endpoint-config-ref-label:
 
 Setup HTTP/HTTPS endpoint
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 This section describes how to setup HTTP/HTTPS endpoints in RackHD.
 An endpoint is an instance of HTTP or HTTPS server that serves a group of APIs. Users can
@@ -487,7 +489,7 @@ There is currently one API group defined in RackHD:
 .. _taskgraph-endpoint-config-ref-label:
 
 Setup Taskgraph Endpoint
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 This section describes how to setup the taskgraph endpoint in RackHD.
 The taskgraph endpoint is the interface that is used by nodes to interacting with the system
@@ -512,10 +514,10 @@ The taskgraph endpoint is the interface that is used by nodes to interacting wit
 
 
 Raid Configuration
-~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Setting up the docker image
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For the correct tooling (storcli for Quanta/Intel and perccli for Dell) you will need to build the docker image using the following steps:
 
@@ -559,7 +561,7 @@ OEM docker images **dell_raid** and **secure_erase** require perccli_1.11.03-1_a
 
 
 Posting the Workflow
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     POST:        http://server-ip:8080/api/2.0/nodes/:id/workflows/?name=Graph.Bootstrap.Megaraid.Configure
 
 add the below example content in the json body for payload
@@ -596,7 +598,7 @@ ssdStoragePoolArr, ssdCacheCadeArr, hddArr should be passed as empty arrays if t
 For CacheCade (ssdCacheCadeArr) to work the controller should have the ability to configure it. 
 
 Payload Definition
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The drive information for payload can be gathered from the node catalogs using the api below:
 
     GET /api/current/nodes/<id>/catalogs/<source>
@@ -622,6 +624,8 @@ Or from the node’s microkernel:
     }
     
 The elements in the arrays represent the EID of the drives (run this command in the micro-kernel storcli 64 /c0 show)
+
+.. code-block:: txt
  
    Physical Drives = 6 PD LIST : ======= -------------------------------------------------------------------------
 
@@ -644,7 +648,7 @@ The elements in the arrays represent the EID of the drives (run this command in 
 "ssdCacheCadeArr": is the array of hard drives that will take part of CacheCade 
 
 Results
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 After the workflow runs successfully, you should be able to see the newly created virtual disks either from the catalogs or from the monorail micro-kernel
 
 .. code-block:: shell

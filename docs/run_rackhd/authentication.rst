@@ -1,5 +1,7 @@
 Authentication
---------------
+=============================
+
+.. contents:: Table of Contents
 
 When 'authEnabled' is set to 'true' in the config.json file for an endpoint, authentication
 will be needed to access the APIs that are defined within that endpoint.  Enabling authentication
@@ -8,7 +10,7 @@ will also enable authorization control when accessing API 2.0 and Redfish APIs.
 This section describes how to access APIs that need authentication.
 
 Enable Authentication
-~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Please refer to :ref:`http-endpoint-config-ref-label` on how to setup endpoints. Simply put,
 the following endpoint configuration will be a good start.
@@ -49,7 +51,7 @@ user credentials over unencrypted HTTP connection exposes users to the risk of m
 .. _localhost-exception-label:
 
 Setup the First User with Localhost Exception
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------
 
 The localhost exception permits unauthenticated access to create the first user in the system.  With
 authentication enabled, the first user can be created by issuing a POST to the /users API only if the
@@ -70,7 +72,7 @@ The localhost exception can be disabled by setting the configuration value "enab
 false.  The default value of "enableLocalHostException" is true.
 
 Setup the Token
-~~~~~~~~~~~~~~~
+-----------------------------
 
 There are few settings needed for generating the token.
 
@@ -91,7 +93,7 @@ There are few settings needed for generating the token.
 
 
 Login to Get a Token
-~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Following the endpoint settings, a token is needed to access any northbound APIs, except the /login API.
 
@@ -127,7 +129,7 @@ For example:
     }
 
 Accessing API Using the Token
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 There are three ways of using the token in a http/https request:
 
@@ -218,7 +220,7 @@ For example:
     }
 
 Invalidating all Tokens
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 All active tokens can be invalidated by changing the authTokenSecret property in the RackHD configuration file:
 
@@ -230,7 +232,7 @@ Edit config.json, modify the value of authTokenSecret, and save the file. Restar
 generated tokens, signed with the old secret, will now be invalid.
 
 Creating a Redfish Session
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Posting a request to the Redfish Session Service with UserName and Password in the request body will get a token returned from
 the Redfish service which can be used to access any other Redfish APIs.  The token is returned in the 'X-Auth-Token' header in
@@ -314,7 +316,7 @@ header to the request object:
     }
 
 Deleting a Redfish Session
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 To invalidate a Redfish session token, the respective session instance should be deleted:
 
@@ -344,4 +346,3 @@ Once the session has been deleted, the session token will no longer be valid:
     100     2  100     2    0     0     64      0 --:--:-- --:--:-- --:--:--    66
     * Connection #0 to host localhost left intact
     {}
-

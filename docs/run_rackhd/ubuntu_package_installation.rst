@@ -1,11 +1,13 @@
-Package Installation on Ubuntu
--------------------------------
+Installation from Debian Package
+================================
+
+.. contents:: Table of Contents
 
 Prerequisites
-~~~~~~~~~~~~~
-NICs
-^^^^
+-----------------------------
 
+NICs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Ubuntu 14.04**
 
@@ -45,7 +47,7 @@ edit the network:
   this is the 'default'. it can be changed, but more than one file needs to be changed.)
 
 NodeJS 4.x
-^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **If Node.js is not installed**
 
@@ -77,7 +79,7 @@ Ensure Node.js is at version 4.x, example:
 
 
 Install & Configure RackHD
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 **After Prerequisites installation, there're two options to install and configure RackHD from package**
 
@@ -88,7 +90,7 @@ Either (a) or (b) can lead the way to install RackHD from debian packages.
 
 
 _`Install/Configure with Ansible Playbook`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (1). install git and ansible
 
 .. code::
@@ -142,7 +144,7 @@ If isc-dhcp-server is not running, run below to start DHCP service:
 
 
 _`Install/Configure with Step by Step Guide`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 (1). Install the prerequisite packages:
 
@@ -273,7 +275,7 @@ Verify with ``service on-[something] status``
 #######
 
 How to Erase the Database to Restart Everything
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------
 
   .. code::
 

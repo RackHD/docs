@@ -30,6 +30,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
+   :titlesonly:
 
    rackhd_overview
    tech_inside/index

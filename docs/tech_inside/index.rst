@@ -2,7 +2,8 @@ Technical Inside
 ========================
 
 .. toctree::
-
-Major Components
-------------------------
+   :titlesonly:
+   :hidden:
    
+   theory_of_ops
+   software_arch

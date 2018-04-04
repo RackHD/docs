@@ -1,12 +1,13 @@
+Installation from NPM Package
+=============================
 
-NPM Installation
-----------------
-
+.. contents:: Table of Contents
 
 Ubuntu
-~~~~~~
+-----------------------------
+
 Prerequisites
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **NICs**
 
@@ -110,7 +111,7 @@ Prerequisites
 ####
 
 Install & Configure RackHD
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. **Install RackHD NPM Packages**
 
@@ -259,7 +260,7 @@ Install & Configure RackHD
 #######
 
 How to Erase the Database to Restart Everything
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   .. code::
 
@@ -278,9 +279,9 @@ How to Erase the Database to Restart Everything
 
 
 CentOS 7
-~~~~~~~~
+-----------------------------
 Prerequisites
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **NICs**
 
@@ -497,7 +498,7 @@ Prerequisites
 ####
 
 Install & Configure RackHD
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 1. **Install RackHD NPM Packages**
@@ -648,7 +649,7 @@ Install & Configure RackHD
 #######
 
 How to Erase the Database to Restart Everything
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   .. code::
 

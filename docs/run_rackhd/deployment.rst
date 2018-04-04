@@ -1,5 +1,7 @@
 Deployment Environment
-=======================================
+=============================
+
+.. contents:: Table of Contents
 
 RackHD can use a number of different mechanisms to coordinate and control
 bare metal hardware, and in the most common cases, a deployment is working with
@@ -15,7 +17,7 @@ installation are:
 - understanding where and how `IP address management`_ is to be handled in each of the networks
   that the first two items mandate.
 
-.. image:: ../_static/vagrant_setup.jpg
+.. image:: ../_static/vagrant_setup.png
    :height: 200
    :align: right
 
@@ -27,7 +29,7 @@ PXE booting nodes and API controls. The example setup in :doc:`../getting_starte
 shows a minimal configuration.
 
 Security Constraints
-----------------------
+-----------------------------
 
 RackHD as a technology is configured to control and automate hardware, which implies
 a number of natural security concerns. As a service, it provides an API control
@@ -51,7 +53,7 @@ is strictly limited.
 .. _known security flaws: https://community.rapid7.com/community/metasploit/blog/2013/07/02/a-penetration-testers-guide-to-ipmi
 
 Hardware Controls
-------------------
+-----------------------------
 
 .. sidebar:: KCS and controlling the BMC
 
@@ -118,7 +120,7 @@ OS to interrogate the hardware.
 
 
 IP Address Management
-----------------------
+-----------------------------
 
 With multiple networks in use with RackHD, how machines are getting IP addresses
 and what systems are repsonsible for providing those IP addresses another
@@ -138,7 +140,7 @@ from the service providing IP address (and other) configuration details for
 hosts.
 
 RackHD Network Access Requirements
-------------------------------------
+----------------------------------
 
 - DHCP-proxy
     The DHCP proxy service for RackHD needs to be on the same Layer 2 (broadcast)
@@ -160,7 +162,7 @@ RackHD Network Access Requirements
 
 
 Possible Configurations
---------------------------------
+-----------------------------
 
 In an environment where the hardware you're managing doesn't have additional
 network interfaces, and the BMC shares the motherboard physical network

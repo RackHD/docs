@@ -1,6 +1,9 @@
 Contributing to RackHD
-======================
+=============================
 
+.. contents:: Table of Contents
+   :depth: 2
+   
 We certainly welcome and encourage contributions in the form of issues and pull requests, but please read the
 guidelines in this document before you get involved.
 
@@ -9,7 +12,7 @@ people get involved, we will solidify and extend our guidelines as needed.
 
 
 Communicating with Other Users
------------------------------------------
+------------------------------
 
 We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group through the web page or subscribe directly by sending email to rackhd+subscribe@googlegroups.com.
 
@@ -17,7 +20,7 @@ We also have a #RackHD slack channel at https://codecommunity.slack.com/messages
 
 
 Submitting Contributions
-----------------------------------------
+-----------------------------
 
 
 To submit coding additions or changes for a repository, fork the repository and clone it locally. Then use a unique branch to make commits and send pull requests.
@@ -32,7 +35,7 @@ After receiving the pull request, our core committers will give you feedback on 
 If you have questions about the disposition of a request, feel free to email one of our core committers.
 
 Core Committer Team
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Michael.Hepfer@dell.com
 * Andrew.Hou@dell.com
@@ -51,7 +54,7 @@ Please direct general conversation about how to use RackHD or discussion about i
 
 
 Issues and Bugs
------------------------------------
+-----------------------------
 
 Please use https://rackhd.atlassian.net/secure/RapidBoard.jspa?rapidView=5 to raise issues, ask questions, and report bugs.
 
@@ -67,13 +70,13 @@ When reporting problems, include the following information:
 
 
 Security Issues
-------------------------------
+-----------------------------
 
 If you discover a security issue, please report it in an email to rackhd@emc.com. Do not use the Issues section to describe a security issue.
 
 
 Understanding the Repositories
--------------------------------------------------
+------------------------------
 
 The https://github.com/rackhd/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
 
@@ -82,7 +85,7 @@ at :doc:`devguide/repositories`.
 
 
 Submitting Design Proposals
-----------------------------------------
+-----------------------------
 
 Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at groups.google.com/forum/#!forum/rackhd)
 for discussion. The Core Committer team reviews the proposals to make sure architectural details are aligned, with a floating agenda updated on the
@@ -97,14 +100,14 @@ roadmap.
 
 
 Coding Guidelines
------------------------------------
+-----------------------------
 
 Use the same coding style as the rest of the codebase. In general, write clean code and supply meaningful and comprehensive code comments. For more
 detailed information about how we've set up our code, please see our :doc:`devguide/index`.
 
 
 Contributing to the Documentation
--------------------------------------
+---------------------------------
 
 To contribute to our documentation, clone the `RackHD/docs`_ repository and submit commits and pull requests as is done for the other repositories.
 When we merge your pull requests, your changes are automatically published to our documentation site at http://rackhd.readthedocs.org/en/latest/.
@@ -114,7 +117,7 @@ When we merge your pull requests, your changes are automatically published to ou
 
 
 Community Guidelines
-------------------------------------------
+-----------------------------
 
 This project adheres to the `Open Code of Conduct`_. By participating, you are expected to honor this code.
 Our community generally follows `Apache voting guidelines`_ and utilizes `lazy consensus`_ for logistical efforts.
