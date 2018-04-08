@@ -1,5 +1,7 @@
 Southbound Notification API
----------------------------
+=============================
+
+.. contents:: Table of Contents
 
 The southbound notification API provides functionality for sending notifications to RackHD
 from a node. For example, a node could send notification to inform RackHD that
@@ -8,7 +10,7 @@ OS installation has finished.
 The notification API is only available from the southbound.
 
 How does it work
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 When a node calls a notification API, the RackHD on-http process will get acknowledged
 and then send a AMQP message to an exchange named 'on.events', with routing key set to
@@ -26,7 +28,7 @@ the message and finish itself. Please refer to the diagram below.
 .. image:: /_static/install_os_notification.png
 
 API commands
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 When running the on-http process, these are some common API commands you
 can send:
@@ -73,7 +75,7 @@ A broadcast notification will trigger a AMQP message with routing key set to
 
 
 Use notification API in OS installation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 A typical OS installation needs two notifications. The first one notifies that OS has been installed
 to the disk on the target node. The second one notifies that the OS has been successfully booted

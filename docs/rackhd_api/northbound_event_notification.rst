@@ -1,5 +1,7 @@
-Event Notification
-------------------
+Northbound Event Notification
+=============================
+
+.. contents:: Table of Contents
 
 RackHD supports event notification via both web hook and AMQP.
 
@@ -8,7 +10,7 @@ A web hook allows applications to subscribe certain RackHD published events by c
 RackHD also publishes defined events over AMQP, so subscribers to RackHD's instance of AMQP don't need to register a webhook URL to get events. The AMQP events can be prolific, so we recommend that consumers filter events as they are received to what is desired.
 
 Events Payloads
-~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 .. _event_payload:
 
@@ -206,10 +208,10 @@ Example of node *discovered* event payload:
 
 
 Events via AMQP
-~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 AMQP Exchange and Routing Key
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The change of resources managed by RackHD could be retrieved from AMQP messages.
 
@@ -246,7 +248,7 @@ Graph event routing key:
 
 
 AMQP Routing Key Filter
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 All the events could be filtered by routing keys, for example:
 
@@ -266,10 +268,10 @@ All nodes' discovered events:
 
 
 Events via Hook
-~~~~~~~~~~~~~~~~
+-----------------------------
 
 Register Web Hooks
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The web hooks used for subscribing event notification could be registered by ``POST <server>/api/current/hooks`` API as below
 
@@ -302,7 +304,7 @@ An example of `payload.json` with minimal attributes:
 When multiple hooks are registered, a single event can be sent to multiple hook urls if it meets hooks' filtering conditions.
 
 Event Filter Rules
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The conditions of which events should be notified could be specified in the `filters` attribute in the hook_payload_, when `filters` attribute is not specified, or it's empty, all the events will be notified to the hook url.
 
@@ -341,7 +343,7 @@ An example of multiple filters:
 
 
 Web Hook APIs
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 **Create a new hook**
@@ -390,17 +392,17 @@ Web Hook APIs
     }
 
 Redfish Alert Notification
-~~~~~~~~~~~~~~~~
+-----------------------------
 
 Description
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 RackHD is enabled to receive redfish based notifications.
 It is possible to configure a redfish endpoint to send alerts to RackHD.
 When RackHD receives an alert, it determines which node issued the alert and then it adds some additional context such as nodeId, service tag, etc.
 Lastly, RackHD publishes the alert to AMQP and Web Hook.
 
 Configuring the Redfish endpoint
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If the endpoint is redfish enabled and supports the Resfish EventService, it is possible to configure the endpoint to send the alerts to RackHD. Please note that the "Destination" property in the example below should be a reference to RackHD.
 
 .. code-block:: REST
@@ -483,7 +485,7 @@ Here is an instance of the payload:
     }
 
 Alert message
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In addition to the redfish alert message, RackHD adds the following properties: "sourceIpAddress" (of the BMC), "nodeId","macAddress" (of the BMC), "ChassisName",  "ServiceTag", "SN".
 
 .. code-block:: JSON
@@ -516,7 +518,7 @@ In addition to the redfish alert message, RackHD adds the following properties: 
 	}
 
 AMQP
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The messages are pulished to:
 
 - Exchange: **on.events**

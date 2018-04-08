@@ -1,9 +1,10 @@
 Workflow Examples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=============================
 
+.. contents:: Table of Contents
 
 Creating a Custom Zerotouch Graph for Arista
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------
 
 This section provides instructions for creating a custom zerotouch graph for Arista machines,
 including defining a custom EOS image, custom startup-config, and custom zerotouch script.
@@ -197,7 +198,7 @@ This should almost always match the EOS image filename you have provided, e.g.:
 
 
 Creating a Linux Commands Graph
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 .. _linux-commands-ref-label:
 

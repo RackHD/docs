@@ -1,11 +1,13 @@
 Pollers
--------------------
+=============================
+
+.. contents:: Table of Contents
 
 The pollers API provides functionality for periodic collection of IPMI and SNMP
 data.
 
 IPMI
-~~~~~~~~~~
+-----------------------------
 
 IPMI Pollers can be standalone or can be associated with a node. When an
 IPMI poller is associated with a node, it will attempt to use that node's IPMI
@@ -27,7 +29,7 @@ See the Alerts section below for more information.
 
 
 SNMP
-~~~~~~~~~~~~
+-----------------------------
 
 SNMP pollers can be standalone or associated with a node. When an SNMP poller is
 associated with a node, it attempts to use that node's snmpSettings in order
@@ -52,7 +54,7 @@ Example request to create and auto-discover a switch::
     }
 
 Metric Pollers
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 In some cases, the data desired from a poller may require more complex processing
 than simply running an IPMI or SNMP command and parsing it. To address this,
@@ -74,7 +76,7 @@ data about how much network bandwidth is flowing through each interface.
 
 
 API commands
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 When running the on-http process, these are some common API commands you
 can send:
@@ -150,7 +152,7 @@ an "ibms" field with a host and community fields:
             "config":{"command":"power"}}' \
         <server>/api/current/pollers
 
-.. literalinclude:: samples/ipmi-poller.json
+.. literalinclude:: ../samples/ipmi-poller.json
    :language: JSON
 
 **Create a New IPMI Poller Without a Node**
@@ -177,7 +179,7 @@ an "ibms" field with a host and community fields:
             "config":{"command":"power","host":"10.1.1.2","user":"admin","password":"admin"}}' \
         <server>/api/current/pollers
 
-.. literalinclude:: samples/ipmi-poller-no-node.json
+.. literalinclude:: ../samples/ipmi-poller-no-node.json
    :language: JSON
 
 **Create a New SNMP Poller**
@@ -207,7 +209,7 @@ an "ibms" field with a host and community fields:
               "oids":["PDU-MIB::outletVoltage","PDU-MIB::outletCurrent"]}}' \
         <server>/api/current/pollers
 
-.. literalinclude:: samples/snmp-poller.json
+.. literalinclude:: ../samples/snmp-poller.json
    :language: JSON
 
 **Create a New Metric Poller**
@@ -247,12 +249,12 @@ config instead of data like "oids" or "command"
 
 Sample Output: IPMI
 
-.. literalinclude:: samples/ipmi-sdr-poller-data.json
+.. literalinclude:: ../samples/ipmi-sdr-poller-data.json
    :language: JSON
 
 Sample Output: SNMP
 
-.. literalinclude:: samples/snmp-poller-data.json
+.. literalinclude:: ../samples/snmp-poller-data.json
   :language: JSON
 
 **Get List of Active Pollers**
@@ -330,7 +332,7 @@ Sample Output: SNMP
 
 
 IPMI Poller Alerts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Please see :doc:`event_notification` for more poller alert events information. 
 
@@ -580,7 +582,7 @@ name and generate an alert when the value is greater than 0.
 
 
 Chassis Power State Alert 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 The IPMI chassis poller will publish an alert message when the power state of the node transitions. The AMQP message
 payload will contain both the current and last power state, a reference location to the node resource and a reference
@@ -608,7 +610,7 @@ location to the pollers current data cache.
 
 
 Poller JSON Format
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Pollers are defined via JSON with these required fields:
 
@@ -659,7 +661,7 @@ paused               Boolean     Determines if the poller can be scheduled. Sett
 
 
 ARP Cache Poller
-~~~~~~~~~~~~~~~~
+-----------------------------
 .. _ARP: https://en.wikipedia.org/wiki/Address_Resolution_Protocol
 .. _/proc/net/arp: https://www.kernel.org/doc/Documentation/filesystems/proc.txt
 

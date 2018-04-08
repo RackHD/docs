@@ -1,5 +1,7 @@
 Workflow Tasks
-~~~~~~~~~~~~~~~~~~~~~~
+=============================
+
+.. contents:: Table of Contents
 
 A workflow task is a unit of work decorated with data and logic that allows it to
 be included and run within a workflow. Tasks can be
@@ -15,7 +17,7 @@ A workflow task is made up of three parts:
 .. _task-definition-ref-label:
 
 Task Definitions
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 A task definition contains the basic description of the task. It contains the following fields.
 
@@ -68,7 +70,7 @@ Sample output (returns injectableName):
 
 
 Base Task Definitions
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 A Base Task Definition outlines validation requirements (an interface) and a common
 job to be used for a certain class of tasks. Base Task Definitions exist to
@@ -154,7 +156,7 @@ images that an installation target should download.
 .. _`Options Schema`:
 
 Options Schema
-^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 The Options Schema is a JSON-Schema_ file or object that outlines the attributes and validation requirement for all options of a task or job. It provides standardized and declarative way to annotate task/job options. It offloads job's validation work and brings benefit to the upfront validation for graph input options.
 
 .. _JSON-Schema: http://json-schema.org/
@@ -255,62 +257,8 @@ Below is the message if the format of option *rootPassword* is not correct:
 
     "message": "Task.Os.Install.CentOS: JSON schema validation failed - data.rootPassword should be string"
 
-
-
-Task Jobs
-^^^^^^^^^^^^^^^^^^^^^^^
-
-A job is a javascript subclass with a run function that can be referenced
-by a string. When a new task is created, and all of its validation and setup logic handled,
-the remainder of its responsibility is to instantiate a new job class instance for
-its specified job (passing down the options provided in the definition to the
-job constructor) and run that job.
-
-**Defining a Job**
-
-To create a job, define a subclass of `Job.Base
-<https://github.com/RackHD/on-tasks/blob/master/lib/jobs/base-job.js>`_
-that has a method called
-*_run* and calls *this._done()* somewhere, if the job is
-not one that runs indefinitely.
-
-.. code-block:: javascript
-
-    // Setup injector
-    module.exports = jobFactory;
-    di.annotate(jobFactory, new di.Provide('Job.example'));
-    di.annotate(jobFactory, new di.Inject('Job.Base');
-
-    // Dependency context
-    function jobFactory(BaseJob) {
-        // Constructor
-        function Job(options, context, taskId) {
-            Job.super_.call(this, logger, options, context, taskId);
-        }
-        util.inherits(Job, BaseJob);
-
-        // _run function called by base job
-        Job.prototype._run = function _run() {
-            var self = this;
-            doWorkHere(args, function(err) {
-                if (err) {
-                    self._done(err);
-                } else {
-                    self._done();
-                }
-            });
-        }
-
-        return Job;
-    }
-
-Many jobs are event-based by nature, so the base job provides many helpers for
-assigning callbacks to a myriad of AMQP events published by RackHD services, such
-as DHCP requests from a specific mac address, HTTP downloads from a specific IP, template
-rendering requests, etc.
-
 Task Templates
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 There are some values that may be needed in a task definition which are not known in advance. In some cases, it is also more convenient to use placeholder values in a task definition than literal values. In these cases, a simple template rendering syntax can be used in task definitions. Rendering is also useful in places where two or more tasks need to use the same value (e.g. options.file), but it cannot be hardcoded ahead of time.
 
 Task templates use `Mustache syntax <http://mustache.github.io/mustache.5.html>`_, with some additional features detailed below. To define a value to be rendered, place it within curly braces in a string:
@@ -403,7 +351,7 @@ On creation, the options are rendered as below. The 'file' field is specified in
     }
 
 Task Rendering Features
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 For a full list of Mustache rendering features, including specifying conditionals and iterators, see the `Mustache man page <http://mustache.github.io/mustache.5.html>`_
 
@@ -520,7 +468,7 @@ If a user overrides ``deleteAll`` to be false, and ``raidIds`` to be ``[0,1,2]``
 .. _`Task Timeout`:
 
 Task Timeouts
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 In the task options object, a magic value `_taskTimeout` can be used to specify a maximum
 amount of time a task may be run, in milliseconds. By default, this value is equal to 24 hours.
@@ -560,7 +508,7 @@ and handle graph execution according to whether any other tasks handle a timeout
 
 
 API Commands for Tasks
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 **Get Available Tasks in the Library**
 
@@ -589,7 +537,7 @@ API Commands for Tasks
 
 
 Task Annotation
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 The RackHD Task Annotation is a schema for validating running tasks in the
 RackHD workflow engine, and is also used to provide self-hosted task documentation.

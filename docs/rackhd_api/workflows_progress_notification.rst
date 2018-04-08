@@ -1,10 +1,12 @@
 Workflow Progress Notification
---------------------------------
+==============================
+
+.. contents:: Table of Contents
 
 RackHD workflow progress feature provides message notification mechanism to indicate status of an active workflow or task. User can get to know what has been done and what is to be done for an active workflow or task with progress messages.
 
 Workflow Progress Events
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 RackHD will publish a workflow progress message if any of below events happens:
 
@@ -19,7 +21,7 @@ RackHD will publish a workflow progress message if any of below events happens:
   Some tasks don't have milestones but progress information is continuous and can be got all the time. In this case progress messages is generated with fixed interval.
 
 Progress Message Payload
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 4 attributes are used to describe progress information:
 
@@ -85,7 +87,7 @@ Though RackHD provides percentage number as progress measurement in progress mes
 .. _Workflow Progress Measurement:
 
 Workflow Progress Measurement
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 RackHD progress information contains two levels of progress as shows in `Progress Message Payload Example`_ :
 
@@ -95,14 +97,14 @@ RackHD progress information contains two levels of progress as shows in `Progres
 Task progress is actually part of workflow progress. However task and workflow have two independent progress measurement methods.
 
 Workflow level progress measurement
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before a workflow's completion workflow level progress is based on tasks counting. It is measured by completed tasks count (which will be assigned to `value`) against total tasks count (which will be assigned to `maximum`) for the workflow.
 
 Percentage will be set to 100% and `value` be set to `maximum` at workflow's completion. After completion workflow level progress will not be updated even though some tasks may still be running.
 
 Task level progress measurement
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 RackHD has different task level progress measurement methods for non-long-run tasks and two long-run tasks, OS installation tasks and secure erase task.
 
@@ -160,7 +162,7 @@ In progress message, milestone quantity will be set to `maximum` and sequence nu
 For secure erase task, RackHD can get continuous percentage progress from node. Thus node is required to send the percentage data to RackHD with fixed interval. RackHD will receive and parse the percentage to get `value` and `maximum` and then publish progress message.
 
 Progress Message Retrieve Channels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 As instant data, progress messages can't be retrieved via API.
 Instead progress messages will be published in AMQP channel and posted to webhook urls after adding RackHD standard message header.
