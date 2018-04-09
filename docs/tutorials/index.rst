@@ -2,6 +2,7 @@ Tutorials
 ==================
 
 .. toctree::
+   :maxdepth: 1
 
    docker-overview
    docker-setup

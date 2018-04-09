@@ -9,73 +9,94 @@ Prerequisites
 NICs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Ubuntu 14.04**
+.. tabs::
 
-Start with an Ubuntu trusty(14.04) instance with 2 nics:
+    .. tab:: Ubuntu 14.04
 
-* eth0 for the 'public' network - providing access to RackHD APIs, and providing
-  routed (layer3) access to out of band network for machines under management
+        Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
-* eth1 for dhcp/pxe to boot/configure the machines
+        * ``eth0`` for the ``public`` network - providing access to RackHD APIs, and providing
+          routed (layer3) access to out of band network for machines under management
 
-edit the network:
+        * ``eth1`` for dhcp/pxe to boot/configure the machines
 
-* eth0 - assign IP address as appropriate for the environment, or you can use DHCP
+        edit the network:
 
-* eth1 static ( 172.31.128.0/22 )
+        * ``eth0`` - assign IP address as appropriate for the environment, or you can use DHCP
 
-  this is the 'default'. it can be changed, but more than one file needs to be changed.)
+        * ``eth1`` static ( 172.31.128.0/22 )
+
+        please check the network config file: ``/etc/network/interfaces``. The ``eth1``'s ip address is ``172.31.128.1`` Like as follows:
+
+        .. code::
+
+            auto eth1
+            iface eth1 inet static
+            address 172.31.128.1
+            post-up ifconfig eth1 promisc
+
+    .. tab:: Ubuntu 16.04
+
+        Start with an Ubuntu xenial(16.04) instance with 2 nics:
+
+        * ``ens160`` for the ``public`` network - providing access to RackHD APIs, and providing
+          routed (layer3) access to out of band network for machines under management
+
+        * ``ens192`` for dhcp/pxe to boot/configure the machines
+
+        edit the network:
+
+        * ``ens160`` - assign IP address as appropriate for the environment, or you can use DHCP
+
+        * ``ens192`` static ( 172.31.128.0/22 )
+
+        please check the network config file: ``/etc/network/interfaces``. The ``ens192``'s ip address is ``172.31.128.1`` Like as follows:
+
+        .. code::
+
+            auto ens192
+            iface ens192 inet static
+            address 172.31.128.1
+            post-up ifconfig ens192 promisc
 
 
-#######
-
-**Ubuntu 16.04**
-
-Start with an Ubuntu xenial(16.04) instance with 2 nics:
-
-* ens160 for the 'public' network - providing access to RackHD APIs, and providing
-  routed (layer3) access to out of band network for machines under management
-
-* ens192 for dhcp/pxe to boot/configure the machines
-
-edit the network:
-
-* ens160 - assign IP address as appropriate for the environment, or you can use DHCP
-
-* ens192 static ( 172.31.128.0/22 )
-
-  this is the 'default'. it can be changed, but more than one file needs to be changed.)
-
-NodeJS 4.x
+NodeJS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **If Node.js is not installed**
 
-*If Node.js is installed via apt, but is older than version 4.x, do this first* (apt-get installs v0.10 by default)
+.. tabs::
+
+    .. tab:: 4.x
+
+        .. code::
+
+            sudo apt-get remove nodejs nodejs-legacy
+            curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+
+    .. tab:: 6.x
+
+        .. code::
+
+            sudo apt-get remove nodejs nodejs-legacy
+            curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+
+    .. tab:: 8.x
+
+        .. code::
+
+            sudo apt-get remove nodejs nodejs-legacy
+            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+
+
+Ensure Node.js is installed properly, example:
 
 .. code::
 
-    sudo apt-get remove nodejs nodejs-legacy
-
-Add the NodeSource key and repository (*instructions copied from* https://github.com/nodesource/distributions#manual-installation):
-
-.. code::
-
-    curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-    VERSION=node_4.x
-    DISTRO="$(lsb_release -s -c)"
-    echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-    echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
-
-    sudo apt-get update
-    sudo apt-get install nodejs
-
-Ensure Node.js is at version 4.x, example:
-
-.. code::
-
-    $ node -v
-    v4.4.5
+    node -v
 
 
 Install & Configure RackHD
@@ -85,192 +106,196 @@ Install & Configure RackHD
 
 Either (a) or (b) can lead the way to install RackHD from debian packages.
 
-(a) `Install/Configure with Ansible Playbook`_
-(b) `Install/Configure with Step by Step Guide`_
+(a) Install/Configure with Ansible Playbook
+(b) Install/Configure with Step by Step Guide
 
+.. tabs::
 
-_`Install/Configure with Ansible Playbook`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(1). install git and ansible
+    .. tab:: Ansible Playbook
 
-.. code::
+        **Install/Configure with Ansible Playbook**
 
-  sudo apt-get install  git
-  sudo apt-get install  ansible
+        (1). install git and ansible
 
-(2). clone RackHD code
+        .. code::
 
-.. code::
+          sudo apt-get install  git
+          sudo apt-get install  ansible
 
-  git clone https://github.com/RackHD/RackHD.git
+        (2). clone RackHD code
 
+        .. code::
 
-The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
-Touch those files to allow the upstart scripts to start automatically.
+          git clone https://github.com/RackHD/RackHD.git
 
-.. code::
 
-  for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
-  do sudo touch /etc/default/$service;
-  done
+        The services files in ``/etc/init/`` all need a conf file to exist in ``/etc/default/{service}``
+        Touch those files to allow the upstart scripts to start automatically.
 
+        .. code::
 
-(3). Run the ansible playbooks
+          for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
+          do sudo touch /etc/default/$service;
+          done
 
-These will install the prerequisite packages, install the RackHD debian packages, and copy default configuration files
 
-.. code::
+        (3). Run the ansible playbooks
 
-  cd RackHD/packer/ansible
-  ansible-playbook -c local -i "local," rackhd_package.yml
+        These will install the prerequisite packages, install the RackHD debian packages, and copy default configuration files
 
-(4). Verify RackHD services
+        .. code::
 
-All the services are started and have logs in /var/log/rackhd.
-Verify with ``service on-[something] status``
+          cd RackHD/packer/ansible
+          ansible-playbook -c local -i "local," rackhd_package.yml
 
-Notes：isc-dhcp-server is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
-check if DHCP service is started:
+        (4). Verify RackHD services
 
-.. code::
+        All the services are started and have logs in /var/log/rackhd.
+        Verify with ``service on-[something] status``
 
-    sudo service --status-all
+        Notes：``isc-dhcp-server`` is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111),
+        check if DHCP service is started:
 
-If isc-dhcp-server is not running, run below to start DHCP service:
+        .. code::
 
-.. code::
+            sudo service --status-all
 
-    sudo service isc-dhcp-server start
+        If isc-dhcp-server is not running, run below to start DHCP service:
 
+        .. code::
 
-_`Install/Configure with Step by Step Guide`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            sudo service isc-dhcp-server start
 
-(1). Install the prerequisite packages:
 
-  .. code::
+    .. tab:: Step by Step
 
-    sudo apt-get install rabbitmq-server
-    sudo apt-get install mongodb
-    sudo apt-get install snmp
-    sudo apt-get install ipmitool
+        **Install/Configure with Step by Step Guide**
 
-    sudo apt-get install ansible
-    sudo apt-get install apt-mirror
-    sudo apt-get install amtterm
+        (1). Install the prerequisite packages:
 
-    sudo apt-get install isc-dhcp-server
+          .. code::
 
+            sudo apt-get install rabbitmq-server
+            sudo apt-get install mongodb
+            sudo apt-get install snmp
+            sudo apt-get install ipmitool
 
-  **Note**:
-  MongoDB versions 2.4.9 (on Ubuntu 14.04), 2.6.10 (on Ubuntu 16.04) and 3.4.9 (on both Ubuntu 14.04 and 16.04) are verified with RackHD.
-  For more details on how to install MongDB 3.4.9, please refer to: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+            sudo apt-get install ansible
+            sudo apt-get install apt-mirror
+            sudo apt-get install amtterm
 
-(2). Set up the RackHD bintray repository for use within this instance of Ubuntu
+            sudo apt-get install isc-dhcp-server
 
-.. code::
 
-    echo "deb https://dl.bintray.com/rackhd/debian trusty main" | sudo tee -a /etc/apt/sources.list
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-    sudo apt-get update
+          **Note**:
+          MongoDB versions 2.4.9 (on Ubuntu 14.04), 2.6.10 (on Ubuntu 16.04) and 3.4.9 (on both Ubuntu 14.04 and 16.04) are verified with RackHD.
+          For more details on how to install MongDB 3.4.9, please refer to: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
-(3). Install RackHD debian package
+        (2). Set up the RackHD bintray repository for use within this instance of Ubuntu
 
-The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
-Touch those files to allow the upstart scripts to start automatically.
+        .. code::
 
-.. code::
+            echo "deb https://dl.bintray.com/rackhd/debian trusty main" | sudo tee -a /etc/apt/sources.list
+            sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+            sudo apt-get update
 
-  for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
-  do sudo touch /etc/default/$service;
-  done
+        (3). Install RackHD debian package
 
-Install the RackHD Packages. Note: these packages are rebuilt on every commit to master and are
-not explicitly versioned, but intended as a means to install or update to the latest code most
-conveniently.
+        The services files in /etc/init/ all need a conf file to exist in /etc/default/{service}
+        Touch those files to allow the upstart scripts to start automatically.
 
-.. code::
+        .. code::
 
-    sudo apt-get install on-dhcp-proxy on-http on-taskgraph
-    sudo apt-get install on-tftp on-syslog
+          for service in $(echo "on-dhcp-proxy on-http on-tftp on-syslog on-taskgraph");
+          do sudo touch /etc/default/$service;
+          done
 
-(4). Basic RackHD Configuration
+        Install the RackHD Packages. Note: these packages are rebuilt on every commit to master and are
+        not explicitly versioned, but intended as a means to install or update to the latest code most
+        conveniently.
 
+        .. code::
 
-**DHCP**
+            sudo apt-get install on-dhcp-proxy on-http on-taskgraph
+            sudo apt-get install on-tftp on-syslog
 
-Update dhcpd.conf per your network configuration
+        (4). Basic RackHD Configuration
 
-.. code::
 
-    # RackHD added lines
-    deny duplicates;
+        **DHCP**
 
-    ignore-client-uids true;
+        Update dhcpd.conf per your network configuration
 
-    subnet 172.31.128.0 netmask 255.255.240.0 {
-      range 172.31.128.2 172.31.143.254;
-      # Use this option to signal to the PXE client that we are doing proxy DHCP
-      option vendor-class-identifier "PXEClient";
-    }
+        .. code::
 
-Notes：sometimes isc-dhcp-server won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
-check if DHCP service is started:
+            # RackHD added lines
+            deny duplicates;
 
-.. code::
+            ignore-client-uids true;
 
-    sudo service --status-all
+            subnet 172.31.128.0 netmask 255.255.240.0 {
+              range 172.31.128.2 172.31.143.254;
+              # Use this option to signal to the PXE client that we are doing proxy DHCP
+              option vendor-class-identifier "PXEClient";
+            }
 
-If isc-dhcp-server is not running, run below to start DHCP service:
+        Notes：sometimes isc-dhcp-server won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111),
+        check if DHCP service is started:
 
-.. code::
+        .. code::
 
-    sudo service isc-dhcp-server start
+            sudo service --status-all
 
+        If isc-dhcp-server is not running, run below to start DHCP service:
 
-#######
+        .. code::
 
-**RACKHD APPLICATIONS**
+            sudo service isc-dhcp-server start
 
-Create the required file /opt/monorail/config.json , you can use the demonstration
-configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
-as a reference.
 
-#######
+        #######
 
-**RACKHD BINARY SUPPORT FILES**
+        **RACKHD APPLICATIONS**
 
-Downloaded binary files from bintray.com/rackhd/binary and placed them using https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/images/tasks/main.yml as a guide.
+        Create the required file /opt/monorail/config.json , you can use the demonstration
+        configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
+        as a reference.
 
-.. code::
+        #######
 
-    #!/bin/bash
+        **RACKHD BINARY SUPPORT FILES**
 
-    mkdir -p /var/renasar/on-tftp/static/tftp
-    cd /var/renasar/on-tftp/static/tftp
+        Downloaded binary files from bintray.com/rackhd/binary and placed them using https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/images/tasks/main.yml as a guide.
 
-    for file in $(echo "\
-    monorail.ipxe \
-    monorail-undionly.kpxe \
-    monorail-efi64-snponly.efi \
-    monorail-efi32-snponly.efi");do
-    wget "https://dl.bintray.com/rackhd/binary/ipxe/$file"
-    done
+        .. code::
 
-    mkdir -p /var/renasar/on-http/static/http/common
-    cd /var/renasar/on-http/static/http/common
+            #!/bin/bash
 
-    for file in $(echo "\
-    discovery.docker.tar.xz \
-    initrd-1.2.0-rancher \
-    vmlinuz-1.2.0-rancher");do
-    wget "https://dl.bintray.com/rackhd/binary/builds/$file"
-    done
+            mkdir -p /var/renasar/on-tftp/static/tftp
+            cd /var/renasar/on-tftp/static/tftp
 
+            for file in $(echo "\
+            monorail.ipxe \
+            monorail-undionly.kpxe \
+            monorail-efi64-snponly.efi \
+            monorail-efi32-snponly.efi");do
+            wget "https://dl.bintray.com/rackhd/binary/ipxe/$file"
+            done
 
+            mkdir -p /var/renasar/on-http/static/http/common
+            cd /var/renasar/on-http/static/http/common
 
-All the services are started and have logs in /var/log/rackhd.  
-Verify with ``service on-[something] status``
+            for file in $(echo "\
+            discovery.docker.tar.xz \
+            initrd-1.2.0-rancher \
+            vmlinuz-1.2.0-rancher");do
+            wget "https://dl.bintray.com/rackhd/binary/builds/$file"
+            done
+
+
+
+        All the services are started and have logs in /var/log/rackhd.
+        Verify with ``service on-[something] status``
 
 #######
 
