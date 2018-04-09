@@ -16,8 +16,6 @@ import sys
 import os
 #import sphinx_bootstrap_theme
 import sphinx_rtd_theme
-from recommonmark.parser import CommonMarkParser
-from recommonmark.transform import AutoStructify
 
 #import shlex
 
@@ -47,9 +45,7 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 # source_suffix = ['.rst', '.md']
-source_parsers = {
-    '.md': CommonMarkParser,
-}
+
 source_suffix = ['.rst', '.md']
 
 # The encoding of source files.

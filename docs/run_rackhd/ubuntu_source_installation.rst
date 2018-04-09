@@ -9,45 +9,53 @@ Prerequisites
 NICs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Ubuntu 14.04**
+.. tabs::
 
-Start with an Ubuntu trusty(14.04) instance with 2 nics:
+    .. tab:: Ubuntu 14.04
 
-* eth0 for the 'public' network - providing access to RackHD APIs, and providing
-  routed (layer3) access to out of band network for machines under management
+        Start with an Ubuntu trusty(14.04) instance with 2 nics:
 
-* eth1 for dhcp/pxe to boot/configure the machines
+        * ``eth0`` for the ``public`` network - providing access to RackHD APIs, and providing
+          routed (layer3) access to out of band network for machines under management
 
-edit the network:
+        * ``eth1`` for dhcp/pxe to boot/configure the machines
 
-* eth0 - assign IP address as appropriate for the environment, or you can use DHCP
+        edit the network:
 
-* eth1 static ( 172.31.128.0/22 )
+        * ``eth0`` - assign IP address as appropriate for the environment, or you can use DHCP
 
+        * ``eth1`` static ( 172.31.128.0/22 )
 
-#######
+        please check the network config file: ``/etc/network/interfaces``. The ``eth1``'s ip address is ``172.31.128.1`` Like as follows:
 
-**Ubuntu 16.04**
+        .. code::
 
-Start with an Ubuntu xenial(16.04) instance with 2 nics:
+            auto eth1
+            iface eth1 inet static
+            address 172.31.128.1
+            post-up ifconfig eth1 promisc
 
-* ens160 for the 'public' network - providing access to RackHD APIs, and providing
-  routed (layer3) access to out of band network for machines under management
+    .. tab:: Ubuntu 16.04
 
-* ens192 for dhcp/pxe to boot/configure the machines
+        Start with an Ubuntu xenial(16.04) instance with 2 nics:
 
-edit the network:
+        * ``ens160`` for the ``public`` network - providing access to RackHD APIs, and providing
+          routed (layer3) access to out of band network for machines under management
 
-* ens160 - assign IP address as appropriate for the environment, or you can use DHCP
+        * ``ens192`` for dhcp/pxe to boot/configure the machines
 
-* ens192 static ( 172.31.128.0/22 )
+        edit the network:
 
-If you start with Ubuntu xenial(16.04), please check the network config file: `/etc/network/interfaces`. The ens192's ip address is 172.31.128.1. Like as follows:
+        * ``ens160`` - assign IP address as appropriate for the environment, or you can use DHCP
 
-.. code::
+        * ``ens192`` static ( 172.31.128.0/22 )
 
-    auto ens192
-    iface ens192 inet static
+        please check the network config file: ``/etc/network/interfaces``. The ``ens192``'s ip address is ``172.31.128.1`` Like as follows:
+
+        .. code::
+
+            auto ens192
+            iface ens192 inet static
             address 172.31.128.1
             post-up ifconfig ens192 promisc
 
@@ -97,7 +105,7 @@ Some useful commands of pm2:
     sudo pm2 flush                 # clean the RackHD logs
     sudo pm2 status                # show the status of RackHD services
 
-Notes：isc-dhcp-server is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111), 
+Notes：isc-dhcp-server is installed through ansible playbook, but sometimes it won't start on Ubuntu boot (https://ubuntuforums.org/showthread.php?t=2068111),
 check if DHCP service is started:
 
 .. code::
