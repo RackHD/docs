@@ -1,12 +1,17 @@
 Refresh Node Discovery
-----------------------
+=============================
 
-Compute type nodes can be re-discovered/refreshed either by running an immediate refresh discovery graph or a delayed refresh discovery graph using the same nodeID from the original discovery process. The node catalog(s) will be updated with new entries.
+.. contents:: Table of Contents
+
+Compute type nodes can be re-discovered/refreshed either by running an immediate refresh discovery 
+graph or a delayed refresh discovery graph using the same nodeID from the original discovery 
+process. The node catalog(s) will be updated with new entries.
 
 Immediate Refresh Node Discovery
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 
-A node can be refreshed immediately by posting to /api/2.0/workflows with a payload. The node will be rebooted automatically and the node re-discovery process will start.
+A node can be refreshed immediately by posting to /api/2.0/workflows with a payload. The node will
+be rebooted automatically and the node re-discovery process will start.
 
 **Immediate Node Re-discovery example**
 
@@ -75,7 +80,7 @@ A node can be refreshed immediately by posting to /api/2.0/workflows with a payl
 
 
 Delayed Refresh Node Discovery
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 
 A user can defer a node discovery by posting to /api/2.0/workflows with a payload. The user will need to manually reboot the node after executing the API before the node re-discovery/refresh process can start.
 

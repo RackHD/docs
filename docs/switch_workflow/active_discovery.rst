@@ -1,11 +1,13 @@
-Discovering/Configuring Network Switches
------------------------------------------
+Switch Active Discovery and Configruation
+=========================================
+
+.. contents:: Table of Contents
 
 Utilizing network switch installation environments like POAP (Cisco), ZTP (Arista) and ONIE (Cumulus, etc.),
 RackHD offers the capability to discover, inventory, and configure network switches during bootup.
 
 Active Discovery
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 The terms "active discovery" and "passive discovery" are used by RackHD to differentiate between
 a discovery workflow that occurs as part of a switch bootup process, and may potentially make
@@ -65,7 +67,7 @@ will create a catalog document with source "version" that SKU definitions can be
 
 
 Extending the Active Discovery Workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 RackHD utilizes the ability of most switch installation environments to run python scripts.
 This makes it easy to extend the active discovery process to produce custom catalogs, and deploy

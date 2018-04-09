@@ -1,5 +1,7 @@
 OS Installation
-~~~~~~~~~~~~~~~~~~~~~~~
+=============================
+
+.. contents:: Table of Contents
 
 RackHD workflow support installing Operating System automatically from remote http repository.
 
@@ -224,13 +226,13 @@ RackHD workflow support installing Operating System automatically from remote ht
       PhotonOS
 
 Setting up RackHD OS repository with image service
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------
 
 Image servie provides a convinient method for users to setup OS repository, details please refer to https://github.com/RackHD/image-service.
 Alternatively, users could setup the repos by executing `Configuring RackHD OS Mirrors`_ and `Making the Mirrors`_.
 
 Configuring RackHD OS Mirrors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 **Setting up a Windows OS repo**
 
@@ -287,7 +289,7 @@ in support of the existing workflows.
     sudo ln -s /var/mirrors/suse <on-http directory>/static/http/suse
 
 Making the Mirrors
-^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 **Centos 6.5**
 
@@ -359,7 +361,7 @@ Add following block into httpProxies in /opt/monorail/config.json
 * **CentOS**: `Creating Local Mirrors for Updates or Installs <https://wiki.centos.org/HowTos/CreateLocalMirror>`_
 
 Supported OS Installation Workflows
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 Supported OSes and their workflows are listed in table, and the listed versions have been verified by RackHD, but not limited to these, this table will be updated when more versions are verified.
 
@@ -379,7 +381,7 @@ PhotonOS      Graph.InstallPhotonOS        1.0
 
 
 OS Installation Workflow APIs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 An example of starting an OS installation workflow for CentOS:
 
@@ -435,7 +437,7 @@ Deprecated 1.1 API - Stop the active workflow to cancel OS installation:
 
 
 Non-Windows OS Installation Workflow Payload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------
 
 All parameters descriptions of OS installation workflow payload are listed below, they are fit for use with all supported OSes except for CoreOS (see note below).
 
@@ -571,7 +573,7 @@ ipv6           Object   *optional*    See `ipv4 or ipv6`_ more details.
 
 
 Windows OS Installation Workflow Payload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 ============= ======== ============ ============================================
 Parameters    Type     Flags        Description
