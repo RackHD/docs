@@ -1,7 +1,9 @@
 .. _sku-ref-label:
 
 SKUs
-~~~~
+=============================
+
+.. contents:: Table of Contents
 
 The SKU API provides functionality to categorize nodes into groups based on data
 present in a node's catalogs. SKU matching is done using a series of rules. If
@@ -64,7 +66,7 @@ be applied.
 .. _skupack-ref-label:
 
 Package Support (skupack)
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 The SKU package API provides functionality to override the set of files served
 to a node by on-http with SKU specific files.  If a SKU requires additional
@@ -76,7 +78,7 @@ The SKU package can be upload to a specific SKU id or it can be bundled with a
 set of rules to register a SKU during the package upload.
 
 API commands
-^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 When running the on-http process, these are some common API commands you
 can send.
@@ -223,7 +225,7 @@ can send.
     curl -X DELETE <server>/api/current/skus/<skuid>/pack
 
 SKU JSON format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 SKUs are defined via JSON, with these required fields:
 
@@ -264,7 +266,7 @@ SKUs are defined via JSON, with these required fields:
 +------------------------+-----------+--------------------------+----------------------------------------------------------+
 
 SKU Pack tar.gz format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 The SKU pack requires the 'config.json' to be at the root of the tar.gz file.  A typical
 package may have static, template, profile, workflow and task directories.
@@ -282,7 +284,7 @@ package may have static, template, profile, workflow and task directories.
 
 
 SKU Pack config.json format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 .. code-block:: javascript
 
     {

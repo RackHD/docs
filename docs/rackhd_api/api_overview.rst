@@ -1,5 +1,7 @@
-RackHD API
--------------------------
+RackHD API Overview
+=============================
+
+.. contents:: Table of Contents
 
 Our REST based API is the abstraction layer for the low-level management tasks
 that are performed on hardware devices, and information about those devices.
@@ -28,7 +30,7 @@ API documentation as described below or download the latest from
 
 
 Starting and Stopping the API Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 
 The API server runs by default. Use the following commands to stop or start the API server.
 
@@ -41,7 +43,7 @@ Start API server  `sudo service on-http start`
 
 
 Generating API Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 You can generate an HTML version of the API documentation by cloning the *on-http*
 repository and running the following command.
@@ -60,7 +62,7 @@ at ``http://[IP ADDRESS OF VM]:8080/docs/`` for the 1.1 API documentation, and
 ``http://[IP ADDRESS OF VM]:8080/swagger-ui/`` for the current (2.0) and Redfish API documentation.
 
 RackHD Client Libraries
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 The 2.0 API generates a swagger API definition file that can be used to
 create client libraries with `swagger`_. To create this file locally, you can
@@ -91,7 +93,7 @@ scala, php, and more.
 .. _swagger generator: https://generator.swagger.io
 
 Examples using the python client library
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
 
 Getting a list of nodes ::
 
@@ -134,7 +136,7 @@ Deprecated 1.1 API - Or the same asynchronously (with a callback)::
     thread = nodes.api1_1_nodes_get(callback=cb_func)
 
 Using Pagination
-~~~~~~~~~~~~~~~~
+-----------------------------
 
 The RackHD 2.0 ``/nodes``, ``/pollers``, and ``/workflows`` APIs support pagination
 using ``$skip`` and ``$top`` query parameters.
@@ -170,5 +172,3 @@ Here is an example link header from a collection containing 1000 nodes.
     </api/current/nodes?$skip=1004&$top=4>; rel="last",
     </api/current/nodes?$skip=0&$top=4>; rel="prev",
     </api/current/nodes?$skip=8&$top=4>; rel="next"
-
-

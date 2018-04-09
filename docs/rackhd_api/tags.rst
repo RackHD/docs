@@ -1,5 +1,7 @@
 Tags
-~~~~
+=============================
+
+.. contents:: Table of Contents
 
 The Tag API provides functionality to automatically categorize nodes into
 groups based on data present in a node's catalogs or by manually assigning
@@ -62,7 +64,7 @@ the bottom of this document for a list of additional validation rules that can
 be applied.
 
 API commands
-^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 When running the on-http process, these are some common API commands you
 can send.
@@ -147,7 +149,7 @@ at :ref:`node-api-tags-ref-label`.
     curl -H "Content-Type: application/json" -X POST -d @options.json <server>/api/current/tags/<tagname>/nodes/workflows
 
 Tag JSON format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 Tag objects are defined via JSON using these fields:
 
