@@ -3,23 +3,11 @@ Server Workflow Guide
 
 .. toctree::
 
-Discovery
-------------------------
-
-Passive Mode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Active Mode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-OS Installation
-------------------------
-
-RAID Configuration
-------------------------
-
-Disk Secure Erase
-------------------------
-
-Firmware Update
-------------------------
+   :titlesonly:
+   :hidden:
+   
+   Discovery <discovery_index>
+   OS Installation <os_install>
+   RAID Configuration <raid_configuration>
+   Disk Secure Erase <secure_erase>
+   Firmware Update <firmware_update>

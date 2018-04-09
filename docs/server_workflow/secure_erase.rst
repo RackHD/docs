@@ -1,10 +1,12 @@
 Disk Secure Erase
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=============================
+
+.. contents:: Table of Contents
 
 Secure Erase (SE) also known as a wipe is to destroy data on a disk so that data can't or is difficult to be retrieved. RackHD implements solution to do disk Secure Erase.
 
 Disk Secure Erase Workflow API
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 An example of starting secure erase for disks:
 
@@ -51,7 +53,7 @@ Deprecated 1.1 API - Use below command to stop the active workflow to cancel sec
     curl -X DELETE <server>/api/1.1/nodes/<identifier>/workflows/active
 
 Disk Secure Erase Workflow Payload
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 Parameters descriptions of secure erase workflow payload are listed below. Among them, `duration` is for `drive-scan-delay` task, other parameters are for `drive-secure-erase` task.
 
@@ -66,7 +68,7 @@ duration            Integer          optional     Specify delay time in millisec
 =================== ================ ============ ============================================
 
 Supported Disk Secure Erase Tools
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 
 RackHD currently supports disk secure erase with four tools: scrub, hdparm, sg_sanitize, sg_format. If "tool" is not specified in payload, "scrub" is used as default. Below table includes description for different tools.
 
@@ -80,7 +82,7 @@ sg_format     Sg_format (from sg3-utils package) formats, resizes or modifies pr
 ============= ===============================================================================================================
 
 Supported Disk Secure Erase Arguments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------
 
 .. _scrub:
 
@@ -141,7 +143,7 @@ Supported args          Description
 ======================= ============================================
 
 Disk Secure Erase Workflow Notes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 Please pay attention to below items if you are using RackHD secure erase function:
 
 * **RackHD Secure Erase is not fully tested**. RackHD secure erase is tested on RackHD supported servers with only one LSI RAID controller. Servers with multiple RAID controllers, disk array enclosures or non-LSI RAID controllers are not tested.

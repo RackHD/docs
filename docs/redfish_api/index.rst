@@ -1,13 +1,10 @@
 Redfish API, Data Model, Feature
-========================
+================================
 
 .. toctree::
 
-API Overview
-------------------------
+   :titlesonly:
+   :hidden:
    
-Data Model Overview
-------------------------
-
-API Reference
-------------------------
+   API Overview <api_overview>
+   Data Model <data_model>

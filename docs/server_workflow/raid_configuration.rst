@@ -1,10 +1,12 @@
 RAID Configuration
-~~~~~~~~~~~~~~~~~~~~~~~
+=============================
+
+.. contents:: Table of Contents
 
 RackHD supports RAID configuration to create and delete RAID for hardwares with LSI RAID controller.
 
 Create docker image with Storcli/Perccli
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 RackHD leverages LSI provided tool Storcli to configure RAID. RackHD requires user to build docker image including Storcli.
 As on how to build docker image for RakcHD, please refer to https://github.com/RackHD/on-imagebuilder.
@@ -13,7 +15,7 @@ If user wants to configure RAID on Dell servers, Perccli instead of Storcli shou
 The newly built docker image(default named "dell.raid.docker.tar.xz" for Dell and "raid.docker.tar.xz" for others) should be put in RackHD static file path.
 
 Create RAID
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 An example of creating RAID workflow is as below:
 
 .. code-block:: REST
@@ -41,7 +43,7 @@ For details on items of create-raid.options, please refer to: https://github.com
 
 
 Delete RAID
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 An example of deleting RAID workflow is as below:
 

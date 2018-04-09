@@ -1,9 +1,10 @@
 Firmware Update
-~~~~~~~~~~~~~~~
+=============================
 
+.. contents:: Table of Contents
 
 Firmware update Example using SKU Pack
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------
 
 This example provides instructions on how to flash a BMC image on a Quanta (node) using SKU Pack.
 
