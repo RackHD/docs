@@ -1,3 +1,5 @@
+#!rst
+
 .. RackHD documentation master file, created by
    sphinx-quickstart on Sat Aug 29 13:07:25 2015.
 
