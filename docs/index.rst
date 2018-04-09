@@ -47,6 +47,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
+<<<<<<< HEAD
    :titlesonly:
 
    rackhd_overview
@@ -64,6 +65,11 @@ Contents
    rackhd_vlab/index
    customer_support/index
    solution_center/index
+=======
+
+   introduction
+   architecture
+>>>>>>> conflict resolve
    contributing
    demo_pages/index
 
