@@ -1,4 +1,4 @@
-Customer Support
+How TO
 =============================
 
 .. toctree::
@@ -6,5 +6,4 @@ Customer Support
    :titlesonly:
    :hidden:
 
-   Frequent Asks <frequent_asks>
-   How to <howto_index>
+   ipxe_boot_settings

@@ -19,5 +19,7 @@ RackHD API, Data Model, Feature
    Jobs <jobs>
    SKUs <skus>
    Tags <tags>
+   Lookups <lookups>
    Northbound Notification <northbound_event_notification>
    Southbound Notification <southbound_notification>
+   Features <features_index>

@@ -1,13 +1,16 @@
 .. _static-file-server-label:
 
 Static File Service Setup
----------------------------
+=============================
+
+.. contents:: Table of Contents
+
 There are two kinds of static files in RackHD: one of them are used for RackHD functionality, and the other
 is node discovery and os installation. This section introduces a mechanism to move the latter type to a
 separate third-party service in order to offload the burden of file transmission in RackHD.
 
 Files That can be Moved into a Separate Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------
 Some files, including schema, swagger configuration and others, interacts closely with RackHD, and are part of
 its functionalities. Others are served for node discovery and OS installation (if users put OS image under the
 same static file directory).  `on-http`_ manages all the files mentioned above by default, and the latter
@@ -17,7 +20,7 @@ discussed below.
 .. _on-http: https://github.com/RackHD/on-http
 
 Diagrams for Different Working Modes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 RackHD supports three modes to serve static files. This chapter introduces the settings for the last two modes.
 
 - Legacy Mode: nodes get static files from `on-http`_ service (default).
@@ -29,7 +32,7 @@ RackHD supports three modes to serve static files. This chapter introduces the s
     :align: center
 
 Setup a Static File Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 **Prerequisites**
 
@@ -104,7 +107,7 @@ Restart RackHD services after adding these fields.
 .. _config.json: https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
 
 Notes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 - fileServer configurations takes higher priority than `httpStaticRoot`_, which means that when above fields exists, RackHD will use file server address for static files and ignore that specified "httpSaticRoot".
 - When user creates a payload for a task, they could use {{ file.server }} as the address that nodes will use to get static file. It will direct to the correct address holding static file, depending on different working modes.
 - `httpProxies`_ still works. If user has setup a static file server, but would like to use http proxy for some OS bootstrap workflow, they could modify "repo" option to still use {{ api.server }} for the address of RackHD on-http service (take `sample payload`_ as an example):

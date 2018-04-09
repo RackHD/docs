@@ -1,12 +1,15 @@
 SSDP/UPnP
----------
+=============================
+
+.. contents:: Table of Contents
+
 .. _SSDP: https://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol
 
 RackHD on-http service uses `SSDP`_ (Simple Service Discovery Protocol) to advertise its Restful API services
 and device descriptions. The on-http service will respond to M-SEARCH queries from SSDP enabled clients for requested discovery. 
 
 Northbound M-SEARCH Queries
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 - Request all: **ssdp:all**
 - Request Root device description: **upnp:rootdevice**
 - Request on-http device description: **urn:schemas-upnp-org:device:on-http:1**
@@ -30,7 +33,7 @@ Northbound M-SEARCH Queries
 
 
 Southbound M-SEARCH Queries
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 - Request all: **ssdp:all**
 - Request API v1.1 service: **urn:schemas-upnp-org:service:api:1.1:southbound**
 - Request API v2.0 service: **urn:schemas-upnp-org:service:api:2.0:southbound**
@@ -52,7 +55,7 @@ Southbound M-SEARCH Queries
 
 
 Southbound Advertisement Handler
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 RackHD will poll for SSDP/UPnP advertisements made by nodes residing on the southbound side network.
 For each advertisement RackHD will publish an alert event to the **on.ssdp** AMQP exchange to notify
 layers sitting above RackHD.
@@ -98,7 +101,7 @@ layers sitting above RackHD.
 
 
 Configuration Options
-~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 Related options defined in `config.json`. For complete examples see :doc:`configuration`.
 
 
