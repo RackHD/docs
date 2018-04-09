@@ -2,8 +2,8 @@
    sphinx-quickstart on Sat Aug 29 13:07:25 2015.
 
 .. image:: _static/theme/img/logo.png
-   :height: 300
-   :align: left
+   :height: 200
+   :align: center
 
 RackHD™
 ==========
@@ -30,14 +30,24 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :numbered:
+   :titlesonly:
 
-   introduction
-   architecture
+   rackhd_overview
+   tech_inside/index
+   support_matrix
+   quick_guide
+   run_rackhd/index
+   rackhd_api/index
+   redfish_api/index
+   server_workflow/index
+   switch_workflow/index
+   extend_service/index
+   web_ui/index
+   dev_guide/index
+   rackhd_vlab/index
+   customer_support/index
+   solution_center/index
    contributing
-   devguide/index
-   rackhd/index
-   tutorials/index
-
+   demo_pages/index
 
 RackHD is a Trademark of Dell EMC Corporation.

@@ -1,8 +1,0 @@
-Security
-========
-
-.. toctree::
-
-   authentication
-   authorization
-

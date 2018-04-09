@@ -1,0 +1,6 @@
+Discovery
+=============================
+
+.. toctree::
+
+   Rediscovery <rediscovery>
