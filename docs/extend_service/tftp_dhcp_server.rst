@@ -1,5 +1,8 @@
 TFTP and DHCP Service Setup
----------------------------
+=============================
+
+.. contents:: Table of Contents
+
 .. _dhcpd.conf: http://linux.die.net/man/5/dhcpd.conf
 .. _ISC DHCP Server: https://www.isc.org/downloads/dhcp
 .. _on-tftp: https://github.com/RackHD/on-tftp
@@ -31,10 +34,10 @@ They could be replaced with other TFTP and DHCP services, and also could be depl
 **NOTE:** "Third-party" service means it's not the RackHD default service.
 
 TFTP and DHCP from the RackHD Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 
 TFTP Service Configuration in the RackHD Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Default on-tftp Configuration**
 
@@ -69,7 +72,7 @@ they need to be hardcoded, They are `172.31.128.1` and `9080` in the example, th
 
 
 DHCP Service Configuration in the RackHD Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The DHCP protocol is a critical component to the PXE boot process and for
 executing various profiles and :doc:`graphs` within RackHD.
@@ -176,7 +179,7 @@ The third-party DHCP service could be used with possible solution configurations
 
 
 TFTP and DHCP from a Separate Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 
 The RackHD default TFTP and DHCP services such as on-tftp, on-dhcp-proxy and ISC DHCP could be deployed in a separate server with some simple configurations.
 
@@ -189,7 +192,7 @@ When TFTP and DHCP are installed in a separate server, both the RackHD server an
 is **172.31.128.2** in the example below.
 
 RackHD Main Services Configuration in the RackHD Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In the RackHD server, ``/opt/monorail/config.json`` is updated with settings below, then restart `on-http`, `on-taskgraph` and `on-syslog`
 services.
@@ -219,7 +222,7 @@ services.
 
 
 TFTP Service Configuration in the Separate Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Default on-tftp Configuration**
 
@@ -255,7 +258,7 @@ The third-party TFTP service setup in the separate server is the same with in Ra
 `RackHD TFTP Templates`_ scripts' rendered parameters `apiServerAddress`, `apiServerPort` is `172.31.128.2`, `9080` in the example.
 
 DHCP Service Configuration in the Separate Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Default ISC DHCP + on-dhcp-proxy Configuration**
 
@@ -303,5 +306,3 @@ ISC DHCP **dhcpd.conf** need to be updated with settings below, then restart ISC
 
 The solutions of using the third-party DHCP service in a separate server are the same with in the RackHD server. Just need to specify
 RackHD southbound IP address and port in DHCP configuration. they are `172.31.128.2`, `9080` in the example.
-
-

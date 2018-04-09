@@ -3,17 +3,11 @@ Extended Services
 
 .. toctree::
 
-UCS-Service
-------------------------
+   :titlesonly:
+   :hidden:
 
-SMI-Service
-------------------------
+   TFTP and DHCP Service <tftp_dhcp_server>
+   Static File Service <static_file_server>
+   UCS Service <ucs-service>
+   
 
-Image-Service
-------------------------
-
-TFTP and DHCP Service
-------------------------
-
-Static File Service
-------------------------
