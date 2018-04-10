@@ -17,6 +17,15 @@ Prerequisites
 
 You will need to install `Docker`_ and `Docker Compose`_ before setting up the environment.
 
+If you would try provisioning ESXi on the virtual node, change settings of the kvm module in the host OS.
+
+    .. code::
+
+		rmmod kvm_intel
+		rmmod kvm
+		modprobe kvm ignore_msrs=1
+		modprobe kvm_intel eptad=1 nested=1
+
 You may also want to consider installing `jq`_ which provides a command-line
 oriented tool for pretty printing and filtering JSON structured data.
 
