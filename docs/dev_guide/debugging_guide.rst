@@ -1,8 +1,10 @@
-RackHD Debugging Guide
------------------------
+Debugging Guide
+=============================
+
+.. contents:: Table of Contents
 
 Discovery with a Default Workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------
 
 Sequence Diagram for the Discovery Workflow
 
@@ -29,7 +31,7 @@ And immediately thereafter, you should see the server request the file from TFTP
 
 
 Default discovery workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 .. code::
 
@@ -106,7 +108,7 @@ Default discovery workflow
     RackHD->Server: Nothing more, thanks - please reboot (via http)
 
 Footprint Benchmark Test
-~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Footprint benchmark test collects system data when running poller (15min), node discovery and CentOS bootstrap test cases.
 It can also run independently from any test cases, allowing users to measure footprint about any operations they carry out.
@@ -117,7 +119,7 @@ For more details, please check the wiki page `proposal-footprint-benchmarks`_.
 .. _proposal-footprint-benchmarks: https://github.com/RackHD/RackHD/wiki/proposal-footprint-benchmarks
 
 How It Works
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Footprint benchmark test is integrated into RackHD test framework.
 It can be executed as long as the machine running the test can access the RackHD API and manipulate the RackHD machine via SSH.
 
@@ -126,7 +128,7 @@ It can be executed as long as the machine running the test can access the RackHD
      :align: center
 
 Prerequisites
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - The machine running RackHD can use apt-get to install packages, which means it must have accessible sources.list.
 - In RackHD, compute nodes have been discovered, and pollers are running.
 - No external AMQP queue with the name "graph.finished" is subscribed to RackHD, since the benchmark test uses this queue.
@@ -138,7 +140,7 @@ Prerequisites
     sudo socat -d -d TCP4-LISTEN:55672,reuseaddr,fork TCP4:localhost:5672
 
 How to Run
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Clone the test repo from GitHub
 
 .. code::
@@ -197,7 +199,7 @@ The footprint data and graph will be shown in the page,
 and user can also compare it with previous runs by selecting another case from the drop-down menu in the page.
 
 Logged warnings FAQ
-~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 *Question*:
 

@@ -1,8 +1,10 @@
-Contributing Changes to RackHD
---------------------------------
+Contributing Code Changes
+==============================
+
+.. contents:: Table of Contents
 
 Guidelines for merging pull requests
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 
 For code changes, we currently use a guideline of `lazy consensus`_  with two
 positive reviews with at least one of those reviews being one of the core
@@ -25,7 +27,7 @@ and rules of thumb to follow when making merge decisions.
 
 
 Getting commit privileges
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 The core committer team will grant contributor rights to the RackHD project
 using a `lazy consensus`_ mechanism. Any of the maintainers/core contributors
@@ -38,7 +40,7 @@ an extended period of time.
 
 
 Quality gates for the pull requests
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 There are three quality gates to ensure the pull requests quality, `Hound`_ for
 code style check, `Travis CI`_ for unit-test and coveralls, `Jenkins`_ for the combination
