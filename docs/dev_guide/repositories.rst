@@ -1,11 +1,10 @@
-
 Repositories
-------------------------------------
+=============================
 
-
+.. contents:: Table of Contents
 
 Applications
-^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 .. list-table::
    :widths: 20 20 100
@@ -33,10 +32,9 @@ Applications
      - https://github.com/RackHD/on-wss
      - Node.js application providing websocket update support from RackHD for UI interations
 
-
-
 Libraries
-^^^^^^^^^
+-----------------------------
+
 .. list-table::
    :widths: 20 20 100
    :header-rows: 1
@@ -56,7 +54,7 @@ Libraries
 
 
 Supplemental Code
-^^^^^^^^^^^^^^^^^
+-----------------------------
 
 .. list-table::
    :widths: 20 20 100
@@ -84,7 +82,7 @@ Supplemental Code
 
 
 Documentation
-^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 .. list-table::
    :widths: 20 80
@@ -97,7 +95,7 @@ Documentation
 
 
 Repositories Status
-^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 The following badges in the tables may take a while to load.
 

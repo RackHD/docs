@@ -1,5 +1,7 @@
-`RackHD Web UI`_
----------------------------------------
+on-webui 1.0
+=============================
+
+.. contents:: Table of Contents
 
 .. _RackHD Web UI: http://rackhd.github.io/on-web-ui
 
@@ -20,7 +22,7 @@ There is also a `README`_ for learning how to about UI development.
   :target: http://rackhd.github.io/on-web-ui
 
 How to Configure API Endpoint Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------
 
 .. image:: /_static/ui_settings.png
   :width: 200

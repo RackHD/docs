@@ -1,8 +1,10 @@
 Naming Conventions
-------------------------------------
+=============================
+
+.. contents:: Table of Contents
 
 Workflows
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 We use the following conventions when creating workflow-related JSON documents:
 
@@ -32,7 +34,7 @@ Examples::
 
 
 Microkernel docker image
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 **Image Names**
 

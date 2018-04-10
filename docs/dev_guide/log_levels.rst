@@ -1,8 +1,10 @@
-Logging in RacKHD
---------------------------------
+Logging in RackHD
+=============================
+
+.. contents:: Table of Contents
 
 Log Levels
-~~~~~~~~~~~
+-----------------------------
 
 We have a common set of logging levels within RackHD, used across the projects
 and applications. The levels are defined in the `on-core library`_
@@ -69,7 +71,7 @@ debug
   debugging or post-analysis metrics.
 
 Setting up and using Logging
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Using our dependency injection libraries, it's typical to inject ``Logger`` and
 then use it within appropriate methods. Within factory methods for services or
@@ -97,7 +99,7 @@ The definitions for the methods and what the code does can be found in the
 .. _logger module: https://github.com/RackHD/on-core/blob/master/lib/common/logger.js
 
 Deprecation
-~~~~~~~~~~~~
+-----------------------------
 
 There is a special function in our logging common library for including in methods
 you're attempting to deprecate::

@@ -1,22 +1,15 @@
 Development Guide
-========================
+=============================
 
 .. toctree::
+   :titlesonly:
+   :hidden:
 
-Repositories
-------------------------
-Contributing Changes to RackHD
-------------------------
-Naming Conventions
-------------------------
-API Versioning Conventions
-------------------------
-AMQP Message Bus Conventions
-------------------------
-Messenger design notes
-------------------------
-Logging in RackHD
-------------------------
-RackHD Debugging Guide
-------------------------
-
+   repositories
+   api_versioning
+   naming_conventions
+   debugging_guide
+   log_levels
+   ampq_convertions
+   messenger_overview
+   contributing

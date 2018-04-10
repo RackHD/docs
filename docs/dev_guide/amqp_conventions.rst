@@ -1,10 +1,12 @@
 AMQP Message Bus Conventions
-------------------------------------
+=============================
+
+.. contents:: Table of Contents
 
 At the top level, we utilize 9 exchanges for passing various messages between key services and processes:
 
 Configuration
-~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 RPC channel for making dynamic system configuration changes
 
@@ -16,7 +18,7 @@ Routing keys:
      methods.get
 
 Events
-~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 One to many broadcast of events applicable to workflows and reactions
 (where poller/telemetry events will be placed in the future as well)
@@ -35,7 +37,7 @@ Routing keys:
      sku.assigned.[nodeid]
 
 HTTP
-~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Routing keys:
 
@@ -46,7 +48,7 @@ Routing keys:
 (uncertain - duplicate of `http.response.[nodeid]`?)
 
 DHCP
-~~~~~~~~~~~~~~~~
+-----------------------------
 
 RPC channel for interrogating the DHCP service
 
@@ -65,12 +67,12 @@ Routing keys:
        methods.unpinIp
 
 TFTP
-~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 (nothing defined)
 
 Logging
-~~~~~~~~~~~~~~~~~
+-----------------------------
 
 Routing keys:
 
@@ -86,7 +88,7 @@ Routing keys:
     silly
 
 `task-graph-runner`
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 RPC mechanism for communicating with process running workflows
 
@@ -107,7 +109,7 @@ Routing keys:
     methods.getTaskGraphProperties
 
 Scheduler
-~~~~~~~~~~~~~~~~
+-----------------------------
 
 RPC mechanism for scheduling tasks within a workflow to run
 
@@ -116,7 +118,7 @@ RPC mechanism for scheduling tasks within a workflow to run
     schedule
 
 Task
-~~~~~~~~~~~~~~~~
+-----------------------------
 
 RPC mechanism for tasks to interrogate or interact with workflows (task-graphs)
 
