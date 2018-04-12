@@ -1,14 +1,19 @@
 RackHD Virtual Stack Environment Setup
 ======================
 
+.. contents:: Table of Contents
+
 Setup a Docker Based RackHD Environment
 --------------
 
-There are various ways to install RackHD, including install from debian package, VMWare OVA, Docker or Vagrant Box.In this Lab, you can experience the steps of "install from docker". For more detail about installation please refer to `<RackHD Installation>`_.
+There are various ways to install RackHD, including install from debian package, VMWare OVA, Docker or Vagrant Box.In this Lab, you can experience the steps of "install from docker". For more detail about installation please refer to :ref:`installation`.
 
-.. container:: h2
 
-    Network Topology Overview
+Network Topology Overview
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/theme/img/rackhdov.png
+    :align: center
 
 The Docker Compose file will download the latest released versions of the RackHD Services from the RackHD DockerHub. It will create two docker bridge networks to run the services. The rackhd_admin network will be used to connect the services together and to access the RackHD APIs. The rackhd_southbound network will be used by RackHD to connect to the virtual nodes.
 The Docker Compose setup also enables port forwarding that allows your localhost to access the RackHD instance:
@@ -16,9 +21,9 @@ The Docker Compose setup also enables port forwarding that allows your localhost
 * localhost:9090 redirects to rackhd_admin:9090 for access to the REST API
 * localhost:9093 redirects to rackhd_admin:8443 for secure access to the REST API
 
-.. container:: h2
 
-    Install RackHD with docker-compose
+Install RackHD with docker-compose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are four ways to install RackHD:
 
@@ -56,18 +61,28 @@ The command ``sudo docker-compose logs`` will output the logs from all the runni
 Setup a Virtualized Infrastructure Environment
 -----------------------------------------------
 
-.. container:: h2
 
-    Infrasim Overview
+Infrasim Overview
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../_static/theme/img/infrasimov.png
+    :align: center
 
 InfraSIM is a hardware simulator environment that is used in this lab to simulate physical servers with a BMC. The diagram above shows the relationship of physical server to virtual server in InfraSIM so the user gets a general understanding of the virtual node.
 A physical server is made up of two sub-systems, one for data and the other for management. The data sub-system consists of the host CPU, memory, storage, and IO. This is where OS and Applications run. The management subsystem consists of the BMC and this provides the Out-Of-Band management to remotely control the physical server.
 Like a physical server, the virtual server has the equivalent sub-systems. However, in the virtualized environment, the data sub-system is accomplished with a virtual machine and the management sub-system is accomplished with "qemu" and "ipmi_sim" applications running in a VM. We refer to the data sub-system as "Virtual Computer" and the management sub-system as "Virtual BMC". See diagram above.
 
+.. image:: ../_static/theme/img/infrasimvm.png
+    :width: 500px
+    :align: center
 
-.. container:: h2
+As shown, there are 2 network adapters in the InfraSIM docker container. The first one is connected to the external network and the second one is connected to RackHD's DHCP network.
+For the "server CPU" it simulates, you can use VNC to interact with its console on first NIC port (xxx.xxx.xxx.xxx). However, there should be a bridge (br0) so that InfraSIM can run normally
 
-    Start-up Docker based vStack
+
+
+Start-up Docker based vStack
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: shell
 

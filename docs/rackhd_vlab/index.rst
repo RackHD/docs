@@ -1,13 +1,21 @@
 Hands-On vLab
 ========================
 
-.. .. toctree::
+.. toctree::
+    :titlesonly:
+
+    RackHD Virtual Stack Environment Setup <rackhd_vstack>
+    RackHD try-out with Web UI <web_ui>
+    RackHD Operation with Restful API <api>
+    Feature - Discovery and Catalog Server Nodes <discovery>
+    Feature - Control Server Nodes through Workflow <workflow>
+    Feature - Unattended OS Installation <os_installation>
 
 RackHD Overview
 ------------------------
 RackHD vLab Overview
 ------------------------
-Module 1: RackHD Installation 
+Module 1: RackHD Installation
 ------------------------
 Module 2: RackHD Virtual Stack Environment Setup
 ------------------------

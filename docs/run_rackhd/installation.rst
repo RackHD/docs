@@ -1,3 +1,4 @@
+.. _installation:
 
 Installation
 ============
@@ -8,4 +9,5 @@ Installation
    From Debian Package <ubuntu_package_installation>
    From NPM Package Ubuntu <npm_based_installation_ubuntu>
    From NPM Package Centos <npm_based_installation_centos>
+   From Docker <docker_based_installation>
 
