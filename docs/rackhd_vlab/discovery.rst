@@ -151,7 +151,7 @@ Examples of Telemetry
 .. _obm_setting:
 
 OBM Setting
-*****
+************
 
 Before setting up the poller, please set "OBM Setting". OBM is short for "Out-of-Band-Management" and typically refers to the BMC interface on the server.
 To talk with BMC, RackHD needs to be configured with the BMC's IP and credentials then bind them with a <node_id>, so that IPMI communication between node and RackHD can be established.
