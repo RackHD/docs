@@ -184,12 +184,12 @@ Monitor Progress
 
 Use UltraVNC on the desktop to view the OS installation, replace ``<your-ip>`` with your own, and ``<port>`` you retrieved using the ``vnc_forward`` script above
 
-.. image:: ../_static/theme/img/vnc0.png
+.. image:: _static/theme/img/vnc0.png
     :align: center
 
 After login, you should see Centos7 is installing
 
-.. image:: ../_static/theme/img/vnc2.png
+.. image:: _static/theme/img/vnc2.png
     :width: 700px
     :align: center
 
@@ -204,5 +204,5 @@ Login to OS
 Once the OS has been installed, you can try login the system via UltraVNC console.
 Installed OS default username/password: ``root/RackHDRocks!``
 
-.. image:: ../_static/theme/img/login.png
+.. image:: _static/theme/img/login.png
     :align: center
