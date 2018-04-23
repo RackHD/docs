@@ -64,8 +64,3 @@ Debian Installation
 .. note::
 
     For more detail about payload file please refer to :ref:`non-windows-payload`
-
-
-.. note::
-
-     For more detail about payload file please refer to :ref:`non-windows-payload`
