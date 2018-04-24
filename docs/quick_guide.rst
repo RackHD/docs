@@ -17,7 +17,7 @@ Install Docker & Docker Compose
 |Install Docker Compose| https://docs.docker.com/compose/install/#install-compose|
 +----------------------+---------------------------------------------------------+
 
-Download Source Code
+Setup RackHD Service
 -------------------------
 
 .. code-block:: shell
