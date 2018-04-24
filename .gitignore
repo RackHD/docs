@@ -1,5 +1,5 @@
 # virtualenv from README
-.venv
+.venv*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

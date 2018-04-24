@@ -6,6 +6,10 @@
   position: static;
 }
 
+.wy-nav-content {
+    max-width: 1200px !important;
+}
+
 body {
     padding-top: 70px;
 }
