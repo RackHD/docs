@@ -3,7 +3,7 @@ Contributing to RackHD
 
 .. contents:: Table of Contents
    :depth: 2
-   
+
 We certainly welcome and encourage contributions in the form of issues and pull requests, but please read the
 guidelines in this document before you get involved.
 
