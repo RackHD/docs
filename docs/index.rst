@@ -48,6 +48,5 @@ Contents
    customer_support/index
    solution_center/index
    contributing
-   demo_pages/index
 
 RackHD is a Trademark of Dell EMC Corporation.
