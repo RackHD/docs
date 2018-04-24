@@ -44,7 +44,7 @@ Prerequisites
         .. code::
 
             sudo yum remove nodejs
-            curl -sL https://rpm.nodesource.com/setup_4.x | sudo bash -
+            curl -sL https://rpm.nodesource.com/setup_6.x | sudo bash -
             sudo yum install -y nodejs
 
     .. tab:: 8.x
@@ -52,7 +52,7 @@ Prerequisites
         .. code::
 
             sudo yum remove nodejs
-            curl -sL https://rpm.nodesource.com/setup_4.x | sudo bash -
+            curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -
             sudo yum install -y nodejs
 
 
