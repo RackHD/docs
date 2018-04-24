@@ -78,7 +78,7 @@ Supplemental Code
      - Example SKU pack definitions and example code
    * - Build Config
      - https://github.com/RackHD/on-build-config
-     - Scripts and tooling to support CI of RackHD
+     - **(deprecated)** Scripts and tooling to support CI of RackHD
 
 
 Documentation

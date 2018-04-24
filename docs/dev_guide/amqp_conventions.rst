@@ -78,14 +78,11 @@ Routing keys:
 
 .. code-block:: bash
 
-    emerg
-    alert
+    critical
     error
     warning
-    notice
     info
     debug
-    silly
 
 `task-graph-runner`
 -----------------------------
