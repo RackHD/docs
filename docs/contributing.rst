@@ -16,7 +16,7 @@ Communicating with Other Users
 
 We maintain a mailing list at https://groups.google.com/d/forum/rackhd. You can visit the group through the web page or subscribe directly by sending email to rackhd+subscribe@googlegroups.com.
 
-We also have a #RackHD slack channel at https://codecommunity.slack.com/messages/rackhd/. You can receive an invite by requesting one at http://community.codedellemc.com/.
+We also have a slack channel at https://rackhd.slack.com to communicate online.
 
 
 Submitting Contributions
@@ -72,7 +72,7 @@ When reporting problems, include the following information:
 Security Issues
 -----------------------------
 
-If you discover a security issue, please report it in an email to rackhd@emc.com. Do not use the Issues section to describe a security issue.
+If you discover a security issue, please report it in an email to rackhd@dell.com. Do not use the Issues section to describe a security issue.
 
 
 Understanding the Repositories
@@ -87,7 +87,7 @@ at :doc:`devguide/repositories`.
 Submitting Design Proposals
 -----------------------------
 
-Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at groups.google.com/forum/#!forum/rackhd)
+Significant feature and design proposals are expected to be proposed on the mailing list (rackhd@googlegroups.com, or at https://groups.google.com/forum/#!forum/rackhd)
 for discussion. The Core Committer team reviews the proposals to make sure architectural details are aligned, with a floating agenda updated on the
 RackHD Confluence page at https://rackhd.atlassian.net/wiki/spaces/RAC1/pages/9437198/Core+Commiter+Weekly+Interlock (formerly github wiki at https://github.com/RackHD/RackHD/wiki/Core-Committer-Meeting). The meeting notes are posted to the google groups mailing list.
 

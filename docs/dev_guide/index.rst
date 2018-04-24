@@ -2,14 +2,15 @@ Development Guide
 =============================
 
 .. toctree::
+
    :titlesonly:
    :hidden:
 
-   repositories
-   api_versioning
-   naming_conventions
-   debugging_guide
-   log_levels
-   ampq_convertions
-   messenger_overview
-   contributing
+   Repositories <repositories>
+   API Versioning Conventions <api_versioning>
+   Naming Conventions <naming_conventions>
+   Debugging Guide <debugging_guide>
+   Logging in RackHD <log_levels>
+   AMQP Message Bus Conventions <amqp_conventions>
+   Messenger Design Notes <messenger_overview>
+   Contributing Code Changes <contributing>
