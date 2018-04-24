@@ -1,8 +1,6 @@
 RackHD Overview
 =============================
 
-WARNING: 1.1 API DEPRECATED
-
 .. contents:: Table of Contents
    :depth: 2
 
