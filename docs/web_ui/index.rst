@@ -2,6 +2,7 @@ RackHD Web-UI
 =============================
 
 .. toctree::
+
    :titlesonly:
    :hidden:
 

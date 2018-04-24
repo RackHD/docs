@@ -2,6 +2,7 @@ Development Guide
 =============================
 
 .. toctree::
+
    :titlesonly:
    :hidden:
 
