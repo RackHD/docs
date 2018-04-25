@@ -22,7 +22,6 @@ We also have a slack channel at https://rackhd.slack.com to communicate online.
 Submitting Contributions
 -----------------------------
 
-
 To submit coding additions or changes for a repository, fork the repository and clone it locally. Then use a unique branch to make commits and send pull requests.
 
 Keep your pull requests limited to a single issue. Make sure that the description of the pull request is clear and complete.
@@ -47,7 +46,6 @@ Core Committer Team
 * Geoffrey.Reid@dell.com
 * Stuart.Stanley@dell.com
 * James.Turnquist@dell.com
-
 
 
 Please direct general conversation about how to use RackHD or discussion about improvements and features to our mailing list at rackhd@googlegroups.com
@@ -95,7 +93,6 @@ Work by dedicated teams is scheduled within a broader `RackHD Roadmap`_. Externa
 roadmap.
 
 .. _RackHD Roadmap: https://github.com/RackHD/RackHD/wiki/roadmap
-
 
 
 

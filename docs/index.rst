@@ -48,6 +48,6 @@ Contents
    ..
         //Remove "solution center" section at present and will get it online after content prepared
         solution_center/index
-   contributing-to-RackHD
+   contributing
 
 RackHD is a Trademark of Dell EMC Corporation.
