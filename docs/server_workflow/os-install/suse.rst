@@ -1,14 +1,6 @@
 OpenSuse Installation
 =======================
 
-.. important::
-    DNS server is required in OpenSuse installation, make sure you have put following lines in /etc/dhcp/dhcpd.conf. 172.31.128.1 is a default option in RackHD
-
-    .. code::
-
-        option domain-name-servers 172.31.128.1;
-        option routers 172.31.128.254;
-
 
 .. tabs::
 
