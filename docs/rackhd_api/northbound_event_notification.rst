@@ -119,7 +119,7 @@ The table of `type`, `typeId`, `action` and `severity` for all external events
 |              |                        |                        |                | inaccessible                      |
 |              |                        +------------------------+----------------+-----------------------------------+
 |              |                        | alerts                 | could be one:  | Triggered when rackHD receives    |
-|              |                        |                        | information,   | a redfish alert                  |
+|              |                        |                        | information,   | a redfish alert                   |
 |              |                        |                        | warning, or    |                                   |
 |              |                        |                        | critical       |                                   |
 +--------------+------------------------+------------------------+----------------+-----------------------------------+

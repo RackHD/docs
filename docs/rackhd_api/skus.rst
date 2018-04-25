@@ -108,7 +108,7 @@ can send.
       }
     }
 
-.. literalinclude:: samples/sku.json
+.. literalinclude:: ../samples/sku.json
    :language: JSON
 
 

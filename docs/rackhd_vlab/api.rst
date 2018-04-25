@@ -7,7 +7,8 @@ RackHD API 2.0
 ---------------
 
 Overview and Data Model
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
 In the previous modules, you had the opportunity to experiment with some RackHD APIs. In this section you will learn about two different RESTful endpoints in RackHD and experiment with them.
 RackHD is designed to provide a REST (Representational state transfer) architecture to provide a RESTful API. RackHD currently has two RESTful interfaces: a Redfish API and native REST API 2.0.
 The RESTful API 2.0 provides unique features that are not provided in Redfish API.

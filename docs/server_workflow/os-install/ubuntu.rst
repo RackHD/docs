@@ -14,7 +14,7 @@ Ubuntu Installation
 
     .. tab:: iso
 
-        For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_iso_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+        For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_iso_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
@@ -42,7 +42,7 @@ Ubuntu Installation
 
     .. tab:: live
 
-        For **live** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``, you can find the proper parameters in ``/opt/monorail/config.json``
+        For **live** installation, see this `payload json file for live <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``, you can find the proper parameters in ``/opt/monorail/config.json``
 
         Add following block into httpProxies in ``/opt/monorail/config.json``
 

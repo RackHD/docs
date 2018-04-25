@@ -111,7 +111,8 @@ Notes
 - fileServer configurations takes higher priority than `httpStaticRoot`_, which means that when above fields exists, RackHD will use file server address for static files and ignore that specified "httpSaticRoot".
 - When user creates a payload for a task, they could use {{ file.server }} as the address that nodes will use to get static file. It will direct to the correct address holding static file, depending on different working modes.
 - `httpProxies`_ still works. If user has setup a static file server, but would like to use http proxy for some OS bootstrap workflow, they could modify "repo" option to still use {{ api.server }} for the address of RackHD on-http service (take `sample payload`_ as an example):
-.. code-block:: json
+
+.. code::
 
     ...
     "install-os": {

@@ -253,15 +253,11 @@ Either (a) or (b) can lead the way to install RackHD from debian packages.
             sudo service isc-dhcp-server start
 
 
-        #######
-
         **RACKHD APPLICATIONS**
 
         Create the required file /opt/monorail/config.json , you can use the demonstration
         configuration file at https://github.com/RackHD/RackHD/blob/master/packer/ansible/roles/monorail/files/config.json
         as a reference.
-
-        #######
 
         **RACKHD BINARY SUPPORT FILES**
 

@@ -98,8 +98,6 @@ Example output of PUT
 
     curl -X PUT -H 'Content-Type: application/json' -d ' { "service": "ipmi-obm-service", "config": { "host": "<host ip>", "user": "admin", "password": "admin" } }' <server>/api/current/nodes/<nodeID>/obm
 
-.. _node-api-tags-ref-label:
-
 
 **How to use obms when more than one obm are present on a node**
 
@@ -124,5 +122,5 @@ Example: when update firmware workflow is called on a node that has multiple obm
 				},
 	   "reboot": {
 				"obmServiceName": "ipmi-obm-service"
-	   }          
+	   }
 	 }

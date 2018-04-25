@@ -2,7 +2,6 @@ Running RackHD
 ========================
 
 .. toctree::
-
    :titlesonly:
    :hidden:
 

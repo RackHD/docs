@@ -4,7 +4,7 @@ Installation from Docker
 .. contents:: Table of Contents
 
 Install Docker & Docker Compose
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +----------------------+---------------------------------------------------------+
 |Install Docker CE     | https://docs.docker.com/install/#server                 |

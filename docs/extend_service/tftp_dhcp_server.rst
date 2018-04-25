@@ -75,10 +75,10 @@ DHCP Service Configuration in the RackHD Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The DHCP protocol is a critical component to the PXE boot process and for
-executing various profiles and :doc:`graphs` within RackHD.
+executing various profiles and :ref:`workflows-ref-label` within RackHD.
 
 By default RackHD deploys a DHCP configuration that forwards DHCP clients to the
-on-dhcp-proxy service, see :doc:`../architecture` for more information.
+on-dhcp-proxy service, see :ref:`arch` for more information.
 However conventional DHCP configurations that require static (and/or dynamic)
 IP lease reservations are also supported, bypassing the on-dhcp-proxy service
 all together.
@@ -94,7 +94,7 @@ most of the logic is handled in on-dhcp-proxy, it's convenient and flexible.
 A typical simple `dhcpd.conf`_ of `ISC DHCP Server`_ for forwarding DHCP request to RackHD's
 on-dhcp-proxy service would work like the following:
 
-.. literalinclude:: samples/dhcpd.conf
+.. literalinclude:: ../samples/dhcpd.conf
 
 .. _subnet: https://en.wikipedia.org/wiki/Subnetwork
 .. _range: https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol#Overview
@@ -110,7 +110,7 @@ by setting **ignore-client-uids true**.
 ISC DHCP service can also define static host definitions, and not use on-dhcp-proxy.
 It would work like the following:
 
-.. literalinclude:: samples/dhcpd.conf.noproxy
+.. literalinclude:: ../samples/dhcpd.conf.noproxy
 
 In the global subnet definition we define a PXE chainloading setup to handle specific
 client requests.
@@ -265,7 +265,7 @@ DHCP Service Configuration in the Separate Server
 ISC DHCP **dhcpd.conf** need to be updated with settings below, then restart ISC DHCP.
 **NOTE**: DHCP ip addresses range starts from **172.31.128.3**, because **172.31.128.2** is assigned to RackHD server.
 
-.. literalinclude:: samples/dhcpd-non-rackhd.conf
+.. literalinclude:: ../samples/dhcpd-non-rackhd.conf
 
 
 ``/opt/monorail/config.json`` need to be updated with settings below, then restart `on-dhcp-proxy`.
@@ -299,7 +299,7 @@ ISC DHCP **dhcpd.conf** need to be updated with settings below, then restart ISC
 ISC DHCP **dhcpd.conf** need to be updated with settings below, then restart ISC DHCP.
 **NOTE**: DHCP ip addresses range starts from **172.31.128.3**, because **172.31.128.2** is assigned to RackHD server.
 
-.. literalinclude:: samples/dhcpd-non-rackhd.conf.noproxy
+.. literalinclude:: ../samples/dhcpd-non-rackhd.conf.noproxy
 
 
 **Third-Party DHCP Service Configuration**

@@ -15,7 +15,7 @@ an inline task definition (as opposed to creating a new task definition as a sep
 
 
 
-.. code-block:: JSON
+.. code::
 
  {
     friendlyName: 'Zerotouch vEOS Graph',
@@ -92,7 +92,7 @@ variables, use this syntax:
 
 .. _ejs: https://github.com/tj/ejs
 
-.. code-block:: JSON
+.. code::
 
    <%=variableName%>
 
@@ -100,7 +100,7 @@ variables, use this syntax:
 In order to provide a value for this variable when the template is rendered, add the variable
 name as a key in the options object of the custom zerotouch task definition:
 
-.. code-block:: JSON
+.. code::
 
 
  taskDefinition: {
@@ -113,7 +113,7 @@ name as a key in the options object of the custom zerotouch task definition:
 
 The above code renders the following startup config as shown here:
 
-.. code-block:: JSON
+.. code::
 
  Unrendered:
  !
@@ -171,7 +171,7 @@ A zerotouch profile is a script template that is executed by the switch during z
 A basic profile looks like the following:
 
 
-.. code-block:: JSON
+.. code::
 
  #!/usr/bin/Cli -p2
  enable
@@ -191,16 +191,16 @@ The zerotouch boot config is a very simple config that specifies which EOS image
 This should almost always match the EOS image filename you have provided, e.g.:
 
 
-.. code-block:: JSON
+.. code::
 
  SWI=flash:/<%=bootfile%>
 
 
+.. _linux-commands-ref-label:
 
 Creating a Linux Commands Graph
 -------------------------------
 
-.. _linux-commands-ref-label:
 
 **Linux Commands Task**
 
@@ -211,7 +211,7 @@ Optional parameters can be specified to enable cataloging of command output.
 A very simple example task definition looks like:
 
 
-.. code-block:: JSON
+.. code::
 
  {
     "friendlyName" : "Shell commands basic",
@@ -237,7 +237,7 @@ makes use of all parameters that the task can take:
 
 
 
-.. code-block:: JSON
+.. code::
 
  {
     "friendlyName" : "Shell commands",
@@ -275,7 +275,7 @@ makes use of all parameters that the task can take:
 
 The task above runs three commands and catalogs the output of the first two.
 
-.. code-block:: JSON
+.. code::
 
   sudo ls /var
   sudo lshw -json
@@ -288,7 +288,7 @@ Some use cases are too complex to be performed by embedding commands in JSON. Us
 may be more convenient. You can define a file to download and run by specifying a "downloadUrl" field in
 addition to the "command" field.
 
-.. code-block:: JSON
+.. code::
 
 
  "options": {
@@ -319,7 +319,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 .. _ejs: https://github.com/tj/ejs
 
-.. code-block:: JSON
+.. code::
 
  "options": {
     "foo": "bar",
@@ -335,7 +335,7 @@ rendered based on the option values of task definition, for example, if a task i
 
 ...then the following script template...
 
-.. code-block:: JSON
+.. code::
 
     echo <%=foo%>
     echo <%=baz%>
@@ -344,7 +344,7 @@ rendered based on the option values of task definition, for example, if a task i
 ...is rendered as below when it is run by a node:
 
 
-.. code-block:: JSON
+.. code::
 
     echo bar
     echo qux
@@ -417,7 +417,7 @@ Script templates can be uploaded using the Monorail templates API
 Binary executables can be uploaded using the Monorail files API:
 
 
-.. code-block:: JSON
+.. code::
 
  PUT /api/current/files/<filename>
  ---
@@ -524,7 +524,7 @@ The output from the first command (lshw) will be parsed as JSON and cataloged in
 
 Now define a custom workflow that combines these tasks and runs them in a sequence. This one is set up to make OBM calls as well.
 
-.. code-block:: JSON
+.. code::
 
     PUT <server>/api/current/workflows/
     Content-Type: application/json
@@ -572,7 +572,7 @@ With all of these data, the injectableName and friendlyName can be any string va
 
 After defining these custom workflows, you can then run one against a node by referencing the injectableName used in the JSON posted to /api/current/workflows/:
 
-.. code-block:: JSON
+.. code::
 
     curl -X POST localhost/api/current/nodes/<identifier>/workflows?name=Graph.ShellCommands.User
 

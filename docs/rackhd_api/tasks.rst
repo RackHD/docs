@@ -241,19 +241,19 @@ If any option violates the schema, The API request will report `400 Bad Request`
 
 Below is the message if user forgets the required option *version* while installing CentOS:
 
-.. code-block:: JSON
+.. code::
 
     "message": "Task.Os.Install.CentOS: JSON schema validation failed - data should have required property 'version'"
 
 Below is the message if the input *uid* beyond the allowed range.
 
-.. code-block:: JSON
+.. code::
 
     "message": "Task.Os.Install.CentOS: JSON schema validation failed - data.users[0].uid should be >= 500"
 
 Below is the message if the format of option *rootPassword* is not correct:
 
-.. code-block:: JSON
+.. code::
 
     "message": "Task.Os.Install.CentOS: JSON schema validation failed - data.rootPassword should be string"
 
@@ -306,7 +306,7 @@ At render time, values are rendered if the exist in the task render context. The
 
 The download-files task is a good example of a task definition that makes use of multiple objects in the context:
 
-.. code-block:: JSON
+.. code::
 
     {
         friendlyName: 'Flash MegaRAID Controller',
@@ -338,7 +338,7 @@ The download-files task is a good example of a task definition that makes use of
 
 On creation, the options are rendered as below. The 'file' field is specified in this case by the contents of an API query, e.g. mr2208fw.rom
 
-.. code-block:: JSON
+.. code::
 
     options: {
         file: 'mr2208fw.rom',
