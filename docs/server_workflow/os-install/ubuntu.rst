@@ -85,7 +85,7 @@ A mirror should be setup firstly before installation. For Ubuntu, there are thre
 
         Add following block into httpProxies in ``/opt/monorail/config.json``, and restart on-http service.
 
-        .. code-block:: json
+        .. code::
 
             {
               "localPath": "/ubuntu",

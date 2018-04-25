@@ -2,11 +2,16 @@ OpenSuse Installation
 =======================
 
 
+A mirror should be setup firstly before installation.
+
+* **Local ISO mirror**: Download SUSE ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
+* **Local sync mirror**: Sync public site's mirror repository to local, http service for this repository is provided so that a node could access without proxy.
+* **Public mirror**: The node could access a public or remote site's mirror repository with proxy.
+
+
 .. tabs::
 
     .. tab:: Local ISO Mirror
-
-        For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_suse_payload_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
@@ -27,14 +32,10 @@ OpenSuse Installation
             # Replace {on-http-dir} with your own
             sudo ln -s /var/mirrors/suse {on-http-dir}/static/http/mirrors/
 
-            # Create workflow
-            # Replace the 9090 port if you are using other ports
-            # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
-            curl -X POST -H 'Content-Type: application/json' -d @install_suse_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallSUSE | jq '.'
 
-    .. tab:: Sync mirror
+    .. tab:: Local Sync Mirror
 
-        Current release versions can be found from `<http://mirror.clarkson.edu/opensuse/distribution/leap/>`_
+        For Ubuntu local mirror, The mirrors are easily made by syncing public Ubuntu mirror site, on any recent distribution of SUSE:
 
         .. code-block:: shell
 
@@ -48,9 +49,9 @@ OpenSuse Installation
 
     .. tab:: Public Mirror
 
-        Add following block into httpProxies in ``/opt/monorail/config.json``
+        Add following block into httpProxies in ``/opt/monorail/config.json``, and restart on-http service.
 
-        .. code-block:: json
+        .. code::
 
             {
               "localPath": "/suse",
@@ -58,24 +59,23 @@ OpenSuse Installation
               "remotePath": "/opensuse/distribution/leap/42.3/repo/"
             }
 
-        Create `install_suse_live_minimal.json``
 
-        .. code-block:: json
+Call API to Install OS
+-----------------------
 
-            {
-                "options": {
-                    "defaults": {
-                        "version": "oss",
-                        "repo": "http://172.31.128.1:9090/suse"
-                    }
-                }
-            }
+Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
 
-        Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+.. code-block:: shell
 
-        .. code-block:: shell
+    wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_suse_payload_minimal.json
 
-            curl -X POST -H 'Content-Type: application/json' -d @install_suse_live_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallSUSE | jq '.'
+Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+
+Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+
+.. code-block:: shell
+
+    curl -X POST -H 'Content-Type: application/json' -d @install_suse_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallSUSE | jq '.'
 
 
 .. note::
