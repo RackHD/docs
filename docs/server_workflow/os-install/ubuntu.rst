@@ -10,11 +10,18 @@ Ubuntu Installation
         option routers 172.31.128.254;
 
 
+Setup Mirror
+------------
+
+Before Installing OS, a mirror should be setup firstly. For Ubuntu, there are three ways to setup mirror.
+
+* **Local ISO mirror**: Download Ubuntu ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
+* **Local sync mirror**: Sync public site's mirror repository to local, http service for this repository is provided so that a node could access without proxy.
+* **Public mirror**: The node could access a public site's mirror repository with proxy.
+
 .. tabs::
 
-    .. tab:: Local ISO Mirror 
-
-        For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_iso_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+    .. tab:: Local ISO Mirror
 
         .. code-block:: shell
 
@@ -35,14 +42,9 @@ Ubuntu Installation
             # Replace {on-http-dir} with your own
             sudo ln -s /var/mirrors/ubuntu {on-http-dir}/static/http/mirrors/
 
-            # Create workflow
-            # Replace the 9090 port if you are using other ports
-            # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
-            curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_iso_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
-
     .. tab:: Local Sync Mirror
 
-        For the **Ubuntu repo**, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
+        For Ubuntu local mirror, The mirrors are easily made by syncing public Ubuntu mirror site, on any recent distribution of Ubuntu:
 
         .. code::
 
@@ -81,9 +83,7 @@ Ubuntu Installation
 
     .. tab:: Public Mirror
 
-        For **live** installation, see this `payload json file for live <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``, you can find the proper parameters in ``/opt/monorail/config.json``
-
-        Add following block into httpProxies in ``/opt/monorail/config.json``
+        Add following block into httpProxies in ``/opt/monorail/config.json``, and restart on-http service.
 
         .. code-block:: json
 
@@ -93,7 +93,41 @@ Ubuntu Installation
               "remotePath": "/ubuntu/"
             }
 
-        Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+
+Call API to Install OS
+----------------------
+
+Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+
+For Ubuntu OS installation, the payload format is different as below.
+
+.. tabs::
+
+    .. tab:: Local ISO Mirror
+
+        Get payload example for local ISO mirror.
+
+        .. code-block:: shell
+
+            wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_ubuntu_payload_iso_minimal.json
+
+        Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+
+        .. code-block:: shell
+
+            curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_iso_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
+
+
+    .. tab:: Public and Local Sync Mirror
+
+        For public and local sync mirror, they use the same payload format. Get payload example.
+
+        .. code-block:: shell
+
+            wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_ubuntu_payload_minimal.json
+
+        Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``
+
 
         .. code-block:: shell
 
