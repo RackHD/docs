@@ -6,7 +6,9 @@ Quick Start Guide
 Introduction
 --------------
 
-In this quick start guide you will learn how to use a docker based RackHD service. And use RackHD to install OS on Infrasim (Bare metal server simulator)
+In this quick start guide you will learn:
+    1. How to use a docker based RackHD service.
+    2. How to use RackHD API to install OS on a node(the node is a virtual node powered by a bare metal server simulator `InfraSIM` https://github.com/infrasim)
 
 Install Docker & Docker Compose
 --------------------------------
@@ -131,7 +133,7 @@ If the response comes back [], please follow :ref:`obm_setting`, to add OBM sett
 Setup OS Mirror
 ----------------------
 
-To provision the OS to the node, RackHD can act as an OS mirror repository.
+To provision the OS to the node, RackHD can act as an OS mirror repository. Let's take CentOS installation for example.
 
 .. code-block:: shell
 
@@ -139,7 +141,7 @@ To provision the OS to the node, RackHD can act as an OS mirror repository.
     mkdir –p centos/7/os/x86_64/
     sudo mount –o loop ~/iso/CentOS-7-x86_64-DVD-1708.iso centos/7/os/x86_64
 
-CentOS-7-x86_64-DVD-1708.iso can download from `Official site <https://wiki.centos.org/Download>`_.
+CentOS-7-x86_64-DVD-1708.iso can be downloaded from `Official site <https://wiki.centos.org/Download>`_.
 
 ``/files/mount/common`` is a volume which is mounted to ``rackhd/files`` docker container as a static file service.
 After ISO file is mounted, we need to restart file service. (This is a docker’s potential bug which cannot sync files mounted in the volume when container is running)
@@ -155,24 +157,21 @@ The OS mirror will be available on http://172.31.128.2:9090/common/centos/7/os/x
 Install OS with RackHD API
 -----------------------------
 
-Download Centos OS install payload example (more example of other `OS <https://github.com/RackHD/RackHD/tree/master/example/samples>`_.)
+Download CentOS OS installation payload example (more `Other OS Examples <https://github.com/RackHD/RackHD/tree/master/example/samples>`_.)
 
 .. code-block:: shell
 
-    cd ~
     wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_centos_7_payload_minimal.json
 
 
-Edit the payload json with vim.
+Edit downloaded payload json `install_centos_7_payload_minimal.json` as below, `172.31.128.2` is the OS mirror's IP address.
 
 .. code-block:: shell
-
-    vim install_centos_7_payload_minimal.json
 
     # Change the "repo" line to below.
     "repo": "http://172.31.128.2:9090/common/centos/7/os/x86_64"
 
-Install OS (using build-in InstallCentOS workflow)
+Install CentOS by using build-in `InstallCentOS` workflow
 
 .. code:: shell
 
@@ -187,18 +186,18 @@ Use UltraVNC on the desktop to view the OS installation, replace ``<your-ip>`` w
 .. image:: _static/theme/img/vnc0.png
     :align: center
 
-After login, you should see Centos7 is installing
+After login, you should see CentOS7 is installing
 
 .. image:: _static/theme/img/vnc2.png
     :width: 700px
     :align: center
 
-It will PXE boot from the Centos OS install image and progress screen will show up in about 5 mins, the entire installation takes around 9 mins.
+It will PXE boot from the CentOS installation image and progress screen will show up in about 5 mins, the entire installation takes around 9 mins.
 You can move on the guide or revisit previous sessions, then go back after 4~5 minutes
 
 
 
-Login to OS
+Login Installed OS
 -------------
 
 Once the OS has been installed, you can try login the system via UltraVNC console.
