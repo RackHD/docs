@@ -2,7 +2,6 @@ How TO
 =============================
 
 .. toctree::
-
    :titlesonly:
    :hidden:
 

@@ -1,10 +1,10 @@
 RackHD Virtual Stack Environment Setup
-======================
+=======================================
 
 .. contents:: Table of Contents
 
 Setup a Docker Based RackHD Environment
---------------
+----------------------------------------
 
 There are various ways to install RackHD, including install from debian package, VMWare OVA, Docker or Vagrant Box.In this Lab, you can experience the steps of "install from docker". For more detail about installation please refer to :ref:`installation`.
 

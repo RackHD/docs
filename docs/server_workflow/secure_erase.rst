@@ -20,7 +20,7 @@ An example of starting secure erase for disks:
 
 An example of params.json for disk secure erase:
 
-.. literalinclude:: samples/secure-erase.json
+.. literalinclude:: ../samples/secure-erase.json
    :language: JSON
 
 Use below command to check the workflow is active or inactive:

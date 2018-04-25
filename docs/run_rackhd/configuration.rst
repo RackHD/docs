@@ -1,3 +1,5 @@
+.. _configuration:
+
 Configuration
 =============================
 
@@ -88,14 +90,14 @@ The following table describes the configuration parameters in config.json:
 
         For a single AMQP server use the following formats:
 
-        .. code-block:: json
+        .. code::
 
             "amqp": "amqp[s]://localhost",
             "amqp": "amqp[s]://<host>:<port>",
 
         For multiple AMQP servers use an array with the following format:
 
-        .. code-block:: json
+        .. code::
 
             "amqp": ["amqp[s]://<host_1>:<port_1>","amqp[s]://<host_2>:<port_2>",..., "amqp[s]://<host_n:<port_n>"],
     * - amqpSsl
@@ -103,7 +105,7 @@ The following table describes the configuration parameters in config.json:
 
         To enable SSL connections to the AMQP channel:
 
-        .. code-block:: json
+        .. code::
 
             {
                 "enabled": true,
@@ -182,7 +184,7 @@ The following table describes the configuration parameters in config.json:
 
         Example generating a key with OpenSSL:
 
-        .. code-block:: shell
+        .. code::
 
             openssl enc -aes-256-cbc -k secret -P -md sha1
 
@@ -264,7 +266,7 @@ A node gets discovered and the BMC IPMI comes up with a default username/passwor
 IPMI OBM settings  using a  default user name('__rackhd__') and an auto generated password in rackHD by adding the following
 to RackHD ``config.json``:
 
-.. code-block:: shell
+.. code::
 
    "autoCreateObm": "true"
 
@@ -274,7 +276,7 @@ If a user wants to change the BMC credentials later in time, when the node has b
 
 add the below content in the json body for payload (example node identifier and username, password shown below)
 
-.. code-block:: JSON
+.. code::
 
    {
        "name": "Graph.Bootstrap.With.BMC.Credentials.Setup",
@@ -357,7 +359,7 @@ To remove the BMC credentials, User can run the following workflow located at ``
 
 add the below content in the json body for payload (example node identifier and username, password shown below)
 
-.. code-block:: JSON
+.. code::
 
    {
        "name": "Graph.Bootstrap.With.BMC.Credentials.Remove",
@@ -494,7 +496,7 @@ Setup Taskgraph Endpoint
 This section describes how to setup the taskgraph endpoint in RackHD.
 The taskgraph endpoint is the interface that is used by nodes to interacting with the system
 
-.. code-block:: JSON
+.. code::
 
     "taskGraphEndpoint": {
         "address": "172.31.128.1",
@@ -595,19 +597,19 @@ add the below example content in the json body for payload
 
 Notes:
 ssdStoragePoolArr, ssdCacheCadeArr, hddArr should be passed as empty arrays if they don’t need to be configure like the “ssdStoragePoolArr” array in the example payload above is an empty array.
-For CacheCade (ssdCacheCadeArr) to work the controller should have the ability to configure it. 
+For CacheCade (ssdCacheCadeArr) to work the controller should have the ability to configure it.
 
 Payload Definition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The drive information for payload can be gathered from the node catalogs using the api below:
 
     GET /api/current/nodes/<id>/catalogs/<source>
-    
+
 Or from the node’s microkernel:
 (Note: the workflow does not stop in the micro-kernel. In order to be able to stop in the microkernel the workflow needs to be updated to remove the last two tasks.)
 
 .. code-block:: javascript
-    
+
    {
        label: 'refresh-catalog-megaraid',
        taskName: 'Task.Catalog.megaraid',
@@ -622,30 +624,30 @@ Or from the node’s microkernel:
            'refresh-catalog-megaraid': 'finished'
        }
     }
-    
+
 The elements in the arrays represent the EID of the drives (run this command in the micro-kernel storcli 64 /c0 show)
 
-.. code-block:: txt
- 
+.. code::
+
    Physical Drives = 6 PD LIST : ======= -------------------------------------------------------------------------
 
    EID:Slt DID State DG Size Intf Med SED PI SeSz Model Sp -------------------------------------------------------------------------
 
    252:0 0 Onln 0 372.093 GB SAS SSD N N 512B HUSMM1640ASS200 U
-   
-   252:1 4 Onln 5 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
-   
-   252:2 3 Onln 1 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
-   
-   252:4 5 Onln 2 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
-   
-   252:5 2 Onln 3 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
-   
-   252:6 1 Onln 4 1.090 TB SAS HDD N N 512B HUC101212CSS600 U 
 
-"hddArr": is the array of hard drives that will take part of the storage pool 
-"ssdStoragePoolArr": is the array of solid state drives that will take part of the storage pool 
-"ssdCacheCadeArr": is the array of hard drives that will take part of CacheCade 
+   252:1 4 Onln 5 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+
+   252:2 3 Onln 1 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+
+   252:4 5 Onln 2 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+
+   252:5 2 Onln 3 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+
+   252:6 1 Onln 4 1.090 TB SAS HDD N N 512B HUC101212CSS600 U
+
+"hddArr": is the array of hard drives that will take part of the storage pool
+"ssdStoragePoolArr": is the array of solid state drives that will take part of the storage pool
+"ssdCacheCadeArr": is the array of hard drives that will take part of CacheCade
 
 Results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -653,10 +655,10 @@ After the workflow runs successfully, you should be able to see the newly create
 
 .. code-block:: shell
 
-   monorail@monorail-micro:~$ sudo /opt/MegaRAID/storcli/storcli64 /c0/vall show Virtual Drives : ==============-------------------------------------------------------------- DG/VD TYPE State Access Consist Cache Cac sCC Size Name --------------------------------------------------------------- 
-   0/0 Cac0 Optl RW Yes NRWBD - ON 372.093 GB 
-   1/1 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
-   2/2 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
-   3/3 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
-   4/4 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
-   5/5 RAID0 Optl RW Yes RWTD - ON 1.090 TB 
+   monorail@monorail-micro:~$ sudo /opt/MegaRAID/storcli/storcli64 /c0/vall show Virtual Drives : ==============-------------------------------------------------------------- DG/VD TYPE State Access Consist Cache Cac sCC Size Name ---------------------------------------------------------------
+   0/0 Cac0 Optl RW Yes NRWBD - ON 372.093 GB
+   1/1 RAID0 Optl RW Yes RWTD - ON 1.090 TB
+   2/2 RAID0 Optl RW Yes RWTD - ON 1.090 TB
+   3/3 RAID0 Optl RW Yes RWTD - ON 1.090 TB
+   4/4 RAID0 Optl RW Yes RWTD - ON 1.090 TB
+   5/5 RAID0 Optl RW Yes RWTD - ON 1.090 TB

@@ -1,3 +1,5 @@
+.. _arch:
+
 Software Architecture
 =============================
 

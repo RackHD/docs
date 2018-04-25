@@ -48,7 +48,7 @@ CentOS Installation
 
         Add following block into httpProxies in ``/opt/monorail/config.json``
 
-        .. code-block:: json
+        .. code::
 
             {
               "localPath": "/centos",
@@ -56,7 +56,7 @@ CentOS Installation
               "remotePath": "/centos/"
             },
 
-        .. code-block:: json
+        .. code::
 
             {
                 "options": {

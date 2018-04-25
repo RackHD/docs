@@ -28,7 +28,7 @@ An example of creating RAID workflow is as below:
 
 An example of params.json with minimal parameters for creating RAID workflow:
 
-.. literalinclude:: samples/create-raid.json
+.. literalinclude:: ../samples/create-raid.json
    :language: JSON
 
 For details on items of create-raid.options, please refer to: https://github.com/RackHD/on-tasks/blob/master/lib/task-data/schemas/create-megaraid.json.
@@ -38,7 +38,7 @@ For details on items of create-raid.options, please refer to: https://github.com
 * User need make sure drives are under UGOOD status before creating RAID. If drives are under other status (JBOD, online/offline or UBAD), RackHD won't be able to create RAID with them.
 * For Dell servers, tool path in docker container should be specified in param.json as below:
 
-.. literalinclude:: samples/create-raid-dell.json
+.. literalinclude:: ../samples/create-raid-dell.json
    :language: JSON
 
 

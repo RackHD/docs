@@ -1,8 +1,9 @@
+.. _vlab:
+
 Hands-On vLab
 ========================
 
 .. toctree::
-
     :titlesonly:
 
     RackHD vLab Overview <vlab_overview>

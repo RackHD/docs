@@ -2,7 +2,6 @@ Switch Workflow Guide
 =============================
 
 .. toctree::
-
    :titlesonly:
    :hidden:
 

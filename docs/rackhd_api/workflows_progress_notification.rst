@@ -172,5 +172,5 @@ Below is basic information for user to retrieve data from AMQP channel:
 - Exchange: on.events
 - Routing Key: graph.progress.updated.information.<graphId>.<nodeId>
 
-More details on RackHD AMQP events and webhook feature, please refer to :doc:`event_notification`.
+More details on RackHD AMQP events and webhook feature, please refer to :doc:`northbound_event_notification`.
 

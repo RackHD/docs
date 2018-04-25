@@ -36,7 +36,7 @@ automatially discovered if:
         "ibms": [{"service": "snmp-ibm-service", "config": {"host": "10.1.1.3", "community": "public"}}] \
         <server>/api/current/nodes
 
-.. literalinclude:: samples/auto-discover-switch-node.json
+.. literalinclude:: ../samples/auto-discover-switch-node.json
    :language: JSON
 
 

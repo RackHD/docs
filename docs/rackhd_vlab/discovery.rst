@@ -226,7 +226,7 @@ Below take ``sdr`` as example
 
 Do you remember the modification on ``/src/RackHD/example/rackhd/monorail/config.json`` as below ? (in RackHD installation session)
 
-.. code-block:: json
+.. code::
 
     "autoCreateObm": true,
 

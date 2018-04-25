@@ -2,8 +2,7 @@ OS Installation
 ====================
 
 .. toctree::
-
-    :titleonly
+    :titlesonly:
 
     Ubuntu <ubuntu>
     Debian <debian>

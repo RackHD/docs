@@ -28,7 +28,7 @@ To submit coding additions or changes for a repository, fork the repository and 
 Keep your pull requests limited to a single issue. Make sure that the description of the pull request is clear and complete.
 
 Run your changes against existing tests or create new ones if needed. Keep tests as simple as possible.  At a minimum, make sure your changes don’t break the existing project.
-For more information about contributing changes to RacKHD, please see :doc:`devguide/contributing`
+For more information about contributing changes to RacKHD, please see :doc:`dev_guide/contributing`
 
 After receiving the pull request, our core committers will give you feedback on your work and may request that you make further changes and resubmit the request. The core committers will handle all merges.
 
@@ -81,7 +81,7 @@ Understanding the Repositories
 The https://github.com/rackhd/RackHD repository acts as a single source location to help you get or build all the pieces to learn about, take advantage of, and contribute to RackHD.
 
 A thorough understanding of the individual repositories is essential for contributing to the project. The repositories are described in our documentation
-at :doc:`devguide/repositories`.
+at :doc:`dev_guide/repositories`.
 
 
 Submitting Design Proposals
@@ -103,7 +103,7 @@ Coding Guidelines
 -----------------------------
 
 Use the same coding style as the rest of the codebase. In general, write clean code and supply meaningful and comprehensive code comments. For more
-detailed information about how we've set up our code, please see our :doc:`devguide/index`.
+detailed information about how we've set up our code, please see our :doc:`dev_guide/index`.
 
 
 Contributing to the Documentation

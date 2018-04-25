@@ -84,7 +84,7 @@ The workflow engine supports RackHD responding to requests to PXE boot, like the
 additionally provides an API to invoke workflows against one or more nodes. This API is intended to
 be used and composed into a larger system to allow RackHD to automate efforts sequences of tasks, and
 leverage that specifically for bare metal manangement. For more details on workflows, how to create them,
-and how to use them, please see :doc:`rackhd/graphs` in the :doc:`rackhd/index`.
+and how to use them, please see :doc:`../rackhd_api/workflows` in the :doc:`../rackhd_api/index`.
 
 RackHD includes defaults to automatically create and run workflows when it gets DHCP/PXE requests from a
 system it's never seen previously. This special case is called Discovery.
@@ -136,7 +136,7 @@ For an example, the "SKU Discovery" workflow runs through its tasks as follows:
 2. The SKU Discovery workflow then performs a workflow task process called "generate-sku" that compares the
    catalog data for the node against SKU definition loaded into the system through the REST interface. If
    the definitions match, RackHD updates its data model indicating that the node belongs to a SKU. More information
-   on SKUs, how they're defined, and how they can be used can be found at :doc:`rackhd/skus`.
+   on SKUs, how they're defined, and how they can be used can be found at :doc:`../rackhd_api/skus`.
 
 3. The task "generate-enclosure" interrogates catalog data for the system serial number and/or IPMI fru devices
    to determine whether the node is part of an enclosure (for example, a chassis that aggregates power for
@@ -177,11 +177,11 @@ remote systems.
 In addition to this live feed, RackHD includes some rudimentary
 alerting mechanisms that compare the data collected by the pollers to regular
 expressions, and if they match, create an additional event that is published on
-an "alert" exchange in AMQP. More information can be found at :doc:`rackhd/pollers`
-in the :doc:`rackhd/index`.
+an "alert" exchange in AMQP. More information can be found at :doc:`../rackhd_api/pollers`
+in the :doc:`../rackhd_api/index`.
 
 RackHD also provides notification on some common tasks and workflow completion. Additional
-detail can be found at :doc:`rackhd/heartbeat` and :doc:`rackhd/notification`.
+detail can be found at :doc:`../rackhd_api/northbound_event_notification`.
 
 Additional Workflows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,8 +208,8 @@ complex tasks based on the workflow definition. The workflow definitions
 themselves are accessible through the Monorail engine's REST API as a "graph"
 of "tasks".
 
-For more detailed information on graphs, see the section on :doc:`rackhd/graphs`
-under our :doc:`rackhd/index`.
+For more detailed information on graphs, see the section on :doc:`../rackhd_api/workflows`
+under our :doc:`../rackhd_api/index`.
 
 Workflows and tasks are fully declarative with a JSON format. A workflow task is
 a unit of work decorated with data and logic that allows it to be included and run
@@ -218,5 +218,5 @@ RackHD runs from data included in the task declaration. Tasks can be defined to 
 wide-ranging operations, such as bootstrap a server node into a Linux microkernel,
 parse data for matches against a rule, and more.
 
-For more detailed information on tasks, see the section on :doc:`rackhd/tasks`
-under our :doc:`rackhd/index`.
+For more detailed information on tasks, see the section on :doc:`../rackhd_api/tasks`
+under our :doc:`../rackhd_api/index`.

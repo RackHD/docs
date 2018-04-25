@@ -20,7 +20,7 @@ To configure RackHD to provide a custom iPXE response to a node outside of a wor
 
 A example of boot.json:
 
-.. literalinclude:: samples/boot-settings.json
+.. literalinclude:: ../samples/boot-settings.json
    :language: JSON
 
 For **bootSettings**, **profile** and **options** are **MUST** required:

@@ -22,7 +22,7 @@ to dynamically generate workflows and templates specific to it.
 For example, active discovery of a Cisco switch booting with POAP (Power On Auto-Provisioning)
 will create a catalog document with source "version" that SKU definitions can be built against:
 
-.. code-block:: JSON
+.. code::
 
     {
         "node" : ObjectId("5708438c3bfc361c5cca74dc"),
@@ -243,7 +243,7 @@ The deploy script and startup config file should be uploaded via the templates A
 
 Now the custom workflow can be updated again with a task to deploy the startup config:
 
-.. code-block:: JSON
+.. code::
 
 
     {

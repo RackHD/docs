@@ -5,7 +5,7 @@ Nodes
 
 Nodes are the elements that RackHD manages - compute servers, switches, etc.
 Nodes typically have at least one catalog, and can have :doc:`pollers` and
-:doc:`graphs` assigned to or working against that node.
+:doc:`workflows` assigned to or working against that node.
 
 Defining Nodes
 -----------------------------
@@ -90,6 +90,8 @@ Sample Output:
 .. literalinclude:: ../samples/vm-dmi-catalog.json
    :language: JSON
 
+.. _node-api-tags-ref-label:
+
 Node Tags
 -----------------------------
 
@@ -126,11 +128,12 @@ Node Tags
 Node Relations
 -----------------------------
 
-**List relations for a node** 
+**List relations for a node**
 
 ::
 
     GET <server>/api/current/nodes/<id>/relations
+
 ::
 
     curl <server>/api/current/nodes/<id>/relations
@@ -140,14 +143,14 @@ Sample response:
 .. literalinclude:: ../samples/relations.json
    :language: JSON
 
-**Add relations to a node** 
+**Add relations to a node**
 
 ::
 
     PUT <server>/api/current/nodes/<id>/relations
 
 ::
-    
+
     curl -H "Content-Type: application/json" -X PUT -d '{ <relationType>: [<list of targets>]}' <server>/api/2.0/nodes/<id>/relations
 
 Sample request body:

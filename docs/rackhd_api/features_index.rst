@@ -2,8 +2,7 @@ Features
 =============================
 
 .. toctree::
-
    :titlesonly:
    :hidden:
 
-   features_ssdp 
+   features_ssdp

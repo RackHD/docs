@@ -74,7 +74,7 @@ provisioning, but the ability to upgrade firmware is beyond the technology
 stacks currently available (i.e. `xCat`_, `Cobbler`_, `Razor`_ or `Hanlon`_).
 By adding an event-based workflow engine that works in conjunction with classical PXE
 booting, RackHD makes it possible to architect different deployment configurations
-as described in :doc:`how_it_works` and :doc:`rackhd/packaging_and_deployment`.
+as described in :doc:``how_it_works`` and :doc:`run_rackhd/deployment`.
 
 RackHD extends automation beyond simple PXE booting. It can perform highly
 customizable tasks on machines, as is illustrated by the following sequence:

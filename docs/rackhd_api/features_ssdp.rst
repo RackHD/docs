@@ -6,7 +6,7 @@ SSDP/UPnP
 .. _SSDP: https://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol
 
 RackHD on-http service uses `SSDP`_ (Simple Service Discovery Protocol) to advertise its Restful API services
-and device descriptions. The on-http service will respond to M-SEARCH queries from SSDP enabled clients for requested discovery. 
+and device descriptions. The on-http service will respond to M-SEARCH queries from SSDP enabled clients for requested discovery.
 
 Northbound M-SEARCH Queries
 -----------------------------
@@ -102,7 +102,7 @@ layers sitting above RackHD.
 
 Configuration Options
 -----------------------------
-Related options defined in `config.json`. For complete examples see :doc:`configuration`.
+Related options defined in `config.json`. For complete examples see :ref:`configuration`.
 
 
 
@@ -114,6 +114,6 @@ Related options defined in `config.json`. For complete examples see :doc:`config
       - Description
     * - enableUPnP
       - boolean true or false to enable or disable all SSDP related server/client services.
-    * - ssdpBindAddress 
+    * - ssdpBindAddress
       - The bind address to send advertisements on (defaults to 0.0.0.0).
 

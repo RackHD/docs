@@ -2,7 +2,6 @@ Server Workflow Guide
 ========================
 
 .. toctree::
-
    :titlesonly:
    :hidden:
 

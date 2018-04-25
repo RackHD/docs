@@ -334,7 +334,7 @@ Sample Output: SNMP
 IPMI Poller Alerts
 -----------------------------
 
-Please see :doc:`event_notification` for more poller alert events information. 
+Please see :doc:`northbound_event_notification` for more poller alert events information.
 
 Sample data for a "sel" alert:
 
@@ -556,7 +556,7 @@ to check against the given OID numeric or string representation:
     }
 
 Complex alerts are done by replacing the string/regex value with a validation
-object.  The following example will match all OIDs with 'InErrors' in the 
+object.  The following example will match all OIDs with 'InErrors' in the
 name and generate an alert when the value is greater than 0.
 
 .. code-block:: REST
@@ -578,10 +578,10 @@ name and generate an alert when the value is greater than 0.
             "metric": "snmp-txrx-counters"
         }
     }
-          
 
 
-Chassis Power State Alert 
+
+Chassis Power State Alert
 -----------------------------
 
 The IPMI chassis poller will publish an alert message when the power state of the node transitions. The AMQP message
@@ -665,5 +665,5 @@ ARP Cache Poller
 .. _ARP: https://en.wikipedia.org/wiki/Address_Resolution_Protocol
 .. _/proc/net/arp: https://www.kernel.org/doc/Documentation/filesystems/proc.txt
 
-With the Address Resolution Protocol (`ARP`_) cache poller service enabled, the RackHD lookup service will update MAC/IP bindings based on the Linux kernel's `/proc/net/arp`_ table. This ARP poller deprecates the need for running the DHCP lease file poller since any IP request made to the host will attempt to resolve the hardware addresses IP and update the kernel's ARP cache. 
+With the Address Resolution Protocol (`ARP`_) cache poller service enabled, the RackHD lookup service will update MAC/IP bindings based on the Linux kernel's `/proc/net/arp`_ table. This ARP poller deprecates the need for running the DHCP lease file poller since any IP request made to the host will attempt to resolve the hardware addresses IP and update the kernel's ARP cache.
 
