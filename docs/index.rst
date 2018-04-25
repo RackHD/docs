@@ -29,7 +29,6 @@ Contents
 ---------
 
 .. toctree::
-   :maxdepth: 1
    :titlesonly:
 
    rackhd_overview
@@ -47,8 +46,8 @@ Contents
    rackhd_vlab/index
    customer_support/index
    ..
-     //Remove "solution center" section at present and will get it online after content prepared
-     solution_center/index
+        //Remove "solution center" section at present and will get it online after content prepared
+        solution_center/index
    contributing
 
 RackHD is a Trademark of Dell EMC Corporation.

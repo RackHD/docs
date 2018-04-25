@@ -6,7 +6,7 @@ Photon Installation
 
     .. tab:: iso
 
-        For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_photon_os_payload_iso_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+        For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_photon_os_payload_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
@@ -30,7 +30,7 @@ Photon Installation
             # Create workflow
             # Replace the 9090 port if you are using other ports
             # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
-            curl -X POST -H 'Content-Type: application/json' -d @install_photon_os_payload_iso_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallPhotonOS | jq '.'
+            curl -X POST -H 'Content-Type: application/json' -d @install_photon_os_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallPhotonOS | jq '.'
 
 
 .. note::
