@@ -3,7 +3,7 @@ CoreOS Installation
 
 .. tabs::
 
-    .. tab:: iso
+    .. tab:: Local ISO Mirror
 
         For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_coreos_payload_minimum.json>`_ Remember to replace ``repo`` and ``version`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 

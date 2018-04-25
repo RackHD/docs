@@ -12,7 +12,7 @@ Ubuntu Installation
 
 .. tabs::
 
-    .. tab:: iso
+    .. tab:: Local ISO Mirror 
 
         For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_iso_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
@@ -40,27 +40,7 @@ Ubuntu Installation
             # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
             curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_iso_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
 
-    .. tab:: live
-
-        For **live** installation, see this `payload json file for live <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``, you can find the proper parameters in ``/opt/monorail/config.json``
-
-        Add following block into httpProxies in ``/opt/monorail/config.json``
-
-        .. code-block:: json
-
-            {
-              "localPath": "/ubuntu",
-              "server": "http://us.archive.ubuntu.com/",
-              "remotePath": "/ubuntu/"
-            }
-
-        Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
-
-        .. code-block:: shell
-
-            curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
-
-    .. tab:: repo
+    .. tab:: Local Sync Mirror
 
         For the **Ubuntu repo**, you need some additional installation. The mirrors are easily made on Ubuntu, but not so easily replicated on other OS. On any recent distribution of Ubuntu:
 
@@ -97,6 +77,27 @@ Ubuntu Installation
 
           #end of file
           ###################
+
+
+    .. tab:: Public Mirror
+
+        For **live** installation, see this `payload json file for live <https://github.com/RackHD/RackHD/blob/master/example/samples/install_ubuntu_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``, you can find the proper parameters in ``/opt/monorail/config.json``
+
+        Add following block into httpProxies in ``/opt/monorail/config.json``
+
+        .. code-block:: json
+
+            {
+              "localPath": "/ubuntu",
+              "server": "http://us.archive.ubuntu.com/",
+              "remotePath": "/ubuntu/"
+            }
+
+        Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+
+        .. code-block:: shell
+
+            curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
 
 
 .. note::

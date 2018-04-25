@@ -4,7 +4,7 @@ Photon Installation
 
 .. tabs::
 
-    .. tab:: iso
+    .. tab:: Local ISO Mirror
 
         For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_photon_os_payload_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 

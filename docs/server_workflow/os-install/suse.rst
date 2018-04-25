@@ -4,7 +4,7 @@ OpenSuse Installation
 
 .. tabs::
 
-    .. tab:: iso
+    .. tab:: Local ISO Mirror
 
         For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_suse_payload_minimal.json>`_ Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
@@ -32,7 +32,21 @@ OpenSuse Installation
             # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
             curl -X POST -H 'Content-Type: application/json' -d @install_suse_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallSUSE | jq '.'
 
-    .. tab:: live
+    .. tab:: Sync mirror
+
+        Current release versions can be found from `<http://mirror.clarkson.edu/opensuse/distribution/leap/>`_
+
+        .. code-block:: shell
+
+            # Replace xx.x with your own version
+
+            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/leap/xx.x/repo/oss/ /var/mirrors/suse/distribution/xx.x
+
+            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/leap/xx.x /var/mirrors/suse/update/leap/xx.x
+
+            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/leap/xx.x /var/mirrors/suse/update/leap/xx.x
+
+    .. tab:: Public Mirror
 
         Add following block into httpProxies in ``/opt/monorail/config.json``
 
@@ -62,20 +76,6 @@ OpenSuse Installation
         .. code-block:: shell
 
             curl -X POST -H 'Content-Type: application/json' -d @install_suse_live_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallSUSE | jq '.'
-
-    .. tab:: Sync mirror
-
-        Current release versions can be found from `<http://mirror.clarkson.edu/opensuse/distribution/leap/>`_
-
-        .. code-block:: shell
-
-            # Replace xx.x with your own version
-
-            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/distribution/leap/xx.x/repo/oss/ /var/mirrors/suse/distribution/xx.x
-
-            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/leap/xx.x /var/mirrors/suse/update/leap/xx.x
-
-            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" --exclude "i386" --exclude "i586" --exclude "i686" rsync://mirror.clarkson.edu/opensuse/update/leap/xx.x /var/mirrors/suse/update/leap/xx.x
 
 
 .. note::
