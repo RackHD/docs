@@ -10,11 +10,15 @@ Debian Installation
         option routers 172.31.128.254;
 
 
+A mirror should be setup firstly before installation. For Debian, there are two ways to setup mirror currently.
+
+* **Local ISO mirror**: Download Debian ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
+* **Public mirror**: The node could access a public or remote site's mirror repository with proxy.
+
+
 .. tabs::
 
     .. tab:: Local ISO Mirror
-
-        For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_debian_payload_minimal.json>`_ Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
@@ -35,17 +39,10 @@ Debian Installation
             # Replace {on-http-dir} with your own
             sudo ln -s /var/mirrors/debian {on-http-dir}/static/http/mirrors/
 
-            # Create workflow
-            # Replace the 9090 port if you are using other ports
-            # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
-            curl -X POST -H 'Content-Type: application/json' -d @install_debian_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallDebian | jq '.'
-
 
     .. tab:: Public Mirror
 
-        For **live** installation, see this `payload json file for live <https://github.com/RackHD/RackHD/blob/master/example/samples/install_debian_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/debian``, you can find the proper parameters in ``/opt/monorail/config.json``
-
-        Add following block into httpProxies in ``/opt/monorail/config.json``
+        Add following block into httpProxies in ``/opt/monorail/config.json``, and restart on-http service.
 
         .. code-block:: json
 
@@ -55,11 +52,23 @@ Debian Installation
               "remotePath": "/debian/"
             }
 
-        Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+Call API to Install OS
+----------------------
 
-        .. code-block:: shell
+Get payload example:
 
-            curl -X POST -H 'Content-Type: application/json' -d @install_debian_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallDebain | jq '.'
+.. code-block:: shell
+
+    wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_debian_payload_minimal.json
+
+Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+
+Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+
+.. code-block:: shell
+
+    curl -X POST -H 'Content-Type: application/json' -d @install_debian_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallDebain | jq '.'
+
 
 .. note::
 

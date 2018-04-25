@@ -13,11 +13,11 @@ Ubuntu Installation
 Setup Mirror
 ------------
 
-Before Installing OS, a mirror should be setup firstly. For Ubuntu, there are three ways to setup mirror.
+A mirror should be setup firstly before installation. For Ubuntu, there are three ways to setup mirror.
 
 * **Local ISO mirror**: Download Ubuntu ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
 * **Local sync mirror**: Sync public site's mirror repository to local, http service for this repository is provided so that a node could access without proxy.
-* **Public mirror**: The node could access a public site's mirror repository with proxy.
+* **Public mirror**: The node could access a public or remote site's mirror repository with proxy.
 
 .. tabs::
 
