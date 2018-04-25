@@ -1,11 +1,13 @@
 CoreOS Installation
 =======================
 
+A mirror should be setup firstly before installation. For CoreOS, there is only one way to setup mirror currently.
+
+* **Local ISO mirror**: Download CoreOS ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
+
 .. tabs::
 
     .. tab:: Local ISO Mirror
-
-        For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_coreos_payload_minimum.json>`_ Remember to replace ``repo`` and ``version`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
@@ -26,12 +28,24 @@ CoreOS Installation
             # Replace {on-http-dir} with your own
             sudo ln -s /var/mirrors/coreos {on-http-dir}/static/http/mirrors/
 
-            # Create workflow
-            # Replace the 9090 port if you are using other ports
-            # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
-            curl -X POST -H 'Content-Type: application/json' -d @install_coreos_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallCentOS | jq '.'
+Call API to Install OS
+----------------------
 
-    note::
+Get payload example:
 
-        For more detail about payload file please refer to :ref:`non-windows-payload`
+.. code-block:: shell
 
+    wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_coreos_payload_minimum.json
+
+Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+
+Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+
+.. code-block:: shell
+
+    curl -X POST -H 'Content-Type: application/json' -d @install_coreos_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallCoreOS | jq '.'
+
+
+.. note::
+
+    For more detail about payload file please refer to :ref:`non-windows-payload`
