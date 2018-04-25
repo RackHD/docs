@@ -38,7 +38,14 @@ Edit the samba config file in order to export the shared directory
     sudo service samba restart
 
 
-Download `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_windows_payload_minimal.json>`_
+
+Get payload example:
+
+.. code-block:: shell
+
+    wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_windows_payload_minimal.json
+
+Call API to install OS:
 
 .. code-block:: shell
 
