@@ -7,3 +7,4 @@ Technical Inside
 
    theory_of_ops
    software_arch
+   rackhd_glossary
