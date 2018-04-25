@@ -13,7 +13,7 @@ Debian Installation
 A mirror should be setup firstly before installation. For Debian, there are two ways to setup mirror currently.
 
 * **Local ISO mirror**: Download Debian ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
-* **Public mirror**: The node could access a public site's mirror repository with proxy.
+* **Public mirror**: The node could access a public or remote site's mirror repository with proxy.
 
 
 .. tabs::
