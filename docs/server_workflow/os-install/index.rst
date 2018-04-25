@@ -9,7 +9,6 @@ OS Installation
     ESXi <esxi>
     RHEL <rhel>
     CentOS <centos>
-    Debian <debian>
     SUSE <suse>
     CoreOS <coreos>
     PhotonOS <photon>
