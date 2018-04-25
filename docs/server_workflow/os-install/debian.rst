@@ -12,7 +12,7 @@ Debian Installation
 
 .. tabs::
 
-    .. tab:: iso
+    .. tab:: Local ISO Mirror
 
         For **iso** installation, see this `payload json file for iso <https://github.com/RackHD/RackHD/blob/master/example/samples/install_debian_payload_minimal.json>`_ Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
@@ -41,7 +41,7 @@ Debian Installation
             curl -X POST -H 'Content-Type: application/json' -d @install_debian_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallDebian | jq '.'
 
 
-    .. tab:: live
+    .. tab:: Public Mirror
 
         For **live** installation, see this `payload json file for live <https://github.com/RackHD/RackHD/blob/master/example/samples/install_debian_payload_minimal.json>`_ Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/debian``, you can find the proper parameters in ``/opt/monorail/config.json``
 

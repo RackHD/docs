@@ -4,7 +4,7 @@ CentOS Installation
 
 .. tabs::
 
-    .. tab:: iso
+    .. tab:: Local ISO Mirror
 
         For **iso** installation, see this `payload json file <https://github.com/RackHD/RackHD/blob/master/example/samples/install_centos_7_payload_minimal.json>`_ Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
@@ -36,7 +36,18 @@ CentOS Installation
             # You can configure the port in /opt/monorail/config.json -> 'httpEndPoints' -> 'northbound-api-router'
             curl -X POST -H 'Content-Type: application/json' -d @install_centos_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallCentos | jq '.'
 
-    .. tab:: live
+    .. tab:: Local Sync Mirror
+
+        Current release versions can be found from  `<http://mirror.centos.org/centos/>`_
+
+        .. code-block:: shell
+
+            # Replace x with your own version
+
+            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
+            --exclude "i386" rsync://centos.eecs.wsu.edu/x/ /var/mirrors/centos/x
+
+    .. tab:: Public Mirror
 
         Add following block into httpProxies in ``/opt/monorail/config.json``
 
@@ -65,16 +76,6 @@ CentOS Installation
 
             curl -x post -h 'content-type: application/json' -d @install_centos_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=graph.installcentos | jq '.'
 
-    .. tab:: Sync mirror
-
-        Current release versions can be found from  `<http://mirror.centos.org/centos/>`_
-
-        .. code-block:: shell
-
-            # Replace x with your own version
-
-            sudo rsync --progress -av --delete --delete-excluded --exclude "local*" \
-            --exclude "i386" rsync://centos.eecs.wsu.edu/x/ /var/mirrors/centos/x
 
 .. note::
 
