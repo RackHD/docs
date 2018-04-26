@@ -1,6 +1,8 @@
 Ubuntu Installation
 =======================
 
+RackHD Ubuntu installation support multiple versions. Please refer to :ref:`os-installation-workflows-label` to see which versions are supported. We'll take Ubuntu Trusty(14.04) as the example below. If you want to install another version's Ubuntu, please replace with corresponding version's image, mirror, payload, etc.
+
 .. important::
     DNS server is required in Ubuntu installation, make sure you have put following lines in /etc/dhcp/dhcpd.conf. 172.31.128.1 is a default option in RackHD
 
@@ -18,6 +20,12 @@ A mirror should be setup firstly before installation. For Ubuntu, there are thre
 * **Local ISO mirror**: Download Ubuntu ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
 * **Local sync mirror**: Sync public site's mirror repository to local, http service for this repository is provided so that a node could access without proxy.
 * **Public mirror**: The node could access a public or remote site's mirror repository with proxy.
+
+.. note::
+
+    For local mirror (ISO or sync), RackHD on-http service internally has a default file service to provide file downloading for nodes. Its default root path is ``{on-http-dir}/static/http/mirrors/``. You also could use your own file service instead of the internal file service in the same server or another server, just notice that the file service's ip address ``fileServerAddress`` and the port ``fileServerPort`` in ``/opt/monorail/config.json`` should be configured. For more details, please refer to :ref:`static-file-server-label`. Remember to restart on-http service after modifying ``/opt/monorail/config.json``.
+
+    For public mirror, RackHD on-http service also internally has a default http proxy for nodes to access remote file service. It could be configured by ``httpProxies`` in ``/opt/monorail/config.json``. For more details, please refer to :ref:`configuration`. Remember to restart on-http service after modifying ``/opt/monorail/config.json``.
 
 .. tabs::
 
@@ -97,21 +105,19 @@ A mirror should be setup firstly before installation. For Ubuntu, there are thre
 Call API to Install OS
 ----------------------
 
-Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
-
-For Ubuntu OS installation, the payload format is different as below.
+After the mirror is setup, We could download payload and call workflow API to install OS. For Ubuntu OS installation, the payload format is different as below.
 
 .. tabs::
 
     .. tab:: Local ISO Mirror
 
-        Get payload example for local ISO mirror.
+        Get Ubuntu Trusty(14.04) payload example for local ISO mirror.
 
         .. code-block:: shell
 
             wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_ubuntu_payload_iso_minimal.json
 
-        Remember to replace ``{{ file.server }}`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
+        Call OS installation workflow API to install OS. ``127.0.0.1:9090`` is according to the configuration ``address`` and ``port`` of ``httpEndPoints`` -> ``northbound-api-router`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
@@ -120,21 +126,38 @@ For Ubuntu OS installation, the payload format is different as below.
 
     .. tab:: Public and Local Sync Mirror
 
-        For public and local sync mirror, they use the same payload format. Get payload example.
+        For public and local sync mirror, they use the same payload format.
+
+        Get Ubuntu Trusty(14.04) payload example.
 
         .. code-block:: shell
 
             wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_ubuntu_payload_minimal.json
 
-        Remember to replace ``repo`` with your own ``{fileServerAddress}:{fileServerPort}/ubuntu``
-
+        Call OS installation workflow API to install OS. ``127.0.0.1:9090`` is according to the configuration ``address`` and ``port`` of ``httpEndPoints`` -> ``northbound-api-router`` in ``/opt/monorail/config.json``
 
         .. code-block:: shell
 
-            curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.'
+            curl -X POST -H 'Content-Type: application/json' -d @install_ubuntu_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallUbuntu | jq '.context.graphId'
 
+
+Please record the API's returned result, it's this workflow's Id (like ``342cce19-7385-43a0-b2ad-16afde072715``), it will be used to check result later.
 
 .. note::
 
-    For more detail about payload file please refer to :ref:`non-windows-payload`
+    ``{{ file.server }}`` in payload will be replaced with ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json`` by RackHD automatically while running. It also could be customized by ``{your-ip}:{your-port}`` for your own file service.
+
+    For more details about payload file please refer to :ref:`non-windows-payload`
+
+Check Result
+------------
+You could use following API to check if installation is succeded. ``342cce19-7385-43a0-b2ad-16afde072715`` is the returned workflow Id returned from install OS API above, please replace it with yours.
+
+.. code-block:: shell
+
+    curl -X GET 127.0.0.1:9090/api/current/nodes/{node-id}/workflows | jq '.[] | select(.context.graphId == "342cce19-7385-43a0-b2ad-16afde072715") | ._status'
+
+If the result is ``running`` please wait until it's ``succeeded``.
+
+You also could login the host console to see if installation succeed or not. By default, the `root` user will be created, and its password could be seen from ``rootPassword`` field from :ref:`non-windows-payload`
 

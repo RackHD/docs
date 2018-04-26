@@ -35,7 +35,7 @@ A mirror should be setup firstly before installation.
 
     .. tab:: Local Sync Mirror
 
-        For Ubuntu local mirror, The mirrors are easily made by syncing public Ubuntu mirror site, on any recent distribution of SUSE:
+        For SUSE local mirror, The mirrors are easily made by syncing public SUSE mirror site, on any recent distribution of SUSE:
 
         .. code-block:: shell
 
