@@ -3,7 +3,6 @@ Development Guide
 
 .. toctree::
    :titlesonly:
-   :hidden:
 
    Repositories <repositories>
    API Versioning Conventions <api_versioning>

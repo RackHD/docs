@@ -3,7 +3,6 @@ Server Workflow Guide
 
 .. toctree::
    :titlesonly:
-   :hidden:
 
    Discovery <discovery_index>
    os-install/index

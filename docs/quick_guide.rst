@@ -198,7 +198,7 @@ You can move on the guide or revisit previous sessions, then go back after 4~5 m
 
 
 Login Installed OS
--------------
+-----------------------------
 
 Once the OS has been installed, you can try login the system via UltraVNC console.
 Installed OS default username/password: ``root/RackHDRocks!``
