@@ -1,10 +1,17 @@
 ESXi Installation
 =======================
 
+RackHD ESXi installation support multiple versions. Please refer to :ref:`os-installation-workflows-label` to see which versions are supported. We'll take ESXi 6.0 as the example below. If you want to install another version's ESXi, please replace with corresponding version's image, mirror, payload, etc.
+
+Setup Mirror
+------------
+
 A mirror should be setup firstly before installation. For ESXi, there is only one way to setup mirror currently.
 
 * **Local ISO mirror**: Download ESXi ISO image, mount ISO image in a local server as the repository, http service for this repository is provided so that a node could access without proxy.
 
+
+.. include:: mirror-notes.rst
 
 .. tabs::
 
@@ -32,22 +39,25 @@ A mirror should be setup firstly before installation. For ESXi, there is only on
 Call API to Install OS
 ----------------------
 
-Get payload example:
+After the mirror is setup, We could download payload and call workflow API to install OS.
+
+Get payload example.
 
 .. code-block:: shell
 
     wget https://raw.githubusercontent.com/RackHD/RackHD/master/example/samples/install_esx_payload_minimal.json
 
-Remember to replace ``version`` and ``repo`` with your own, see ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json``
 
-Create workflow, replace the ``9090`` port if you are using other ports You can configure the port in ``/opt/monorail/config.json`` -> ``httpEndPoints`` -> ``northbound-api-router``
+Call OS installation workflow API to install OS. ``127.0.0.1:9090`` is according to the configuration ``address`` and ``port`` of ``httpEndPoints`` -> ``northbound-api-router`` in ``/opt/monorail/config.json``
 
 .. code-block:: shell
-
 
     curl -X POST -H 'Content-Type: application/json' -d @install_esxi_payload_minimal.json 127.0.0.1:9090/api/current/nodes/{node-id}/workflows?name=Graph.InstallESXi | jq '.'
 
 
-.. note::
+Please record the API's returned result, it's this workflow's Id (like ``342cce19-7385-43a0-b2ad-16afde072715``), it will be used to check result later.
 
-    For more detail about payload file please refer to :ref:`non-windows-payload`
+.. include:: install-notes.rst
+
+.. include:: check-result.rst
+
