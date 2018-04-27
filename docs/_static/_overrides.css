@@ -2,6 +2,14 @@
    max-width: 1050px;
 }
 
+.wy-table-responsive table td {
+    white-space: normal !important;
+}
+
+.wy-table-responsive {
+    overflow: visible !important;
+ }
+
 .h1 {
     font-size: 25px;
     font-weight: bold;
