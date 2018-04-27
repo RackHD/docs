@@ -15,6 +15,9 @@ OS Installation
     Windows <windows>
     Payload Detail <payload>
 
+
+.. _os-installation-workflows-label:
+
 Supported OS Installation Workflows
 -----------------------------------
 
