@@ -21,11 +21,7 @@ A mirror should be setup firstly before installation. For Ubuntu, there are thre
 * **Local sync mirror**: Sync public site's mirror repository to local, http service for this repository is provided so that a node could access without proxy.
 * **Public mirror**: The node could access a public or remote site's mirror repository with proxy.
 
-.. note::
-
-    For local mirror (ISO or sync), RackHD on-http service internally has a default file service to provide file downloading for nodes. Its default root path is ``{on-http-dir}/static/http/mirrors/``. You also could use your own file service instead of the internal file service in the same server or another server, just notice that the file service's ip address ``fileServerAddress`` and the port ``fileServerPort`` in ``/opt/monorail/config.json`` should be configured. For more details, please refer to :ref:`static-file-server-label`. Remember to restart on-http service after modifying ``/opt/monorail/config.json``.
-
-    For public mirror, RackHD on-http service also internally has a default http proxy for nodes to access remote file service. It could be configured by ``httpProxies`` in ``/opt/monorail/config.json``. For more details, please refer to :ref:`configuration`. Remember to restart on-http service after modifying ``/opt/monorail/config.json``.
+.. include:: mirror-notes.rst
 
 .. tabs::
 
@@ -143,21 +139,8 @@ After the mirror is setup, We could download payload and call workflow API to in
 
 Please record the API's returned result, it's this workflow's Id (like ``342cce19-7385-43a0-b2ad-16afde072715``), it will be used to check result later.
 
-.. note::
 
-    ``{{ file.server }}`` in payload will be replaced with ``fileServerAddress`` and ``fileServerPort`` in ``/opt/monorail/config.json`` by RackHD automatically while running. It also could be customized by ``{your-ip}:{your-port}`` for your own file service.
+.. include:: install-notes.rst
 
-    For more details about payload file please refer to :ref:`non-windows-payload`
-
-Check Result
-------------
-You could use following API to check if installation is succeded. ``342cce19-7385-43a0-b2ad-16afde072715`` is the returned workflow Id returned from install OS API above, please replace it with yours.
-
-.. code-block:: shell
-
-    curl -X GET 127.0.0.1:9090/api/current/nodes/{node-id}/workflows | jq '.[] | select(.context.graphId == "342cce19-7385-43a0-b2ad-16afde072715") | ._status'
-
-If the result is ``running`` please wait until it's ``succeeded``.
-
-You also could login the host console to see if installation succeed or not. By default, the `root` user will be created, and its password could be seen from ``rootPassword`` field from :ref:`non-windows-payload`
+.. include:: check-result.rst
 
