@@ -4,5 +4,5 @@ Customer Support
 .. toctree::
    :titlesonly:
 
-   Frequent Asks <frequent_asks>
+   Frequent Asks  <qa>
    How to <howto_index>
