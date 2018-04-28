@@ -1,0 +1,47 @@
+.wy-nav-content {
+   max-width: 1050px;
+}
+
+.wy-table-responsive table td {
+    white-space: normal !important;
+}
+
+.wy-table-responsive {
+    overflow: visible !important;
+ }
+
+.h1 {
+    font-size: 25px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.h2 {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.h3 {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.h4 {
+    font-size: 17px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.h5 {
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.h6 {
+    font-size: 13px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
