@@ -317,3 +317,131 @@ in the SKU definition using the :code:`discoveryGraphOptions` field, for example
                 }
         }
     }
+
+**Dell switch active discovery and configuration**
+
+
+*The dell discovery is divided into 2 different stages*
+
+**1. Onie discovery**
+
+The Dell Open Networking switches are equipped with a boot loader and OS
+installer that will load/install the switch OS. This boot software is called ONIE (Open Networking Installation
+Environment). RckHD can actively discover the switch using Onie install boot.
+
+**2. BMP discovery**
+
+Bare Metal Provisioning (BMP) is part of Dell’s Open Automation Framework and provides a solution for network provisioning 
+http://en.community.dell.com/techcenter/networking/w/wiki/4478.dell-bare-metal-provisioning-3-0-automate-the-network
+
+
+**Setup RackHD (Dhcp server configuration)**
+
+Assuming 172.31.128.0/22 is our southbound subnet.
+Port 9030 is taskgraph listener.
+Port 9090 is http server.
+In dhcp.conf, add the following and restart the isc-dhcp-server
+The substring has to match your dell switch mac addresses
+
+.. code-block:: JSON
+    
+    class "dellswitch" {
+       match if substring (hardware, 1, 6) = 4c:76:25:f6:64:02;
+
+    }
+    class "dellonie" {
+      match if substring (hardware, 1, 6) = 4c:76:25:f6:64:00;
+
+    }
+    subnet 172.31.128.0 netmask 255.255.255.0 {
+      pool{
+        allow members of "dellswitch";
+        range 172.31.128.4 172.31.128.10;
+        option configfile = "http://172.31.128.1:9090/dell-bmp-entrypoint.exp";
+      }
+      pool{
+        allow members of "dellonie";
+        range 172.31.128.241 172.31.128.250;
+        option default-url = "http://172.31.128.1:9030/api/current/profiles/switch/onie";
+      }
+    }
+
+Create new file called dell-bmp-entrypoint.exp and place it in your http static file server
+
+.. code-block:: python
+
+    #!/usr/bin/expect
+    #/DELL-FORCE10
+    ##Global Variable
+    ############FUNCTIONS############
+    proc print_output {str} {
+    puts $str
+    }
+    fconfigure stdout -translation crlf
+    fconfigure stderr -translation crlf
+
+    print_output "!!!Executing Runner!!!\n"
+
+    set timeout 12000
+    spawn curl -o /tmp/taskrunner.sh -s http://172.31.128.1:9030/api/current/profiles/switch/dell
+    expect eof
+    spawn chmod +x /tmp/taskrunner.sh
+    expect eof
+    spawn /tmp/taskrunner.sh
+    expect "exit taskrunner"
+
+Once the node is powered on, if the switch is equiped with a boot loader and OS installer, RackHD will run active discovery, create a new node 
+and attached catalog.
+
+Catalog will look like the following:
+
+.. code-block:: JSON
+
+    [ 
+        { 
+            "id": "8c5128cc-6075-44b6-acc5-b2936b0edc73",
+            "node": "/api/2.0/nodes/5acf85bae595224a77b7f5da",
+            "createdAt": "2018-04-12T16:13:48.885Z",
+            "updatedAt": "2018-04-12T16:13:48.885Z",
+            "source": "sysinfo",
+            "data": { 
+                "version": "3.25.1.2",
+                "serialNb": "CN0WKFYN7793164F0017"
+            }
+        }
+   ]
+
+RackHD also provides a workflow to allow the user to do os install via onie using the following workflow:
+
+.. code-block:: JSON
+
+    {
+       "name": "Graph.Switch.Dell.Nos.Install",
+       "options": {
+         "defaults": {
+             "nosImageUri": "{{ file.server }}/PKGS_OS10-Enterprise-10.3.1E.121-installer-x86_64.bin"
+         }
+       }
+    }
+
+
+The Bare Metal Provisionning(BMP) is by default the first to boot. RackHD will be able to discover the node and catalog it.
+Once the node is discovered, RackHD will hold the switch in bmp mode to open the door for basic configuration that can be applied using the following
+workflow:
+
+.. code-block:: JSON
+    
+    {
+       "name": "Graph.Switch.Dell.Configuration",
+       "options": {
+         "defaults": {
+             "mgmtPort": "1/1",
+                  "username": "rackhd",
+                   "userPassword": "RackHDRocks1!",
+                   "adminPassword": "RackHDRocks1!",
+                   "hostname": "rackhd",
+                   "ipAddr": "dhcp"
+         }
+       }
+    }
+
