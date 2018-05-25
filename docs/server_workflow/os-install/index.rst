@@ -26,7 +26,7 @@ Supported OSes and their workflows are listed in table, and the listed versions 
 ============= =========================== =================================================
 OS            Workflow                     Version
 ============= =========================== =================================================
-ESXi          Graph.InstallESXi            5.5/6.0
+ESXi          Graph.InstallESXi            5.5/6.0/6.5
 RHEL          Graph.InstallRHEL            7.0/7.1/7.2
 CentOS        Graph.InstallCentOS          6.5/7
 Ubuntu        Graph.InstallUbuntu          trusty(14.04)/xenial(16.04)/artful(17.10)
