@@ -82,7 +82,7 @@ RackHD OS Installation Support List (Qualified by RackHD team)
 ============= =================================================
 OS              Version
 ============= ================================================= 
-ESXi          5.5/6.0
+ESXi          5.5/6.0/6.5
 RHEL          7.0/7.1/7.2
 CentOS        6.5/7
 Ubuntu        trusty(14.04)/xenial(16.04)/artful(17.10)
