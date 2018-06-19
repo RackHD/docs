@@ -36,16 +36,11 @@ If you have questions about the disposition of a request, feel free to email one
 Core Committer Team
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Michael.Hepfer@dell.com
 * Andrew.Hou@dell.com
 * Andre.Keedy@dell.com
 * James.King@dell.com
 * Lyne.Lin@dell.com
-* Rahman.Muhammad@dell.com
-* Jeanne.Ohren@dell.com
 * Geoffrey.Reid@dell.com
-* Stuart.Stanley@dell.com
-* James.Turnquist@dell.com
 
 
 Please direct general conversation about how to use RackHD or discussion about improvements and features to our mailing list at rackhd@googlegroups.com
@@ -66,6 +61,7 @@ When reporting problems, include the following information:
 * Expected Results
 * Additional Information
 
+To reference all open stories or issues, please reference: https://rackhd.atlassian.net/issues/?filter=15215 .
 
 Security Issues
 -----------------------------
