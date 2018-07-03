@@ -5,4 +5,5 @@ RackHD Web-UI
    :titlesonly:
 
    web_ui_10
+   web_ui_20
 
