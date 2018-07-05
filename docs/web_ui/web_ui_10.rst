@@ -1,4 +1,4 @@
-on-webui 1.0
+on-web-ui 1.0
 =============================
 
 .. contents:: Table of Contents
@@ -12,7 +12,7 @@ you can also `download`_ a zip of the latest version.
 
 This zip file can be extracted inside "on-http/static/http" to serve the UI from the MonoRail API server.
 
-Source code for the web user interface is available at https://github.com/RackHD/on-web-ui.
+Source code for the web user interface is available at https://github.com/RackHD/on-web-ui branch ``on-web-ui-1.0``
 There is also a `README`_ for learning how to about UI development.
 
 .. _README: https://github.com/RackHD/on-web-ui/blob/master/README.md
