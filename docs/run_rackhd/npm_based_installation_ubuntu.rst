@@ -46,13 +46,16 @@ Prerequisites
 
         * ``ens192`` for dhcp/pxe to boot/configure the machines
 
-        edit the network:
+        .. note::
+            You might get different ethernet name from ens160/ens192 in your OS system. Please replace it with what you get accordingly. 
+
+        Edit the network:
 
         * ``ens160`` - assign IP address as appropriate for the environment, or you can use DHCP
 
         * ``ens192`` static ( 172.31.128.0/22 )
 
-        please check the network config file: ``/etc/network/interfaces``. The ``ens192``'s ip address is ``172.31.128.1`` Like as follows:
+        Please check the network config file: ``/etc/network/interfaces``. The ``ens192``'s ip address is ``172.31.128.1`` Like as follows:
 
         .. code::
 
