@@ -37,7 +37,6 @@ Core Committer Team
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Andrew.Hou@dell.com
-* Andre.Keedy@dell.com
 * James.King@dell.com
 * Lyne.Lin@dell.com
 * Geoffrey.Reid@dell.com
