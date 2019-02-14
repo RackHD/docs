@@ -67,7 +67,7 @@ should do when it is PXE booting.
 .. _Preboot Execution Environment (PXE): https://en.m.wikipedia.org/wiki/Preboot_Execution_Environment
 .. _iPXE: http://en.wikipedia.org/wiki/IPXE
 
-Data center automation is enabled through each server's `Baseboard Motherboard Controller (BMC)`_ embedded on the
+Data center automation is enabled through each server's `Baseboard Management Controller (BMC)`_ embedded on the
 server motherboard. Using `Intelligent Platform Management Interface (IPMI)`_
 to communicate with the BMC, RackHD can remotely power on, power off, reboot, request a PXE boot,
 and perform other operations.
