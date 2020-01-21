@@ -75,7 +75,7 @@ Download Source Code
 
 .. code::
 
-    git clone https://github.com/RackHD/RackHD
+    git clone --recurse-submodules https://github.com/RackHD/RackHD
 
     cd RackHD/docker
 
