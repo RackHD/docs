@@ -19,7 +19,7 @@ Install Docker & Docker Compose
 |Install Docker Compose| https://docs.docker.com/compose/install/#install-compose|
 +----------------------+---------------------------------------------------------+
 
-Setup RackHD Service
+Set up RackHD Service
 -------------------------
 
 .. code-block:: shell
@@ -49,7 +49,7 @@ Setup RackHD Service
 
 
 
-Setup a Virtualized Infrastructure Environment
+Set up a Virtualized Infrastructure Environment
 ------------------------------------------------
 
 .. code-block:: shell
@@ -133,7 +133,7 @@ Ensure its OBM setting is not blank
 If the response comes back [], please follow :ref:`obm_setting`, to add OBM setting.
 
 
-Setup OS Mirror
+Set up OS Mirror
 ----------------------
 
 To provision the OS to the node, RackHD can act as an OS mirror repository. Let's take CentOS installation for example.
